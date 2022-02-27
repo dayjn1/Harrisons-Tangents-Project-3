@@ -9,15 +9,9 @@ namespace Project2_HT
     class Instruction
     {
         String Mnemonic;
-        int OpCode;
-        int DestReg;
-        int Operand;
-
-        public Instruction(int instr)
-        {
-            //this.Mnemonic; // alter disassemble to give only mnemonic, possibly list of global values -JD
-
-        }
+        uint OpCode;
+        uint DestReg;
+        uint Operand;
 
         public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
         {
@@ -41,44 +35,34 @@ namespace Project2_HT
             {17, "NEG" },
             {18, "ASL" },
             {19, "ASR" },
-            {20, "MOV" }
+            {20, "MOV" },
+            {404, "INVALID" }           // Invalid code, 404 isn't possible to reach, op code 8 bits (255 decimal) -JND
 
         };
-
-        public static string[] disassemble(int input, int pc)
+        public Instruction(int instr)
         {
-            string am = "";     //addressing mode
+            disassemble(instr);
+        }
+
+
+        public void disassemble(int input)
+        {
             //separate the opcode
-            uint instruction = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -J
-            instruction >>= 24;
+            this.OpCode = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -J
+            this.OpCode >>= 24;
 
-            string val = "";
+            this.Mnemonic = "";
             //added condition logic to check for valid parsed instruction (** not finished yet) -H
-            if (InstructionSet.ContainsKey(instruction))
+            if (InstructionSet.ContainsKey(this.OpCode))
             {
-                val = InstructionSet[instruction];
+                this.Mnemonic = InstructionSet[this.OpCode];
             }
             else
             {
-                Console.WriteLine("Invalid instruction found. Closing program.");
-                return new string[] { instruction.ToString("X"), "INV" };//may need to use stop/exit here; needed to return something -J
+                this.OpCode = 404;
+                this.Mnemonic = InstructionSet[this.OpCode];
             }
 
-
-            //determine the address type
-            //update -- we got rid of this field
-            if (val == "LOAD" || val == "STOR")
-            {
-                am = "i";
-            }
-            else if (val == "HALT")
-            {
-                am = "c";
-            }
-            else
-                am = "r";
-
-            return new string[] { instruction.ToString("X"), val, am };
         }//end disassemble
 
 
