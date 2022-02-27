@@ -8,8 +8,8 @@ namespace Project2_HT
 {
     class Instruction
     {
-        /*
-         * public static Dictionary<uint, string> Instruction = new Dictionary<uint, string>
+        
+        public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
         {
             { 0, "HALT"},
             { 1, "LOAD"},
@@ -33,8 +33,44 @@ namespace Project2_HT
             {19, "ASR" },
             {20, "MOV" }
 
-        }; 
-         */
+        };
+
+        public static string[] disassemble(int input, int pc)
+        {
+            string am = "";     //addressing mode
+            //separate the opcode
+            uint instruction = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -J
+            instruction >>= 24;
+
+            string val = "";
+            //added condition logic to check for valid parsed instruction (** not finished yet) -H
+            if (InstructionSet.ContainsKey(instruction))
+            {
+                val = InstructionSet[instruction];
+            }
+            else
+            {
+                Console.WriteLine("Invalid instruction found. Closing program.");
+                return new string[] { instruction.ToString("X"), "INV" };//may need to use stop/exit here; needed to return something -J
+            }
+
+
+            //determine the address type
+            //update -- we got rid of this field
+            if (val == "LOAD" || val == "STOR")
+            {
+                am = "i";
+            }
+            else if (val == "HALT")
+            {
+                am = "c";
+            }
+            else
+                am = "r";
+
+            return new string[] { instruction.ToString("X"), val, am };
+        }//end disassemble
+
 
     }
 }
