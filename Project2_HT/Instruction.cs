@@ -8,11 +8,21 @@ namespace Project2_HT
 {
     class Instruction
     {
-        
+        String Mnemonic;
+        int OpCode;
+        int DestReg;
+        int Operand;
+
+        public Instruction(int instr)
+        {
+            //this.Mnemonic; // alter disassemble to give only mnemonic, possibly list of global values -JD
+
+        }
+
         public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
         {
-            { 0, "HALT"},
-            { 1, "LOAD"},
+            { 0, "HALT"},       
+            { 1, "LOAD"},       
             { 2, "STOR"},
             { 3, "ADD"},
             { 4, "ADDI"},

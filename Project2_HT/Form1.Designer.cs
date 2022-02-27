@@ -1,7 +1,7 @@
 ﻿
 namespace Project2_HT
 {
-    partial class Form1
+    partial class Tangents
     {
         /// <summary>
         /// Required designer variable.
@@ -43,9 +43,9 @@ namespace Project2_HT
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.StartButton = new System.Windows.Forms.Button();
+            this.NextButton = new System.Windows.Forms.Button();
+            this.ContinueButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,14 +73,14 @@ namespace Project2_HT
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // textBox1
@@ -163,42 +163,42 @@ namespace Project2_HT
             this.label5.TabIndex = 10;
             this.label5.Text = "Write to Register File";
             // 
-            // button1
+            // StartButton
             // 
-            this.button1.Location = new System.Drawing.Point(161, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.StartButton.Location = new System.Drawing.Point(161, 56);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(75, 23);
+            this.StartButton.TabIndex = 11;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // NextButton
             // 
-            this.button2.Location = new System.Drawing.Point(382, 56);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Next";
-            this.button2.UseVisualStyleBackColor = true;
+            this.NextButton.Location = new System.Drawing.Point(382, 56);
+            this.NextButton.Name = "NextButton";
+            this.NextButton.Size = new System.Drawing.Size(75, 23);
+            this.NextButton.TabIndex = 12;
+            this.NextButton.Text = "Next";
+            this.NextButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // ContinueButton
             // 
-            this.button3.Location = new System.Drawing.Point(604, 56);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "Continue";
-            this.button3.UseVisualStyleBackColor = true;
+            this.ContinueButton.Location = new System.Drawing.Point(604, 56);
+            this.ContinueButton.Name = "ContinueButton";
+            this.ContinueButton.Size = new System.Drawing.Size(75, 23);
+            this.ContinueButton.TabIndex = 13;
+            this.ContinueButton.Text = "Continue";
+            this.ContinueButton.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // Tangents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(853, 453);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(853, 286);
+            this.Controls.Add(this.ContinueButton);
+            this.Controls.Add(this.NextButton);
+            this.Controls.Add(this.StartButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -211,8 +211,8 @@ namespace Project2_HT
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Tangents";
+            this.Text = "Pipeline Simulator";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -236,9 +236,9 @@ namespace Project2_HT
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.Button NextButton;
+        private System.Windows.Forms.Button ContinueButton;
     }
 }
 

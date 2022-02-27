@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,12 @@ using System.Windows.Forms;
 
 namespace Project2_HT
 {
-    public partial class Form1 : Form
+    public partial class Tangents : Form
     {
-        public Form1()
+        List<int> dis_inputs = new List<int>();         //Creates a list of int-based instructions accessible by all of Tangents class -J
+
+
+        public Tangents()
         {
             InitializeComponent();
         }
@@ -28,7 +32,18 @@ namespace Project2_HT
 
                 while (f.Peek() != -1)                                          // While there is more to read for the file
                 {
+                    string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
+                    this.textBox1.Text += inputData + System.Environment.NewLine;
 
+                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, J
+                    int input;
+                    bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
+                    if (valid)
+                    {
+                        dis_inputs.Add(input);
+                    }
+                    else
+                        Console.WriteLine("Invalid parse");
 
                 }//end while
 
