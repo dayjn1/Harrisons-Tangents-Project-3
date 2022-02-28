@@ -15,6 +15,11 @@ namespace Project2_HT
     public partial class Tangents : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
+        Stack<Instruction> Fetch = new Stack<Instruction>();
+        Stack<Instruction> Decode = new Stack<Instruction>();
+        Stack<Instruction> Execute = new Stack<Instruction>();
+        Stack<Instruction> Memory = new Stack<Instruction>();
+        Stack<Instruction> Register = new Stack<Instruction>();
 
         public Tangents()
         {
@@ -50,80 +55,82 @@ namespace Project2_HT
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            Stack<Instruction> Fetch = new Stack<Instruction>();
-            Stack<Instruction> Decode = new Stack<Instruction>();
-            Stack<Instruction> Execute = new Stack<Instruction>();
-            Stack<Instruction> Memory = new Stack<Instruction>();
-            Stack<Instruction> Register = new Stack<Instruction>();
+            Simulation();
+        }
 
+        public void Simulation()
+        {
             Instruction temp;
 
-            for(int i = 0; i < Input_Instructions.Count; i++)
+            for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
-                System.Threading.Thread.Sleep(100);
 
-                if (Register.Count > 0)
+                if (this.Register.Count > 0)
                 {
-                    Register.Pop();
+                    this.Register.Pop();
                 }
 
-                
-                if(Memory.Count > 0)
+
+                if (this.Memory.Count > 0)
                 {
-                    temp = Memory.Pop();
-                    Register.Push(temp);
-                    RegisterBox.Text += temp.Mnemonic;
-                }
-                
-                if(Execute.Count > 0)
-                {
-                    temp = Execute.Pop();
-                    Memory.Push(temp);
-                    MemoryBox.Text += temp.Mnemonic;
+                    temp = this.Memory.Pop();
+                    this.Register.Push(temp);
+                    RegisterText(temp);
                 }
 
-                if(Decode.Count > 0)
+                if (this.Execute.Count > 0)
                 {
-                    temp = Decode.Pop();
-                    Execute.Push(temp);
-                    ExecuteBox.Text += temp.Mnemonic;
+                    temp = this.Execute.Pop();
+                    this.Memory.Push(temp);
+                    MemoryText(temp);
                 }
 
-                if(Fetch.Count > 0)
+                if (this.Decode.Count > 0)
                 {
-                    temp = Fetch.Pop();
-                    Decode.Push(temp);
-                    DecodeBox.Text += temp.Mnemonic;
+                    temp = this.Decode.Pop();
+                    this.Execute.Push(temp);
+                    ExecuteText(temp);
                 }
 
-                Fetch.Push(Input_Instructions[i]);
-                FetchBox.Text += Input_Instructions[i].Mnemonic;
+                if (this.Fetch.Count > 0)
+                {
+                    temp = this.Fetch.Pop();
+                    this.Decode.Push(temp);
+                    DecodeText(temp);
+                }
+
+                this.Fetch.Push(this.Input_Instructions[i]);
+                FetchText(this.Input_Instructions[i]);
             }
-
-
         }
 
-        public void Register()
+        public void RegisterText(Instruction i)
         {
-
+            RegisterBox.Text = i.Mnemonic;
         }
 
-        public void R()
+        public void MemoryText(Instruction i)
         {
-
+            MemoryBox.Text = i.Mnemonic;
         }
 
-        public void Execute()
+        public void ExecuteText(Instruction i)
         {
-
+            ExecuteBox.Text = i.Mnemonic;
         }
-        public void Decode()
+        public void DecodeText(Instruction i)
         {
-
+            DecodeBox.Text = i.Mnemonic;
         }
-        public void Fetch()
+        public void FetchText(Instruction i)
         {
-
+            FetchBox.Text = i.Mnemonic;
+            RegisterBox.Update();
+            MemoryBox.Update();
+            ExecuteBox.Update();
+            DecodeBox.Update();
+            FetchBox.Update();
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }

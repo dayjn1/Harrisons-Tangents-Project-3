@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project2_HT
 {
-    class Instruction
+    public class Instruction
     {
         public string Mnemonic;
         uint OpCode;
