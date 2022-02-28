@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Project2_HT
 {
-    class Instruction
+    public class Instruction
     {
-        /*string Mnemonic;
+        public string Mnemonic;
         uint OpCode;
         string DestReg;
-        string Operand;*/
+        string Reg1;
+        string Reg2;
+
 
         public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
         {
@@ -44,8 +46,10 @@ namespace Project2_HT
             disassemble(instr);
         }
 
+        //test to see if github goes to my branch
 
-        /*public void disassemble(int input)
+
+        public void disassemble(int input)
         {
             //separate the opcode
             this.OpCode = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -J
@@ -63,17 +67,19 @@ namespace Project2_HT
                 this.Mnemonic = InstructionSet[this.OpCode];
             }
 
-            uint operand = (uint)input & 0x00FFFFFF;
-            this.Operand = operand.ToString("X");
-
             uint rd = (uint)input & 0x00F00000;
             rd >>= 20;
-            this.DestReg = rd.ToString("X");
+            this.DestReg = "R" + rd.ToString("X");            
+            
+            uint reg1 = (uint)input & 0x000F0000;
+            reg1 >>= 16;
+            this.Reg1 = "R" + reg1.ToString("X");
 
-        }//end disassemble */
+            uint reg2 = (uint)input & 0x0000F000;
+            reg2 >>= 12;
+            this.Reg2 = "R" + reg2.ToString("X");
 
-
-
+        }//end disassemble
 
     }
 }
