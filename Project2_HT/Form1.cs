@@ -7,8 +7,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Project2_HT
 {
@@ -32,7 +32,6 @@ namespace Project2_HT
                 while (f.Peek() != -1)                                          // While there is more to read for the file
                 {
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
-                    this.textBox1.Text += inputData + System.Environment.NewLine;
 
                     //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, J
                     int input;
@@ -49,7 +48,80 @@ namespace Project2_HT
             }//end if
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            Stack<Instruction> Fetch = new Stack<Instruction>();
+            Stack<Instruction> Decode = new Stack<Instruction>();
+            Stack<Instruction> Execute = new Stack<Instruction>();
+            Stack<Instruction> Memory = new Stack<Instruction>();
+            Stack<Instruction> Register = new Stack<Instruction>();
+
+            Instruction temp;
+
+            for(int i = 0; i < Input_Instructions.Count; i++)
+            {
+                System.Threading.Thread.Sleep(100);
+
+                if (Register.Count > 0)
+                {
+                    Register.Pop();
+                }
+
+                
+                if(Memory.Count > 0)
+                {
+                    temp = Memory.Pop();
+                    Register.Push(temp);
+                    RegisterBox.Text += temp.Mnemonic;
+                }
+                
+                if(Execute.Count > 0)
+                {
+                    temp = Execute.Pop();
+                    Memory.Push(temp);
+                    MemoryBox.Text += temp.Mnemonic;
+                }
+
+                if(Decode.Count > 0)
+                {
+                    temp = Decode.Pop();
+                    Execute.Push(temp);
+                    ExecuteBox.Text += temp.Mnemonic;
+                }
+
+                if(Fetch.Count > 0)
+                {
+                    temp = Fetch.Pop();
+                    Decode.Push(temp);
+                    DecodeBox.Text += temp.Mnemonic;
+                }
+
+                Fetch.Push(Input_Instructions[i]);
+                FetchBox.Text += Input_Instructions[i].Mnemonic;
+            }
+
+
+        }
+
+        public void Register()
+        {
+
+        }
+
+        public void R()
+        {
+
+        }
+
+        public void Execute()
+        {
+
+        }
+        public void Decode()
+        {
+
+        }
+        public void Fetch()
         {
 
         }

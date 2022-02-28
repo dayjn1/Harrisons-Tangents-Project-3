@@ -8,7 +8,7 @@ namespace Project2_HT
 {
     class Instruction
     {
-        string Mnemonic;
+        public string Mnemonic;
         uint OpCode;
         string DestReg;
         string Reg1;
