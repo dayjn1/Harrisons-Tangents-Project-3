@@ -8,10 +8,11 @@ namespace Project2_HT
 {
     class Instruction
     {
-        String Mnemonic;
+        string Mnemonic;
         uint OpCode;
-        uint DestReg;
-        uint Operand;
+        string DestReg;
+        string Reg1;
+        string Reg2;
 
         public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
         {
@@ -65,8 +66,19 @@ namespace Project2_HT
                 this.Mnemonic = InstructionSet[this.OpCode];
             }
 
-        }//end disassemble
+            uint rd = (uint)input & 0x00F00000;
+            rd >>= 20;
+            this.DestReg = "R" + rd.ToString("X");            
+            
+            uint reg1 = (uint)input & 0x000F0000;
+            reg1 >>= 16;
+            this.Reg1 = "R" + reg1.ToString("X");
 
+            uint reg2 = (uint)input & 0x0000F000;
+            reg2 >>= 12;
+            this.Reg2 = "R" + reg2.ToString("X");
+
+        }//end disassemble
 
     }
 }

@@ -14,8 +14,7 @@ namespace Project2_HT
 {
     public partial class Tangents : Form
     {
-        List<int> dis_inputs = new List<int>();         //Creates a list of int-based instructions accessible by all of Tangents class -J
-
+        List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
 
         public Tangents()
         {
@@ -40,7 +39,7 @@ namespace Project2_HT
                     bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
                     if (valid)
                     {
-                        dis_inputs.Add(input);
+                        Input_Instructions.Add(new Instruction(input));         // Creates instructions and adds them to list -JND
                     }
                     else
                         Console.WriteLine("Invalid parse");
