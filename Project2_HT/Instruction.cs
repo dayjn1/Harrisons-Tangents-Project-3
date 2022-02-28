@@ -14,6 +14,7 @@ namespace Project2_HT
         string Reg1;
         string Reg2;
 
+
         public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
         {
             { 0, "HALT"},       
