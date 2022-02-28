@@ -8,10 +8,10 @@ namespace Project2_HT
 {
     class Instruction
     {
-        string Mnemonic;
+        /*string Mnemonic;
         uint OpCode;
         string DestReg;
-        string Operand;
+        string Operand;*/
 
         public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
         {
@@ -45,7 +45,7 @@ namespace Project2_HT
         }
 
 
-        public void disassemble(int input)
+        /*public void disassemble(int input)
         {
             //separate the opcode
             this.OpCode = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -J
@@ -70,7 +70,7 @@ namespace Project2_HT
             rd >>= 20;
             this.DestReg = rd.ToString("X");
 
-        }//end disassemble
+        }//end disassemble */
 
 
 
