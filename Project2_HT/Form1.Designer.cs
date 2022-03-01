@@ -33,11 +33,11 @@ namespace Project2_HT
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.FetchBox = new System.Windows.Forms.TextBox();
+            this.DecodeBox = new System.Windows.Forms.TextBox();
+            this.ExecuteBox = new System.Windows.Forms.TextBox();
+            this.MemoryBox = new System.Windows.Forms.TextBox();
+            this.RegisterBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -73,55 +73,55 @@ namespace Project2_HT
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
-            // textBox1
+            // FetchBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(80, 226);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 22);
-            this.textBox1.TabIndex = 1;
+            this.FetchBox.Location = new System.Drawing.Point(80, 226);
+            this.FetchBox.Margin = new System.Windows.Forms.Padding(4);
+            this.FetchBox.Name = "FetchBox";
+            this.FetchBox.Size = new System.Drawing.Size(132, 22);
+            this.FetchBox.TabIndex = 1;
             // 
-            // textBox2
+            // DecodeBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(296, 226);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(132, 22);
-            this.textBox2.TabIndex = 2;
+            this.DecodeBox.Location = new System.Drawing.Point(296, 226);
+            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DecodeBox.Name = "DecodeBox";
+            this.DecodeBox.Size = new System.Drawing.Size(132, 22);
+            this.DecodeBox.TabIndex = 2;
             // 
-            // textBox3
+            // ExecuteBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(493, 226);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(132, 22);
-            this.textBox3.TabIndex = 3;
+            this.ExecuteBox.Location = new System.Drawing.Point(493, 226);
+            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ExecuteBox.Name = "ExecuteBox";
+            this.ExecuteBox.Size = new System.Drawing.Size(132, 22);
+            this.ExecuteBox.TabIndex = 3;
             // 
-            // textBox4
+            // MemoryBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(692, 226);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(132, 22);
-            this.textBox4.TabIndex = 4;
+            this.MemoryBox.Location = new System.Drawing.Point(692, 226);
+            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MemoryBox.Name = "MemoryBox";
+            this.MemoryBox.Size = new System.Drawing.Size(132, 22);
+            this.MemoryBox.TabIndex = 4;
             // 
-            // textBox5
+            // RegisterBox
             // 
-            this.textBox5.Location = new System.Drawing.Point(881, 226);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(132, 22);
-            this.textBox5.TabIndex = 5;
+            this.RegisterBox.Location = new System.Drawing.Point(881, 226);
+            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RegisterBox.Name = "RegisterBox";
+            this.RegisterBox.Size = new System.Drawing.Size(132, 22);
+            this.RegisterBox.TabIndex = 5;
             // 
             // label1
             // 
@@ -176,18 +176,18 @@ namespace Project2_HT
             // StartButton
             // 
             this.StartButton.Location = new System.Drawing.Point(215, 69);
-            this.StartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(4);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(100, 28);
             this.StartButton.TabIndex = 11;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
-            this.StartButton.Click += new System.EventHandler(this.button1_Click);
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // NextButton
             // 
             this.NextButton.Location = new System.Drawing.Point(509, 69);
-            this.NextButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.NextButton.Margin = new System.Windows.Forms.Padding(4);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(100, 28);
             this.NextButton.TabIndex = 12;
@@ -197,7 +197,7 @@ namespace Project2_HT
             // ContinueButton
             // 
             this.ContinueButton.Location = new System.Drawing.Point(805, 69);
-            this.ContinueButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ContinueButton.Margin = new System.Windows.Forms.Padding(4);
             this.ContinueButton.Name = "ContinueButton";
             this.ContinueButton.Size = new System.Drawing.Size(100, 28);
             this.ContinueButton.TabIndex = 13;
@@ -217,11 +217,11 @@ namespace Project2_HT
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.RegisterBox);
+            this.Controls.Add(this.MemoryBox);
+            this.Controls.Add(this.ExecuteBox);
+            this.Controls.Add(this.DecodeBox);
+            this.Controls.Add(this.FetchBox);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Tangents";
@@ -239,11 +239,11 @@ namespace Project2_HT
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox FetchBox;
+        private System.Windows.Forms.TextBox DecodeBox;
+        private System.Windows.Forms.TextBox ExecuteBox;
+        private System.Windows.Forms.TextBox MemoryBox;
+        private System.Windows.Forms.TextBox RegisterBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
