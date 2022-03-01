@@ -46,6 +46,8 @@ namespace Project2_HT
             this.StartButton = new System.Windows.Forms.Button();
             this.NextButton = new System.Windows.Forms.Button();
             this.ContinueButton = new System.Windows.Forms.Button();
+            this.cycleLabel = new System.Windows.Forms.Label();
+            this.cycledescrLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,8 +58,7 @@ namespace Project2_HT
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1137, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1279, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -67,118 +68,118 @@ namespace Project2_HT
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(158, 34);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(158, 34);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // FetchBox
             // 
-            this.FetchBox.Location = new System.Drawing.Point(80, 226);
-            this.FetchBox.Margin = new System.Windows.Forms.Padding(4);
+            this.FetchBox.Location = new System.Drawing.Point(90, 282);
+            this.FetchBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.FetchBox.Name = "FetchBox";
-            this.FetchBox.Size = new System.Drawing.Size(132, 22);
+            this.FetchBox.Size = new System.Drawing.Size(148, 26);
             this.FetchBox.TabIndex = 1;
             // 
             // DecodeBox
             // 
-            this.DecodeBox.Location = new System.Drawing.Point(296, 226);
-            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DecodeBox.Location = new System.Drawing.Point(333, 282);
+            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DecodeBox.Name = "DecodeBox";
-            this.DecodeBox.Size = new System.Drawing.Size(132, 22);
+            this.DecodeBox.Size = new System.Drawing.Size(148, 26);
             this.DecodeBox.TabIndex = 2;
             // 
             // ExecuteBox
             // 
-            this.ExecuteBox.Location = new System.Drawing.Point(493, 226);
-            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ExecuteBox.Location = new System.Drawing.Point(555, 282);
+            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ExecuteBox.Name = "ExecuteBox";
-            this.ExecuteBox.Size = new System.Drawing.Size(132, 22);
+            this.ExecuteBox.Size = new System.Drawing.Size(148, 26);
             this.ExecuteBox.TabIndex = 3;
             // 
             // MemoryBox
             // 
-            this.MemoryBox.Location = new System.Drawing.Point(692, 226);
-            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MemoryBox.Location = new System.Drawing.Point(778, 282);
+            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MemoryBox.Name = "MemoryBox";
-            this.MemoryBox.Size = new System.Drawing.Size(132, 22);
+            this.MemoryBox.Size = new System.Drawing.Size(148, 26);
             this.MemoryBox.TabIndex = 4;
             // 
             // RegisterBox
             // 
-            this.RegisterBox.Location = new System.Drawing.Point(881, 226);
-            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RegisterBox.Location = new System.Drawing.Point(991, 282);
+            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.RegisterBox.Name = "RegisterBox";
-            this.RegisterBox.Size = new System.Drawing.Size(132, 22);
+            this.RegisterBox.Size = new System.Drawing.Size(148, 26);
             this.RegisterBox.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 182);
+            this.label1.Location = new System.Drawing.Point(100, 228);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 17);
+            this.label1.Size = new System.Drawing.Size(129, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Fetch Instruction";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(296, 183);
+            this.label2.Location = new System.Drawing.Point(333, 229);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 17);
+            this.label2.Size = new System.Drawing.Size(144, 20);
             this.label2.TabIndex = 7;
             this.label2.Text = "Decode Instruction";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(493, 183);
+            this.label3.Location = new System.Drawing.Point(555, 229);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 17);
+            this.label3.Size = new System.Drawing.Size(146, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Execute Instruction";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(692, 182);
+            this.label4.Location = new System.Drawing.Point(778, 228);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 17);
+            this.label4.Size = new System.Drawing.Size(121, 20);
             this.label4.TabIndex = 9;
             this.label4.Text = "Access Memory";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(877, 182);
+            this.label5.Location = new System.Drawing.Point(987, 228);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(140, 17);
+            this.label5.Size = new System.Drawing.Size(157, 20);
             this.label5.TabIndex = 10;
             this.label5.Text = "Write to Register File";
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(215, 69);
-            this.StartButton.Margin = new System.Windows.Forms.Padding(4);
+            this.StartButton.Location = new System.Drawing.Point(242, 86);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(100, 28);
+            this.StartButton.Size = new System.Drawing.Size(112, 35);
             this.StartButton.TabIndex = 11;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
@@ -186,29 +187,51 @@ namespace Project2_HT
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(509, 69);
-            this.NextButton.Margin = new System.Windows.Forms.Padding(4);
+            this.NextButton.Location = new System.Drawing.Point(573, 86);
+            this.NextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(100, 28);
+            this.NextButton.Size = new System.Drawing.Size(112, 35);
             this.NextButton.TabIndex = 12;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
             // 
             // ContinueButton
             // 
-            this.ContinueButton.Location = new System.Drawing.Point(805, 69);
-            this.ContinueButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ContinueButton.Location = new System.Drawing.Point(906, 86);
+            this.ContinueButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ContinueButton.Name = "ContinueButton";
-            this.ContinueButton.Size = new System.Drawing.Size(100, 28);
+            this.ContinueButton.Size = new System.Drawing.Size(112, 35);
             this.ContinueButton.TabIndex = 13;
             this.ContinueButton.Text = "Continue";
             this.ContinueButton.UseVisualStyleBackColor = true;
             // 
+            // cycleLabel
+            // 
+            this.cycleLabel.AutoSize = true;
+            this.cycleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycleLabel.Location = new System.Drawing.Point(1183, 88);
+            this.cycleLabel.Name = "cycleLabel";
+            this.cycleLabel.Size = new System.Drawing.Size(24, 26);
+            this.cycleLabel.TabIndex = 14;
+            this.cycleLabel.Text = "1";
+            // 
+            // cycledescrLabel
+            // 
+            this.cycledescrLabel.AutoSize = true;
+            this.cycledescrLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycledescrLabel.Location = new System.Drawing.Point(1104, 88);
+            this.cycledescrLabel.Name = "cycledescrLabel";
+            this.cycledescrLabel.Size = new System.Drawing.Size(73, 26);
+            this.cycledescrLabel.TabIndex = 15;
+            this.cycledescrLabel.Text = "Cycle:";
+            // 
             // Tangents
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1137, 352);
+            this.ClientSize = new System.Drawing.Size(1279, 440);
+            this.Controls.Add(this.cycledescrLabel);
+            this.Controls.Add(this.cycleLabel);
             this.Controls.Add(this.ContinueButton);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.StartButton);
@@ -252,6 +275,8 @@ namespace Project2_HT
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.Button ContinueButton;
+        private System.Windows.Forms.Label cycleLabel;
+        private System.Windows.Forms.Label cycledescrLabel;
     }
 }
 
