@@ -1,20 +1,11 @@
-﻿// ---------------------------------------------------------------------------
-// File name:                   Form1.cs
-// Project name:                Project 2 - Harrison's Tangents
-// ---------------------------------------------------------------------------
-// Creator’s name:              Janine Day
-// Edited By:                   Janine Day, 
-// Course-Section:              CSCI-4717
-// Creation Date:               02/17/2022
-// ---------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -22,22 +13,15 @@ using System.Windows.Forms;
 
 namespace Project2_HT
 {
-    /**
-    * Class Name:       Tangents
-    * Class Purpose:    Main form design where pipeline process takes place
-    *
-    * <hr>
-    * Date created: 02/17/2022
-    * @Janine Day
-    */
     public partial class Tangents : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        Stack<Instruction> Fetch = new Stack<Instruction>();                    // Creates a stack for Fetch section of pipeline -JND
-        Stack<Instruction> Decode = new Stack<Instruction>();                   // Creates a stack for Decode section of pipeline -JND
-        Stack<Instruction> Execute = new Stack<Instruction>();                  // Creates a stack for Execute section of pipeline -JND
-        Stack<Instruction> Memory = new Stack<Instruction>();                   // Creates a stack for Memory section of pipeline -JND
-        Stack<Instruction> Register = new Stack<Instruction>();                 // Creates a stack for Register section of pipeline -JND
+        Stack<Instruction> Fetch = new Stack<Instruction>();
+        Stack<Instruction> Decode = new Stack<Instruction>();
+        Stack<Instruction> Execute = new Stack<Instruction>();
+        Stack<Instruction> Memory = new Stack<Instruction>();
+        Stack<Instruction> Register = new Stack<Instruction>();
+        int cycleCount = 1;
 
         public Tangents()
         {
@@ -56,7 +40,7 @@ namespace Project2_HT
                 {
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
 
-                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, J
+                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, JM
                     int input;
                     bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
                     if (valid)
@@ -148,7 +132,9 @@ namespace Project2_HT
             ExecuteBox.Update();
             DecodeBox.Update();
             FetchBox.Update();
-            System.Threading.Thread.Sleep(1000);
+            Task.Delay(1000).Wait();
+            cycleCount++;
+            cycleLabel.Text = cycleCount.ToString();
         }
     }
 }
