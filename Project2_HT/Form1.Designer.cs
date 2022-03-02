@@ -1,4 +1,13 @@
-﻿
+﻿// ---------------------------------------------------------------------------
+// File name:                   Form1.Designer.cs
+// Project name:                Project 2 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Automatically Generated
+// Course-Section:              CSCI-4717
+// Creation Date:               02/17/2022
+// ---------------------------------------------------------------------------
+
+
 namespace Project2_HT
 {
     partial class Tangents

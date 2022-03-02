@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ---------------------------------------------------------------------------
+// File name:                   Form1.cs
+// Project name:                Project 2 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Janine Day
+// Edited By:                   Janine Day, 
+// Course-Section:              CSCI-4717
+// Creation Date:               02/17/2022
+// ---------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +22,22 @@ using System.Windows.Forms;
 
 namespace Project2_HT
 {
+    /**
+    * Class Name:       Tangents
+    * Class Purpose:    Main form design where pipeline process takes place
+    *
+    * <hr>
+    * Date created: 02/17/2022
+    * @Janine Day
+    */
     public partial class Tangents : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        Stack<Instruction> Fetch = new Stack<Instruction>();
-        Stack<Instruction> Decode = new Stack<Instruction>();
-        Stack<Instruction> Execute = new Stack<Instruction>();
-        Stack<Instruction> Memory = new Stack<Instruction>();
-        Stack<Instruction> Register = new Stack<Instruction>();
+        Stack<Instruction> Fetch = new Stack<Instruction>();                    // Creates a stack for Fetch section of pipeline -JND
+        Stack<Instruction> Decode = new Stack<Instruction>();                   // Creates a stack for Decode section of pipeline -JND
+        Stack<Instruction> Execute = new Stack<Instruction>();                  // Creates a stack for Execute section of pipeline -JND
+        Stack<Instruction> Memory = new Stack<Instruction>();                   // Creates a stack for Memory section of pipeline -JND
+        Stack<Instruction> Register = new Stack<Instruction>();                 // Creates a stack for Register section of pipeline -JND
 
         public Tangents()
         {
