@@ -48,11 +48,10 @@ namespace Project2_HT
 
         //test to see if github goes to my branch
 
-
         public void disassemble(int input)
         {
             //separate the opcode
-            this.OpCode = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -J
+            this.OpCode = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -JM
             this.OpCode >>= 24;
 
             this.Mnemonic = "";

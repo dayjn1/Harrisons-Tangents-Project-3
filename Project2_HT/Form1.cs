@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -20,6 +21,7 @@ namespace Project2_HT
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
+        int cycleCount = 1;
 
         public Tangents()
         {
@@ -38,7 +40,7 @@ namespace Project2_HT
                 {
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
 
-                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, J
+                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, JM
                     int input;
                     bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
                     if (valid)
@@ -130,7 +132,9 @@ namespace Project2_HT
             ExecuteBox.Update();
             DecodeBox.Update();
             FetchBox.Update();
-            System.Threading.Thread.Sleep(1000);
+            Task.Delay(1000).Wait();
+            cycleCount++;
+            cycleLabel.Text = cycleCount.ToString();
         }
     }
 }
