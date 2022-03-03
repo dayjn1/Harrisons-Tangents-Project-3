@@ -100,14 +100,14 @@ namespace Project2_HT
             }
             else
             {
-                this.OpCode = 404;
+                this.OpCode = 404;                            // Creates illegal instruction
                 this.Mnemonic = InstructionSet[this.OpCode];
             }
 
             uint rd = (uint)input & 0x00F00000;
             rd >>= 20;
-            this.DestReg = "R" + rd.ToString("X");            
-            
+            this.DestReg = "R" + rd.ToString("X");            // Uses shifts to isolate certain bits in instruction hex - JND
+                                                              // Sets Destination reg, reg 1, and reg 2
             uint reg1 = (uint)input & 0x000F0000;
             reg1 >>= 16;
             this.Reg1 = "R" + reg1.ToString("X");
