@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ---------------------------------------------------------------------------
+// File name:                   Instruction.cs
+// Project name:                Project 2 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Janine Day
+// Edited By:                   Janine Day, 
+// Course-Section:              CSCI-4717
+// Creation Date:               02/17/2022
+// ---------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +16,14 @@ using System.Threading.Tasks;
 
 namespace Project2_HT
 {
+    /**
+    * Class Name:       Instruction
+    * Class Purpose:    Holds all information required for pipeline process (decoding and parsing through information)
+    *
+    * <hr>
+    * Date created: 02/17/2022
+    * @Janine Day
+    */
     public class Instruction
     {
         public string Mnemonic;
