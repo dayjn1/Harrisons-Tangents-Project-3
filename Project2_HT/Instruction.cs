@@ -59,13 +59,33 @@ namespace Project2_HT
             {404, "INVALID" }           // Invalid code, 404 isn't possible to reach, op code 8 bits (255 decimal) -JND
 
         };
+
+        /**
+        * Method Name: Instruction(int)
+        * Method Purpose: Takes an instruction in hex and creates an instruction
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param int - hex input to covert into instruction
+        */
         public Instruction(int instr)
         {
             disassemble(instr);
         }
 
-        //test to see if github goes to my branch
 
+        /**
+        * Method Name: disassemble(int)
+        * Method Purpose: Takes the hex and separate each component into an instruction type global variable
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param int - hex input to covert into instruction
+        */
         public void disassemble(int input)
         {
             //separate the opcode
