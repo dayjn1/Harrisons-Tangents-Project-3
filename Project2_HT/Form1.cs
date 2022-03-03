@@ -1,10 +1,20 @@
-﻿using System;
+﻿// File name:                   Form1.cs
+// Project name:                Project 2 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Janine Day
+// Edited By:                   Janine Day, 
+// Course-Section:              CSCI-4717
+// Creation Date:               02/17/2022
+// ---------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -12,20 +22,49 @@ using System.Windows.Forms;
 
 namespace Project2_HT
 {
+    /**
+    * Class Name:       Tangents
+    * Class Purpose:    GUI code for fetching input, processing input, running simulation, and (hopefully) save info into textfile
+    *
+    * <hr>
+    * Date created: 02/17/2022
+    * @Janine Day
+    */
     public partial class Tangents : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        Stack<Instruction> Fetch = new Stack<Instruction>();
+        Stack<Instruction> Fetch = new Stack<Instruction>();                    // Creates the stacks for pipeline process -JND
         Stack<Instruction> Decode = new Stack<Instruction>();
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
+        int cycleCount = 1;                                                     // Counts the number of cycles
 
+        /**
+        * Method Name: Tangents()
+        * Method Purpose: Automatically Generated code to initialize GUI
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        *
+        * <hr>
+        */
         public Tangents()
         {
             InitializeComponent();
         }
 
+        /**
+        * Method Name: openToolStripMenuItem_Click(object, EventArgs)
+        * Method Purpose: To use an open file dialog which allows users which text file they would like to process
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param object - sender
+        * @param EventArgs - e
+        */
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenDlg = new OpenFileDialog();                      // Declares and initializes OpenFileDialog
@@ -38,7 +77,7 @@ namespace Project2_HT
                 {
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
 
-                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, J
+                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, JM
                     int input;
                     bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
                     if (valid)
@@ -53,11 +92,31 @@ namespace Project2_HT
             }//end if
         }
 
+        /**
+        * Method Name: StartButton_Click(object, EventArgs)
+        * Method Purpose: Starts simulation once event occurs
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param object - sender
+        * @param EventArgs - e
+        */
         private void StartButton_Click(object sender, EventArgs e)
         {
             Simulation();
         }
 
+        /**
+        * Method Name: Simulation()
+        * Method Purpose: Algorithm to run pipeline process. Uses global stacks and user input
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        */
         public void Simulation()
         {
             Instruction temp;
@@ -101,36 +160,87 @@ namespace Project2_HT
 
                 this.Fetch.Push(this.Input_Instructions[i]);
                 FetchText(this.Input_Instructions[i]);
+
+                System.Threading.Thread.Sleep(1000);
+                cycleCount++;
+                cycleLabel.Text = cycleCount.ToString();
+                Update();
             }
         }
 
+        /**
+        * Method Name: RegisterText(Instruction)
+        * Method Purpose: Updates RegisterText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void RegisterText(Instruction i)
         {
             RegisterBox.Text = i.Mnemonic;
         }
 
+        /**
+        * Method Name: MemoryText(Instruction)
+        * Method Purpose: Updates MemoryText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void MemoryText(Instruction i)
         {
             MemoryBox.Text = i.Mnemonic;
         }
 
+        /**
+        * Method Name: ExecuteText(Instruction)
+        * Method Purpose: Updates ExecuteText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void ExecuteText(Instruction i)
         {
             ExecuteBox.Text = i.Mnemonic;
         }
+
+        /**
+        * Method Name: DecodeText(Instruction)
+        * Method Purpose: Updates DecodeText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void DecodeText(Instruction i)
         {
             DecodeBox.Text = i.Mnemonic;
         }
+
+        /**
+        * Method Name: FetchText(Instruction)
+        * Method Purpose: Updates FetchText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void FetchText(Instruction i)
         {
             FetchBox.Text = i.Mnemonic;
-            RegisterBox.Update();
-            MemoryBox.Update();
-            ExecuteBox.Update();
-            DecodeBox.Update();
-            FetchBox.Update();
-            System.Threading.Thread.Sleep(1000);
         }
     }
 }
