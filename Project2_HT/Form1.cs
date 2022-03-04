@@ -119,8 +119,6 @@ namespace Project2_HT
         */
         public void Simulation()
         {
-            Instruction temp;
-
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
 
@@ -130,104 +128,31 @@ namespace Project2_HT
                     this.RegisterBox.Text = "";
                 }
 
-
                 if (this.Memory.Count > 0)
                 {
-                    temp = this.Memory.Pop();
-                    this.MemoryBox.Text = "";
-
-                    if(temp.RegisterCC != 0)
-                    {
-                        this.Register.Push(temp);
-                        RegisterText(temp);
-                        temp.RegisterCC--;
-
-
-                        while (temp.RegisterCC > 0)
-                        {
-                            temp.RegisterCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
-
+                    ProcessRegister();
                 }
 
                 if (this.Execute.Count > 0)
                 {
-                    temp = this.Execute.Pop();
-                    this.ExecuteBox.Text = "";
-
-                    if(temp.MemoryCC != 0)
-                    {
-                        this.Memory.Push(temp);
-                        MemoryText(temp);
-                        temp.MemoryCC--;
-
-                        while (temp.MemoryCC > 0)
-                        {
-                            temp.MemoryCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
+                    ProcessMemory();
                 }
 
                 if (this.Decode.Count > 0)
                 {
-                    temp = this.Decode.Pop();
-                    this.DecodeBox.Text = "";
-
-                    if (temp.ExecuteCC != 0)
-                    {
-                        this.Execute.Push(temp);
-                        ExecuteText(temp);
-                        temp.ExecuteCC--;
-
-                        while (temp.ExecuteCC > 0)
-                        {
-                            temp.ExecuteCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
+                    ProcessExecute();
                 }
 
                 if (this.Fetch.Count > 0)
                 {
-                    temp = this.Fetch.Pop();
-                    this.FetchBox.Text = "";
-
-                    if (temp.DecodeCC != 0)
-                    {
-                        this.Decode.Push(temp);
-                        DecodeText(temp);
-                        temp.DecodeCC--;
-
-                        while (temp.DecodeCC > 0)
-                        {
-                            temp.DecodeCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
+                    ProcessDecode();
                 }
 
-                this.Fetch.Push(this.Input_Instructions[i]);
-                FetchText(this.Input_Instructions[i]);
+                PushFetch(this.Input_Instructions[i]);
 
-                Task.Delay(1000).Wait();
-                cycleCount++;
-                cycleLabel.Text = cycleCount.ToString();
-                Update();
+                CountUpdate();
+                UpdateAndDelay();
+
             }
 
             // clean up pipeline
@@ -240,109 +165,186 @@ namespace Project2_HT
                     this.RegisterBox.Text = "";
                 }
 
-
                 if (this.Memory.Count > 0)
                 {
-                    temp = this.Memory.Pop();
-                    this.MemoryBox.Text = "";
-
-                    if (temp.RegisterCC != 0)
-                    {
-                        this.Register.Push(temp);
-                        RegisterText(temp);
-                        temp.RegisterCC--;
-                        cycleCount++;
-                        Update();
-
-                        while (temp.RegisterCC > 0)
-                        {
-                            temp.RegisterCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
-
+                    ProcessRegister();
                 }
 
                 if (this.Execute.Count > 0)
                 {
-                    temp = this.Execute.Pop();
-                    this.ExecuteBox.Text = "";
-
-                    if (temp.MemoryCC != 0)
-                    {
-                        this.Memory.Push(temp);
-                        MemoryText(temp);
-                        temp.MemoryCC--;
-                        cycleCount++;
-                        Update();
-
-                        while (temp.MemoryCC > 0)
-                        {
-                            temp.MemoryCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
+                    ProcessMemory();
                 }
 
                 if (this.Decode.Count > 0)
                 {
-                    temp = this.Decode.Pop();
-                    this.DecodeBox.Text = "";
-
-                    if (temp.ExecuteCC != 0)
-                    {
-                        this.Execute.Push(temp);
-                        ExecuteText(temp);
-                        temp.ExecuteCC--;
-                        cycleCount++;
-                        Update();
-
-                        while (temp.ExecuteCC > 0)
-                        {
-                            temp.ExecuteCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
+                    ProcessExecute();
                 }
 
                 if (this.Fetch.Count > 0)
                 {
-                    temp = this.Fetch.Pop();
-                    this.FetchBox.Text = "";
-
-                    if (temp.DecodeCC != 0)
-                    {
-                        this.Decode.Push(temp);
-                        DecodeText(temp);
-                        temp.DecodeCC--;
-                        cycleCount++;
-                        Update();
-
-                        while (temp.DecodeCC > 0)
-                        {
-                            temp.DecodeCC--;
-                            this.cycleCount++;
-                            cycleLabel.Text = cycleCount.ToString();
-                            Update();
-                            Task.Delay(1000).Wait();
-                        }
-                    }
+                    ProcessDecode();
                 }
 
-                Task.Delay(1000).Wait();
                 cycleLabel.Text = cycleCount.ToString();
-                Update();
+                UpdateAndDelay();
+
             }
         }
+
+
+        public void ProcessDecode()
+        {
+            Instruction i = this.Fetch.Pop();
+            this.FetchBox.Text = "";
+
+            if (i.DecodeCC != 0)
+            {
+                PushDecode(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                while (i.DecodeCC > 0)
+                {
+                    i.DecodeCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessExecute()
+        {
+            Instruction i = this.Decode.Pop();
+            this.DecodeBox.Text = "";
+
+            if (i.ExecuteCC != 0)
+            {
+                PushExecute(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.ExecuteCC > 0)
+                {
+                    i.ExecuteCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessMemory()
+        {
+            Instruction i = this.Execute.Pop();
+            this.ExecuteBox.Text = "";
+
+            if (i.MemoryCC != 0)
+            {
+                PushMemory(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                while (i.MemoryCC > 0)
+                {
+                    i.MemoryCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+            else if(i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessRegister()
+        {
+            Instruction i = this.Memory.Pop();
+            this.MemoryBox.Text = "";
+
+            if (i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void CountUpdate()
+        {
+            this.cycleCount++;
+            cycleLabel.Text = cycleCount.ToString();
+        }
+
+        public void UpdateAndDelay()
+        {
+            Update();
+            Task.Delay(1000).Wait();
+        }
+
+        public void PushFetch(Instruction i)
+        {
+            this.Fetch.Push(i);
+            i.FetchCC--;
+            FetchText(i);
+        }
+
+        public void PushDecode(Instruction i)
+        {
+            this.Decode.Push(i);
+            i.DecodeCC--;
+            DecodeText(i);
+        }
+
+        public void PushExecute(Instruction i)
+        {
+            this.Execute.Push(i);
+            i.ExecuteCC--;
+            ExecuteText(i);
+        }
+
+        public void PushMemory(Instruction i)
+        {
+            this.Memory.Push(i);
+            i.MemoryCC--;
+            MemoryText(i);
+        }
+
+        public void PushRegister(Instruction i)
+        {
+            this.Register.Push(i);
+            i.RegisterCC--;
+            RegisterText(i);
+        }
+
 
         /**
         * Method Name: RegisterText(Instruction)
