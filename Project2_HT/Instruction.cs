@@ -57,7 +57,30 @@ namespace Project2_HT
             {19, "ASR" },
             {20, "MOV" },
             {404, "INVALID" }           // Invalid code, 404 isn't possible to reach, op code 8 bits (255 decimal) -JND
+        };
 
+        //List of instructions that use the write back to register part of data path -JM (side note: I have no idea if this list is correct)
+        public static string[] RegInstructions = new string[12]
+        {
+            "LOAD",
+            "ADD",
+            "ADDI",
+            "SUB",
+            "SUBI",
+            "AND",
+            "OR",
+            "NOT",
+            "NEG",
+            "ASL",
+            "ASR",
+            "MOV"
+        };
+
+        //List of instructions that use the memory access part of data path -JM
+        public static string[] MemInstructions = new string[2]
+        {
+            "LOAD",
+            "STOR"
         };
 
         /**
