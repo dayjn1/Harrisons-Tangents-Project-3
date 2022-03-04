@@ -209,7 +209,7 @@ namespace Project2_HT
                     i.DecodeCC--;
 
                     CountUpdate();
-                    UpdateAndDelay();
+                    UpdateAndDelay();             
                 }
             }
         }
