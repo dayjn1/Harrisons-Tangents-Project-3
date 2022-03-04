@@ -32,73 +32,31 @@ namespace Project2_HT
         string Reg1;
         string Reg2;
         int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC;
-
-        
-
-        public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
+        static List<Instruction> InstructionSet = new List<Instruction>()
         {
-            { 0, "HALT"},       
-            { 1, "LOAD"},       
-            { 2, "STOR"},
-            { 3, "ADD"},
-            { 4, "ADDI"},
-            { 5, "SUB"},
-            { 6, "SUBI" },
-            { 7, "BR" },
-            { 8, "BRLT" },
-            { 9, "BRLE" },
-            {10, "BREQ" },
-            {11, "BRNE"},
-            {12, "BRGT" },
-            {13, "BRGE" },
-            {14, "AND" },
-            {15, "OR" },
-            {16, "NOT" },
-            {17, "NEG" },
-            {18, "ASL" },
-            {19, "ASR" },
-            {20, "MOV" },
-            {404, "INVALID" }           // Invalid code, 404 isn't possible to reach, op code 8 bits (255 decimal) -JND
-
-        };
-
-        List<Instruction> InstructionSetNew = new List<Instruction>
-        {
-            new Instruction( 0, "Halt", 1, 1, 1, 0, 0),
-            new Instruction( 1, "LOAD", 1, 2, 1, 3, 1),
-            new Instruction( 2, "STOR", 1, 2, 1, 3, 0),
-            new Instruction( 3,  "ADD", 1, 1, 1, 0, 1),
-            new Instruction( 4, "ADDI", 1, 1, 1, 0, 1),
-            new Instruction( 5,  "SUB", 1, 1, 1, 0, 1),
-            new Instruction( 6, "SUBI", 1, 1, 1, 0, 1),
-            new Instruction( 7,   "BR", 1, 1, 1, 0, 0),
-            new Instruction( 8, "BRLT", 1, 1, 1, 0, 0),
-            new Instruction( 9, "BRLE", 1, 1, 1, 0, 0),
+            new Instruction(0, "HALT", 1, 1, 1, 0, 0),
+            new Instruction(1, "LOAD", 1, 2, 1, 3, 1),
+            new Instruction(2, "STOR", 1, 2, 1, 3, 0),
+            new Instruction(3, "ADD", 1, 1, 1, 0, 1),
+            new Instruction(4, "ADDI", 1, 1, 1, 0, 1),
+            new Instruction(5, "SUB", 1, 1, 1, 0, 1),
+            new Instruction(6, "SUBI", 1, 1, 1, 0, 1),
+            new Instruction(7, "BR", 1, 1, 1, 0, 0),
+            new Instruction(8, "BRLT", 1, 1, 1, 0, 0),
+            new Instruction(9, "BRLE", 1, 1, 1, 0, 0),
             new Instruction(10, "BREQ", 1, 1, 1, 0, 0),
             new Instruction(11, "BRNE", 1, 1, 1, 0, 0),
             new Instruction(12, "BRGT", 1, 1, 1, 0, 0),
             new Instruction(13, "BRGE", 1, 1, 1, 0, 0),
-            new Instruction(14,  "AND", 1, 1, 1, 0, 1),
-            new Instruction(15,   "OR", 1, 1, 1, 0, 1),
-            new Instruction(16,  "NOT", 1, 1, 1, 0, 1),
-            new Instruction(17,  "NEG", 1, 1, 1, 0, 1),
-            new Instruction(18,  "ASL", 1, 1, 1, 0, 1),
-            new Instruction(19,  "ASR", 1, 1, 1, 0, 1),
-            new Instruction(20,  "MOV", 1, 1, 1, 0, 1),
+            new Instruction(14, "AND", 1, 1, 1, 0, 1),
+            new Instruction(15, "OR", 1, 1, 1, 0, 1),
+            new Instruction(16, "NOT", 1, 1, 1, 0, 1),
+            new Instruction(17, "NEG", 1, 1, 1, 0, 1),
+            new Instruction(18, "ASL", 1, 1, 1, 0, 1),
+            new Instruction(19, "ASR", 1, 1, 1, 0, 1),
+            new Instruction(20, "MOV", 1, 1, 1, 0, 1),
             new Instruction(404, "INVALID", 1, 1, 0, 0, 0)
-
         };
-
-        public void FindIS()
-        {
-            for(int i = 0; i < InstructionSetNew.Count; i++)
-            {
-                if(this.OpCode == InstructionSetNew[i].OpCode)
-                {
-                    this.Mnemonic = 
-                }    
-            }
-        }
 
 
         /**
@@ -126,6 +84,24 @@ namespace Project2_HT
             this.MemoryCC = memory;
             this.RegisterCC = register;
         }
+
+
+        public void FindIS()
+        {
+            for (int i = 0; i < InstructionSet.Count; i++)
+            {
+                if (this.OpCode == InstructionSet[i].OpCode)
+                {
+                    this.Mnemonic = InstructionSet[i].Mnemonic;
+                    this.FetchCC = InstructionSet[i].FetchCC;
+                    this.DecodeCC = InstructionSet[i].DecodeCC;
+                    this.ExecuteCC = InstructionSet[i].ExecuteCC;
+                    this.MemoryCC = InstructionSet[i].MemoryCC;
+                    this.RegisterCC = InstructionSet[i].RegisterCC;
+                }
+            }
+        }
+
 
 
         /**
