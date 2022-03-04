@@ -62,6 +62,8 @@ namespace Project2_HT
         * Date created: 02/17/2022
         * @Janine Day
         * <hr>
+        * @param object - sender
+        * @param EventArgs - e
         */
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -98,6 +100,8 @@ namespace Project2_HT
         * Date created: 02/17/2022
         * @Janine Day
         * <hr>
+        * @param object - sender
+        * @param EventArgs - e
         */
         private void StartButton_Click(object sender, EventArgs e)
         {
@@ -172,6 +176,7 @@ namespace Project2_HT
         * Date created: 02/17/2022
         * @Janine Day
         * <hr>
+        * @param Instruction - provides info for visuals
         */
         public void RegisterText(Instruction i)
         {
@@ -186,6 +191,7 @@ namespace Project2_HT
         * Date created: 02/17/2022
         * @Janine Day
         * <hr>
+        * @param Instruction - provides info for visuals
         */
         public void MemoryText(Instruction i)
         {
@@ -200,6 +206,7 @@ namespace Project2_HT
         * Date created: 02/17/2022
         * @Janine Day
         * <hr>
+        * @param Instruction - provides info for visuals
         */
         public void ExecuteText(Instruction i)
         {
@@ -214,6 +221,7 @@ namespace Project2_HT
         * Date created: 02/17/2022
         * @Janine Day
         * <hr>
+        * @param Instruction - provides info for visuals
         */
         public void DecodeText(Instruction i)
         {
@@ -228,6 +236,7 @@ namespace Project2_HT
         * Date created: 02/17/2022
         * @Janine Day
         * <hr>
+        * @param Instruction - provides info for visuals
         */
         public void FetchText(Instruction i)
         {
