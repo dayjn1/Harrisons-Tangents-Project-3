@@ -38,7 +38,7 @@ namespace Project2_HT
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
-        int cycleCount = 1;                                                     // Counts the number of cycles
+        int cycleCount = 0;                                                     // Counts the number of cycles
 
         /**
         * Method Name: Tangents()
@@ -127,42 +127,218 @@ namespace Project2_HT
                 if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
+                    this.RegisterBox.Text = "";
                 }
 
 
                 if (this.Memory.Count > 0)
                 {
                     temp = this.Memory.Pop();
-                    this.Register.Push(temp);
-                    RegisterText(temp);
+                    this.MemoryBox.Text = "";
+
+                    if(temp.RegisterCC != 0)
+                    {
+                        this.Register.Push(temp);
+                        RegisterText(temp);
+                        temp.RegisterCC--;
+
+
+                        while (temp.RegisterCC > 0)
+                        {
+                            temp.RegisterCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
+
                 }
 
                 if (this.Execute.Count > 0)
                 {
                     temp = this.Execute.Pop();
-                    this.Memory.Push(temp);
-                    MemoryText(temp);
+                    this.ExecuteBox.Text = "";
+
+                    if(temp.MemoryCC != 0)
+                    {
+                        this.Memory.Push(temp);
+                        MemoryText(temp);
+                        temp.MemoryCC--;
+
+                        while (temp.MemoryCC > 0)
+                        {
+                            temp.MemoryCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
                 }
 
                 if (this.Decode.Count > 0)
                 {
                     temp = this.Decode.Pop();
-                    this.Execute.Push(temp);
-                    ExecuteText(temp);
+                    this.DecodeBox.Text = "";
+
+                    if (temp.ExecuteCC != 0)
+                    {
+                        this.Execute.Push(temp);
+                        ExecuteText(temp);
+                        temp.ExecuteCC--;
+
+                        while (temp.ExecuteCC > 0)
+                        {
+                            temp.ExecuteCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
                 }
 
                 if (this.Fetch.Count > 0)
                 {
                     temp = this.Fetch.Pop();
-                    this.Decode.Push(temp);
-                    DecodeText(temp);
+                    this.FetchBox.Text = "";
+
+                    if (temp.DecodeCC != 0)
+                    {
+                        this.Decode.Push(temp);
+                        DecodeText(temp);
+                        temp.DecodeCC--;
+
+                        while (temp.DecodeCC > 0)
+                        {
+                            temp.DecodeCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
                 }
 
                 this.Fetch.Push(this.Input_Instructions[i]);
                 FetchText(this.Input_Instructions[i]);
 
-                System.Threading.Thread.Sleep(1000);
+                Task.Delay(1000).Wait();
                 cycleCount++;
+                cycleLabel.Text = cycleCount.ToString();
+                Update();
+            }
+
+            // clean up pipeline
+
+            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                }
+
+
+                if (this.Memory.Count > 0)
+                {
+                    temp = this.Memory.Pop();
+                    this.MemoryBox.Text = "";
+
+                    if (temp.RegisterCC != 0)
+                    {
+                        this.Register.Push(temp);
+                        RegisterText(temp);
+                        temp.RegisterCC--;
+                        cycleCount++;
+                        Update();
+
+                        while (temp.RegisterCC > 0)
+                        {
+                            temp.RegisterCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
+
+                }
+
+                if (this.Execute.Count > 0)
+                {
+                    temp = this.Execute.Pop();
+                    this.ExecuteBox.Text = "";
+
+                    if (temp.MemoryCC != 0)
+                    {
+                        this.Memory.Push(temp);
+                        MemoryText(temp);
+                        temp.MemoryCC--;
+                        cycleCount++;
+                        Update();
+
+                        while (temp.MemoryCC > 0)
+                        {
+                            temp.MemoryCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
+                }
+
+                if (this.Decode.Count > 0)
+                {
+                    temp = this.Decode.Pop();
+                    this.DecodeBox.Text = "";
+
+                    if (temp.ExecuteCC != 0)
+                    {
+                        this.Execute.Push(temp);
+                        ExecuteText(temp);
+                        temp.ExecuteCC--;
+                        cycleCount++;
+                        Update();
+
+                        while (temp.ExecuteCC > 0)
+                        {
+                            temp.ExecuteCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
+                }
+
+                if (this.Fetch.Count > 0)
+                {
+                    temp = this.Fetch.Pop();
+                    this.FetchBox.Text = "";
+
+                    if (temp.DecodeCC != 0)
+                    {
+                        this.Decode.Push(temp);
+                        DecodeText(temp);
+                        temp.DecodeCC--;
+                        cycleCount++;
+                        Update();
+
+                        while (temp.DecodeCC > 0)
+                        {
+                            temp.DecodeCC--;
+                            this.cycleCount++;
+                            cycleLabel.Text = cycleCount.ToString();
+                            Update();
+                            Task.Delay(1000).Wait();
+                        }
+                    }
+                }
+
+                Task.Delay(1000).Wait();
                 cycleLabel.Text = cycleCount.ToString();
                 Update();
             }

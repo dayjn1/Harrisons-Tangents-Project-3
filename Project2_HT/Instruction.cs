@@ -31,7 +31,7 @@ namespace Project2_HT
         string DestReg;
         string Reg1;
         string Reg2;
-        int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC;
+        public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC;
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0),
@@ -74,6 +74,22 @@ namespace Project2_HT
             Disassemble(instr);
         }
 
+        /**
+        * Method Name: Instruction(uint, string, int, int, int, int, int)
+        * Method Purpose: Creates instructions given all factors, used to populate static InstructionSet
+        *
+        * <hr>
+        * Date created: 03/04/2022
+        * @Janine Day
+        * <hr>
+        * @param uint - opcode
+        * @param string - mnemonic
+        * @param int - fetch
+        * @param int - decode
+        * @param int - execute
+        * @param int - memory
+        * @param int - register
+        */
         public Instruction(uint opcode, string mnemonic, int fetch, int decode, int execute, int memory, int register)
         {
             this.OpCode = opcode;
@@ -85,7 +101,15 @@ namespace Project2_HT
             this.RegisterCC = register;
         }
 
-
+        /**
+        * Method Name: FindIS()
+        * Method Purpose: Goes through InstructionSet list to find an instruction or manually set INVALID
+        *
+        * <hr>
+        * Date created: 03/04/2022
+        * @Janine Day
+        * <hr>
+        */
         public void FindIS()
         {
             for (int i = 0; i < InstructionSet.Count; i++)
@@ -98,8 +122,18 @@ namespace Project2_HT
                     this.ExecuteCC = InstructionSet[i].ExecuteCC;
                     this.MemoryCC = InstructionSet[i].MemoryCC;
                     this.RegisterCC = InstructionSet[i].RegisterCC;
+
+                    return;
                 }
             }
+
+            this.OpCode = 404;
+            this.Mnemonic = "INVALID";
+            this.FetchCC = 1;
+            this.DecodeCC = 1;
+            this.ExecuteCC = 0;
+            this.MemoryCC = 0;
+            this.RegisterCC = 0;
         }
 
 
@@ -124,15 +158,6 @@ namespace Project2_HT
 
             FindIS();
 
-            /*if (InstructionSet.ContainsKey(this.OpCode))
-            {
-                this.Mnemonic = InstructionSet[this.OpCode];
-            }
-            else
-            {
-                this.OpCode = 404;                            // Creates illegal instruction
-                this.Mnemonic = InstructionSet[this.OpCode];
-            }*/
 
             uint rd = (uint)input & 0x00F00000;
             rd >>= 20;
