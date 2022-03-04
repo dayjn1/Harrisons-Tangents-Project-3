@@ -28,9 +28,9 @@ namespace Project2_HT
     {
         public string Mnemonic;
         uint OpCode;
-        string DestReg;
-        string Reg1;
-        string Reg2;
+        public string DestReg;
+        public string Reg1;
+        public string Reg2;
 
 
         public static Dictionary<uint, string> InstructionSet = new Dictionary<uint, string>
