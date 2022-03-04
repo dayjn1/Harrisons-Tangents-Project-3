@@ -38,7 +38,7 @@ namespace Project2_HT
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
-        int cycleCount = 1;                                                     // Counts the number of cycles
+        int cycleCount = 0;                                                     // Counts the number of cycles
 
         /**
         * Method Name: Tangents()
@@ -119,54 +119,232 @@ namespace Project2_HT
         */
         public void Simulation()
         {
-            Instruction temp;
-
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
 
                 if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
+                    this.RegisterBox.Text = "";
                 }
-
 
                 if (this.Memory.Count > 0)
                 {
-                    temp = this.Memory.Pop();
-                    this.Register.Push(temp);
-                    RegisterText(temp);
+                    ProcessRegister();
                 }
 
                 if (this.Execute.Count > 0)
                 {
-                    temp = this.Execute.Pop();
-                    this.Memory.Push(temp);
-                    MemoryText(temp);
+                    ProcessMemory();
                 }
 
                 if (this.Decode.Count > 0)
                 {
-                    temp = this.Decode.Pop();
-                    this.Execute.Push(temp);
-                    ExecuteText(temp);
+                    ProcessExecute();
                 }
 
                 if (this.Fetch.Count > 0)
                 {
-                    temp = this.Fetch.Pop();
-                    this.Decode.Push(temp);
-                    DecodeText(temp);
+                    ProcessDecode();
                 }
 
-                this.Fetch.Push(this.Input_Instructions[i]);
-                FetchText(this.Input_Instructions[i]);
+                PushFetch(this.Input_Instructions[i]);
 
-                System.Threading.Thread.Sleep(1000);
-                cycleCount++;
+                CountUpdate();
+                UpdateAndDelay();
+
+            }
+
+            // clean up pipeline
+
+            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                }
+
+                if (this.Memory.Count > 0)
+                {
+                    ProcessRegister();
+                }
+
+                if (this.Execute.Count > 0)
+                {
+                    ProcessMemory();
+                }
+
+                if (this.Decode.Count > 0)
+                {
+                    ProcessExecute();
+                }
+
+                if (this.Fetch.Count > 0)
+                {
+                    ProcessDecode();
+                }
+
                 cycleLabel.Text = cycleCount.ToString();
-                Update();
+                UpdateAndDelay();
+
             }
         }
+
+
+        public void ProcessDecode()
+        {
+            Instruction i = this.Fetch.Pop();
+            this.FetchBox.Text = "";
+
+            if (i.DecodeCC != 0)
+            {
+                PushDecode(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                while (i.DecodeCC > 0)
+                {
+                    i.DecodeCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessExecute()
+        {
+            Instruction i = this.Decode.Pop();
+            this.DecodeBox.Text = "";
+
+            if (i.ExecuteCC != 0)
+            {
+                PushExecute(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.ExecuteCC > 0)
+                {
+                    i.ExecuteCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessMemory()
+        {
+            Instruction i = this.Execute.Pop();
+            this.ExecuteBox.Text = "";
+
+            if (i.MemoryCC != 0)
+            {
+                PushMemory(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                while (i.MemoryCC > 0)
+                {
+                    i.MemoryCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+            else if(i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessRegister()
+        {
+            Instruction i = this.Memory.Pop();
+            this.MemoryBox.Text = "";
+
+            if (i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void CountUpdate()
+        {
+            this.cycleCount++;
+            cycleLabel.Text = cycleCount.ToString();
+        }
+
+        public void UpdateAndDelay()
+        {
+            Update();
+            Task.Delay(1000).Wait();
+        }
+
+        public void PushFetch(Instruction i)
+        {
+            this.Fetch.Push(i);
+            i.FetchCC--;
+            FetchText(i);
+        }
+
+        public void PushDecode(Instruction i)
+        {
+            this.Decode.Push(i);
+            i.DecodeCC--;
+            DecodeText(i);
+        }
+
+        public void PushExecute(Instruction i)
+        {
+            this.Execute.Push(i);
+            i.ExecuteCC--;
+            ExecuteText(i);
+        }
+
+        public void PushMemory(Instruction i)
+        {
+            this.Memory.Push(i);
+            i.MemoryCC--;
+            MemoryText(i);
+        }
+
+        public void PushRegister(Instruction i)
+        {
+            this.Register.Push(i);
+            i.RegisterCC--;
+            RegisterText(i);
+        }
+
 
         /**
         * Method Name: RegisterText(Instruction)
