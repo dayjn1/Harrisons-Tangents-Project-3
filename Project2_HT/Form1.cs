@@ -201,7 +201,7 @@ namespace Project2_HT
             {
                 PushDecode(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
                 while (i.DecodeCC > 0)
@@ -223,7 +223,7 @@ namespace Project2_HT
             {
                 PushExecute(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
 
@@ -246,7 +246,7 @@ namespace Project2_HT
             {
                 PushMemory(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
                 while (i.MemoryCC > 0)
@@ -261,7 +261,7 @@ namespace Project2_HT
             {
                 PushRegister(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
 
@@ -284,7 +284,7 @@ namespace Project2_HT
             {
                 PushRegister(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
 
