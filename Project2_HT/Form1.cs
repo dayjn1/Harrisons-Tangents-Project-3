@@ -121,6 +121,8 @@ namespace Project2_HT
         {
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
+                CountUpdate();
+                UpdateAndDelay();
 
                 if (this.Register.Count > 0)
                 {
@@ -150,15 +152,15 @@ namespace Project2_HT
 
                 PushFetch(this.Input_Instructions[i]);
 
-                CountUpdate();
-                UpdateAndDelay();
-
             }
 
             // clean up pipeline
 
             while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
             {
+                CountUpdate();
+                UpdateAndDelay();
+
                 if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
@@ -183,10 +185,7 @@ namespace Project2_HT
                 if (this.Fetch.Count > 0)
                 {
                     ProcessDecode();
-                }
-
-                cycleLabel.Text = cycleCount.ToString();
-                UpdateAndDelay();
+                }            
 
             }
         }
@@ -201,7 +200,7 @@ namespace Project2_HT
             {
                 PushDecode(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
                 while (i.DecodeCC > 0)
@@ -223,7 +222,7 @@ namespace Project2_HT
             {
                 PushExecute(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
 
@@ -246,7 +245,7 @@ namespace Project2_HT
             {
                 PushMemory(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
                 while (i.MemoryCC > 0)
@@ -261,7 +260,7 @@ namespace Project2_HT
             {
                 PushRegister(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
 
@@ -284,7 +283,7 @@ namespace Project2_HT
             {
                 PushRegister(i);
 
-                CountUpdate();
+                //CountUpdate();
                 UpdateAndDelay();
 
 
@@ -307,7 +306,7 @@ namespace Project2_HT
         public void UpdateAndDelay()
         {
             Update();
-            Task.Delay(1000).Wait();
+            Task.Delay(500).Wait();
         }
 
         public void PushFetch(Instruction i)
