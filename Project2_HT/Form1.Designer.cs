@@ -57,6 +57,8 @@ namespace Project2_HT
             this.ContinueButton = new System.Windows.Forms.Button();
             this.cycleLabel = new System.Windows.Forms.Label();
             this.cycledescrLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,14 +86,16 @@ namespace Project2_HT
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // FetchBox
@@ -224,11 +228,33 @@ namespace Project2_HT
             this.cycledescrLabel.TabIndex = 15;
             this.cycledescrLabel.Text = "Cycle:";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(717, 75);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(68, 18);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Hazards:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(789, 75);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(16, 18);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "0";
+            // 
             // Tangents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(853, 286);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cycledescrLabel);
             this.Controls.Add(this.cycleLabel);
             this.Controls.Add(this.ContinueButton);
@@ -245,7 +271,7 @@ namespace Project2_HT
             this.Controls.Add(this.DecodeBox);
             this.Controls.Add(this.FetchBox);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Tangents";
             this.Text = "Pipeline Simulator";
             this.menuStrip1.ResumeLayout(false);
@@ -276,6 +302,8 @@ namespace Project2_HT
         private System.Windows.Forms.Button ContinueButton;
         private System.Windows.Forms.Label cycleLabel;
         private System.Windows.Forms.Label cycledescrLabel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 
