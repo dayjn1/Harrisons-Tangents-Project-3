@@ -1,4 +1,13 @@
-﻿
+﻿// ---------------------------------------------------------------------------
+// File name:                   Form1.Designer.cs
+// Project name:                Project 2 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Automatically Generated
+// Course-Section:              CSCI-4717
+// Creation Date:               02/17/2022
+// ---------------------------------------------------------------------------
+
+
 namespace Project2_HT
 {
     partial class Tangents
@@ -46,6 +55,8 @@ namespace Project2_HT
             this.StartButton = new System.Windows.Forms.Button();
             this.NextButton = new System.Windows.Forms.Button();
             this.ContinueButton = new System.Windows.Forms.Button();
+            this.cycleLabel = new System.Windows.Forms.Label();
+            this.cycledescrLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +68,7 @@ namespace Project2_HT
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1137, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1137, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -67,7 +78,7 @@ namespace Project2_HT
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
@@ -86,7 +97,7 @@ namespace Project2_HT
             // FetchBox
             // 
             this.FetchBox.Location = new System.Drawing.Point(80, 226);
-            this.FetchBox.Margin = new System.Windows.Forms.Padding(4);
+            this.FetchBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FetchBox.Name = "FetchBox";
             this.FetchBox.Size = new System.Drawing.Size(132, 22);
             this.FetchBox.TabIndex = 1;
@@ -94,7 +105,7 @@ namespace Project2_HT
             // DecodeBox
             // 
             this.DecodeBox.Location = new System.Drawing.Point(296, 226);
-            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DecodeBox.Name = "DecodeBox";
             this.DecodeBox.Size = new System.Drawing.Size(132, 22);
             this.DecodeBox.TabIndex = 2;
@@ -102,7 +113,7 @@ namespace Project2_HT
             // ExecuteBox
             // 
             this.ExecuteBox.Location = new System.Drawing.Point(493, 226);
-            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ExecuteBox.Name = "ExecuteBox";
             this.ExecuteBox.Size = new System.Drawing.Size(132, 22);
             this.ExecuteBox.TabIndex = 3;
@@ -110,7 +121,7 @@ namespace Project2_HT
             // MemoryBox
             // 
             this.MemoryBox.Location = new System.Drawing.Point(692, 226);
-            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MemoryBox.Name = "MemoryBox";
             this.MemoryBox.Size = new System.Drawing.Size(132, 22);
             this.MemoryBox.TabIndex = 4;
@@ -118,7 +129,7 @@ namespace Project2_HT
             // RegisterBox
             // 
             this.RegisterBox.Location = new System.Drawing.Point(881, 226);
-            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RegisterBox.Name = "RegisterBox";
             this.RegisterBox.Size = new System.Drawing.Size(132, 22);
             this.RegisterBox.TabIndex = 5;
@@ -176,7 +187,7 @@ namespace Project2_HT
             // StartButton
             // 
             this.StartButton.Location = new System.Drawing.Point(215, 69);
-            this.StartButton.Margin = new System.Windows.Forms.Padding(4);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(100, 28);
             this.StartButton.TabIndex = 11;
@@ -187,7 +198,7 @@ namespace Project2_HT
             // NextButton
             // 
             this.NextButton.Location = new System.Drawing.Point(509, 69);
-            this.NextButton.Margin = new System.Windows.Forms.Padding(4);
+            this.NextButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(100, 28);
             this.NextButton.TabIndex = 12;
@@ -197,18 +208,40 @@ namespace Project2_HT
             // ContinueButton
             // 
             this.ContinueButton.Location = new System.Drawing.Point(805, 69);
-            this.ContinueButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ContinueButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ContinueButton.Name = "ContinueButton";
             this.ContinueButton.Size = new System.Drawing.Size(100, 28);
             this.ContinueButton.TabIndex = 13;
             this.ContinueButton.Text = "Continue";
             this.ContinueButton.UseVisualStyleBackColor = true;
             // 
+            // cycleLabel
+            // 
+            this.cycleLabel.AutoSize = true;
+            this.cycleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycleLabel.Location = new System.Drawing.Point(1052, 70);
+            this.cycleLabel.Name = "cycleLabel";
+            this.cycleLabel.Size = new System.Drawing.Size(20, 24);
+            this.cycleLabel.TabIndex = 14;
+            this.cycleLabel.Text = "0";
+            // 
+            // cycledescrLabel
+            // 
+            this.cycledescrLabel.AutoSize = true;
+            this.cycledescrLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycledescrLabel.Location = new System.Drawing.Point(981, 70);
+            this.cycledescrLabel.Name = "cycledescrLabel";
+            this.cycledescrLabel.Size = new System.Drawing.Size(62, 24);
+            this.cycledescrLabel.TabIndex = 15;
+            this.cycledescrLabel.Text = "Cycle:";
+            // 
             // Tangents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1137, 352);
+            this.Controls.Add(this.cycledescrLabel);
+            this.Controls.Add(this.cycleLabel);
             this.Controls.Add(this.ContinueButton);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.StartButton);
@@ -252,6 +285,8 @@ namespace Project2_HT
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.Button ContinueButton;
+        private System.Windows.Forms.Label cycleLabel;
+        private System.Windows.Forms.Label cycledescrLabel;
     }
 }
 

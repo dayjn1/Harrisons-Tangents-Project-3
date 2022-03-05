@@ -1,10 +1,20 @@
-﻿using System;
+﻿// File name:                   Form1.cs
+// Project name:                Project 2 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Janine Day
+// Edited By:                   Janine Day, 
+// Course-Section:              CSCI-4717
+// Creation Date:               02/17/2022
+// ---------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -12,20 +22,49 @@ using System.Windows.Forms;
 
 namespace Project2_HT
 {
+    /**
+    * Class Name:       Tangents
+    * Class Purpose:    GUI code for fetching input, processing input, running simulation, and (hopefully) save info into textfile
+    *
+    * <hr>
+    * Date created: 02/17/2022
+    * @Janine Day
+    */
     public partial class Tangents : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        Stack<Instruction> Fetch = new Stack<Instruction>();
+        Stack<Instruction> Fetch = new Stack<Instruction>();                    // Creates the stacks for pipeline process -JND
         Stack<Instruction> Decode = new Stack<Instruction>();
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
+        int cycleCount = 0;                                                     // Counts the number of cycles
 
+        /**
+        * Method Name: Tangents()
+        * Method Purpose: Automatically Generated code to initialize GUI
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        *
+        * <hr>
+        */
         public Tangents()
         {
             InitializeComponent();
         }
 
+        /**
+        * Method Name: openToolStripMenuItem_Click(object, EventArgs)
+        * Method Purpose: To use an open file dialog which allows users which text file they would like to process
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param object - sender
+        * @param EventArgs - e
+        */
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenDlg = new OpenFileDialog();                      // Declares and initializes OpenFileDialog
@@ -38,7 +77,7 @@ namespace Project2_HT
                 {
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
 
-                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, J
+                    //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, JM
                     int input;
                     bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
                     if (valid)
@@ -53,84 +92,333 @@ namespace Project2_HT
             }//end if
         }
 
+        /**
+        * Method Name: StartButton_Click(object, EventArgs)
+        * Method Purpose: Starts simulation once event occurs
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param object - sender
+        * @param EventArgs - e
+        */
         private void StartButton_Click(object sender, EventArgs e)
         {
             Simulation();
         }
 
+        /**
+        * Method Name: Simulation()
+        * Method Purpose: Algorithm to run pipeline process. Uses global stacks and user input
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        */
         public void Simulation()
         {
-            Instruction temp;
-
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
 
                 if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
+                    this.RegisterBox.Text = "";
                 }
-
 
                 if (this.Memory.Count > 0)
                 {
-                    temp = this.Memory.Pop();
-                    this.Register.Push(temp);
-                    RegisterText(temp);
+                    ProcessRegister();
                 }
 
                 if (this.Execute.Count > 0)
                 {
-                    temp = this.Execute.Pop();
-                    this.Memory.Push(temp);
-                    MemoryText(temp);
+                    ProcessMemory();
                 }
 
                 if (this.Decode.Count > 0)
                 {
-                    temp = this.Decode.Pop();
-                    this.Execute.Push(temp);
-                    ExecuteText(temp);
+                    ProcessExecute();
                 }
 
                 if (this.Fetch.Count > 0)
                 {
-                    temp = this.Fetch.Pop();
-                    this.Decode.Push(temp);
-                    DecodeText(temp);
+                    ProcessDecode();
                 }
 
-                this.Fetch.Push(this.Input_Instructions[i]);
-                FetchText(this.Input_Instructions[i]);
+                PushFetch(this.Input_Instructions[i]);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+            }
+
+            // clean up pipeline
+
+            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                }
+
+                if (this.Memory.Count > 0)
+                {
+                    ProcessRegister();
+                }
+
+                if (this.Execute.Count > 0)
+                {
+                    ProcessMemory();
+                }
+
+                if (this.Decode.Count > 0)
+                {
+                    ProcessExecute();
+                }
+
+                if (this.Fetch.Count > 0)
+                {
+                    ProcessDecode();
+                }
+
+                cycleLabel.Text = cycleCount.ToString();
+                UpdateAndDelay();
+
             }
         }
 
+
+        public void ProcessDecode()
+        {
+            Instruction i = this.Fetch.Pop();
+            this.FetchBox.Text = "";
+
+            if (i.DecodeCC != 0)
+            {
+                PushDecode(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                while (i.DecodeCC > 0)
+                {
+                    i.DecodeCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessExecute()
+        {
+            Instruction i = this.Decode.Pop();
+            this.DecodeBox.Text = "";
+
+            if (i.ExecuteCC != 0)
+            {
+                PushExecute(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.ExecuteCC > 0)
+                {
+                    i.ExecuteCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessMemory()
+        {
+            Instruction i = this.Execute.Pop();
+            this.ExecuteBox.Text = "";
+
+            if (i.MemoryCC != 0)
+            {
+                PushMemory(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                while (i.MemoryCC > 0)
+                {
+                    i.MemoryCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+            else if(i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void ProcessRegister()
+        {
+            Instruction i = this.Memory.Pop();
+            this.MemoryBox.Text = "";
+
+            if (i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                CountUpdate();
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        public void CountUpdate()
+        {
+            this.cycleCount++;
+            cycleLabel.Text = cycleCount.ToString();
+        }
+
+        public void UpdateAndDelay()
+        {
+            Update();
+            Task.Delay(1000).Wait();
+        }
+
+        public void PushFetch(Instruction i)
+        {
+            this.Fetch.Push(i);
+            i.FetchCC--;
+            FetchText(i);
+        }
+
+        public void PushDecode(Instruction i)
+        {
+            this.Decode.Push(i);
+            i.DecodeCC--;
+            DecodeText(i);
+        }
+
+        public void PushExecute(Instruction i)
+        {
+            this.Execute.Push(i);
+            i.ExecuteCC--;
+            ExecuteText(i);
+        }
+
+        public void PushMemory(Instruction i)
+        {
+            this.Memory.Push(i);
+            i.MemoryCC--;
+            MemoryText(i);
+        }
+
+        public void PushRegister(Instruction i)
+        {
+            this.Register.Push(i);
+            i.RegisterCC--;
+            RegisterText(i);
+        }
+
+
+        /**
+        * Method Name: RegisterText(Instruction)
+        * Method Purpose: Updates RegisterText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void RegisterText(Instruction i)
         {
             RegisterBox.Text = i.Mnemonic;
         }
 
+        /**
+        * Method Name: MemoryText(Instruction)
+        * Method Purpose: Updates MemoryText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void MemoryText(Instruction i)
         {
             MemoryBox.Text = i.Mnemonic;
         }
 
+        /**
+        * Method Name: ExecuteText(Instruction)
+        * Method Purpose: Updates ExecuteText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void ExecuteText(Instruction i)
         {
             ExecuteBox.Text = i.Mnemonic;
         }
+
+        /**
+        * Method Name: DecodeText(Instruction)
+        * Method Purpose: Updates DecodeText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void DecodeText(Instruction i)
         {
             DecodeBox.Text = i.Mnemonic;
         }
+
+        /**
+        * Method Name: FetchText(Instruction)
+        * Method Purpose: Updates FetchText content
+        *
+        * <hr>
+        * Date created: 02/17/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction - provides info for visuals
+        */
         public void FetchText(Instruction i)
         {
             FetchBox.Text = i.Mnemonic;
-            RegisterBox.Update();
-            MemoryBox.Update();
-            ExecuteBox.Update();
-            DecodeBox.Update();
-            FetchBox.Update();
-            System.Threading.Thread.Sleep(1000);
         }
     }
 }
