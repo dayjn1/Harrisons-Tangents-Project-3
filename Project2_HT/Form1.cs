@@ -39,6 +39,8 @@ namespace Project2_HT
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
         int cycleCount = 0;                                                     // Counts the number of cycles
+        List<String> usedRegisters = new List<string>();
+        int hazardCount = 0;
 
         /**
         * Method Name: Tangents()
@@ -196,7 +198,7 @@ namespace Project2_HT
         {
             Instruction i = this.Fetch.Pop();
             this.FetchBox.Text = "";
-
+            CheckRegisters(i);
             if (i.DecodeCC != 0)
             {
                 PushDecode(i);
@@ -218,7 +220,6 @@ namespace Project2_HT
         {
             Instruction i = this.Decode.Pop();
             this.DecodeBox.Text = "";
-
             if (i.ExecuteCC != 0)
             {
                 PushExecute(i);
@@ -279,11 +280,11 @@ namespace Project2_HT
         {
             Instruction i = this.Memory.Pop();
             this.MemoryBox.Text = "";
-
+            
             if (i.RegisterCC != 0)
             {
-                PushRegister(i);
 
+                PushRegister(i);
                 CountUpdate();
                 UpdateAndDelay();
 
@@ -295,9 +296,30 @@ namespace Project2_HT
                     CountUpdate();
                     UpdateAndDelay();
                 }
+                usedRegisters.Clear();  //clear registers when no longer in use
             }
+          
         }
+        /// <summary>Accepts an instruction and checks if its registers are available.
+        /// On fail it waits until the registers are available. Used to get the registers ready to push.</summary>
+        /// AM
+        /// <param name="i">Instruction passed in from Process Registers</param>
+        public void CheckRegisters(Instruction i)
+        {
+            //see if register is available by checking the usedRegisters list
+            if (!(usedRegisters.Contains(i.DestReg)))
+            {
+                usedRegisters.Add(i.DestReg);
+            }
+            else//if the register is in use already, wait until it is not.
+            {
+                hazardCount++;
+                label7.Text = hazardCount.ToString();
+                Task.Delay(1000).Wait();
+                CheckRegisters(i);
+            }
 
+        }
         public void CountUpdate()
         {
             this.cycleCount++;
@@ -420,5 +442,6 @@ namespace Project2_HT
         {
             FetchBox.Text = i.Mnemonic;
         }
+
     }
 }
