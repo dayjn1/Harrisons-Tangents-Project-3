@@ -54,8 +54,7 @@ namespace Project2_HT
             new Instruction(17, "NEG", 1, 1, 1, 0, 1),
             new Instruction(18, "ASL", 1, 1, 1, 0, 1),
             new Instruction(19, "ASR", 1, 1, 1, 0, 1),
-            new Instruction(20, "MOV", 1, 1, 1, 0, 1),
-            new Instruction(404, "INVALID", 1, 1, 0, 0, 0)
+            new Instruction(20, "MOV", 1, 1, 1, 0, 1)
         };
 
 
@@ -130,7 +129,7 @@ namespace Project2_HT
             this.OpCode = 404;
             this.Mnemonic = "INVALID";
             this.FetchCC = 1;
-            this.DecodeCC = 1;
+            this.DecodeCC = 0;
             this.ExecuteCC = 0;
             this.MemoryCC = 0;
             this.RegisterCC = 0;
