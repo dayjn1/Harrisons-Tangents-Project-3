@@ -90,8 +90,9 @@ namespace Project2_HT
                         Console.WriteLine("Invalid parse");
 
                 }//end while
-
+                label8.Text = "Loaded";
             }//end if
+
         }
 
         /**
@@ -107,7 +108,9 @@ namespace Project2_HT
         */
         private void StartButton_Click(object sender, EventArgs e)
         {
+            label8.Text = "Processing...";
             Simulation();
+            label8.Text = "Finished";
         }
 
         /**
@@ -315,6 +318,7 @@ namespace Project2_HT
                 hazardCount++;
                 label7.Text = hazardCount.ToString();
                 Task.Delay(1000).Wait();
+                usedRegisters.Clear();  //clear registers when no longer in use
                 CheckRegisters(i);
             }
 
