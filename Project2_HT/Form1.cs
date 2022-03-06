@@ -192,12 +192,119 @@ namespace Project2_HT
             }
         }
 
+        public void KeepGoing(int i)
+        { 
+            if(i == 1)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if (this.Memory.Count > 0)
+                {
+                    Instruction temp = this.Memory.Peek();
+
+                    if (temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        this.MemoryBox.Text = "";
+                        UpdateAndDelay();
+
+                        if (temp.RegisterCC != 0)
+                        {
+                            PushRegister(temp);
+                            UpdateAndDelay();
+                        }
+                    }
+                    else
+                    {
+                        temp.MemoryCC--;
+                    }
+
+                }
+
+                if (this.Execute.Count > 0)
+                {
+                    Instruction temp = this.Execute.Peek();
+                    temp.ExecuteCC--;
+
+                    if(temp.ExecuteCC == 0)
+                    {
+                        if (temp.MemoryCC > 0 && this.Memory.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            this.Memory.Push(temp);
+                        }
+                        else if (temp.RegisterCC > 0 && this.Register.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            this.Register.Push(temp);
+                        }
+                        else
+                            temp.ExecuteCC++;
+                    }
+
+                    UpdateAndDelay();
+                }
+
+            }
+            else if(i == 2)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if (this.Memory.Count > 0)
+                {
+                    Instruction temp = this.Memory.Peek();
+
+                    if (temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        this.MemoryBox.Text = "";
+                        UpdateAndDelay();
+
+                        if (temp.RegisterCC != 0)
+                        {
+                            PushRegister(temp);
+                            UpdateAndDelay();
+                        }
+                    }
+                    else
+                    {
+                        temp.MemoryCC--;
+                    }
+
+                }
+
+            }
+            else if(i == 3)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+            }
+
+        
+        }
+
+
 
         public void ProcessDecode()
         {
             Instruction i = this.Fetch.Pop();
             this.FetchBox.Text = "";
-            CheckRegisters(i);
+            //CheckRegisters(i);
             if (i.DecodeCC != 0)
             {
                 PushDecode(i);
@@ -209,6 +316,7 @@ namespace Project2_HT
                 {
                     i.DecodeCC--;
 
+                    KeepGoing(1);
                     CountUpdate();
                     UpdateAndDelay();             
                 }
@@ -231,6 +339,7 @@ namespace Project2_HT
                 {
                     i.ExecuteCC--;
 
+                    KeepGoing(2);
                     CountUpdate();
                     UpdateAndDelay();
                 }
@@ -253,6 +362,7 @@ namespace Project2_HT
                 {
                     i.MemoryCC--;
 
+                    KeepGoing(3);
                     CountUpdate();
                     UpdateAndDelay();
                 }
@@ -298,6 +408,7 @@ namespace Project2_HT
             }
           
         }
+
         /// <summary>Accepts an instruction and checks if its registers are available.
         /// On fail it waits until the registers are available. Used to get the registers ready to push.</summary>
         /// AM
@@ -318,6 +429,9 @@ namespace Project2_HT
             }
 
         }
+
+
+
         public void CountUpdate()
         {
             this.cycleCount++;
