@@ -56,6 +56,10 @@ namespace Project2_HT
             new Instruction(18, "ASL", 1, 1, 1, 0, 1),
             new Instruction(19, "ASR", 1, 1, 1, 0, 1),
             new Instruction(20, "MOV", 1, 1, 1, 0, 1),
+            new Instruction(128, "FADD", 1, 1, 2, 0, 1),
+            new Instruction(129, "FSUB", 1, 1, 2, 0, 1),
+            new Instruction(130, "FMULT", 1, 1, 5, 0, 1),
+            new Instruction(131, "FDIV", 1, 1, 10, 0, 1),
             new Instruction(404, "INVALID", 1, 1, 0, 0, 0)
         };
 
@@ -163,8 +167,13 @@ namespace Project2_HT
 
             this.Mnemonic = "";
 
-            FindIS();
+            if (this.OpCode >= 128) //check if it's a floating point instruction-AM 
+            {
+                DisassembleFloat(input);
+                return;
+            }
 
+            FindIS();
 
             uint rd = (uint)input & 0x00F00000;
             rd >>= 20;
@@ -179,6 +188,26 @@ namespace Project2_HT
             this.Reg2 = "R" + reg2.ToString("X");
 
         }//end disassemble
+
+        /// <summary>In the event that the instruction is a float, send it to its own method and then return to caller
+        /// Avery Marlow</summary>
+        /// <param name="input">FP instruction</param>
+        public void DisassembleFloat(int input)
+        {
+            FindIS();
+            //reuse code but slap an F on it - AM
+            uint rd = (uint)input & 0x00F00000;
+            rd >>= 20;
+            this.DestReg = "FR" + rd.ToString("X");            // Uses shifts to isolate certain bits in instruction hex - JND
+                                                               // Sets Destination reg, reg 1, and reg 2
+            uint reg1 = (uint)input & 0x000F0000;
+            reg1 >>= 16;
+            this.Reg1 = "FR" + reg1.ToString("X");
+
+            uint reg2 = (uint)input & 0x0000F000;
+            reg2 >>= 12;
+            this.Reg2 = "FR" + reg2.ToString("X");
+        }
 
     }
 }

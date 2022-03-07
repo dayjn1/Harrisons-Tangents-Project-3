@@ -42,6 +42,7 @@ namespace Project2_HT
         List<String> usedRegisters = new List<string>();
         int hazardCount = 0;
         int SimulationCount;
+        int time = 500;
 
         /**
         * Method Name: Tangents()
@@ -128,7 +129,7 @@ namespace Project2_HT
             while(this.SimulationCount < this.Input_Instructions.Count)
             {
                 CountUpdate();
-                //UpdateAndDelay();
+                UpdateAndDelay();
 
                 if (this.Register.Count > 0)
                 {
@@ -221,21 +222,15 @@ namespace Project2_HT
         */
         public void KeepGoing(int i)
         { 
-            if(i == 1)
+            if(i == 1) //decode stall
             {
-                if (this.Register.Count > 0)
+                if (this.Register.Count > 0)    // register for one cycle
                 {
                     this.Register.Pop();
                     this.RegisterBox.Text = "";
                     UpdateAndDelay();
                 }
 
-                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
-                {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
-                    UpdateAndDelay();
-                }
 
                 if (this.Memory.Count > 0)
                 {
@@ -272,14 +267,14 @@ namespace Project2_HT
                         else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
                         {
                             this.Execute.Pop();
-                            this.Memory.Push(temp);
+                            PushMemory(temp);
                             MemoryText(temp);
                         }
                         else if (temp.RegisterCC > 0 && this.Register.Count == 0)
                         {
                             this.Execute.Pop();
                             this.ExecuteBox.Text = "";
-                            this.Register.Push(temp);
+                            PushRegister(temp);
                             RegisterText(temp);
                         }
                         else if (temp.ExecuteCC > 0)
@@ -288,11 +283,15 @@ namespace Project2_HT
 
                     UpdateAndDelay();
                 }
-                
-
+                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
+                }
 
             }
-            else if(i == 2)
+            else if(i == 2) //execute stall
             {
                 if (this.Register.Count > 0)
                 {
@@ -336,7 +335,7 @@ namespace Project2_HT
                 }
 
             }
-            else if(i == 3)
+            else if(i == 3) //memory stall
             {
                 if (this.Register.Count > 0)
                 {
@@ -345,7 +344,29 @@ namespace Project2_HT
                     UpdateAndDelay();
                 }
 
-                if(this.Execute.Count == 0 && this.Decode.Count == 1)
+                if(this.Execute.Count == 1)
+                {
+                    Instruction temp = this.Execute.Peek();
+                    if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                    {
+                        this.Execute.Pop();
+                        this.ExecuteBox.Text = "";
+
+                    }
+                    else if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC > 0)
+                    {
+                        this.Execute.Pop();
+                        PushRegister(temp);
+                        this.ExecuteBox.Text = "";
+                    }
+                    else if (temp.ExecuteCC > 0)
+                    {
+                        temp.ExecuteCC--;
+                    }
+                    UpdateAndDelay();
+
+                }
+                else if(this.Execute.Count == 0 && this.Decode.Count == 1)
                 {
                     Instruction temp = this.Decode.Peek();
                     if (temp.DecodeCC == 0)
@@ -361,26 +382,12 @@ namespace Project2_HT
                     UpdateAndDelay();
 
                 }
-                else if(this.Execute.Count == 1)
-                {
-                    Instruction temp = this.Execute.Peek();
-                    if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
-                    {
-                        this.Execute.Pop();
-                        this.ExecuteBox.Text = "";
-                    }
-                    else if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC > 0)
-                    {
-                        this.Execute.Pop();
-                        PushRegister(temp);
-                        this.ExecuteBox.Text = "";
-                    }
-                    else if (temp.ExecuteCC > 0)
-                    {
-                        temp.ExecuteCC--;
-                    }
-                    UpdateAndDelay();
 
+                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
                 }
 
             }
@@ -552,7 +559,7 @@ namespace Project2_HT
             {
                 hazardCount++;
                 label7.Text = hazardCount.ToString();
-                Task.Delay(1000).Wait();
+                Task.Delay(time).Wait();
                 usedRegisters.Clear();  //clear registers when no longer in use
                 CheckRegisters(i);
             }
@@ -588,7 +595,7 @@ namespace Project2_HT
         public void UpdateAndDelay()
         {
             Update();
-            Task.Delay(1500).Wait();
+            Task.Delay(time).Wait();
         }
 
         /**
