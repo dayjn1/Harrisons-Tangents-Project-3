@@ -35,28 +35,28 @@ namespace Project2_HT
         public bool writeBack;
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
-            new Instruction(0, "HALT", 1, 1, 1, 0, 0, false),
-            new Instruction(1, "LOAD", 1, 2, 1, 3, 1, true),
-            new Instruction(2, "STOR", 1, 2, 1, 3, 0, false),
-            new Instruction(3, "ADD", 1, 1, 1, 0, 1, true),
-            new Instruction(4, "ADDI", 1, 1, 1, 0, 1, true),
-            new Instruction(5, "SUB", 1, 1, 1, 0, 1, true),
-            new Instruction(6, "SUBI", 1, 1, 1, 0, 1, true),
-            new Instruction(7, "BR", 1, 1, 1, 0, 0,  false),
-            new Instruction(8, "BRLT", 1, 1, 1, 0, 0, false),
-            new Instruction(9, "BRLE", 1, 1, 1, 0, 0, false),
-            new Instruction(10, "BREQ", 1, 1, 1, 0, 0, false),
-            new Instruction(11, "BRNE", 1, 1, 1, 0, 0, false),
-            new Instruction(12, "BRGT", 1, 1, 1, 0, 0, false),
-            new Instruction(13, "BRGE", 1, 1, 1, 0, 0, false),
-            new Instruction(14, "AND", 1, 1, 1, 0, 1, true),
-            new Instruction(15, "OR", 1, 1, 1, 0, 1,  true),
-            new Instruction(16, "NOT", 1, 1, 1, 0, 1, true),
-            new Instruction(17, "NEG", 1, 1, 1, 0, 1, true),
-            new Instruction(18, "ASL", 1, 1, 1, 0, 1, true),
-            new Instruction(19, "ASR", 1, 1, 1, 0, 1, true),
-            new Instruction(20, "MOV", 1, 1, 1, 0, 1, true),
-            new Instruction(404, "INVALID", 1, 1, 0, 0, 0, false)
+            new Instruction(0, "HALT", 1, 1, 1, 0, 0),
+            new Instruction(1, "LOAD", 1, 2, 1, 3, 1),
+            new Instruction(2, "STOR", 1, 2, 1, 3, 0),
+            new Instruction(3, "ADD", 1, 1, 1, 0, 1),
+            new Instruction(4, "ADDI", 1, 1, 1, 0, 1),
+            new Instruction(5, "SUB", 1, 1, 1, 0, 1),
+            new Instruction(6, "SUBI", 1, 1, 1, 0, 1),
+            new Instruction(7, "BR", 1, 1, 1, 0, 0),
+            new Instruction(8, "BRLT", 1, 1, 1, 0, 0),
+            new Instruction(9, "BRLE", 1, 1, 1, 0, 0),
+            new Instruction(10, "BREQ", 1, 1, 1, 0, 0),
+            new Instruction(11, "BRNE", 1, 1, 1, 0, 0),
+            new Instruction(12, "BRGT", 1, 1, 1, 0, 0),
+            new Instruction(13, "BRGE", 1, 1, 1, 0, 0),
+            new Instruction(14, "AND", 1, 1, 1, 0, 1),
+            new Instruction(15, "OR", 1, 1, 1, 0, 1),
+            new Instruction(16, "NOT", 1, 1, 1, 0, 1),
+            new Instruction(17, "NEG", 1, 1, 1, 0, 1),
+            new Instruction(18, "ASL", 1, 1, 1, 0, 1),
+            new Instruction(19, "ASR", 1, 1, 1, 0, 1),
+            new Instruction(20, "MOV", 1, 1, 1, 0, 1),
+            new Instruction(404, "INVALID", 1, 1, 0, 0, 0)
         };
 
 
@@ -91,7 +91,7 @@ namespace Project2_HT
         * @param int - memory
         * @param int - register
         */
-        public Instruction(uint opcode, string mnemonic, int fetch, int decode, int execute, int memory, int register,Boolean writeBack)
+        public Instruction(uint opcode, string mnemonic, int fetch, int decode, int execute, int memory, int register)
         {
             this.OpCode = opcode;
             this.Mnemonic = mnemonic;
@@ -100,7 +100,11 @@ namespace Project2_HT
             this.ExecuteCC = execute;
             this.MemoryCC = memory;
             this.RegisterCC = register;
-            this.writeBack = writeBack;
+
+            if (this.RegisterCC == 1)
+                this.writeBack = true;
+            else
+                this.writeBack = false;
             
         }
 
