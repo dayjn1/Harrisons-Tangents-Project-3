@@ -635,6 +635,8 @@ namespace Project2_HT
 
             filewrite.Flush();
             filewrite.Close();
+            label8.Text = "Saved";
+
 
         }
     }
