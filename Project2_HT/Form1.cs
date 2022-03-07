@@ -33,6 +33,7 @@ namespace Project2_HT
     public partial class Tangents : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
+        List<Instruction> Save_Stats = new List<Instruction>();
         Stack<Instruction> Fetch = new Stack<Instruction>();                    // Creates the stacks for pipeline process -JND
         Stack<Instruction> Decode = new Stack<Instruction>();
         Stack<Instruction> Execute = new Stack<Instruction>();
@@ -85,6 +86,7 @@ namespace Project2_HT
                     if (valid)
                     {
                         Input_Instructions.Add(new Instruction(input));         // Creates instructions and adds them to list -JND
+                        Save_Stats.Add(new Instruction(input));
                     }
                     else
                         Console.WriteLine("Invalid parse");
@@ -332,7 +334,7 @@ namespace Project2_HT
         public void UpdateAndDelay()
         {
             Update();
-            Task.Delay(1000).Wait();
+            Task.Delay(500).Wait();
         }
 
         public void PushFetch(Instruction i)
@@ -446,5 +448,84 @@ namespace Project2_HT
             FetchBox.Text = i.Mnemonic;
         }
 
+        public static string dirParameter = AppDomain.CurrentDomain.BaseDirectory + @"\saveOut.txt";
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //OpenFileDialog SaveDlg = new OpenFileDialog();
+            //string fileN = SaveDlg.FileName;
+            FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write);
+            StreamWriter filewrite = new StreamWriter(fParameter);
+
+            filewrite.WriteLine(" Instruction | Fetch | Decode | Execute | Memory | WriteBack ");
+            filewrite.WriteLine("_____________________________________________________________");
+
+            int f, d, exe, m, w;
+            int fetch, decodeS, decodeE, executeS, executeE, memS, memE, writeB;
+            string decode, exec, memo;
+            int decodeStallE = -1, executeStallE = -1, memStallE = -1;
+
+            for (int i = 0; i < Save_Stats.Count; i++)
+            {
+                f = Save_Stats[i].FetchCC;
+                d = Save_Stats[i].DecodeCC;
+                exe = Save_Stats[i].ExecuteCC;
+                m = Save_Stats[i].MemoryCC;
+                w = Save_Stats[i].RegisterCC;
+
+                fetch = f + i;
+                decodeS = fetch + 1;
+                decodeE = d + fetch;
+                executeS = decodeE + 1;
+                executeE = exe + decodeE;
+                if (m > 0) { memS = executeE + 1; memE = m + i; } else { memS = 0; memE = 0; }
+                if (w > 0){ writeB = executeE + 1; } else { writeB = 0; }
+
+
+                if(decodeS == decodeE)
+                {
+                    decode = decodeS.ToString();
+                }
+                else
+                {
+                    decodeStallE = decodeE;
+                    decode = decodeS + " - " + decodeE;
+                }
+
+                if(executeS == executeE)
+                {
+                    exec = executeS.ToString();
+                }
+                else
+                {
+                    executeStallE = executeE;
+                    exec = executeS + " - " + executeE;
+                }
+
+                if(memS == memE)
+                {
+                    memo = memS.ToString();
+                }
+                else
+                {
+                    memStallE = memE;
+                    memo = memS + " - " + memE;
+                }
+                
+                
+                filewrite.WriteLine(Save_Stats[i].Mnemonic.PadLeft(10, ' ') + (fetch.ToString().PadLeft(16, ' ')) + 
+                                                             "          " + (decode) +
+                                                             "          " + (exec) +
+                                                             "          " + (memo) +
+                                                             "          " + (writeB) );
+
+                //filewrite.Write("        " + (f + i));
+
+
+            }
+
+            filewrite.Flush();
+            filewrite.Close();
+
+        }
     }
 }
