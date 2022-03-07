@@ -133,7 +133,7 @@ namespace Project2_HT
             this.OpCode = 404;
             this.Mnemonic = "INVALID";
             this.FetchCC = 1;
-            this.DecodeCC = 1;
+            this.DecodeCC = 0;
             this.ExecuteCC = 0;
             this.MemoryCC = 0;
             this.RegisterCC = 0;
