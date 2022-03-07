@@ -456,8 +456,8 @@ namespace Project2_HT
             FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write);
             StreamWriter filewrite = new StreamWriter(fParameter);
 
-            filewrite.WriteLine(" Instruction | Fetch | Decode | Execute | Memory | WriteBack ");
-            filewrite.WriteLine("_____________________________________________________________");
+            filewrite.WriteLine("   Instruction    |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack ");
+            filewrite.WriteLine("______________________________________________________________________");
 
             int f, d, exe, m, w;
             int fetch = 0, 
@@ -469,9 +469,10 @@ namespace Project2_HT
                 memE = 0, 
                 writeB = 0;
             //int lastHit = 0;
+            bool memUsedBefore = false;
             bool decodeStall = false;
 
-            string decode, exec, memo;
+            string decode, exec, memo = "", stringWB;
             //int decodeStallE = -1, executeStallE = -1, memStallE = -1;
 
             for (int i = 0; i < Save_Stats.Count; i++)
@@ -548,46 +549,42 @@ namespace Project2_HT
                 
 
                 //memory
-                if (m != 0)
+                if (m != 0) //if we need to access memory
                 {
-                    memS = executeE + 1;
-                    memE = executeE + 1; //assume one cycle (probably not needed, but included to cover all bases)
-
-                    if (m > 1)
-                    {
-                        memE = (m - 1) + memS;
-                        memo = memS + " - " + memE;
-                    }
-                    else
-                        memo = memS.ToString();
-                    /*if (lastHit == 0)
+                    if (i == 0)
                     {
                         memS = executeE + 1;
-                        memE = executeE + 1; //assume one cycle (probably not needed, but included to cover all bases)
-
-                        if (m > 1)
+                        memE = (m - 1) + memS;
+                        memo = memS + " - " + memE;
+                        memUsedBefore = true;
+                    }
+                    else
+                    {
+                        if (memUsedBefore)
                         {
+                            if(memE < executeE)
+                            {
+                                memS = executeE + 1;
+                                memE = (m - 1) + memS;
+                                memo = memS + " - " + memE;
+                                memUsedBefore = true;
+                            }
+                            else
+                            {
+                                memS = memE + 1;
+                                memE = (m - 1) + memS;
+                                memo = memS + " - " + memE;
+                                memUsedBefore = true;
+                            }
+                        }
+                        else
+                        {
+                            memS = executeE + 1;
                             memE = (m - 1) + memS;
                             memo = memS + " - " + memE;
+                            memUsedBefore = true;
                         }
-                        else
-                            memo = memS.ToString();
                     }
-                    else if( lastHit == (i - 1)) //calculate mem start from last mem use if one right before -- may have an issue here (mem = 3 cycles)
-                    {
-                        memS = memE + 1;
-                        memE += 1; //assume one cycle to access memory (stupid ik, but again... bases)
-
-                        if (m > 1)
-                        {
-                            memE = (m - 1) + memS; //update if more than one
-                            memo = memS + " - " + memE;
-                        }
-                        else
-                            memo = memS.ToString();
-                    }
-
-                    lastHit = i;*/
                 }
                 else
                     memo = " ";
@@ -598,21 +595,28 @@ namespace Project2_HT
                 if (w != 0)
                 {
                     if (m != 0)
+                    {
                         writeB = memE + 1;
+                        stringWB = writeB.ToString();
+                    }
                     else
+                    {
                         writeB = executeE + 1; //increment counter from execute stage if memory was not touched
+                        stringWB = writeB.ToString();
+                    }
                 }
                 else
                 {
-                    writeB = 0;
+                    stringWB = " ";
                 }
 
 
-                filewrite.WriteLine(Save_Stats[i].Mnemonic.PadLeft(10, ' ') + (fetch.ToString().PadLeft(16, ' ')) +
-                                                             "          " + (decode) +
-                                                             "          " + (exec) +
-                                                             "          " + (memo) +
-                                                             "          " + (writeB));
+                filewrite.WriteLine("     " + Save_Stats[i].Mnemonic.PadRight(5, ' ') + "              " + 
+                                   (fetch) + "                 " +
+                                   (decode.PadRight(9, ' ')) + "              " +
+                                   (exec) + "               " +
+                                   (memo.PadRight(9, ' ')) + "               " +
+                                   (stringWB) + "          ");
 
 
 
