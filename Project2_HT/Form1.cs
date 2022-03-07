@@ -42,6 +42,8 @@ namespace Project2_HT
         int cycleCount = 0;                                                     // Counts the number of cycles
         List<String> usedRegisters = new List<string>();
         int hazardCount = 0;
+        int SimulationCount;
+        int time = 500;
 
         /**
         * Method Name: Tangents()
@@ -128,6 +130,8 @@ namespace Project2_HT
         {
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
+                CountUpdate();
+                UpdateAndDelay();
 
                 if (this.Register.Count > 0)
                 {
@@ -152,14 +156,17 @@ namespace Project2_HT
 
                 if (this.Fetch.Count > 0)
                 {
+
                     ProcessDecode();
                 }
 
-                PushFetch(this.Input_Instructions[i]);
+                if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                }
 
-                CountUpdate();
-                UpdateAndDelay();
-
+                UpdateAndDelay();          
             }
 
             // clean up pipeline
@@ -174,6 +181,7 @@ namespace Project2_HT
 
                 if (this.Memory.Count > 0)
                 {
+                    
                     ProcessRegister();
                 }
 
@@ -192,8 +200,191 @@ namespace Project2_HT
                     ProcessDecode();
                 }
 
-                cycleLabel.Text = cycleCount.ToString();
-                UpdateAndDelay();
+            }
+        }
+
+        //public void 
+
+
+        /**
+        * Method Name: KeepGoing(int)
+        * Method Purpose: Process a single cycle while a stack is stalling
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        * @param i - used to determine which stack is stalling
+        */
+        public void KeepGoing(int i)
+        { 
+            if(i == 1) //decode stall
+            {
+                if (this.Register.Count > 0)    // register for one cycle
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if (this.Memory.Count > 0)      // memory for one cycle
+                {
+                    Instruction temp = this.Memory.Peek();
+
+                    if (temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        this.MemoryBox.Text = "";
+
+                        if (temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                        }
+                    }
+                    else if (temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--;
+                    }
+                    UpdateAndDelay();
+                }
+
+                if (this.Execute.Count > 0)     // Execute for one cycle
+                {
+                    Instruction temp = this.Execute.Peek();
+
+                    if (temp.ExecuteCC == 0)
+                    {
+                        if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                        {
+                            this.Execute.Pop();
+                        }
+                        else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            PushMemory(temp);
+                            MemoryText(temp);
+                        }
+                        else if (temp.RegisterCC > 0 && this.Register.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            this.ExecuteBox.Text = "";
+                            PushRegister(temp);
+                            RegisterText(temp);
+                        }
+                        else if (temp.ExecuteCC > 0)
+                            temp.ExecuteCC--;
+                    }
+
+                    UpdateAndDelay();
+                }
+
+                                        // fetch for one cycle
+                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
+                }
+
+            }
+            else if(i == 2) //execute stall
+            {
+                if (this.Register.Count > 0)        // register for one cycle
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if (this.Memory.Count > 0)          // memory for one cycle
+                {
+                    Instruction temp = this.Memory.Peek();
+
+                    if (temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        this.MemoryBox.Text = "";
+
+                        if (temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                            RegisterText(temp);
+                        }
+                    }
+                    else if(temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--;
+                    }
+                    UpdateAndDelay();
+                }
+                if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
+                {
+                    Instruction temp = this.Fetch.Pop();
+                    PushDecode(temp);
+                    UpdateAndDelay();
+                }
+                if (this.Fetch.Count == 0 && (this.SimulationCount) < this.Input_Instructions.Count)
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
+                }
+
+            }
+            else if(i == 3) //memory stall
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if(this.Execute.Count == 1)
+                {
+                    Instruction temp = this.Execute.Peek();
+                    if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                    {
+                        this.Execute.Pop();
+                        this.ExecuteBox.Text = "";
+
+                    }
+                    else if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC > 0)
+                    {
+                        this.Execute.Pop();
+                        PushRegister(temp);
+                        this.ExecuteBox.Text = "";
+                    }
+                    else if (temp.ExecuteCC > 0)
+                    {
+                        temp.ExecuteCC--;
+                    }
+                    UpdateAndDelay();
+
+                }
+                else if(this.Execute.Count == 0 && this.Decode.Count == 1)
+                {
+                    Instruction temp = this.Decode.Peek();
+                    if (temp.DecodeCC == 0)
+                    {
+                        this.Decode.Pop();
+                        this.DecodeBox.Text = "";
+                        PushExecute(temp);
+                    }
+                    else
+                    {
+                        temp.DecodeCC--;
+                    }
+                    UpdateAndDelay();
+
+                }
+
+                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
+                }
 
             }
         }
@@ -319,7 +510,7 @@ namespace Project2_HT
             {
                 hazardCount++;
                 label7.Text = hazardCount.ToString();
-                Task.Delay(1000).Wait();
+                Task.Delay(time).Wait();
                 usedRegisters.Clear();  //clear registers when no longer in use
                 CheckRegisters(i);
             }
@@ -334,7 +525,7 @@ namespace Project2_HT
         public void UpdateAndDelay()
         {
             Update();
-            Task.Delay(500).Wait();
+            Task.Delay(time).Wait();
         }
 
         public void PushFetch(Instruction i)
