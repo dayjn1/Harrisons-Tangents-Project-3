@@ -3,7 +3,7 @@
 // Project name:                Project 2 - Harrison's Tangents
 // ---------------------------------------------------------------------------
 // Creator’s name:              Janine Day
-// Edited By:                   Janine Day, 
+// Edited By:                   Janine Day, Jason Middlebrook, 
 // Course-Section:              CSCI-4717
 // Creation Date:               02/17/2022
 // ---------------------------------------------------------------------------
@@ -46,12 +46,12 @@ namespace Project2_HT
             new Instruction(5, "SUB", 1, 1, 1, 0, 1, true, true, true, true),
             new Instruction(6, "SUBI", 1, 1, 1, 0, 1, true, true, true, true),
             new Instruction(7, "BR", 1, 1, 1, 0, 0,  false, true, false, false),
-            new Instruction(8, "BRLT", 1, 1, 1, 0, 0, false, true, true, true),
-            new Instruction(9, "BRLE", 1, 1, 1, 0, 0, false, true, true, true),
-            new Instruction(10, "BREQ", 1, 1, 1, 0, 0, false, true, true, true),
-            new Instruction(11, "BRNE", 1, 1, 1, 0, 0, false, true, true, true),
-            new Instruction(12, "BRGT", 1, 1, 1, 0, 0, false, true, true, true),
-            new Instruction(13, "BRGE", 1, 1, 1, 0, 0, false, true, true, true),
+            new Instruction(8, "BRLT", 1, 1, 1, 0, 0, false, true, false, false),
+            new Instruction(9, "BRLE", 1, 1, 1, 0, 0, false, true, false, false),
+            new Instruction(10, "BREQ", 1, 1, 1, 0, 0, false, true, false, false),
+            new Instruction(11, "BRNE", 1, 1, 1, 0, 0, false, true, false, false),
+            new Instruction(12, "BRGT", 1, 1, 1, 0, 0, false, true, false, false),
+            new Instruction(13, "BRGE", 1, 1, 1, 0, 0, false, true, false, false),
             new Instruction(14, "AND", 1, 1, 1, 0, 1, true, true, true, true),
             new Instruction(15, "OR", 1, 1, 1, 0, 1,  true, true, true, true),
             new Instruction(16, "NOT", 1, 1, 1, 0, 1, true, true, false, false),
@@ -131,6 +131,9 @@ namespace Project2_HT
                     this.ExecuteCC = InstructionSet[i].ExecuteCC;
                     this.MemoryCC = InstructionSet[i].MemoryCC;
                     this.RegisterCC = InstructionSet[i].RegisterCC;
+                    this.useRD = InstructionSet[i].useRD;
+                    this.useR1 = InstructionSet[i].useR1;
+                    this.useR2 = InstructionSet[i].useR2;
 
                     return;
                 }
@@ -143,6 +146,9 @@ namespace Project2_HT
             this.ExecuteCC = 0;
             this.MemoryCC = 0;
             this.RegisterCC = 0;
+            this.useRD = false;
+            this.useR1 = false;
+            this.useR2 = false;
         }
 
 
@@ -160,25 +166,34 @@ namespace Project2_HT
         public void Disassemble(int input)
         {
             //separate the opcode
-            this.OpCode = (uint)input & 0xFF000000;   //must be unsigned so that r shift (>>) is logical, not arithmetic -JM
+            this.OpCode = (uint)input & 0xFF000000;                 //must be unsigned so that r shift (>>) is logical, not arithmetic -JM
             this.OpCode >>= 24;
 
             this.Mnemonic = "";
 
             FindIS();
 
+            // Sets Destination reg, reg 1, and reg 2 if the instruction uses the register -JM
+            if (this.useRD == true)
+            {
+                uint rd = (uint)input & 0x00F00000;
+                rd >>= 20;
+                this.DestReg = "R" + rd.ToString("X");              // Uses shifts to isolate certain bits in instruction hex - JND
+            }
+            
+            if (this.useR1 == true)
+            {
+                uint reg1 = (uint)input & 0x000F0000;
+                reg1 >>= 16;
+                this.Reg1 = "R" + reg1.ToString("X");
+            }
 
-            uint rd = (uint)input & 0x00F00000;
-            rd >>= 20;
-            this.DestReg = "R" + rd.ToString("X");            // Uses shifts to isolate certain bits in instruction hex - JND
-                                                              // Sets Destination reg, reg 1, and reg 2
-            uint reg1 = (uint)input & 0x000F0000;
-            reg1 >>= 16;
-            this.Reg1 = "R" + reg1.ToString("X");
-
-            uint reg2 = (uint)input & 0x0000F000;
-            reg2 >>= 12;
-            this.Reg2 = "R" + reg2.ToString("X");
+            if (this.useR2 == true)
+            {
+                uint reg2 = (uint)input & 0x0000F000;
+                reg2 >>= 12;
+                this.Reg2 = "R" + reg2.ToString("X");
+            }
 
         }//end disassemble
 
