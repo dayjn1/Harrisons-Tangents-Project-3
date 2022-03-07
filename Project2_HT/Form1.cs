@@ -619,57 +619,19 @@ namespace Project2_HT
                                    (stringWB) + "          ");
 
 
-
-
-                /*decodeS = fetch + 1;
-                decodeE = d + fetch;
-                executeS = decodeE + 1;
-                executeE = exe + decodeE;
-                if (m > 0) { memS = executeE + 1; memE = m + i; } else { memS = 0; memE = 0; }
-                if (w > 0){ writeB = executeE + 1; } else { writeB = 0; }
-
-
-                if(decodeS == decodeE)
-                {
-                    decode = decodeS.ToString();
-                }
-                else
-                {
-                    decodeStallE = decodeE;
-                    decode = decodeS + " - " + decodeE;
-                }
-
-                if(executeS == executeE)
-                {
-                    exec = executeS.ToString();
-                }
-                else
-                {
-                    executeStallE = executeE;
-                    exec = executeS + " - " + executeE;
-                }
-
-                if(memS == memE)
-                {
-                    memo = memS.ToString();
-                }
-                else
-                {
-                    memStallE = memE;
-                    memo = memS + " - " + memE;
-                }
                 
                 
-                filewrite.WriteLine(Save_Stats[i].Mnemonic.PadLeft(10, ' ') + (fetch.ToString().PadLeft(16, ' ')) + 
-                                                             "          " + (decode) +
-                                                             "          " + (exec) +
-                                                             "          " + (memo) +
-                                                             "          " + (writeB) );
-
-                //filewrite.Write("        " + (f + i));*/
 
 
-            }
+            }//end for loop for printing Instruction log
+
+
+            filewrite.WriteLine();
+            filewrite.WriteLine();
+            filewrite.WriteLine("________________________________________________________________");
+            filewrite.WriteLine("Cycle count: " + cycleCount);
+            filewrite.WriteLine("Hazard count: " + hazardCount);
+
 
             filewrite.Flush();
             filewrite.Close();
