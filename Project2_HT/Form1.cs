@@ -235,11 +235,9 @@ namespace Project2_HT
             {
                 PushExecute(i);
 
-<<<<<<< Updated upstream
-                CountUpdate();
-=======
+
+
                // CountUpdate();
->>>>>>> Stashed changes
                 UpdateAndDelay();
 
 
