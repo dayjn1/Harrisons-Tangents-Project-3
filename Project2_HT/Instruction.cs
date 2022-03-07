@@ -103,6 +103,12 @@ namespace Project2_HT
             this.ExecuteCC = execute;
             this.MemoryCC = memory;
             this.RegisterCC = register;
+
+            if (this.RegisterCC == 1)
+                this.writeBack = true;
+            else
+                this.writeBack = false;
+
             this.writeBack = writeBack;
             this.useRD = useRD;
             this.useR1 = useR1;
@@ -171,8 +177,13 @@ namespace Project2_HT
 
             this.Mnemonic = "";
 
-            FindIS();
+            if (this.OpCode >= 128) //check if it's a floating point instruction-AM 
+            {
+                DisassembleFloat(input);
+                return;
+            }
 
+            FindIS();
             // Sets Destination reg, reg 1, and reg 2 if the instruction uses the register -JM
             if (this.useRD == true)
             {
@@ -196,6 +207,26 @@ namespace Project2_HT
             }
 
         }//end disassemble
+
+        /// <summary>In the event that the instruction is a float, send it to its own method and then return to caller
+        /// Avery Marlow</summary>
+        /// <param name="input">FP instruction</param>
+        public void DisassembleFloat(int input)
+        {
+            FindIS();
+            //reuse code but slap an F on it - AM
+            uint rd = (uint)input & 0x00F00000;
+            rd >>= 20;
+            this.DestReg = "FR" + rd.ToString("X");            // Uses shifts to isolate certain bits in instruction hex - JND
+                                                               // Sets Destination reg, reg 1, and reg 2
+            uint reg1 = (uint)input & 0x000F0000;
+            reg1 >>= 16;
+            this.Reg1 = "FR" + reg1.ToString("X");
+
+            uint reg2 = (uint)input & 0x0000F000;
+            reg2 >>= 12;
+            this.Reg2 = "FR" + reg2.ToString("X");
+        }
 
     }
 }
