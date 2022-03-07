@@ -38,4 +38,3 @@ C:\Users\Avery\Documents\GitHub\Harrisons-Tangents-Project-2\Project2_HT\obj\Deb
 C:\Users\Avery\Documents\GitHub\Harrisons-Tangents-Project-2\Project2_HT\obj\Debug\Project2_HT.csproj.CoreCompileInputs.cache
 C:\Users\Avery\Documents\GitHub\Harrisons-Tangents-Project-2\Project2_HT\obj\Debug\Project2_HT.exe
 C:\Users\Avery\Documents\GitHub\Harrisons-Tangents-Project-2\Project2_HT\obj\Debug\Project2_HT.pdb
-C:\Users\janin\OneDrive\Documents\GitHub\Project2_HT\obj\Debug\Project2_HT.Tangents.resources
