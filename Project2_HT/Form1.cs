@@ -460,9 +460,19 @@ namespace Project2_HT
             filewrite.WriteLine("_____________________________________________________________");
 
             int f, d, exe, m, w;
-            int fetch, decodeS, decodeE, executeS, executeE, memS, memE, writeB;
+            int fetch = 0, 
+                decodeS = 0, 
+                decodeE = 0, 
+                executeS = 0, 
+                executeE = 0, 
+                memS = 0, 
+                memE = 0, 
+                writeB = 0;
+            //int lastHit = 0;
+            bool decodeStall = false;
+
             string decode, exec, memo;
-            int decodeStallE = -1, executeStallE = -1, memStallE = -1;
+            //int decodeStallE = -1, executeStallE = -1, memStallE = -1;
 
             for (int i = 0; i < Save_Stats.Count; i++)
             {
@@ -472,8 +482,142 @@ namespace Project2_HT
                 m = Save_Stats[i].MemoryCC;
                 w = Save_Stats[i].RegisterCC;
 
+                //in every case, fetch is calculated the same
                 fetch = f + i;
-                decodeS = fetch + 1;
+
+                //decode
+                if(i == 0)
+                {
+                    decodeS = fetch + 1;
+                    decodeE = fetch + d;
+
+                    if (d > 1)
+                    {
+                        decode = decodeS + " - " + decodeE;
+                        decodeStall = true;
+                    }
+                    else
+                        decode = decodeS.ToString();
+                }
+                else
+                {
+                    decodeS = decodeE + 1;  //decodeE should still contain the value from the prev iteration
+                    decodeE += 1; //assume one cycle to decode
+
+                    if (d > 1)
+                    {
+                        decodeE = (d - 1) + decodeS; //update if actually takes more than one cycle
+                        decode = decodeS + " - " + decodeE;
+                        decodeStall = true;
+                    }
+                    else
+                    {
+                        decode = decodeS.ToString();
+                    }
+                }
+
+                //execute
+                if (i == 0 || decodeStall == true)
+                {
+                    executeS = decodeE + 1;
+                    executeE = decodeE + 1; //assume one cycle
+
+                    if (exe > 1)
+                    {
+                        executeE = (exe - 1) + executeS; //update if more than one
+                        exec = executeS + " - " + executeE;
+                    }
+                    else
+                        exec = executeS.ToString();
+
+                    decodeStall = false; //reset for next decode calculation
+                }
+                else
+                {
+                    executeS = executeE + 1; //can safely calc from prev execute end cycle
+                    executeE += 1; //assume one cycle to execute
+
+                    if (exe > 1)
+                    {
+                        executeE = (exe - 1) + executeS; //update if more than one
+                        exec = executeS + " - " + executeE;
+                    }
+                    else
+                        exec = executeS.ToString();
+                }
+                
+
+                //memory
+                if (m != 0)
+                {
+                    memS = executeE + 1;
+                    memE = executeE + 1; //assume one cycle (probably not needed, but included to cover all bases)
+
+                    if (m > 1)
+                    {
+                        memE = (m - 1) + memS;
+                        memo = memS + " - " + memE;
+                    }
+                    else
+                        memo = memS.ToString();
+                    /*if (lastHit == 0)
+                    {
+                        memS = executeE + 1;
+                        memE = executeE + 1; //assume one cycle (probably not needed, but included to cover all bases)
+
+                        if (m > 1)
+                        {
+                            memE = (m - 1) + memS;
+                            memo = memS + " - " + memE;
+                        }
+                        else
+                            memo = memS.ToString();
+                    }
+                    else if( lastHit == (i - 1)) //calculate mem start from last mem use if one right before -- may have an issue here (mem = 3 cycles)
+                    {
+                        memS = memE + 1;
+                        memE += 1; //assume one cycle to access memory (stupid ik, but again... bases)
+
+                        if (m > 1)
+                        {
+                            memE = (m - 1) + memS; //update if more than one
+                            memo = memS + " - " + memE;
+                        }
+                        else
+                            memo = memS.ToString();
+                    }
+
+                    lastHit = i;*/
+                }
+                else
+                    memo = " ";
+
+                //^end memory section
+
+                //register writeback -- assuming never takes longer than one cycle
+                if (w != 0)
+                {
+                    if (m != 0)
+                        writeB = memE + 1;
+                    else
+                        writeB = executeE + 1; //increment counter from execute stage if memory was not touched
+                }
+                else
+                {
+                    writeB = 0;
+                }
+
+
+                filewrite.WriteLine(Save_Stats[i].Mnemonic.PadLeft(10, ' ') + (fetch.ToString().PadLeft(16, ' ')) +
+                                                             "          " + (decode) +
+                                                             "          " + (exec) +
+                                                             "          " + (memo) +
+                                                             "          " + (writeB));
+
+
+
+
+                /*decodeS = fetch + 1;
                 decodeE = d + fetch;
                 executeS = decodeE + 1;
                 executeE = exe + decodeE;
@@ -518,7 +662,7 @@ namespace Project2_HT
                                                              "          " + (memo) +
                                                              "          " + (writeB) );
 
-                //filewrite.Write("        " + (f + i));
+                //filewrite.Write("        " + (f + i));*/
 
 
             }
