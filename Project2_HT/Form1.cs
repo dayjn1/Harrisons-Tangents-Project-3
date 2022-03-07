@@ -91,6 +91,10 @@ namespace Project2_HT
 
                 }//end while
                 label8.Text = "Loaded";
+                cycleCount = 0;
+                hazardCount = 0;
+                cycleLabel.Text = cycleCount.ToString();
+                label7.Text = hazardCount.ToString();
             }//end if
 
         }
@@ -122,10 +126,14 @@ namespace Project2_HT
         * @Janine Day
         * <hr>
         */
+
         public void Simulation()
         {
+
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
+                CountUpdate();
+                UpdateAndDelay();
 
                 if (this.Register.Count > 0)
                 {
@@ -155,15 +163,16 @@ namespace Project2_HT
 
                 PushFetch(this.Input_Instructions[i]);
 
-                CountUpdate();
-                UpdateAndDelay();
+
 
             }
 
             // clean up pipeline
-
+            
             while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
             {
+                CountUpdate();
+                UpdateAndDelay();
                 if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
@@ -189,9 +198,8 @@ namespace Project2_HT
                 {
                     ProcessDecode();
                 }
+                
 
-                cycleLabel.Text = cycleCount.ToString();
-                UpdateAndDelay();
 
             }
         }
@@ -227,7 +235,11 @@ namespace Project2_HT
             {
                 PushExecute(i);
 
+<<<<<<< Updated upstream
                 CountUpdate();
+=======
+               // CountUpdate();
+>>>>>>> Stashed changes
                 UpdateAndDelay();
 
 
