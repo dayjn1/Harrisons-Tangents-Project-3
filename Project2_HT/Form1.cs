@@ -33,6 +33,7 @@ namespace Project2_HT
     public partial class Tangents : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
+        List<Instruction> Save_Stats = new List<Instruction>();
         Stack<Instruction> Fetch = new Stack<Instruction>();                    // Creates the stacks for pipeline process -JND
         Stack<Instruction> Decode = new Stack<Instruction>();
         Stack<Instruction> Execute = new Stack<Instruction>();
@@ -87,6 +88,7 @@ namespace Project2_HT
                     if (valid)
                     {
                         Input_Instructions.Add(new Instruction(input));         // Creates instructions and adds them to list -JND
+                        Save_Stats.Add(new Instruction(input));
                     }
                     else
                         Console.WriteLine("Invalid parse");
@@ -126,7 +128,7 @@ namespace Project2_HT
         */
         public void Simulation()
         {
-            while(this.SimulationCount < this.Input_Instructions.Count)
+            while (this.SimulationCount < this.Input_Instructions.Count)
             {
                 CountUpdate();
                 UpdateAndDelay();
@@ -164,14 +166,14 @@ namespace Project2_HT
                     this.SimulationCount++;
                 }
 
-                UpdateAndDelay();          
+                UpdateAndDelay();
             }
 
             // clean up pipeline
 
             while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
             {
-                
+
                 if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
@@ -185,7 +187,7 @@ namespace Project2_HT
 
                 if (this.Memory.Count > 0)
                 {
-                    
+
                     ProcessRegister();
                 }
 
@@ -221,8 +223,8 @@ namespace Project2_HT
         * @param i - used to determine which stack is stalling
         */
         public void KeepGoing(int i)
-        { 
-            if(i == 1) //decode stall
+        {
+            if (i == 1) //decode stall
             {
                 if (this.Register.Count > 0)    // register for one cycle
                 {
@@ -282,7 +284,7 @@ namespace Project2_HT
                     UpdateAndDelay();
                 }
 
-                                        // fetch for one cycle
+                // fetch for one cycle
                 if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
                 {
                     PushFetch(this.Input_Instructions[this.SimulationCount]);
@@ -291,7 +293,7 @@ namespace Project2_HT
                 }
 
             }
-            else if(i == 2) //execute stall
+            else if (i == 2) //execute stall
             {
                 if (this.Register.Count > 0)        // register for one cycle
                 {
@@ -315,7 +317,7 @@ namespace Project2_HT
                             RegisterText(temp);
                         }
                     }
-                    else if(temp.MemoryCC > 0)
+                    else if (temp.MemoryCC > 0)
                     {
                         temp.MemoryCC--;
                     }
@@ -335,7 +337,7 @@ namespace Project2_HT
                 }
 
             }
-            else if(i == 3) //memory stall
+            else if (i == 3) //memory stall
             {
                 if (this.Register.Count > 0)
                 {
@@ -344,7 +346,7 @@ namespace Project2_HT
                     UpdateAndDelay();
                 }
 
-                if(this.Execute.Count == 1)
+                if (this.Execute.Count == 1)
                 {
                     Instruction temp = this.Execute.Peek();
                     if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
@@ -366,7 +368,7 @@ namespace Project2_HT
                     UpdateAndDelay();
 
                 }
-                else if(this.Execute.Count == 0 && this.Decode.Count == 1)
+                else if (this.Execute.Count == 0 && this.Decode.Count == 1)
                 {
                     Instruction temp = this.Decode.Peek();
                     if (temp.DecodeCC == 0)
@@ -392,7 +394,7 @@ namespace Project2_HT
 
             }
 
-        
+
         }
 
 
@@ -424,7 +426,7 @@ namespace Project2_HT
 
                     KeepGoing(1);
                     CountUpdate();
-                    UpdateAndDelay();             
+                    UpdateAndDelay();
                 }
             }
         }
@@ -493,7 +495,7 @@ namespace Project2_HT
                     UpdateAndDelay();
                 }
             }
-            else if(i.RegisterCC != 0)
+            else if (i.RegisterCC != 0)
             {
                 PushRegister(i);
 
@@ -689,7 +691,7 @@ namespace Project2_HT
         * Method Purpose: Updates RegisterText content
         *
         * <hr>
-        * Date created: 03/01/2022
+        * Date created: 02/17/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -704,7 +706,7 @@ namespace Project2_HT
         * Method Purpose: Updates MemoryText content
         *
         * <hr>
-        * Date created: 03/01/2022
+        * Date created: 02/17/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -719,7 +721,7 @@ namespace Project2_HT
         * Method Purpose: Updates ExecuteText content
         *
         * <hr>
-        * Date created: 03/01/2022
+        * Date created: 02/17/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -734,7 +736,7 @@ namespace Project2_HT
         * Method Purpose: Updates DecodeText content
         *
         * <hr>
-        * Date created: 03/01/2022
+        * Date created: 02/17/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -749,7 +751,7 @@ namespace Project2_HT
         * Method Purpose: Updates FetchText content
         *
         * <hr>
-        * Date created: 03/01/2022
+        * Date created: 02/17/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -759,5 +761,196 @@ namespace Project2_HT
             FetchBox.Text = i.Mnemonic;
         }
 
+        public static string dirParameter = AppDomain.CurrentDomain.BaseDirectory + @"\saveOut.txt";
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //OpenFileDialog SaveDlg = new OpenFileDialog();
+            //string fileN = SaveDlg.FileName;
+            FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write);
+            StreamWriter filewrite = new StreamWriter(fParameter);
+
+            filewrite.WriteLine("   Instruction    |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack ");
+            filewrite.WriteLine("______________________________________________________________________");
+
+            int f, d, exe, m, w;
+            int fetch = 0, 
+                decodeS = 0, 
+                decodeE = 0, 
+                executeS = 0, 
+                executeE = 0, 
+                memS = 0, 
+                memE = 0, 
+                writeB = 0;
+            //int lastHit = 0;
+            bool memUsedBefore = false;
+            bool decodeStall = false;
+
+            string decode, exec, memo = "", stringWB;
+            //int decodeStallE = -1, executeStallE = -1, memStallE = -1;
+
+            for (int i = 0; i < Save_Stats.Count; i++)
+            {
+                f = Save_Stats[i].FetchCC;
+                d = Save_Stats[i].DecodeCC;
+                exe = Save_Stats[i].ExecuteCC;
+                m = Save_Stats[i].MemoryCC;
+                w = Save_Stats[i].RegisterCC;
+
+                //in every case, fetch is calculated the same
+                fetch = f + i;
+
+                //decode
+                if(i == 0)
+                {
+                    decodeS = fetch + 1;
+                    decodeE = fetch + d;
+
+                    if (d > 1)
+                    {
+                        decode = decodeS + " - " + decodeE;
+                        decodeStall = true;
+                    }
+                    else
+                        decode = decodeS.ToString();
+                }
+                else
+                {
+                    decodeS = decodeE + 1;  //decodeE should still contain the value from the prev iteration
+                    decodeE += 1; //assume one cycle to decode
+
+                    if (d > 1)
+                    {
+                        decodeE = (d - 1) + decodeS; //update if actually takes more than one cycle
+                        decode = decodeS + " - " + decodeE;
+                        decodeStall = true;
+                    }
+                    else
+                    {
+                        decode = decodeS.ToString();
+                    }
+                }
+
+                //execute
+                if (i == 0 || decodeStall == true)
+                {
+                    executeS = decodeE + 1;
+                    executeE = decodeE + 1; //assume one cycle
+
+                    if (exe > 1)
+                    {
+                        executeE = (exe - 1) + executeS; //update if more than one
+                        exec = executeS + " - " + executeE;
+                    }
+                    else
+                        exec = executeS.ToString();
+
+                    decodeStall = false; //reset for next decode calculation
+                }
+                else
+                {
+                    executeS = executeE + 1; //can safely calc from prev execute end cycle
+                    executeE += 1; //assume one cycle to execute
+
+                    if (exe > 1)
+                    {
+                        executeE = (exe - 1) + executeS; //update if more than one
+                        exec = executeS + " - " + executeE;
+                    }
+                    else
+                        exec = executeS.ToString();
+                }
+                
+
+                //memory
+                if (m != 0) //if we need to access memory
+                {
+                    if (i == 0)
+                    {
+                        memS = executeE + 1;
+                        memE = (m - 1) + memS;
+                        memo = memS + " - " + memE;
+                        memUsedBefore = true;
+                    }
+                    else
+                    {
+                        if (memUsedBefore)
+                        {
+                            if(memE < executeE)
+                            {
+                                memS = executeE + 1;
+                                memE = (m - 1) + memS;
+                                memo = memS + " - " + memE;
+                                memUsedBefore = true;
+                            }
+                            else
+                            {
+                                memS = memE + 1;
+                                memE = (m - 1) + memS;
+                                memo = memS + " - " + memE;
+                                memUsedBefore = true;
+                            }
+                        }
+                        else
+                        {
+                            memS = executeE + 1;
+                            memE = (m - 1) + memS;
+                            memo = memS + " - " + memE;
+                            memUsedBefore = true;
+                        }
+                    }
+                }
+                else
+                    memo = " ";
+
+                //^end memory section
+
+                //register writeback -- assuming never takes longer than one cycle
+                if (w != 0)
+                {
+                    if (m != 0)
+                    {
+                        writeB = memE + 1;
+                        stringWB = writeB.ToString();
+                    }
+                    else
+                    {
+                        writeB = executeE + 1; //increment counter from execute stage if memory was not touched
+                        stringWB = writeB.ToString();
+                    }
+                }
+                else
+                {
+                    stringWB = " ";
+                }
+
+
+                filewrite.WriteLine("     " + Save_Stats[i].Mnemonic.PadRight(5, ' ') + "              " + 
+                                   (fetch) + "                 " +
+                                   (decode.PadRight(9, ' ')) + "              " +
+                                   (exec) + "               " +
+                                   (memo.PadRight(9, ' ')) + "               " +
+                                   (stringWB) + "          ");
+
+
+                
+                
+
+
+            }//end for loop for printing Instruction log
+
+
+            filewrite.WriteLine();
+            filewrite.WriteLine();
+            filewrite.WriteLine("________________________________________________________________");
+            filewrite.WriteLine("Cycle count: " + cycleCount);
+            filewrite.WriteLine("Hazard count: " + hazardCount);
+
+
+            filewrite.Flush();
+            filewrite.Close();
+            label8.Text = "Saved";
+
+
+        }
     }
 }
