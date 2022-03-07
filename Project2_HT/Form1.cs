@@ -122,7 +122,7 @@ namespace Project2_HT
         */
         public void Simulation()
         {
-            for (this.SimulationCount = 0; this.SimulationCount < this.Input_Instructions.Count; this.SimulationCount++)
+            while(this.SimulationCount < this.Input_Instructions.Count)
             {
                 CountUpdate();
                 //UpdateAndDelay();
@@ -153,10 +153,14 @@ namespace Project2_HT
                     ProcessDecode();
                 }
 
-                if(this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
+                if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
+                {
                     PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                }
 
-                
+
+
                 UpdateAndDelay();
                 
 
@@ -513,7 +517,7 @@ namespace Project2_HT
         public void UpdateAndDelay()
         {
             Update();
-            Task.Delay(500).Wait();
+            Task.Delay(1500).Wait();
         }
 
         public void PushFetch(Instruction i)
