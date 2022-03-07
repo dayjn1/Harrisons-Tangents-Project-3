@@ -38,7 +38,7 @@ namespace Project2_HT
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
-        int cycleCount = 0;                                                     // Counts the number of cycles
+        int cycleCount = 1;                                                     // Counts the number of cycles
 
         /**
         * Method Name: Tangents()
@@ -105,8 +105,6 @@ namespace Project2_HT
         */
         private void StartButton_Click(object sender, EventArgs e)
         {
-            this.Fetch.Clear();                                             //Clear previous Simulation -JM
-            cycleCount = 0;
             Simulation();
         }
 
@@ -121,18 +119,12 @@ namespace Project2_HT
         */
         public void Simulation()
         {
-            bool halt = false;
             Instruction temp;
 
-            for (int i = 0; i < this.Input_Instructions.Count + 4; i++)     //Keep going after last fetch -JM
+            for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
-                //Clear old text -JM
-                RegisterBox.Text = "";
-                MemoryBox.Text = "";
-                ExecuteBox.Text = "";
-                DecodeBox.Text = "";
 
-                if (this.Register.Count > 0 && this.Memory.Count < 1)
+                if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
                 }
@@ -148,18 +140,8 @@ namespace Project2_HT
                 if (this.Execute.Count > 0)
                 {
                     temp = this.Execute.Pop();
-                    if(temp.Mnemonic == "LOAD" || temp.Mnemonic == "STOR")
-                    {
-                        this.Memory.Push(temp);
-                        MemoryText(temp);
-                    }
-                    else                                                //If no access to mem, skip mem stack -JM (still need data hazard detection)
-                    {
-                        this.Register.Push(temp);
-                        RegisterText(temp);
-                    }
-                    if (i > this.Input_Instructions.Count)              //if last instruction, end -JM
-                        i = this.Input_Instructions.Count + 4;
+                    this.Memory.Push(temp);
+                    MemoryText(temp);
                 }
 
                 if (this.Decode.Count > 0)
@@ -172,25 +154,13 @@ namespace Project2_HT
                 if (this.Fetch.Count > 0)
                 {
                     temp = this.Fetch.Pop();
-                    if(temp.Mnemonic == "HALT")
-                    {
-                        halt = true;
-                        this.Fetch.Push(temp);
-                    }
-                    else
-                    {
-                        this.Decode.Push(temp);
-                        DecodeText(temp);
-                    }
+                    this.Decode.Push(temp);
+                    DecodeText(temp);
                 }
 
-                if(i < this.Input_Instructions.Count && !halt)               //if there are more instructions coming, fetch -JM
-                {
-                    this.Fetch.Push(this.Input_Instructions[i]);
-                    FetchText(this.Input_Instructions[i]);
-                }
+                this.Fetch.Push(this.Input_Instructions[i]);
+                FetchText(this.Input_Instructions[i]);
 
-                //Set clock cycle count -JM
                 System.Threading.Thread.Sleep(1000);
                 cycleCount++;
                 cycleLabel.Text = cycleCount.ToString();
