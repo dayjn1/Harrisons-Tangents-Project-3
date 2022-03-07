@@ -457,7 +457,7 @@ namespace Project2_HT
             StreamWriter filewrite = new StreamWriter(fParameter);
 
             filewrite.WriteLine("   Instruction    |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack ");
-            filewrite.WriteLine("______________________________________________________________________");
+            filewrite.WriteLine("______________________________________________________________________________________________");
 
             int f, d, exe, m, w;
             int fetch = 0, 
@@ -612,10 +612,10 @@ namespace Project2_HT
 
 
                 filewrite.WriteLine("     " + Save_Stats[i].Mnemonic.PadRight(5, ' ') + "              " + 
-                                   (fetch) + "                 " +
-                                   (decode.PadRight(9, ' ')) + "              " +
-                                   (exec) + "               " +
-                                   (memo.PadRight(9, ' ')) + "               " +
+                                   (fetch) + "             " +
+                                   (decode.PadRight(7, ' ')) + "         " +
+                                   (exec) + "              " +
+                                   (memo.PadRight(9, ' ')) + "       " +
                                    (stringWB) + "          ");
 
 
@@ -627,8 +627,8 @@ namespace Project2_HT
 
 
             filewrite.WriteLine();
+            filewrite.WriteLine("______________________________________________________________________________________________");
             filewrite.WriteLine();
-            filewrite.WriteLine("________________________________________________________________");
             filewrite.WriteLine("Cycle count: " + cycleCount);
             filewrite.WriteLine("Hazard count: " + hazardCount);
 
