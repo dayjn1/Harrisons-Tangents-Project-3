@@ -38,7 +38,10 @@ namespace Project2_HT
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
-        int cycleCount = 1;                                                     // Counts the number of cycles
+        int cycleCount = 0;                                                     // Counts the number of cycles
+        List<String> usedRegisters = new List<string>();
+        int hazardCount = 0;
+        int SimulationCount;
 
         /**
         * Method Name: Tangents()
@@ -88,8 +91,9 @@ namespace Project2_HT
                         Console.WriteLine("Invalid parse");
 
                 }//end while
-
+                label8.Text = "Loaded";
             }//end if
+
         }
 
         /**
@@ -105,7 +109,9 @@ namespace Project2_HT
         */
         private void StartButton_Click(object sender, EventArgs e)
         {
+            label8.Text = "Processing...";
             Simulation();
+            label8.Text = "Finished";
         }
 
         /**
@@ -119,61 +125,564 @@ namespace Project2_HT
         */
         public void Simulation()
         {
-            Instruction temp;
-
-            for (int i = 0; i < this.Input_Instructions.Count; i++)
+            while(this.SimulationCount < this.Input_Instructions.Count)
             {
+                CountUpdate();
+                //UpdateAndDelay();
 
                 if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
+                    this.RegisterBox.Text = "";
                 }
-
 
                 if (this.Memory.Count > 0)
                 {
-                    temp = this.Memory.Pop();
-                    this.Register.Push(temp);
-                    RegisterText(temp);
+                    ProcessRegister();
                 }
 
                 if (this.Execute.Count > 0)
                 {
-                    temp = this.Execute.Pop();
-                    this.Memory.Push(temp);
-                    MemoryText(temp);
+                    ProcessMemory();
                 }
 
                 if (this.Decode.Count > 0)
                 {
-                    temp = this.Decode.Pop();
-                    this.Execute.Push(temp);
-                    ExecuteText(temp);
+                    ProcessExecute();
                 }
 
                 if (this.Fetch.Count > 0)
                 {
-                    temp = this.Fetch.Pop();
-                    this.Decode.Push(temp);
-                    DecodeText(temp);
+                    ProcessDecode();
                 }
 
-                this.Fetch.Push(this.Input_Instructions[i]);
-                FetchText(this.Input_Instructions[i]);
+                if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                }
 
-                System.Threading.Thread.Sleep(1000);
-                cycleCount++;
-                cycleLabel.Text = cycleCount.ToString();
-                Update();
+
+
+                UpdateAndDelay();
+                
+
+            }
+
+            // clean up pipeline
+
+            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+            {
+                
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
+                        return;
+                }
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                if (this.Memory.Count > 0)
+                {
+                    ProcessRegister();
+                }
+
+                if (this.Execute.Count > 0)
+                {
+                    ProcessMemory();
+                }
+
+                if (this.Decode.Count > 0)
+                {
+                    ProcessExecute();
+                }
+
+                if (this.Fetch.Count > 0)
+                {
+                    ProcessDecode();
+                }
+
             }
         }
+
+
+        /**
+        * Method Name: KeepGoing(int)
+        * Method Purpose: Process a single cycle while a stack is stalling
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        * @param i - used to determine which stack is stalling
+        */
+        public void KeepGoing(int i)
+        { 
+            if(i == 1)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
+                }
+
+                if (this.Memory.Count > 0)
+                {
+                    Instruction temp = this.Memory.Peek();
+
+                    if (temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        this.MemoryBox.Text = "";
+
+                        if (temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                        }
+                    }
+                    else if (temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--;
+                    }
+                    UpdateAndDelay();
+                }
+
+                if (this.Execute.Count > 0)
+                {
+                    Instruction temp = this.Execute.Peek();
+                    //temp.ExecuteCC--;
+
+                    if (temp.ExecuteCC == 0)
+                    {
+                        if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                        {
+                            this.Execute.Pop();
+                        }
+                        else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            this.Memory.Push(temp);
+                            MemoryText(temp);
+                        }
+                        else if (temp.RegisterCC > 0 && this.Register.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            this.ExecuteBox.Text = "";
+                            this.Register.Push(temp);
+                            RegisterText(temp);
+                        }
+                        else if (temp.ExecuteCC > 0)
+                            temp.ExecuteCC--;
+                    }
+
+                    UpdateAndDelay();
+                }
+                
+
+
+            }
+            else if(i == 2)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if (this.Memory.Count > 0)
+                {
+                    Instruction temp = this.Memory.Peek();
+
+                    if (temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        this.MemoryBox.Text = "";
+
+                        if (temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                            RegisterText(temp);
+                        }
+                    }
+                    else if(temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--;
+                    }
+                    UpdateAndDelay();
+                }
+                if (this.Decode.Count == 0 && this.Fetch.Count > 0)
+                {
+                    Instruction temp = this.Fetch.Pop();
+                    PushDecode(temp);
+                    UpdateAndDelay();
+                }
+                if (this.Fetch.Count == 0 && (this.SimulationCount) < this.Input_Instructions.Count)
+                {
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
+                }
+
+            }
+            else if(i == 3)
+            {
+                if (this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    this.RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+
+                if(this.Execute.Count == 0 && this.Decode.Count == 1)
+                {
+                    Instruction temp = this.Decode.Peek();
+                    if (temp.DecodeCC == 0)
+                    {
+                        this.Decode.Pop();
+                        this.DecodeBox.Text = "";
+                        PushExecute(temp);
+                    }
+                    else
+                    {
+                        temp.DecodeCC--;
+                    }
+                    UpdateAndDelay();
+
+                }
+                else if(this.Execute.Count == 1)
+                {
+                    Instruction temp = this.Execute.Peek();
+                    if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                    {
+                        this.Execute.Pop();
+                        this.ExecuteBox.Text = "";
+                    }
+                    else if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC > 0)
+                    {
+                        this.Execute.Pop();
+                        PushRegister(temp);
+                        this.ExecuteBox.Text = "";
+                    }
+                    else if (temp.ExecuteCC > 0)
+                    {
+                        temp.ExecuteCC--;
+                    }
+                    UpdateAndDelay();
+
+                }
+
+            }
+
+        
+        }
+
+
+        /**
+        * Method Name: ProcessDecode()
+        * Method Purpose: Pops from fetch and pushes onto decode if instruction needs to be decoded (i.DecodeCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ProcessDecode()
+        {
+            Instruction i = this.Fetch.Pop();
+            this.FetchBox.Text = "";
+            CheckRegisters(i);
+            if (i.DecodeCC != 0)
+            {
+                PushDecode(i);
+
+                UpdateAndDelay();
+
+                while (i.DecodeCC > 0)
+                {
+                    i.DecodeCC--;
+
+                    KeepGoing(1);
+                    CountUpdate();
+                    UpdateAndDelay();             
+                }
+            }
+        }
+
+        /**
+        * Method Name: ProcessExecute()
+        * Method Purpose: Pops from Decode and pushes onto Execute if instruction needs to be executed (i.ExecuteCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ProcessExecute()
+        {
+            Instruction i = this.Decode.Pop();
+            this.DecodeBox.Text = "";
+            if (i.ExecuteCC != 0)
+            {
+                PushExecute(i);
+
+                UpdateAndDelay();
+
+
+                while (i.ExecuteCC > 0)
+                {
+                    i.ExecuteCC--;
+
+                    KeepGoing(2);
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        /**
+        * Method Name: ProcessMemory()
+        * Method Purpose: Pops from Execute and pushes onto Memory (or Register) if instruction needs to access memory or writeback (i.MemoryCC OR i.RegisterCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ProcessMemory()
+        {
+            Instruction i = this.Execute.Pop();
+            this.ExecuteBox.Text = "";
+
+            if (i.MemoryCC != 0)
+            {
+                PushMemory(i);
+
+                UpdateAndDelay();
+
+                while (i.MemoryCC > 0)
+                {
+                    i.MemoryCC--;
+
+                    KeepGoing(3);
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+            else if(i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+            }
+        }
+
+        /**
+        * Method Name: ProcessRegister()
+        * Method Purpose: Pops from Memory and pushes onto Register if instruction needs to writeback to a register (i.RegisterCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ProcessRegister()
+        {
+            Instruction i = this.Memory.Pop();
+            this.MemoryBox.Text = "";
+            
+            if (i.RegisterCC != 0)
+            {
+                PushRegister(i);
+
+                UpdateAndDelay();
+
+
+                while (i.RegisterCC > 0)
+                {
+                    i.RegisterCC--;
+
+                    CountUpdate();
+                    UpdateAndDelay();
+                }
+                usedRegisters.Clear();  //clear registers when no longer in use
+            }
+          
+        }
+        /// <summary>Accepts an instruction and checks if its registers are available.
+        /// On fail it waits until the registers are available. Used to get the registers ready to push.</summary>
+        /// AM
+        /// <param name="i">Instruction passed in from Process Registers</param>
+        public void CheckRegisters(Instruction i)
+        {
+            //see if register is available by checking the usedRegisters list
+            if (!(usedRegisters.Contains(i.DestReg)))
+            {
+                usedRegisters.Add(i.DestReg);
+            }
+            else//if the register is in use already, wait until it is not.
+            {
+                hazardCount++;
+                label7.Text = hazardCount.ToString();
+                Task.Delay(1000).Wait();
+                usedRegisters.Clear();  //clear registers when no longer in use
+                CheckRegisters(i);
+            }
+
+        }
+
+        /**
+        * Method Name: CountUpdate()
+        * Method Purpose: Increments cycle count and changes text to reflect new amount
+        *                 For simplicity purposes
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void CountUpdate()
+        {
+            this.cycleCount++;
+            cycleLabel.Text = cycleCount.ToString();
+        }
+
+        /**
+        * Method Name: UpdateAndDelay()
+        * Method Purpose: Updates the entire form so changes can be seen, delays so that changes can be seen
+        *                 For simplicity purposes
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void UpdateAndDelay()
+        {
+            Update();
+            Task.Delay(1500).Wait();
+        }
+
+        /**
+        * Method Name: PushFetch(Instruction)
+        * Method Purpose: Pushes param onto Fetch stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Fetch Stack, decrements value for i, and then text is changed
+        */
+        public void PushFetch(Instruction i)
+        {
+            this.Fetch.Push(i);
+            i.FetchCC--;
+            FetchText(i);
+        }
+
+        /**
+        * Method Name: PushDecode(Instruction)
+        * Method Purpose: Pushes param onto Decode stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Decode Stack, decrements value for i, and then text is changed
+        */
+        public void PushDecode(Instruction i)
+        {
+            this.Decode.Push(i);
+            i.DecodeCC--;
+            DecodeText(i);
+        }
+
+        /**
+        * Method Name: PushExecute(Instruction)
+        * Method Purpose: Pushes param onto Execute stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Execute Stack, decrements value for i, and then text is changed
+        */
+        public void PushExecute(Instruction i)
+        {
+            this.Execute.Push(i);
+            i.ExecuteCC--;
+            ExecuteText(i);
+        }
+
+        /**
+        * Method Name: PushMemory(Instruction)
+        * Method Purpose: Pushes param onto Memory stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Memory Stack, decrements value for i, and then text is changed
+        */
+        public void PushMemory(Instruction i)
+        {
+            this.Memory.Push(i);
+            i.MemoryCC--;
+            MemoryText(i);
+        }
+
+        /**
+        * Method Name: PushRegister(Instruction)
+        * Method Purpose: Pushes param onto Register stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Register Stack, decrements value for i, and then text is changed
+        */
+        public void PushRegister(Instruction i)
+        {
+            this.Register.Push(i);
+            i.RegisterCC--;
+            RegisterText(i);
+        }
+
 
         /**
         * Method Name: RegisterText(Instruction)
         * Method Purpose: Updates RegisterText content
         *
         * <hr>
-        * Date created: 02/17/2022
+        * Date created: 03/01/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -188,7 +697,7 @@ namespace Project2_HT
         * Method Purpose: Updates MemoryText content
         *
         * <hr>
-        * Date created: 02/17/2022
+        * Date created: 03/01/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -203,7 +712,7 @@ namespace Project2_HT
         * Method Purpose: Updates ExecuteText content
         *
         * <hr>
-        * Date created: 02/17/2022
+        * Date created: 03/01/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -218,7 +727,7 @@ namespace Project2_HT
         * Method Purpose: Updates DecodeText content
         *
         * <hr>
-        * Date created: 02/17/2022
+        * Date created: 03/01/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -233,7 +742,7 @@ namespace Project2_HT
         * Method Purpose: Updates FetchText content
         *
         * <hr>
-        * Date created: 02/17/2022
+        * Date created: 03/01/2022
         * @Janine Day
         * <hr>
         * @param Instruction - provides info for visuals
@@ -242,5 +751,6 @@ namespace Project2_HT
         {
             FetchBox.Text = i.Mnemonic;
         }
+
     }
 }
