@@ -36,8 +36,8 @@ namespace Project2_HT
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0),
-            new Instruction(1, "LOAD", 1, 2, 1, 3, 1),
-            new Instruction(2, "STOR", 1, 2, 1, 3, 0),
+            new Instruction(1, "LOAD", 1, 1, 1, 1, 1),
+            new Instruction(2, "STOR", 1, 1, 1, 1, 0),
             new Instruction(3, "ADD", 1, 1, 1, 0, 1),
             new Instruction(4, "ADDI", 1, 1, 1, 0, 1),
             new Instruction(5, "SUB", 1, 1, 1, 0, 1),
@@ -60,7 +60,6 @@ namespace Project2_HT
             new Instruction(129, "FSUB", 1, 1, 2, 0, 1),
             new Instruction(130, "FMULT", 1, 1, 5, 0, 1),
             new Instruction(131, "FDIV", 1, 1, 10, 0, 1),
-            new Instruction(404, "INVALID", 1, 1, 0, 0, 0)
         };
 
 

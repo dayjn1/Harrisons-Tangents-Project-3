@@ -154,6 +154,7 @@ namespace Project2_HT
 
                 if (this.Fetch.Count > 0)
                 {
+
                     ProcessDecode();
                 }
 
@@ -163,11 +164,7 @@ namespace Project2_HT
                     this.SimulationCount++;
                 }
 
-
-
-                UpdateAndDelay();
-                
-
+                UpdateAndDelay();          
             }
 
             // clean up pipeline
@@ -188,6 +185,7 @@ namespace Project2_HT
 
                 if (this.Memory.Count > 0)
                 {
+                    
                     ProcessRegister();
                 }
 
@@ -208,6 +206,8 @@ namespace Project2_HT
 
             }
         }
+
+        //public void 
 
 
         /**
@@ -231,8 +231,7 @@ namespace Project2_HT
                     UpdateAndDelay();
                 }
 
-
-                if (this.Memory.Count > 0)
+                if (this.Memory.Count > 0)      // memory for one cycle
                 {
                     Instruction temp = this.Memory.Peek();
 
@@ -253,10 +252,9 @@ namespace Project2_HT
                     UpdateAndDelay();
                 }
 
-                if (this.Execute.Count > 0)
+                if (this.Execute.Count > 0)     // Execute for one cycle
                 {
                     Instruction temp = this.Execute.Peek();
-                    //temp.ExecuteCC--;
 
                     if (temp.ExecuteCC == 0)
                     {
@@ -283,6 +281,8 @@ namespace Project2_HT
 
                     UpdateAndDelay();
                 }
+
+                                        // fetch for one cycle
                 if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
                 {
                     PushFetch(this.Input_Instructions[this.SimulationCount]);
@@ -293,14 +293,14 @@ namespace Project2_HT
             }
             else if(i == 2) //execute stall
             {
-                if (this.Register.Count > 0)
+                if (this.Register.Count > 0)        // register for one cycle
                 {
                     this.Register.Pop();
                     this.RegisterBox.Text = "";
                     UpdateAndDelay();
                 }
 
-                if (this.Memory.Count > 0)
+                if (this.Memory.Count > 0)          // memory for one cycle
                 {
                     Instruction temp = this.Memory.Peek();
 
@@ -321,7 +321,7 @@ namespace Project2_HT
                     }
                     UpdateAndDelay();
                 }
-                if (this.Decode.Count == 0 && this.Fetch.Count > 0)
+                if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
                 {
                     Instruction temp = this.Fetch.Pop();
                     PushDecode(temp);
