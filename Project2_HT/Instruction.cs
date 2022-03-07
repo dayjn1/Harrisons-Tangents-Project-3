@@ -94,7 +94,7 @@ namespace Project2_HT
         * @param int - memory
         * @param int - register
         */
-        public Instruction(uint opcode, string mnemonic, int fetch, int decode, int execute, int memory, int register,Boolean writeBack)
+        public Instruction(uint opcode, string mnemonic, int fetch, int decode, int execute, int memory, int register)
         {
             this.OpCode = opcode;
             this.Mnemonic = mnemonic;
@@ -103,8 +103,12 @@ namespace Project2_HT
             this.ExecuteCC = execute;
             this.MemoryCC = memory;
             this.RegisterCC = register;
-            this.writeBack = writeBack;
-            
+
+            if (this.RegisterCC == 1)
+                this.writeBack = true;
+            else
+                this.writeBack = false;
+
         }
 
         /**
