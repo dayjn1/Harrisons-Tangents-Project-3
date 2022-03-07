@@ -141,20 +141,24 @@ namespace Project2_HT
                 if (this.Memory.Count > 0)
                 {
                     temp = this.Memory.Pop();
-                    PushRegister(temp);
+                    this.Register.Push(temp);
+                    RegisterText(temp);
                 }
 
                 if (this.Execute.Count > 0)
                 {
                     temp = this.Execute.Pop();
-
-                    bool skipMem = !PushMemory(temp);                   //If our instr accesses memory, we cannot write to registers yet; do not skip memory -JM
-                    if (skipMem)
+                    if(temp.Mnemonic == "LOAD" || temp.Mnemonic == "STOR")
                     {
-                        PushRegister(temp);                             //If no access to mem, skip mem stack straight to register -JM (still need data hazard detection)
+                        this.Memory.Push(temp);
+                        MemoryText(temp);
                     }
-
-                    if (i > this.Input_Instructions.Count)              //if last instruction, end -JM (this is not a good solution)
+                    else                                                //If no access to mem, skip mem stack -JM (still need data hazard detection)
+                    {
+                        this.Register.Push(temp);
+                        RegisterText(temp);
+                    }
+                    if (i > this.Input_Instructions.Count)              //if last instruction, end -JM
                         i = this.Input_Instructions.Count + 4;
                 }
 
@@ -186,48 +190,12 @@ namespace Project2_HT
                     FetchText(this.Input_Instructions[i]);
                 }
 
-                //debugging
-                foreach(Instruction inst in this.Register)
-                {
-                    Console.WriteLine(inst.Mnemonic);
-                }
-
-
                 //Set clock cycle count -JM
                 System.Threading.Thread.Sleep(1000);
                 cycleCount++;
                 cycleLabel.Text = cycleCount.ToString();
                 Update();
             }
-        }//end Simulation
-
-        public bool PushRegister(Instruction i)
-        {
-            this.Register.Push(i);
-            RegisterText(i);
-            return true;
-
-            //if (Instruction.RegInstructions.Contains(i.Mnemonic))
-            //{
-            //    this.Register.Push(i);
-            //    RegisterText(i);
-
-            //    return true;
-            //}
-            //else return false;
-        }
-
-
-        public bool PushMemory(Instruction i)
-        {
-            if (Instruction.MemInstructions.Contains(i.Mnemonic))
-            {
-                this.Memory.Push(i);
-                MemoryText(i);
-
-                return true;
-            }
-            else return false;
         }
 
         /**
@@ -304,6 +272,5 @@ namespace Project2_HT
         {
             FetchBox.Text = i.Mnemonic;
         }
-
     }
 }
