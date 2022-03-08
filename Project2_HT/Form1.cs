@@ -141,7 +141,7 @@ namespace Project2_HT
                     if (this.Register.Count > 0)
                     {
 
-                        wb = this.Register.Pop();
+                        Instruction wb = this.Register.Pop();
                         usedRegisters.Remove(wb.DestReg);
                         this.RegisterBox.Text = "";
                     }
@@ -232,150 +232,7 @@ namespace Project2_HT
         * <hr>
         * @param i - used to determine which stack is stalling
         */
-        public void KeepGoing(int i)
-        {
-            if (i == 1) //decode stall
-            {
-                if (this.Register.Count > 0)    // register for one cycle
-                {
-                    RegisterCycle();
-                }
-
-                if (this.Memory.Count > 0)      // memory for one cycle
-                {
-                    Instruction temp = this.Memory.Peek();
-
-                    if (temp.MemoryCC == 0)
-                    {
-                        temp = this.Memory.Pop();
-                        this.MemoryBox.Text = "";
-
-                        if (temp.RegisterCC > 0)
-                        {
-                            PushRegister(temp);
-                        }
-                    }
-                    else if (temp.MemoryCC > 0)
-                    {
-                        temp.MemoryCC--;
-                    }
-                    UpdateAndDelay();
-                }
-
-                if (this.Execute.Count > 0)     // Execute for one cycle
-                {
-                    Instruction temp = this.Execute.Peek();
-
-                    if (temp.ExecuteCC == 0)
-                    {
-                        if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
-                        {
-                            this.Execute.Pop();
-                        }
-                        else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
-                        {
-                            this.Execute.Pop();
-                            PushMemory(temp);
-                            MemoryText(temp);
-                        }
-                        else if (temp.RegisterCC > 0 && this.Register.Count == 0)
-                        {
-                            this.Execute.Pop();
-                            this.ExecuteBox.Text = "";
-                            PushRegister(temp);
-                            RegisterText(temp);
-                        }
-                        else if (temp.ExecuteCC > 0)
-                            temp.ExecuteCC--;
-                    }
-
-                    UpdateAndDelay();
-                }
-
-                // fetch for one cycle
-                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
-                {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
-                    UpdateAndDelay();
-                }
-
-            }
-            else if (i == 2) //execute stall
-            {
-                if (this.Register.Count > 0)        // register for one cycle
-                {
-
-                    ProcessDecode();
-                }
-
-                if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
-                {
-                    FetchCycle();
-                }
-
-                UpdateAndDelay();
-            }
-            else if (i == 3) //memory stall
-            {
-
-                if (this.Register.Count > 0)
-                {
-                    RegisterCycle();
-
-                    if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
-                        return;
-                }
-
-                CountUpdate();
-                UpdateAndDelay();
-
-                if (this.Memory.Count > 0)
-                {
-
-                    ProcessRegister();
-                }
-
-                    }
-                    else if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC > 0)
-                    {
-                        this.Execute.Pop();
-                        PushRegister(temp);
-                        this.ExecuteBox.Text = "";
-                    }
-                    else if (temp.ExecuteCC > 0)
-                    {
-                        temp.ExecuteCC--;
-                    }
-                    UpdateAndDelay();
-
-                }
-                else if (this.Execute.Count == 0 && this.Decode.Count == 1)
-                {
-                    Instruction temp = this.Decode.Peek();
-                    if (temp.DecodeCC == 0)
-                    {
-                        this.Decode.Pop();
-                        this.DecodeBox.Text = "";
-                        PushExecute(temp);
-                    }
-                    else
-                    {
-                        temp.DecodeCC--;
-                    }
-                    UpdateAndDelay();
-
-                }
-
-                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
-                {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
-                    UpdateAndDelay();
-                }
-
-            }
-        }
+        
 
         
 
@@ -558,7 +415,7 @@ namespace Project2_HT
 
 
 
-        }
+        
         // See if an operand register in an instruction is being used already, and stall until it is free.
         //Avery 
         public void CompareOpRegisters(Instruction i)

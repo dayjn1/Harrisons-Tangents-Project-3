@@ -39,8 +39,8 @@ namespace Project2_HT
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0, false, false, false, false),
-            new Instruction(1, "LOAD", 1, 2, 1, 3, 1, true, true, true, false),
-            new Instruction(2, "STOR", 1, 2, 1, 3, 0, false, true, true, false),
+            new Instruction(1, "LOAD", 1, 1, 1, 1, 1, true, true, true, false),
+            new Instruction(2, "STOR", 1, 1, 1, 1, 0, false, true, true, false),
             new Instruction(3, "ADD", 1, 1, 1, 0, 1, true, true, true, true),
             new Instruction(4, "ADDI", 1, 1, 1, 0, 1, true, true, true, true),
             new Instruction(5, "SUB", 1, 1, 1, 0, 1, true, true, true, true),
@@ -212,25 +212,7 @@ namespace Project2_HT
 
         }//end disassemble
 
-        /// <summary>In the event that the instruction is a float, send it to its own method and then return to caller
-        /// Avery Marlow</summary>
-        /// <param name="input">FP instruction</param>
-        public void DisassembleFloat(int input)
-        {
-            FindIS();
-            //reuse code but slap an F on it - AM
-            uint rd = (uint)input & 0x00F00000;
-            rd >>= 20;
-            this.DestReg = "FR" + rd.ToString("X");            // Uses shifts to isolate certain bits in instruction hex - JND
-                                                               // Sets Destination reg, reg 1, and reg 2
-            uint reg1 = (uint)input & 0x000F0000;
-            reg1 >>= 16;
-            this.Reg1 = "FR" + reg1.ToString("X");
-
-            uint reg2 = (uint)input & 0x0000F000;
-            reg2 >>= 12;
-            this.Reg2 = "FR" + reg2.ToString("X");
-        }
+       
 
         /// <summary>In the event that the instruction is a float, send it to its own method and then return to caller
         /// Avery Marlow</summary>
