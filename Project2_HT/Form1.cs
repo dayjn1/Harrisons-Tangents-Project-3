@@ -134,9 +134,8 @@ namespace Project2_HT
                 if (this.Register.Count > 0)
                 {
 
-                   wb = this.Register.Pop();
+                    wb = this.Register.Pop();
                     usedRegisters.Remove(wb.DestReg);
-                    
                     this.RegisterBox.Text = "";
                 }
 
@@ -209,6 +208,8 @@ namespace Project2_HT
             //check if its in the stale registers
             if (usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null)
             {
+                hazardCount++;
+                label7.Text = hazardCount.ToString();
                 CountUpdate(); //go stall
             }
             else
