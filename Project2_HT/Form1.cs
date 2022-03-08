@@ -34,8 +34,8 @@ namespace Project2_HT
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
         int cycleCount = 0;                                                     // Counts the number of cycles
-        List<String> usedRegisters = new List<string>();
-        int hazardCount = 0;
+        List<String> usedRegisters = new List<string>(); //store stale registers  
+        int hazardCount = 0;        //count hazards
 
         /**
         * Method Name: Tangents()
@@ -202,18 +202,20 @@ namespace Project2_HT
 
             }
         }
-
+        // See if an operand register in an instruction is being used already, and stall until it is free.
+        //Avery 
         public void CompareOpRegisters(Instruction i)
         {
+            //check if its in the stale registers
             if (usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null)
             {
-                CountUpdate();
+                CountUpdate(); //go stall
             }
             else
             {
-                return;
+                return; //if not, leave
             }
-            CompareOpRegisters(i);
+            CompareOpRegisters(i); //try again otherwise
         }
 
         public void ProcessDecode()
