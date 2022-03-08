@@ -97,6 +97,7 @@ namespace Project2_HT
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // FetchBox
             // 
@@ -297,7 +298,7 @@ namespace Project2_HT
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(853, 286);
+            this.ClientSize = new System.Drawing.Size(853, 384);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -317,7 +318,7 @@ namespace Project2_HT
             this.Controls.Add(this.DecodeBox);
             this.Controls.Add(this.FetchBox);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Tangents";
             this.Text = "Pipeline Simulator";
             this.menuStrip1.ResumeLayout(false);
