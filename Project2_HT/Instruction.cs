@@ -41,8 +41,8 @@ namespace Project2_HT
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0, false, false, false, false, false),
-            new Instruction(1, "LOAD", 1, 2, 1, 3, 1, true, true, true, false, false),
-            new Instruction(2, "STOR", 1, 2, 1, 3, 0, false, true, true, false, false),
+            new Instruction(1, "LOAD", 1, 1, 1, 3, 1, true, true, true, false, false),
+            new Instruction(2, "STOR", 1, 1, 1, 3, 0, false, true, true, false, false),
             new Instruction(3, "ADD", 1, 1, 1, 0, 1, true, true, true, true, false),
             new Instruction(4, "ADDI", 1, 1, 1, 0, 1, true, true, true, false, true),
             new Instruction(5, "SUB", 1, 1, 1, 0, 1, true, true, true, true, false),
@@ -61,6 +61,10 @@ namespace Project2_HT
             new Instruction(18, "ASL", 1, 1, 1, 0, 1, true, true, true, true, false),               //R1 operand to be shifted, R2 shift value -JM
             new Instruction(19, "ASR", 1, 1, 1, 0, 1, true, true, true, true, false),
             new Instruction(20, "MOV", 1, 1, 1, 0, 1, true, true, true, false, false),
+            new Instruction(128, "FADD", 1, 1, 2, 0, 1, true, true, true, true, false),
+            new Instruction(129, "FSUB", 1, 1, 2, 0, 1, true, true, true, true, false),
+            new Instruction(130, "FMULT", 1, 1, 5, 0, 1, true, true, true, true, false),
+            new Instruction(131, "FDIV", 1, 1, 10, 0, 1, true, true, true, true, false),
             new Instruction(404, "INVALID", 1, 1, 0, 0, 0, false, false, false, false, false)
         };
 
