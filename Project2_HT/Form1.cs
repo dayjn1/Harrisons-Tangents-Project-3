@@ -157,7 +157,11 @@ namespace Project2_HT
                 if (this.Fetch.Count > 0)
                 {
                     //check for invalid before decoding, need to pop all registers
-                    //.Peek() method to view instruction currently in Fetch stack
+                    //.Peek() method to view instruction currently in Fetch stack - H
+                    /*Instruction tempF = this.Fetch.Peek();
+                    if (!(Instruction.InstructionSet.Contains(tempF))) --keeps entering if even with valid instruction
+                        InvalidFound();*/
+
                     ProcessDecode();
                 }
 
@@ -206,58 +210,101 @@ namespace Project2_HT
                 if (this.Fetch.Count > 0)
                 {
                     //check for invalid before decode
-                    //.Peek() method to view instruction currently in Fetch stack
-
+                    //.Peek() method to view instruction currently in Fetch stack - H
+                    //Instruction tempF = this.Fetch.Peek();
+                    
+                    //if (!(Instruction.InstructionSet.Contains(tempF))) --keeps entering the if even when the instruction is valid
+                    //    InvalidFound();
+                    
                     ProcessDecode();
                 }
 
             }
         }//end simulation
 
-        public void invalidFound(Instruction cF)
+        /**
+        * Method Name: InvalidFound()
+        * Method Purpose: Method to pop all stacks and close/crash the program when illegal instruction is found
+        *
+        * <hr>
+        * Date created: 03/07/2022
+        * @Hannah Taylor
+        * <hr>
+        */
+        public void InvalidFound()
         {
-            //uint cFOpcode = cF.OpCode;
-            if(Instruction.InstructionSet.Contains(cF) == false)
+            //check each stack 
+            if (this.Fetch.Count > 0)
             {
-                if (this.Fetch.Count > 0)
-                {
-                    this.Fetch.Pop();
-                    //update text
-                    FetchBox.Text = "";
-                    Update();
-                }
-                if (this.Decode.Count > 0)
-                {
-                    this.Decode.Pop();
-                    //update text
-                    DecodeBox.Text = "";
-                    Update();
-                }
-                if (this.Execute.Count > 0)
-                {
-                    this.Execute.Pop();
-                    //update text
-                    ExecuteBox.Text = "";
-                    Update();
-                }
-                if (this.Memory.Count > 0)//memory
-                {
-                    this.Memory.Pop();
-                    //update text
-                    MemoryBox.Text = "";
-                    Update();
-                }
-                if (this.Register.Count > 0)                //register
-                {
-                    this.Register.Pop();
-                    //update text
-                    RegisterBox.Text = "";
-                    Update();
-                }
+                this.Fetch.Pop();
+                //update text
+                FetchBox.Text = "";
+                Update();
             }
+            if (this.Decode.Count > 0)
+            {
+                this.Decode.Pop();
+                //update text
+                DecodeBox.Text = "";
+                Update();
+            }
+            if (this.Execute.Count > 0)
+            {
+                this.Execute.Pop();
+                //update text
+                ExecuteBox.Text = "";
+                Update();
+            }
+            if (this.Memory.Count > 0)//memory
+            {
+                this.Memory.Pop();
+                //update text
+                MemoryBox.Text = "";
+                Update();
+            }
+            if (this.Register.Count > 0)                //register
+            {
+                this.Register.Pop();
+                //update text
+                RegisterBox.Text = "";
+                Update();
+            }
+
+            //method call to close Gui??
+            System.Windows.Forms.Application.Exit();
         }
 
-        //public void 
+        /**
+        * Method Name: InvalidFound()
+        * Method Purpose: Method to finish simulation when halt reaches Execute before it is popped off
+        *
+        * <hr>
+        * Date created: 03/07/2022
+        * @Hannah Taylor
+        * <hr>
+        */
+        public void HaltFound()
+        {
+            //clear any instructions loaded after halt
+            if(this.Fetch.Count > 0)
+            {
+                this.Fetch.Pop();
+                //update text
+                FetchBox.Text = "";
+                Update();
+            }
+            if (this.Decode.Count > 0)
+            {
+                this.Decode.Pop();
+                //update text
+                DecodeBox.Text = "";
+                Update();
+            }
+
+            //keep going if anything in memory or writeback (halt is in Execute)
+
+        }
+         
 
 
         /**
