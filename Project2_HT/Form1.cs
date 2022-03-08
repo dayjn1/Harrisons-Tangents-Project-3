@@ -2,21 +2,16 @@
 // Project name:                Project 2 - Harrison's Tangents
 // ---------------------------------------------------------------------------
 // Creator’s name:              Janine Day
-// Edited By:                   Janine Day, 
+// Edited By:                   Janine Day, Avery Marlow
 // Course-Section:              CSCI-4717
 // Creation Date:               02/17/2022
 // ---------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 
@@ -40,8 +35,8 @@ namespace Project2_HT
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
         int cycleCount = 0;                                                     // Counts the number of cycles
-        List<String> usedRegisters = new List<string>();
-        int hazardCount = 0;
+        List<String> usedRegisters = new List<string>(); //store stale registers  
+        int hazardCount = 0;        //count hazards
         int SimulationCount;
         int time = 500;
 
@@ -95,6 +90,10 @@ namespace Project2_HT
 
                 }//end while
                 label8.Text = "Loaded";
+                cycleCount = 0;
+                hazardCount = 0;
+                cycleLabel.Text = cycleCount.ToString();
+                label7.Text = hazardCount.ToString();
             }//end if
 
         }
@@ -126,6 +125,7 @@ namespace Project2_HT
         * @Janine Day
         * <hr>
         */
+
         public void Simulation()
         {
             while (this.SimulationCount < this.Input_Instructions.Count)
@@ -133,27 +133,177 @@ namespace Project2_HT
                 CountUpdate();
                 UpdateAndDelay();
 
-                if (this.Register.Count > 0)
+                while (this.SimulationCount < this.Input_Instructions.Count)
+                {
+                    CountUpdate();
+                    UpdateAndDelay();
+
+                    if (this.Register.Count > 0)
+                    {
+
+                        wb = this.Register.Pop();
+                        usedRegisters.Remove(wb.DestReg);
+                        this.RegisterBox.Text = "";
+                    }
+
+                    if (this.Memory.Count > 0)
+                    {
+                        ProcessRegister();
+                    }
+
+                    if (this.Execute.Count > 0)
+                    {
+                        ProcessMemory();
+                    }
+
+                    if (this.Decode.Count > 0)
+                    {
+                        ProcessExecute();
+                    }
+
+                    if (this.Fetch.Count > 0)
+                    {
+
+                        ProcessDecode();
+                    }
+
+                    if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
+                    {
+                        PushFetch(this.Input_Instructions[this.SimulationCount]);
+                        this.SimulationCount++;
+                    }
+
+                }
+
+                // clean up pipeline
+
+                while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+                {
+
+                    if (this.Register.Count > 0)
+                    {
+                        this.Register.Pop();
+                        this.RegisterBox.Text = "";
+                        if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
+                            return;
+                    }
+
+                    CountUpdate();
+                    UpdateAndDelay();
+
+                    if (this.Memory.Count > 0)
+                    {
+
+                        ProcessRegister();
+                    }
+
+                    if (this.Execute.Count > 0)
+                    {
+                        ProcessMemory();
+                    }
+
+                    if (this.Decode.Count > 0)
+                    {
+                        ProcessExecute();
+                    }
+
+                    if (this.Fetch.Count > 0)
+                    {
+                        ProcessDecode();
+                    }
+
+
+
+                }
+
+            }
+        }
+
+        //public void 
+
+
+        /**
+        * Method Name: KeepGoing(int)
+        * Method Purpose: Process a single cycle while a stack is stalling
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        * @param i - used to determine which stack is stalling
+        */
+        public void KeepGoing(int i)
+        {
+            if (i == 1) //decode stall
+            {
+                if (this.Register.Count > 0)    // register for one cycle
                 {
                     RegisterCycle();
                 }
 
-                if (this.Memory.Count > 0)
+                if (this.Memory.Count > 0)      // memory for one cycle
                 {
-                    ProcessRegister();
+                    Instruction temp = this.Memory.Peek();
+
+                    if (temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        this.MemoryBox.Text = "";
+
+                        if (temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                        }
+                    }
+                    else if (temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--;
+                    }
+                    UpdateAndDelay();
                 }
 
-                if (this.Execute.Count > 0)
+                if (this.Execute.Count > 0)     // Execute for one cycle
                 {
-                    ProcessMemory();
+                    Instruction temp = this.Execute.Peek();
+
+                    if (temp.ExecuteCC == 0)
+                    {
+                        if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                        {
+                            this.Execute.Pop();
+                        }
+                        else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            PushMemory(temp);
+                            MemoryText(temp);
+                        }
+                        else if (temp.RegisterCC > 0 && this.Register.Count == 0)
+                        {
+                            this.Execute.Pop();
+                            this.ExecuteBox.Text = "";
+                            PushRegister(temp);
+                            RegisterText(temp);
+                        }
+                        else if (temp.ExecuteCC > 0)
+                            temp.ExecuteCC--;
+                    }
+
+                    UpdateAndDelay();
                 }
 
-                if (this.Decode.Count > 0)
+                // fetch for one cycle
+                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
                 {
-                    ProcessExecute();
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
                 }
 
-                if (this.Fetch.Count > 0)
+            }
+            else if (i == 2) //execute stall
+            {
+                if (this.Register.Count > 0)        // register for one cycle
                 {
 
                     ProcessDecode();
@@ -166,10 +316,7 @@ namespace Project2_HT
 
                 UpdateAndDelay();
             }
-
-            // clean up pipeline
-
-            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+            else if (i == 3) //memory stall
             {
 
                 if (this.Register.Count > 0)
@@ -189,19 +336,42 @@ namespace Project2_HT
                     ProcessRegister();
                 }
 
-                if (this.Execute.Count > 0)
+                    }
+                    else if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC > 0)
+                    {
+                        this.Execute.Pop();
+                        PushRegister(temp);
+                        this.ExecuteBox.Text = "";
+                    }
+                    else if (temp.ExecuteCC > 0)
+                    {
+                        temp.ExecuteCC--;
+                    }
+                    UpdateAndDelay();
+
+                }
+                else if (this.Execute.Count == 0 && this.Decode.Count == 1)
                 {
-                    ProcessMemory();
+                    Instruction temp = this.Decode.Peek();
+                    if (temp.DecodeCC == 0)
+                    {
+                        this.Decode.Pop();
+                        this.DecodeBox.Text = "";
+                        PushExecute(temp);
+                    }
+                    else
+                    {
+                        temp.DecodeCC--;
+                    }
+                    UpdateAndDelay();
+
                 }
 
-                if (this.Decode.Count > 0)
+                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
                 {
-                    ProcessExecute();
-                }
-
-                if (this.Fetch.Count > 0)
-                {
-                    ProcessDecode();
+                    PushFetch(this.Input_Instructions[this.SimulationCount]);
+                    this.SimulationCount++;
+                    UpdateAndDelay();
                 }
 
             }
@@ -386,6 +556,27 @@ namespace Project2_HT
             }
         }
 
+
+
+        }
+        // See if an operand register in an instruction is being used already, and stall until it is free.
+        //Avery 
+        public void CompareOpRegisters(Instruction i)
+        {
+            //check if its in the stale registers
+            if (usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null)
+            {
+                hazardCount++;
+                label7.Text = hazardCount.ToString();
+                CountUpdate(); //go stall
+            }
+            else
+            {
+                return; //if not, leave
+            }
+            CompareOpRegisters(i); //try again otherwise
+        }
+
         /**
         * Method Name: ProcessDecode()
         * Method Purpose: Pops from fetch and pushes onto decode if instruction needs to be decoded (i.DecodeCC)
@@ -401,7 +592,11 @@ namespace Project2_HT
         {
             Instruction i = this.Fetch.Pop();
             this.FetchBox.Text = "";
-            CheckRegisters(i);
+            CompareOpRegisters(i);
+            if(i.writeBack == true)
+            {
+                CheckRegisters(i);
+            }
             if (i.DecodeCC != 0)
             {
                 PushDecode(i);
@@ -437,7 +632,6 @@ namespace Project2_HT
             if (i.ExecuteCC != 0)
             {
                 PushExecute(i);
-
                 UpdateAndDelay();
 
 
@@ -540,8 +734,9 @@ namespace Project2_HT
         /// <param name="i">Instruction passed in from Process Registers</param>
         public void CheckRegisters(Instruction i)
         {
+
             //see if register is available by checking the usedRegisters list
-            if (!(usedRegisters.Contains(i.DestReg)))
+            if (!usedRegisters.Contains(i.DestReg))
             {
                 usedRegisters.Add(i.DestReg);
             }
@@ -550,7 +745,7 @@ namespace Project2_HT
                 hazardCount++;
                 label7.Text = hazardCount.ToString();
                 Task.Delay(time).Wait();
-                usedRegisters.Clear();  //clear registers when no longer in use
+                usedRegisters.Remove(i.DestReg);
                 CheckRegisters(i);
             }
 
