@@ -69,8 +69,8 @@ namespace Project2_HT
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1010, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1240, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -102,41 +102,46 @@ namespace Project2_HT
             // FetchBox
             // 
             this.FetchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FetchBox.Location = new System.Drawing.Point(60, 184);
+            this.FetchBox.Location = new System.Drawing.Point(80, 226);
+            this.FetchBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FetchBox.Name = "FetchBox";
-            this.FetchBox.Size = new System.Drawing.Size(100, 34);
+            this.FetchBox.Size = new System.Drawing.Size(132, 34);
             this.FetchBox.TabIndex = 1;
             // 
             // DecodeBox
             // 
             this.DecodeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DecodeBox.Location = new System.Drawing.Point(212, 184);
+            this.DecodeBox.Location = new System.Drawing.Point(283, 226);
+            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DecodeBox.Name = "DecodeBox";
-            this.DecodeBox.Size = new System.Drawing.Size(100, 34);
+            this.DecodeBox.Size = new System.Drawing.Size(132, 34);
             this.DecodeBox.TabIndex = 2;
             // 
             // ExecuteBox
             // 
             this.ExecuteBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExecuteBox.Location = new System.Drawing.Point(370, 184);
+            this.ExecuteBox.Location = new System.Drawing.Point(493, 226);
+            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ExecuteBox.Name = "ExecuteBox";
-            this.ExecuteBox.Size = new System.Drawing.Size(100, 34);
+            this.ExecuteBox.Size = new System.Drawing.Size(132, 34);
             this.ExecuteBox.TabIndex = 3;
             // 
             // MemoryBox
             // 
             this.MemoryBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MemoryBox.Location = new System.Drawing.Point(557, 184);
+            this.MemoryBox.Location = new System.Drawing.Point(690, 226);
+            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MemoryBox.Name = "MemoryBox";
-            this.MemoryBox.Size = new System.Drawing.Size(100, 34);
+            this.MemoryBox.Size = new System.Drawing.Size(132, 34);
             this.MemoryBox.TabIndex = 4;
             // 
             // RegisterBox
             // 
             this.RegisterBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegisterBox.Location = new System.Drawing.Point(729, 184);
+            this.RegisterBox.Location = new System.Drawing.Point(920, 226);
+            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RegisterBox.Name = "RegisterBox";
-            this.RegisterBox.Size = new System.Drawing.Size(100, 34);
+            this.RegisterBox.Size = new System.Drawing.Size(132, 34);
             this.RegisterBox.TabIndex = 5;
             // 
             // label1
@@ -145,7 +150,8 @@ namespace Project2_HT
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Stencil", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(67, 149);
+            this.label1.Location = new System.Drawing.Point(89, 183);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 29);
             this.label1.TabIndex = 6;
@@ -157,7 +163,8 @@ namespace Project2_HT
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(217, 149);
+            this.label2.Location = new System.Drawing.Point(289, 183);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 29);
             this.label2.TabIndex = 7;
@@ -169,7 +176,8 @@ namespace Project2_HT
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(365, 149);
+            this.label3.Location = new System.Drawing.Point(487, 183);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 29);
             this.label3.TabIndex = 8;
@@ -181,7 +189,8 @@ namespace Project2_HT
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(552, 120);
+            this.label4.Location = new System.Drawing.Point(700, 154);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 58);
             this.label4.TabIndex = 9;
@@ -193,7 +202,8 @@ namespace Project2_HT
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(698, 135);
+            this.label5.Location = new System.Drawing.Point(915, 183);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(300, 29);
             this.label5.TabIndex = 10;
@@ -203,9 +213,10 @@ namespace Project2_HT
             // 
             this.StartButton.BackColor = System.Drawing.Color.Silver;
             this.StartButton.Font = new System.Drawing.Font("Stencil", 13.8F);
-            this.StartButton.Location = new System.Drawing.Point(42, 85);
+            this.StartButton.Location = new System.Drawing.Point(56, 105);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(140, 47);
+            this.StartButton.Size = new System.Drawing.Size(187, 58);
             this.StartButton.TabIndex = 11;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = false;
@@ -217,8 +228,7 @@ namespace Project2_HT
             this.cycleLabel.BackColor = System.Drawing.Color.Transparent;
             this.cycleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cycleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cycleLabel.Location = new System.Drawing.Point(155, 257);
-            this.cycleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cycleLabel.Location = new System.Drawing.Point(169, 314);
             this.cycleLabel.Name = "cycleLabel";
             this.cycleLabel.Size = new System.Drawing.Size(27, 29);
             this.cycleLabel.TabIndex = 14;
@@ -230,8 +240,7 @@ namespace Project2_HT
             this.cycledescrLabel.BackColor = System.Drawing.Color.Transparent;
             this.cycledescrLabel.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.cycledescrLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cycledescrLabel.Location = new System.Drawing.Point(55, 257);
-            this.cycledescrLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cycledescrLabel.Location = new System.Drawing.Point(73, 316);
             this.cycledescrLabel.Name = "cycledescrLabel";
             this.cycledescrLabel.Size = new System.Drawing.Size(90, 29);
             this.cycledescrLabel.TabIndex = 15;
@@ -243,7 +252,8 @@ namespace Project2_HT
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(244, 257);
+            this.label6.Location = new System.Drawing.Point(325, 316);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(128, 29);
             this.label6.TabIndex = 16;
@@ -255,7 +265,8 @@ namespace Project2_HT
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(365, 257);
+            this.label7.Location = new System.Drawing.Point(461, 314);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(27, 29);
             this.label7.TabIndex = 17;
@@ -267,7 +278,8 @@ namespace Project2_HT
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label8.Location = new System.Drawing.Point(12, 41);
+            this.label8.Location = new System.Drawing.Point(16, 50);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(760, 29);
             this.label8.TabIndex = 18;
@@ -275,11 +287,11 @@ namespace Project2_HT
             // 
             // Tangents
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1010, 380);
+            this.ClientSize = new System.Drawing.Size(1240, 400);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -297,7 +309,7 @@ namespace Project2_HT
             this.Controls.Add(this.DecodeBox);
             this.Controls.Add(this.FetchBox);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Tangents";
             this.Text = "Pipeline Simulator";
             this.menuStrip1.ResumeLayout(false);
