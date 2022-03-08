@@ -128,10 +128,8 @@ namespace Project2_HT
 
         public void Simulation()
         {
-            while (this.SimulationCount < this.Input_Instructions.Count)
+            for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
-                CountUpdate();
-                UpdateAndDelay();
 
                 while (this.SimulationCount < this.Input_Instructions.Count)
                 {
@@ -325,8 +323,6 @@ namespace Project2_HT
                 }
 
             }
-
-
         }
 
         public void RegisterCycle()
@@ -434,17 +430,6 @@ namespace Project2_HT
             CompareOpRegisters(i); //try again otherwise
         }
 
-        /**
-        * Method Name: ProcessDecode()
-        * Method Purpose: Pops from fetch and pushes onto decode if instruction needs to be decoded (i.DecodeCC)
-        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
-        *                 Uses the KeepGoing method to process the other stacks while stalling
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        */
         public void ProcessDecode()
         {
             Instruction i = this.Fetch.Pop();
@@ -458,30 +443,19 @@ namespace Project2_HT
             {
                 PushDecode(i);
 
+                //CountUpdate();
                 UpdateAndDelay();
 
                 while (i.DecodeCC > 0)
                 {
                     i.DecodeCC--;
 
-                    KeepGoing(1);
                     CountUpdate();
                     UpdateAndDelay();
                 }
             }
         }
 
-        /**
-        * Method Name: ProcessExecute()
-        * Method Purpose: Pops from Decode and pushes onto Execute if instruction needs to be executed (i.ExecuteCC)
-        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
-        *                 Uses the KeepGoing method to process the other stacks while stalling
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        */
         public void ProcessExecute()
         {
             Instruction i = this.Decode.Pop();
@@ -496,24 +470,12 @@ namespace Project2_HT
                 {
                     i.ExecuteCC--;
 
-                    KeepGoing(2);
                     CountUpdate();
                     UpdateAndDelay();
                 }
             }
         }
 
-        /**
-        * Method Name: ProcessMemory()
-        * Method Purpose: Pops from Execute and pushes onto Memory (or Register) if instruction needs to access memory or writeback (i.MemoryCC OR i.RegisterCC)
-        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
-        *                 Uses the KeepGoing method to process the other stacks while stalling
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        */
         public void ProcessMemory()
         {
             Instruction i = this.Execute.Pop();
@@ -523,21 +485,22 @@ namespace Project2_HT
             {
                 PushMemory(i);
 
+                //CountUpdate();
                 UpdateAndDelay();
 
                 while (i.MemoryCC > 0)
                 {
                     i.MemoryCC--;
 
-                    KeepGoing(3);
                     CountUpdate();
                     UpdateAndDelay();
                 }
             }
-            else if (i.RegisterCC != 0)
+            else if(i.RegisterCC != 0)
             {
                 PushRegister(i);
 
+                //CountUpdate();
                 UpdateAndDelay();
 
 
@@ -551,17 +514,6 @@ namespace Project2_HT
             }
         }
 
-        /**
-        * Method Name: ProcessRegister()
-        * Method Purpose: Pops from Memory and pushes onto Register if instruction needs to writeback to a register (i.RegisterCC)
-        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
-        *                 Uses the KeepGoing method to process the other stacks while stalling
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        */
         public void ProcessRegister()
         {
             Instruction i = this.Memory.Pop();
@@ -607,49 +559,18 @@ namespace Project2_HT
             }
 
         }
-
-        /**
-        * Method Name: CountUpdate()
-        * Method Purpose: Increments cycle count and changes text to reflect new amount
-        *                 For simplicity purposes
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        */
         public void CountUpdate()
         {
             this.cycleCount++;
             cycleLabel.Text = cycleCount.ToString();
         }
 
-        /**
-        * Method Name: UpdateAndDelay()
-        * Method Purpose: Updates the entire form so changes can be seen, delays so that changes can be seen
-        *                 For simplicity purposes
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        */
         public void UpdateAndDelay()
         {
             Update();
-            Task.Delay(time).Wait();
+            Task.Delay(500).Wait();
         }
 
-        /**
-        * Method Name: PushFetch(Instruction)
-        * Method Purpose: Pushes param onto Fetch stack, used for simplicity purposes 
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        * @param Instruction i - Pushed onto Fetch Stack, decrements value for i, and then text is changed
-        */
         public void PushFetch(Instruction i)
         {
             this.Fetch.Push(i);
@@ -657,16 +578,6 @@ namespace Project2_HT
             FetchText(i);
         }
 
-        /**
-        * Method Name: PushDecode(Instruction)
-        * Method Purpose: Pushes param onto Decode stack, used for simplicity purposes 
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        * @param Instruction i - Pushed onto Decode Stack, decrements value for i, and then text is changed
-        */
         public void PushDecode(Instruction i)
         {
             this.Decode.Push(i);
@@ -674,16 +585,6 @@ namespace Project2_HT
             DecodeText(i);
         }
 
-        /**
-        * Method Name: PushExecute(Instruction)
-        * Method Purpose: Pushes param onto Execute stack, used for simplicity purposes 
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        * @param Instruction i - Pushed onto Execute Stack, decrements value for i, and then text is changed
-        */
         public void PushExecute(Instruction i)
         {
             this.Execute.Push(i);
@@ -691,16 +592,6 @@ namespace Project2_HT
             ExecuteText(i);
         }
 
-        /**
-        * Method Name: PushMemory(Instruction)
-        * Method Purpose: Pushes param onto Memory stack, used for simplicity purposes 
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        * @param Instruction i - Pushed onto Memory Stack, decrements value for i, and then text is changed
-        */
         public void PushMemory(Instruction i)
         {
             this.Memory.Push(i);
@@ -708,16 +599,6 @@ namespace Project2_HT
             MemoryText(i);
         }
 
-        /**
-        * Method Name: PushRegister(Instruction)
-        * Method Purpose: Pushes param onto Register stack, used for simplicity purposes 
-        *
-        * <hr>
-        * Date created: 03/01/2022
-        * @Janine Day
-        * <hr>
-        * @param Instruction i - Pushed onto Register Stack, decrements value for i, and then text is changed
-        */
         public void PushRegister(Instruction i)
         {
             this.Register.Push(i);
@@ -810,7 +691,7 @@ namespace Project2_HT
             StreamWriter filewrite = new StreamWriter(fParameter);
 
             filewrite.WriteLine("   Instruction    |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack ");
-            filewrite.WriteLine("______________________________________________________________________");
+            filewrite.WriteLine("______________________________________________________________________________________________");
 
             int f, d, exe, m, w;
             int fetch = 0, 
@@ -965,10 +846,10 @@ namespace Project2_HT
 
 
                 filewrite.WriteLine("     " + Save_Stats[i].Mnemonic.PadRight(5, ' ') + "              " + 
-                                   (fetch) + "                 " +
-                                   (decode.PadRight(9, ' ')) + "              " +
-                                   (exec) + "               " +
-                                   (memo.PadRight(9, ' ')) + "               " +
+                                   (fetch) + "             " +
+                                   (decode.PadRight(7, ' ')) + "         " +
+                                   (exec) + "              " +
+                                   (memo.PadRight(9, ' ')) + "       " +
                                    (stringWB) + "          ");
 
 
@@ -980,8 +861,8 @@ namespace Project2_HT
 
 
             filewrite.WriteLine();
+            filewrite.WriteLine("______________________________________________________________________________________________");
             filewrite.WriteLine();
-            filewrite.WriteLine("________________________________________________________________");
             filewrite.WriteLine("Cycle count: " + cycleCount);
             filewrite.WriteLine("Hazard count: " + hazardCount);
 
