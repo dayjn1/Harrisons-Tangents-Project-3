@@ -2,7 +2,7 @@
 // Project name:                Project 2 - Harrison's Tangents
 // ---------------------------------------------------------------------------
 // Creator’s name:              Janine Day
-// Edited By:                   Janine Day, 
+// Edited By:                   Janine Day, Avery Marlow
 // Course-Section:              CSCI-4717
 // Creation Date:               02/17/2022
 // ---------------------------------------------------------------------------
@@ -128,90 +128,92 @@ namespace Project2_HT
 
         public void Simulation()
         {
-			 Instruction wb;
+            Instruction wb;
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
-               
-            while (this.SimulationCount < this.Input_Instructions.Count)
-            {
-                CountUpdate();
-                UpdateAndDelay();
 
-                if (this.Register.Count > 0)
+                while (this.SimulationCount < this.Input_Instructions.Count)
                 {
+                    CountUpdate();
+                    UpdateAndDelay();
 
-                    wb = this.Register.Pop();
-                    usedRegisters.Remove(wb.DestReg);
-                    this.RegisterBox.Text = "";
+                    if (this.Register.Count > 0)
+                    {
+
+                        wb = this.Register.Pop();
+                        usedRegisters.Remove(wb.DestReg);
+                        this.RegisterBox.Text = "";
+                    }
+
+                    if (this.Memory.Count > 0)
+                    {
+                        ProcessRegister();
+                    }
+
+                    if (this.Execute.Count > 0)
+                    {
+                        ProcessMemory();
+                    }
+
+                    if (this.Decode.Count > 0)
+                    {
+                        ProcessExecute();
+                    }
+
+                    if (this.Fetch.Count > 0)
+                    {
+
+                        ProcessDecode();
+                    }
+
+                    if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
+                    {
+                        PushFetch(this.Input_Instructions[this.SimulationCount]);
+                        this.SimulationCount++;
+                    }
+
                 }
 
-                if (this.Memory.Count > 0)
-                {
-                    ProcessRegister();
-                }
+                // clean up pipeline
 
-                if (this.Execute.Count > 0)
-                {
-                    ProcessMemory();
-                }
-
-                if (this.Decode.Count > 0)
-                {
-                    ProcessExecute();
-                }
-
-                if (this.Fetch.Count > 0)
+                while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
                 {
 
-                    ProcessDecode();
+                    if (this.Register.Count > 0)
+                    {
+                        this.Register.Pop();
+                        this.RegisterBox.Text = "";
+                        if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
+                            return;
+                    }
+
+                    CountUpdate();
+                    UpdateAndDelay();
+
+                    if (this.Memory.Count > 0)
+                    {
+
+                        ProcessRegister();
+                    }
+
+                    if (this.Execute.Count > 0)
+                    {
+                        ProcessMemory();
+                    }
+
+                    if (this.Decode.Count > 0)
+                    {
+                        ProcessExecute();
+                    }
+
+                    if (this.Fetch.Count > 0)
+                    {
+                        ProcessDecode();
+                    }
+
+
+
                 }
-
-                if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
-                {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
-                }
-
-            }
-
-            // clean up pipeline
-            
-            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
-            {
-
-                if (this.Register.Count > 0)
-                {
-                    this.Register.Pop();
-                    this.RegisterBox.Text = "";
-                    if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
-                        return;
-                }
-
-                CountUpdate();
-                UpdateAndDelay();
-
-                if (this.Memory.Count > 0)
-                {
-
-                    ProcessRegister();
-                }
-
-                if (this.Execute.Count > 0)
-                {
-                    ProcessMemory();
-                }
-
-                if (this.Decode.Count > 0)
-                {
-                    ProcessExecute();
-                }
-
-                if (this.Fetch.Count > 0)
-                {
-                    ProcessDecode();
-                }
-                
-
 
             }
         }

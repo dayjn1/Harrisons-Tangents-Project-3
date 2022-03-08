@@ -59,6 +59,10 @@ namespace Project2_HT
             new Instruction(18, "ASL", 1, 1, 1, 0, 1, true, true, false, false),
             new Instruction(19, "ASR", 1, 1, 1, 0, 1, true, true, false, false),
             new Instruction(20, "MOV", 1, 1, 1, 0, 1, true, true, true, false),
+            new Instruction(128, "FADD", 1, 1, 1, 0, 1, true, true, true, false),
+            new Instruction(129, "FSUB", 1, 1, 1, 0, 1, true, true, true, false),
+            new Instruction(130, "MULT", 1, 1, 1, 0, 1, true, true, true, false),
+            new Instruction(131, "DIV", 1, 1, 1, 0, 1, true, true, true, false),
             new Instruction(404, "INVALID", 1, 1, 0, 0, 0, false, false, false, false)
         };
 
