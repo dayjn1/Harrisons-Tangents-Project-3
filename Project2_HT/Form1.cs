@@ -131,7 +131,7 @@ namespace Project2_HT
         public void Simulation()
         {
             Instruction wb; //stores the writeback instruction if needed
-            
+
             //iterate through each of the instructions
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
@@ -218,6 +218,9 @@ namespace Project2_HT
 
 
                 }
+            }
+        }
+
 
         /**
         * Method Name: InvalidFound()
@@ -284,7 +287,7 @@ namespace Project2_HT
         public void HaltFound()
         {
             //clear any instructions loaded after halt
-            if(this.Fetch.Count > 0)
+            if (this.Fetch.Count > 0)
             {
                 this.Fetch.Pop();
                 //update text
@@ -302,7 +305,7 @@ namespace Project2_HT
             //keep going if anything in memory or writeback (halt is in Execute)
             while (this.Memory.Count > 0 || this.Register.Count > 0)
             {
-                if(this.Register.Count > 0)
+                if (this.Register.Count > 0)
                 {
                     this.Register.Pop();
                     RegisterBox.Text = "";
@@ -311,11 +314,11 @@ namespace Project2_HT
                 else if (this.Memory.Count > 0)
                 {
                     Instruction temp = this.Memory.Peek();
-                    if(temp.MemoryCC == 0)
+                    if (temp.MemoryCC == 0)
                     {
                         temp = this.Memory.Pop();
                         MemoryBox.Text = "";
-                        if(temp.RegisterCC > 0)
+                        if (temp.RegisterCC > 0)
                         {
                             PushRegister(temp);
                         }
@@ -328,7 +331,7 @@ namespace Project2_HT
                 }
                 CountUpdate();
             }
-
+        }
 
         /**
         * Method Name: KeepGoing(int)
