@@ -212,7 +212,7 @@ namespace Project2_HT
 
 
 
-                    if (this.Fetch.Count > 0)
+                    /*if (this.Fetch.Count > 0) --this is extra
                     {
                         //check for invalid before decode
                         //.Peek() method to view instruction currently in Fetch stack - H
@@ -222,7 +222,7 @@ namespace Project2_HT
                         //    InvalidFound();
 
                         ProcessDecode();
-                    }
+                    }*/
                 }
 
             }
@@ -245,38 +245,39 @@ namespace Project2_HT
                 this.Fetch.Pop();
                 //update text
                 FetchBox.Text = "";
-                Update();
+                UpdateAndDelay();
+                
             }
             if (this.Decode.Count > 0)
             {
                 this.Decode.Pop();
                 //update text
                 DecodeBox.Text = "";
-                Update();
+                UpdateAndDelay();
             }
             if (this.Execute.Count > 0)
             {
                 this.Execute.Pop();
                 //update text
                 ExecuteBox.Text = "";
-                Update();
+                UpdateAndDelay();
             }
             if (this.Memory.Count > 0)//memory
             {
                 this.Memory.Pop();
                 //update text
                 MemoryBox.Text = "";
-                Update();
+                UpdateAndDelay();
             }
             if (this.Register.Count > 0)                //register
             {
                 this.Register.Pop();
                 //update text
                 RegisterBox.Text = "";
-                Update();
+                UpdateAndDelay();
             }
 
-            //method call to close Gui??
+            //method call to close Gui?? --completes the crash
             System.Windows.Forms.Application.Exit();
         }
 
@@ -297,17 +298,45 @@ namespace Project2_HT
                 this.Fetch.Pop();
                 //update text
                 FetchBox.Text = "";
-                Update();
+                UpdateAndDelay();
             }
             if (this.Decode.Count > 0)
             {
                 this.Decode.Pop();
                 //update text
                 DecodeBox.Text = "";
-                Update();
+                UpdateAndDelay();
             }
 
             //keep going if anything in memory or writeback (halt is in Execute)
+            while (this.Memory.Count > 0 || this.Register.Count > 0)
+            {
+                if(this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+                else if (this.Memory.Count > 0)
+                {
+                    Instruction temp = this.Memory.Peek();
+                    if(temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        MemoryBox.Text = "";
+                        if(temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                        }
+                    }
+                    else if (temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--;
+                    }
+                    UpdateAndDelay();
+                }
+                CountUpdate();
+            }
 
         }
          
