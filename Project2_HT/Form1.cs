@@ -9,14 +9,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 
@@ -132,12 +127,16 @@ namespace Project2_HT
 
             for (int i = 0; i < this.Input_Instructions.Count; i++)
             {
+                Instruction wb;
                 CountUpdate();
                 UpdateAndDelay();
 
                 if (this.Register.Count > 0)
                 {
-                    this.Register.Pop();
+
+                   wb = this.Register.Pop();
+                    usedRegisters.Remove(wb.DestReg);
+                    
                     this.RegisterBox.Text = "";
                 }
 
@@ -204,12 +203,28 @@ namespace Project2_HT
             }
         }
 
+        public void CompareOpRegisters(Instruction i)
+        {
+            if (usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null)
+            {
+                CountUpdate();
+            }
+            else
+            {
+                return;
+            }
+            CompareOpRegisters(i);
+        }
 
         public void ProcessDecode()
         {
             Instruction i = this.Fetch.Pop();
             this.FetchBox.Text = "";
-            CheckRegisters(i);
+            CompareOpRegisters(i);
+            if(i.writeBack == true)
+            {
+                CheckRegisters(i);
+            }
             if (i.DecodeCC != 0)
             {
                 PushDecode(i);
@@ -319,8 +334,9 @@ namespace Project2_HT
         /// <param name="i">Instruction passed in from Process Registers</param>
         public void CheckRegisters(Instruction i)
         {
+
             //see if register is available by checking the usedRegisters list
-            if (!(usedRegisters.Contains(i.DestReg)))
+            if (!usedRegisters.Contains(i.DestReg))
             {
                 usedRegisters.Add(i.DestReg);
             }
@@ -329,7 +345,7 @@ namespace Project2_HT
                 hazardCount++;
                 label7.Text = hazardCount.ToString();
                 Task.Delay(1000).Wait();
-                usedRegisters.Clear();  //clear registers when no longer in use
+                usedRegisters.Remove(i.DestReg);
                 CheckRegisters(i);
             }
 
