@@ -109,12 +109,6 @@ namespace Project2_HT
             this.ExecuteCC = execute;
             this.MemoryCC = memory;
             this.RegisterCC = register;
-
-            if (this.RegisterCC == 1)
-                this.writeBack = true;
-            else
-                this.writeBack = false;
-
             this.writeBack = writeBack;
             this.useRD = useRD;
             this.useR1 = useR1;
