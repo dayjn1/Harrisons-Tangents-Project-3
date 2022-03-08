@@ -219,10 +219,115 @@ namespace Project2_HT
 
                 }
 
+        /**
+        * Method Name: InvalidFound()
+        * Method Purpose: Method to pop all stacks and close/crash the program when illegal instruction is found
+        *
+        * <hr>
+        * Date created: 03/07/2022
+        * @Hannah Taylor
+        * <hr>
+        */
+        public void InvalidFound()
+        {
+            //check each stack 
+            if (this.Fetch.Count > 0)
+            {
+                this.Fetch.Pop();
+                //update text
+                FetchBox.Text = "";
+                UpdateAndDelay();
+                
             }
+            if (this.Decode.Count > 0)
+            {
+                this.Decode.Pop();
+                //update text
+                DecodeBox.Text = "";
+                UpdateAndDelay();
+            }
+            if (this.Execute.Count > 0)
+            {
+                this.Execute.Pop();
+                //update text
+                ExecuteBox.Text = "";
+                UpdateAndDelay();
+            }
+            if (this.Memory.Count > 0)//memory
+            {
+                this.Memory.Pop();
+                //update text
+                MemoryBox.Text = "";
+                UpdateAndDelay();
+            }
+            if (this.Register.Count > 0)                //register
+            {
+                this.Register.Pop();
+                //update text
+                RegisterBox.Text = "";
+                UpdateAndDelay();
+            }
+
+            //method call to close Gui?? --completes the crash
+            System.Windows.Forms.Application.Exit();
         }
 
-        //public void 
+        /**
+        * Method Name: InvalidFound()
+        * Method Purpose: Method to finish simulation when halt reaches Execute before it is popped off
+        *
+        * <hr>
+        * Date created: 03/07/2022
+        * @Hannah Taylor
+        * <hr>
+        */
+        public void HaltFound()
+        {
+            //clear any instructions loaded after halt
+            if(this.Fetch.Count > 0)
+            {
+                this.Fetch.Pop();
+                //update text
+                FetchBox.Text = "";
+                UpdateAndDelay();
+            }
+            if (this.Decode.Count > 0)
+            {
+                this.Decode.Pop();
+                //update text
+                DecodeBox.Text = "";
+                UpdateAndDelay();
+            }
+
+            //keep going if anything in memory or writeback (halt is in Execute)
+            while (this.Memory.Count > 0 || this.Register.Count > 0)
+            {
+                if(this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+                else if (this.Memory.Count > 0)
+                {
+                    Instruction temp = this.Memory.Peek();
+                    if(temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        MemoryBox.Text = "";
+                        if(temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                        }
+                    }
+                    else if (temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--;
+                    }
+                    UpdateAndDelay();
+                }
+                CountUpdate();
+            }
 
 
         /**
