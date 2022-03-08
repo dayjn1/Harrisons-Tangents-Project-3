@@ -31,35 +31,37 @@ namespace Project2_HT
         public string DestReg;
         public string Reg1;
         public string Reg2;
+        public string Imm;
         public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC;
         public bool writeBack;
         public bool useRD;
         public bool useR1;
         public bool useR2;
+        public bool useImm;
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
-            new Instruction(0, "HALT", 1, 1, 1, 0, 0, false, false, false, false),
-            new Instruction(1, "LOAD", 1, 2, 1, 3, 1, true, true, true, false),
-            new Instruction(2, "STOR", 1, 2, 1, 3, 0, false, true, true, false),
-            new Instruction(3, "ADD", 1, 1, 1, 0, 1, true, true, true, true),
-            new Instruction(4, "ADDI", 1, 1, 1, 0, 1, true, true, true, true),
-            new Instruction(5, "SUB", 1, 1, 1, 0, 1, true, true, true, true),
-            new Instruction(6, "SUBI", 1, 1, 1, 0, 1, true, true, true, true),
-            new Instruction(7, "BR", 1, 1, 1, 0, 0,  false, true, false, false),
-            new Instruction(8, "BRLT", 1, 1, 1, 0, 0, false, true, false, false),
-            new Instruction(9, "BRLE", 1, 1, 1, 0, 0, false, true, false, false),
-            new Instruction(10, "BREQ", 1, 1, 1, 0, 0, false, true, false, false),
-            new Instruction(11, "BRNE", 1, 1, 1, 0, 0, false, true, false, false),
-            new Instruction(12, "BRGT", 1, 1, 1, 0, 0, false, true, false, false),
-            new Instruction(13, "BRGE", 1, 1, 1, 0, 0, false, true, false, false),
-            new Instruction(14, "AND", 1, 1, 1, 0, 1, true, true, true, true),
-            new Instruction(15, "OR", 1, 1, 1, 0, 1,  true, true, true, true),
-            new Instruction(16, "NOT", 1, 1, 1, 0, 1, true, true, false, false),
-            new Instruction(17, "NEG", 1, 1, 1, 0, 1, true, true, false, false),
-            new Instruction(18, "ASL", 1, 1, 1, 0, 1, true, true, false, false),
-            new Instruction(19, "ASR", 1, 1, 1, 0, 1, true, true, false, false),
-            new Instruction(20, "MOV", 1, 1, 1, 0, 1, true, true, true, false),
-            new Instruction(404, "INVALID", 1, 1, 0, 0, 0, false, false, false, false)
+            new Instruction(0, "HALT", 1, 1, 1, 0, 0, false, false, false, false, false),
+            new Instruction(1, "LOAD", 1, 2, 1, 3, 1, true, true, true, false, false),
+            new Instruction(2, "STOR", 1, 2, 1, 3, 0, false, true, true, false, false),
+            new Instruction(3, "ADD", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(4, "ADDI", 1, 1, 1, 0, 1, true, true, true, false, true),
+            new Instruction(5, "SUB", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(6, "SUBI", 1, 1, 1, 0, 1, true, true, true, false, true),
+            new Instruction(7, "BR", 1, 1, 1, 0, 0,  false, true, false, false, false),
+            new Instruction(8, "BRLT", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(9, "BRLE", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(10, "BREQ", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(11, "BRNE", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(12, "BRGT", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(13, "BRGE", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(14, "AND", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(15, "OR", 1, 1, 1, 0, 1,  true, true, true, true, false),
+            new Instruction(16, "NOT", 1, 1, 1, 0, 1, true, true, false, false, false),
+            new Instruction(17, "NEG", 1, 1, 1, 0, 1, true, true, false, false, false),
+            new Instruction(18, "ASL", 1, 1, 1, 0, 1, true, true, true, true, false),               //R1 operand to be shifted, R2 shift value -JM
+            new Instruction(19, "ASR", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(20, "MOV", 1, 1, 1, 0, 1, true, true, true, false, false),
+            new Instruction(404, "INVALID", 1, 1, 0, 0, 0, false, false, false, false, false)
         };
 
 
@@ -94,7 +96,7 @@ namespace Project2_HT
         * @param int - memory
         * @param int - register
         */
-        public Instruction(uint opcode, string mnemonic, int fetch, int decode, int execute, int memory, int register,bool writeBack, bool useRD, bool useR1, bool useR2)
+        public Instruction(uint opcode, string mnemonic, int fetch, int decode, int execute, int memory, int register,bool writeBack, bool useRD, bool useR1, bool useR2, bool useImm)
         {
             this.OpCode = opcode;
             this.Mnemonic = mnemonic;
@@ -113,6 +115,7 @@ namespace Project2_HT
             this.useRD = useRD;
             this.useR1 = useR1;
             this.useR2 = useR2;
+            this.useImm = useImm;
             
         }
 
@@ -140,6 +143,7 @@ namespace Project2_HT
                     this.useRD = InstructionSet[i].useRD;
                     this.useR1 = InstructionSet[i].useR1;
                     this.useR2 = InstructionSet[i].useR2;
+                    this.useImm = InstructionSet[i].useImm;
 
                     return;
                 }
@@ -155,6 +159,7 @@ namespace Project2_HT
             this.useRD = false;
             this.useR1 = false;
             this.useR2 = false;
+            this.useImm = false;
         }
 
 
@@ -184,6 +189,7 @@ namespace Project2_HT
             }
 
             FindIS();
+
             // Sets Destination reg, reg 1, and reg 2 if the instruction uses the register -JM
             if (this.useRD == true)
             {
@@ -204,6 +210,12 @@ namespace Project2_HT
                 uint reg2 = (uint)input & 0x0000F000;
                 reg2 >>= 12;
                 this.Reg2 = "R" + reg2.ToString("X");
+            }
+
+            if (this.useImm == true)                                //Put immediate value in Imm for ADDI and SUBI
+            {
+                uint immediate = (uint)input & 0x00000FFF;
+                this.Imm = immediate.ToString("X");
             }
 
         }//end disassemble
