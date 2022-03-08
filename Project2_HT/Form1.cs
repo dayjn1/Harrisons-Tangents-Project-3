@@ -212,16 +212,17 @@ namespace Project2_HT
 
 
 
-                if (this.Fetch.Count > 0)
-                {
-                    //check for invalid before decode
-                    //.Peek() method to view instruction currently in Fetch stack - H
-                    //Instruction tempF = this.Fetch.Peek();
-                    
-                    //if (!(Instruction.InstructionSet.Contains(tempF))) --keeps entering the if even when the instruction is valid
-                    //    InvalidFound();
-                    
-                    ProcessDecode();
+                    if (this.Fetch.Count > 0)
+                    {
+                        //check for invalid before decode
+                        //.Peek() method to view instruction currently in Fetch stack - H
+                        //Instruction tempF = this.Fetch.Peek();
+
+                        //if (!(Instruction.InstructionSet.Contains(tempF))) --keeps entering the if even when the instruction is valid
+                        //    InvalidFound();
+
+                        ProcessDecode();
+                    }
                 }
 
             }
