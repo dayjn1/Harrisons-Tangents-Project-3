@@ -29,14 +29,17 @@ namespace Project2_HT
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
         List<Instruction> Save_Stats = new List<Instruction>();
+        List<String> usedRegisters = new List<string>();                        //store stale registers  
+
+
         Stack<Instruction> Fetch = new Stack<Instruction>();                    // Creates the stacks for pipeline process -JND
         Stack<Instruction> Decode = new Stack<Instruction>();
         Stack<Instruction> Execute = new Stack<Instruction>();
         Stack<Instruction> Memory = new Stack<Instruction>();
         Stack<Instruction> Register = new Stack<Instruction>();
+        
         int cycleCount = 0;                                                     // Counts the number of cycles
-        List<String> usedRegisters = new List<string>(); //store stale registers  
-        int hazardCount = 0;        //count hazards
+        int hazardCount = 0;                                                    //count hazards
         int SimulationCount;
         int time = 500;
 
@@ -128,104 +131,56 @@ namespace Project2_HT
 
         public void Simulation()
         {
-            for (int i = 0; i < this.Input_Instructions.Count; i++)
+            while (this.SimulationCount < this.Input_Instructions.Count)
             {
+                CountUpdate();
+                UpdateAndDelay();
 
-                while (this.SimulationCount < this.Input_Instructions.Count)
-                {
-                    CountUpdate();
-                    UpdateAndDelay();
+                RegisterCycle();
 
-                    if (this.Register.Count > 0)
-                    {
+                ProcessRegister();
 
-                        Instruction wb = this.Register.Pop();
-                        usedRegisters.Remove(wb.DestReg);
-                        this.RegisterBox.Text = "";
-                    }
+                ProcessMemory();
+                
+                ProcessExecute();
 
-                    if (this.Memory.Count > 0)
-                    {
-                        ProcessRegister();
-                    }
+                ProcessDecode();
 
-                    if (this.Execute.Count > 0)
-                    {
-                        ProcessMemory();
-                    }
-
-                    if (this.Decode.Count > 0)
-                    {
-                        ProcessExecute();
-                    }
-
-                    if (this.Fetch.Count > 0)
-                    {
-
-                        ProcessDecode();
-                    }
-
-                    if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
-                    {
-                        PushFetch(this.Input_Instructions[this.SimulationCount]);
-                        this.SimulationCount++;
-                    }
-
-                }
-
-                // clean up pipeline
-
-                while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
-                {
-
-                    if (this.Register.Count > 0)
-                    {
-                        this.Register.Pop();
-                        this.RegisterBox.Text = "";
-                        if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
-                            return;
-                    }
-
-                    CountUpdate();
-                    UpdateAndDelay();
-
-                    if (this.Memory.Count > 0)
-                    {
-
-                        ProcessRegister();
-                    }
-
-                    if (this.Execute.Count > 0)
-                    {
-                        ProcessMemory();
-                    }
-
-                    if (this.Decode.Count > 0)
-                    {
-                        ProcessExecute();
-                    }
-
-                    if (this.Fetch.Count > 0)
-                    {
-                        ProcessDecode();
-                    }
-
-
-
-                    if (this.Fetch.Count > 0)
-                    {
-                        //check for invalid before decode
-                        //.Peek() method to view instruction currently in Fetch stack - H
-                        //Instruction tempF = this.Fetch.Peek();
-
-                        //if (!(Instruction.InstructionSet.Contains(tempF))) --keeps entering the if even when the instruction is valid
-                        //    InvalidFound();
-
-                        ProcessDecode();
-                    }
-                }
+                FetchCycle();
 
             }
+
+            // clean up pipeline
+
+            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+            {
+
+                RegisterCycle();
+
+                CountUpdate();
+                UpdateAndDelay();
+
+                ProcessRegister();
+
+                ProcessMemory();
+
+                ProcessExecute();
+
+                ProcessDecode();
+
+                /*if (this.Fetch.Count > 0)
+                {
+                    //check for invalid before decode
+                    //.Peek() method to view instruction currently in Fetch stack - H
+                    //Instruction tempF = this.Fetch.Peek();
+
+                    //if (!(Instruction.InstructionSet.Contains(tempF))) --keeps entering the if even when the instruction is valid
+                    //    InvalidFound();
+
+                    ProcessDecode();
+                }*/
+            }
+
         }//end simulation
 
         /**
@@ -345,11 +300,8 @@ namespace Project2_HT
                 }
 
                 // fetch for one cycle
-                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
-                {
-                    FetchCycle();
-                    UpdateAndDelay();
-                }
+                FetchCycle();
+                UpdateAndDelay();
 
             }
             else if (i == 2) //execute stall
@@ -365,12 +317,9 @@ namespace Project2_HT
                     MemoryCycle();
                     UpdateAndDelay();
                 }
-                
-                if (this.Fetch.Count == 0 && (this.SimulationCount) < this.Input_Instructions.Count)
-                {
-                    FetchCycle();
-                    UpdateAndDelay();
-                }
+
+                FetchCycle();
+                UpdateAndDelay();
 
             }
             else if (i == 3) //memory stall
@@ -393,19 +342,23 @@ namespace Project2_HT
                     UpdateAndDelay();
                 }
 
-                if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
-                {
-                    FetchCycle();
-                    UpdateAndDelay();
-                }
+                FetchCycle();
+                UpdateAndDelay();
 
             }
         }
 
         public void RegisterCycle()
         {
-            this.Register.Pop();
-            this.RegisterBox.Text = "";
+            if (this.Register.Count > 0)
+            {
+
+                Instruction wb = this.Register.Pop();
+                usedRegisters.Remove(wb.DestReg);
+                this.RegisterBox.Text = "";
+                if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
+                    return;
+            }
         }
 
         public void MemoryCycle()
@@ -474,7 +427,7 @@ namespace Project2_HT
 
         public void FetchCycle()
         {
-            if(this.Fetch.Count == 0)
+            if(this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
             {
                 PushFetch(this.Input_Instructions[this.SimulationCount]);
                 this.SimulationCount++;
@@ -509,110 +462,115 @@ namespace Project2_HT
 
         public void ProcessDecode()
         {
-            Instruction i = this.Fetch.Pop();
-            this.FetchBox.Text = "";
-            CompareOpRegisters(i);
-            if(i.writeBack == true)
+            if (this.Fetch.Count > 0)
             {
-                CheckRegisters(i);
-            }
-            if (i.DecodeCC != 0)
-            {
-                PushDecode(i);
-
-                //CountUpdate();
-                UpdateAndDelay();
-
-                while (i.DecodeCC > 0)
+                Instruction i = this.Fetch.Pop();
+                this.FetchBox.Text = "";
+                CompareOpRegisters(i);
+                if (i.writeBack == true)
                 {
-                    i.DecodeCC--;
-
-                    CountUpdate();
+                    CheckRegisters(i);
+                }
+                if (i.DecodeCC != 0)
+                {
+                    PushDecode(i);
                     UpdateAndDelay();
+
+                    while (i.DecodeCC > 0)
+                    {
+                        i.DecodeCC--;
+
+                        CountUpdate();
+                        UpdateAndDelay();
+                    }
                 }
             }
         }
 
         public void ProcessExecute()
         {
-            Instruction i = this.Decode.Pop();
-            this.DecodeBox.Text = "";
-            if (i.ExecuteCC != 0)
+            if (this.Decode.Count > 0)
             {
-                PushExecute(i);
-                UpdateAndDelay();
-
-
-                while (i.ExecuteCC > 0)
+                Instruction i = this.Decode.Pop();
+                this.DecodeBox.Text = "";
+                if (i.ExecuteCC != 0)
                 {
-                    i.ExecuteCC--;
-
-                    CountUpdate();
+                    PushExecute(i);
                     UpdateAndDelay();
+
+                    while (i.ExecuteCC > 0)
+                    {
+                        i.ExecuteCC--;
+
+                        CountUpdate();
+                        UpdateAndDelay();
+                    }
                 }
             }
         }
 
         public void ProcessMemory()
         {
-            Instruction i = this.Execute.Pop();
-            this.ExecuteBox.Text = "";
-
-            if (i.MemoryCC != 0)
+            if (this.Execute.Count > 0)
             {
-                PushMemory(i);
+                Instruction i = this.Execute.Pop();
+                this.ExecuteBox.Text = "";
 
-                //CountUpdate();
-                UpdateAndDelay();
-
-                while (i.MemoryCC > 0)
+                if (i.MemoryCC != 0)
                 {
-                    i.MemoryCC--;
-
-                    CountUpdate();
+                    PushMemory(i);
                     UpdateAndDelay();
+
+                    while (i.MemoryCC > 0)
+                    {
+                        i.MemoryCC--;
+
+                        CountUpdate();
+                        UpdateAndDelay();
+                    }
                 }
-            }
-            else if(i.RegisterCC != 0)
-            {
-                PushRegister(i);
-
-                //CountUpdate();
-                UpdateAndDelay();
-
-
-                while (i.RegisterCC > 0)
+                else if (i.RegisterCC != 0)
                 {
-                    i.RegisterCC--;
-
-                    CountUpdate();
+                    PushRegister(i);
                     UpdateAndDelay();
+
+
+                    while (i.RegisterCC > 0)
+                    {
+                        i.RegisterCC--;
+
+                        CountUpdate();
+                        UpdateAndDelay();
+                    }
                 }
             }
         }
 
+
         public void ProcessRegister()
         {
-            Instruction i = this.Memory.Pop();
-            this.MemoryBox.Text = "";
-            
-            if (i.RegisterCC != 0)
+            if (this.Memory.Count > 0)
             {
-                PushRegister(i);
+                Instruction i = this.Memory.Pop();
+                this.MemoryBox.Text = "";
 
-                UpdateAndDelay();
-
-
-                while (i.RegisterCC > 0)
+                if (i.RegisterCC != 0)
                 {
-                    i.RegisterCC--;
+                    PushRegister(i);
 
-                    CountUpdate();
                     UpdateAndDelay();
+
+
+                    while (i.RegisterCC > 0)
+                    {
+                        i.RegisterCC--;
+
+                        CountUpdate();
+                        UpdateAndDelay();
+                    }
+                    usedRegisters.Clear();  //clear registers when no longer in use
                 }
-                usedRegisters.Clear();  //clear registers when no longer in use
             }
-          
         }
         /// <summary>Accepts an instruction and checks if its registers are available.
         /// On fail it waits until the registers are available. Used to get the registers ready to push.</summary>
