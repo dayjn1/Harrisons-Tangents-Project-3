@@ -113,7 +113,7 @@ namespace Project2_HT
         private void StartButton_Click(object sender, EventArgs e)
         {
             label8.Text = "Processing...";
-            Simulation();
+            SimAgain();
             label8.Text = "Finished";
         }
 
@@ -209,7 +209,134 @@ namespace Project2_HT
             }
         }
 
-        //public void 
+        // single cycle processes, going to overwrite old ones
+
+        public void SimAgain()
+        {
+            while (this.SimulationCount < this.Input_Instructions.Count)
+            {
+                CountUpdate();
+                UpdateAndDelay();
+
+                
+                CycleRegister();
+                CycleMemory();
+                CycleExecute();
+                CycleDecode();
+                CycleFetch();
+
+                UpdateAndDelay();
+            }
+
+            // clean up pipeline
+
+            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
+            {
+                CountUpdate();
+                UpdateAndDelay();
+
+                CycleRegister();
+
+                if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
+                    return;
+
+                CycleMemory();
+                CycleExecute();
+                CycleDecode();
+
+            }
+        }
+
+        public void CycleFetch()
+        {
+            if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
+            {
+                PushFetch(this.Input_Instructions[this.SimulationCount]);
+                this.SimulationCount++;
+            }
+        }
+
+        public void CycleDecode()
+        {
+            if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
+            {
+                Instruction temp = this.Fetch.Pop();
+                PushDecode(temp);
+                UpdateAndDelay();
+            }
+            else if(this.Decode.Count > 0)
+            {
+
+            }
+        }
+
+        public void CycleExecute()
+        {
+            if (this.Execute.Count > 0)     // Execute for one cycle
+            {
+                Instruction temp = this.Execute.Peek();
+
+                if (temp.ExecuteCC == 0)
+                {
+                    if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                    {
+                        this.Execute.Pop();
+                    }
+                    else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
+                    {
+                        this.Execute.Pop();
+                        PushMemory(temp);
+                        MemoryText(temp);
+                    }
+                    else if (temp.RegisterCC > 0 && this.Register.Count == 0)
+                    {
+                        this.Execute.Pop();
+                        this.ExecuteBox.Text = "";
+                        PushRegister(temp);
+                        RegisterText(temp);
+                    }
+                    else if (temp.ExecuteCC > 0)
+                        temp.ExecuteCC--;
+                }
+
+            }
+
+        }
+
+        public void CycleMemory()
+        {
+            if (this.Memory.Count > 0)      // memory for one cycle
+            {
+                Instruction temp = this.Memory.Peek();
+
+                if (temp.MemoryCC == 0)
+                {
+                    temp = this.Memory.Pop();
+                    this.MemoryBox.Text = "";
+
+                    if (temp.RegisterCC > 0)
+                    {
+                        PushRegister(temp);
+                    }
+                }
+                else if (temp.MemoryCC > 0)
+                {
+                    temp.MemoryCC--;
+                }
+                UpdateAndDelay();
+            }
+        }
+
+        public void CycleRegister()
+        {
+            if (this.Register.Count > 0)    // register for one cycle
+            {
+                this.Register.Pop();
+                this.RegisterBox.Text = "";
+                UpdateAndDelay();
+            }
+
+        }
 
 
         /**
