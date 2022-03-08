@@ -135,8 +135,7 @@ namespace Project2_HT
 
                 if (this.Register.Count > 0)
                 {
-                    this.Register.Pop();
-                    this.RegisterBox.Text = "";
+                    RegisterCycle();
                 }
 
                 if (this.Memory.Count > 0)
@@ -162,8 +161,7 @@ namespace Project2_HT
 
                 if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
                 {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
+                    FetchCycle();
                 }
 
                 UpdateAndDelay();
@@ -176,8 +174,8 @@ namespace Project2_HT
 
                 if (this.Register.Count > 0)
                 {
-                    this.Register.Pop();
-                    this.RegisterBox.Text = "";
+                    RegisterCycle();
+
                     if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
                         return;
                 }
@@ -228,67 +226,26 @@ namespace Project2_HT
             {
                 if (this.Register.Count > 0)    // register for one cycle
                 {
-                    this.Register.Pop();
-                    this.RegisterBox.Text = "";
+                    RegisterCycle();
                     UpdateAndDelay();
                 }
 
                 if (this.Memory.Count > 0)      // memory for one cycle
                 {
-                    Instruction temp = this.Memory.Peek();
-
-                    if (temp.MemoryCC == 0)
-                    {
-                        temp = this.Memory.Pop();
-                        this.MemoryBox.Text = "";
-
-                        if (temp.RegisterCC > 0)
-                        {
-                            PushRegister(temp);
-                        }
-                    }
-                    else if (temp.MemoryCC > 0)
-                    {
-                        temp.MemoryCC--;
-                    }
+                    MemoryCycle();
                     UpdateAndDelay();
                 }
 
                 if (this.Execute.Count > 0)     // Execute for one cycle
                 {
-                    Instruction temp = this.Execute.Peek();
-
-                    if (temp.ExecuteCC == 0)
-                    {
-                        if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
-                        {
-                            this.Execute.Pop();
-                        }
-                        else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
-                        {
-                            this.Execute.Pop();
-                            PushMemory(temp);
-                            MemoryText(temp);
-                        }
-                        else if (temp.RegisterCC > 0 && this.Register.Count == 0)
-                        {
-                            this.Execute.Pop();
-                            this.ExecuteBox.Text = "";
-                            PushRegister(temp);
-                            RegisterText(temp);
-                        }
-                        else if (temp.ExecuteCC > 0)
-                            temp.ExecuteCC--;
-                    }
-
+                    ExecuteCycle();
                     UpdateAndDelay();
                 }
 
                 // fetch for one cycle
                 if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
                 {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
+                    FetchCycle();
                     UpdateAndDelay();
                 }
 
@@ -297,42 +254,19 @@ namespace Project2_HT
             {
                 if (this.Register.Count > 0)        // register for one cycle
                 {
-                    this.Register.Pop();
-                    this.RegisterBox.Text = "";
+                    RegisterCycle();
                     UpdateAndDelay();
                 }
 
                 if (this.Memory.Count > 0)          // memory for one cycle
                 {
-                    Instruction temp = this.Memory.Peek();
-
-                    if (temp.MemoryCC == 0)
-                    {
-                        temp = this.Memory.Pop();
-                        this.MemoryBox.Text = "";
-
-                        if (temp.RegisterCC > 0)
-                        {
-                            PushRegister(temp);
-                            RegisterText(temp);
-                        }
-                    }
-                    else if (temp.MemoryCC > 0)
-                    {
-                        temp.MemoryCC--;
-                    }
+                    MemoryCycle();
                     UpdateAndDelay();
                 }
-                if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
-                {
-                    Instruction temp = this.Fetch.Pop();
-                    PushDecode(temp);
-                    UpdateAndDelay();
-                }
+                
                 if (this.Fetch.Count == 0 && (this.SimulationCount) < this.Input_Instructions.Count)
                 {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
+                    FetchCycle();
                     UpdateAndDelay();
                 }
 
@@ -341,54 +275,25 @@ namespace Project2_HT
             {
                 if (this.Register.Count > 0)
                 {
-                    this.Register.Pop();
-                    this.RegisterBox.Text = "";
+                    RegisterCycle();
                     UpdateAndDelay();
                 }
 
                 if (this.Execute.Count == 1)
                 {
-                    Instruction temp = this.Execute.Peek();
-                    if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
-                    {
-                        this.Execute.Pop();
-                        this.ExecuteBox.Text = "";
-
-                    }
-                    else if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC > 0)
-                    {
-                        this.Execute.Pop();
-                        PushRegister(temp);
-                        this.ExecuteBox.Text = "";
-                    }
-                    else if (temp.ExecuteCC > 0)
-                    {
-                        temp.ExecuteCC--;
-                    }
+                    ExecuteCycle();
                     UpdateAndDelay();
 
                 }
                 else if (this.Execute.Count == 0 && this.Decode.Count == 1)
                 {
-                    Instruction temp = this.Decode.Peek();
-                    if (temp.DecodeCC == 0)
-                    {
-                        this.Decode.Pop();
-                        this.DecodeBox.Text = "";
-                        PushExecute(temp);
-                    }
-                    else
-                    {
-                        temp.DecodeCC--;
-                    }
+                    DecodeCycle();
                     UpdateAndDelay();
-
                 }
 
                 if (this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
                 {
-                    PushFetch(this.Input_Instructions[this.SimulationCount]);
-                    this.SimulationCount++;
+                    FetchCycle();
                     UpdateAndDelay();
                 }
 
@@ -397,6 +302,89 @@ namespace Project2_HT
 
         }
 
+        public void RegisterCycle()
+        {
+            this.Register.Pop();
+            this.RegisterBox.Text = "";
+        }
+
+        public void MemoryCycle()
+        {
+            Instruction temp = this.Memory.Peek();
+
+            if (temp.MemoryCC == 0)
+            {
+                temp = this.Memory.Pop();
+                this.MemoryBox.Text = "";
+
+                if (temp.RegisterCC > 0)
+                {
+                    PushRegister(temp);
+                }
+            }
+            else if (temp.MemoryCC > 0)
+            {
+                temp.MemoryCC--;
+            }
+        }
+
+        public void ExecuteCycle()
+        {
+            Instruction temp = this.Execute.Peek();
+
+            if (temp.ExecuteCC == 0)
+            {
+                if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
+                {
+                    this.Execute.Pop();
+                }
+                else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
+                {
+                    this.Execute.Pop();
+                    PushMemory(temp);
+                    MemoryText(temp);
+                }
+                else if (temp.RegisterCC > 0 && this.Register.Count == 0)
+                {
+                    this.Execute.Pop();
+                    this.ExecuteBox.Text = "";
+                    PushRegister(temp);
+                    RegisterText(temp);
+                }
+                else if (temp.ExecuteCC > 0)
+                    temp.ExecuteCC--;
+            }
+        }
+
+        public void DecodeCycle()
+        {
+            Instruction temp = this.Decode.Peek();
+            if (temp.DecodeCC == 0)
+            {
+                this.Decode.Pop();
+                this.DecodeBox.Text = "";
+                PushExecute(temp);
+            }
+            else
+            {
+                temp.DecodeCC--;
+            }
+
+        }
+
+        public void FetchCycle()
+        {
+            if(this.Fetch.Count == 0)
+            {
+                PushFetch(this.Input_Instructions[this.SimulationCount]);
+                this.SimulationCount++;
+            }
+            else if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
+            {
+                Instruction temp = this.Fetch.Pop();
+                PushDecode(temp);
+            }
+        }
 
         /**
         * Method Name: ProcessDecode()
