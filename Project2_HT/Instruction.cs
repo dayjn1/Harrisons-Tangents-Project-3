@@ -27,7 +27,7 @@ namespace Project2_HT
     public class Instruction
     {
         public string Mnemonic;
-        uint OpCode;
+        public uint OpCode;
         public string DestReg;
         public string Reg1;
         public string Reg2;
