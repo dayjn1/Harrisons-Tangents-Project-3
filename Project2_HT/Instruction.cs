@@ -27,13 +27,13 @@ namespace Project2_HT
     public class Instruction
     {
         public string Mnemonic;
-        uint OpCode;
+        public uint OpCode;
         public string DestReg;
         public string Reg1;
         public string Reg2;
         public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC;
         public bool writeBack;
-        static List<Instruction> InstructionSet = new List<Instruction>()
+        public static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0),
             new Instruction(1, "LOAD", 1, 1, 1, 1, 1),

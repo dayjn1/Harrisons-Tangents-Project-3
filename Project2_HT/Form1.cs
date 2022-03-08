@@ -156,12 +156,14 @@ namespace Project2_HT
 
                 if (this.Fetch.Count > 0)
                 {
-
+                    //check for invalid before decoding, need to pop all registers
+                    //.Peek() method to view instruction currently in Fetch stack
                     ProcessDecode();
                 }
 
                 if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
                 {
+                    
                     PushFetch(this.Input_Instructions[this.SimulationCount]);
                     this.SimulationCount++;
                 }
@@ -203,9 +205,55 @@ namespace Project2_HT
 
                 if (this.Fetch.Count > 0)
                 {
+                    //check for invalid before decode
+                    //.Peek() method to view instruction currently in Fetch stack
+
                     ProcessDecode();
                 }
 
+            }
+        }//end simulation
+
+        public void invalidFound(Instruction cF)
+        {
+            //uint cFOpcode = cF.OpCode;
+            if(Instruction.InstructionSet.Contains(cF) == false)
+            {
+                if (this.Fetch.Count > 0)
+                {
+                    this.Fetch.Pop();
+                    //update text
+                    FetchBox.Text = "";
+                    Update();
+                }
+                if (this.Decode.Count > 0)
+                {
+                    this.Decode.Pop();
+                    //update text
+                    DecodeBox.Text = "";
+                    Update();
+                }
+                if (this.Execute.Count > 0)
+                {
+                    this.Execute.Pop();
+                    //update text
+                    ExecuteBox.Text = "";
+                    Update();
+                }
+                if (this.Memory.Count > 0)//memory
+                {
+                    this.Memory.Pop();
+                    //update text
+                    MemoryBox.Text = "";
+                    Update();
+                }
+                if (this.Register.Count > 0)                //register
+                {
+                    this.Register.Pop();
+                    //update text
+                    RegisterBox.Text = "";
+                    Update();
+                }
             }
         }
 
