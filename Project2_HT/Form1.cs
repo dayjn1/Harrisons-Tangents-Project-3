@@ -218,10 +218,7 @@ namespace Project2_HT
             {
                 this.Fetch.Pop();
                 //update text
-                FetchBox.Text = "";
-                FetchDR.Text = "";
-                FetchOp1.Text = "";
-                FetchOp2.Text = "";
+                ClearFetchText();
 
                 Update();
             }
@@ -229,20 +226,14 @@ namespace Project2_HT
             {
                 this.Decode.Pop();
                 //update text
-                DecodeBox.Text = "";
-                DecodeDR.Text = "";
-                DecodeOp1.Text = "";
-                DecodeOp2.Text = "";
+                ClearDecodeText();
                 Update();
             }
             if (this.Execute.Count > 0)
             {
                 this.Execute.Pop();
                 //update text
-                ExecuteBox.Text = "";
-                ExecuteDR.Text = "";
-                ExecuteOp1.Text = "";
-                ExecuteOp2.Text = "";
+                ClearExecuteText();
 
                 Update();
             }
@@ -250,10 +241,7 @@ namespace Project2_HT
             {
                 this.Memory.Pop();
                 //update text
-                MemoryBox.Text = "";
-                MemoryDR.Text = "";
-                MemoryOp1.Text = "";
-                MemoryOp2.Text = "";
+                ClearMemoryText();
 
                 Update();
             }
@@ -261,10 +249,7 @@ namespace Project2_HT
             {
                 this.Register.Pop();
                 //update text
-                RegisterBox.Text = "";
-                RegisterDR.Text = "";
-                RegisterOp1.Text = "";
-                RegisterOp2.Text = "";
+                ClearRegisterText();
 
                 Update();
             }
@@ -290,20 +275,14 @@ namespace Project2_HT
             {
                 this.Fetch.Pop();
                 //update text
-                FetchBox.Text = "";
-                FetchDR.Text = "";
-                FetchOp1.Text = "";
-                FetchOp2.Text = "";
+                ClearFetchText();
                 Update();
             }
             if (this.Decode.Count > 0)
             {
                 this.Decode.Pop();
                 //update text
-                DecodeBox.Text = "";
-                DecodeDR.Text = "";
-                DecodeOp1.Text = "";
-                DecodeOp2.Text = "";
+                ClearDecodeText();
 
                 Update();
             }
@@ -314,7 +293,7 @@ namespace Project2_HT
                 if(this.Register.Count > 0)
                 {
                     this.Register.Pop();
-                    RegisterBox.Text = "";
+                    ClearRegisterText();
                     UpdateAndDelay();
                 }
                 else if (this.Memory.Count > 0)
@@ -323,7 +302,7 @@ namespace Project2_HT
                     if(temp.MemoryCC == 0)
                     {
                         temp = this.Memory.Pop();
-                        MemoryBox.Text = "";
+                        ClearMemoryText();
                         if(temp.RegisterCC > 0)
                         {
                             PushRegister(temp);
@@ -332,6 +311,8 @@ namespace Project2_HT
                     else if (temp.MemoryCC > 0)
                     {
                         temp.MemoryCC--; //pop and push so actual instruction values in stack are updated
+                        this.Memory.Pop();
+                        this.Memory.Push(temp);
                     }
                     UpdateAndDelay();
                 }
@@ -340,7 +321,7 @@ namespace Project2_HT
 
             //pop halt from execute
             this.Execute.Pop();
-            ExecuteBox.Text = "";
+            ClearExecuteText();
 
         }
          
@@ -433,10 +414,7 @@ namespace Project2_HT
 
                 Instruction wb = this.Register.Pop();
                 usedRegisters.Remove(wb.DestReg);
-                this.RegisterBox.Text = "";
-                RegisterDR.Text = "";
-                RegisterOp1.Text = "";
-                RegisterOp2.Text = "";
+                ClearRegisterText();
             }
         }
 
@@ -447,10 +425,7 @@ namespace Project2_HT
             if (temp.MemoryCC == 0)
             {
                 temp = this.Memory.Pop();
-                this.MemoryBox.Text = "";
-                MemoryDR.Text = "";
-                MemoryOp1.Text = "";
-                MemoryOp2.Text = "";
+                ClearMemoryText();
 
                 if (temp.RegisterCC > 0)
                 {
@@ -478,10 +453,7 @@ namespace Project2_HT
                 else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
                 {
                     this.Execute.Pop();
-                    this.ExecuteBox.Text = "";
-                    ExecuteDR.Text = "";
-                    ExecuteOp1.Text = "";
-                    ExecuteOp2.Text = "";
+                    ClearExecuteText();
 
                     PushMemory(temp);
                     MemoryText(temp);
@@ -489,10 +461,7 @@ namespace Project2_HT
                 else if (temp.RegisterCC > 0 && this.Register.Count == 0)
                 {
                     this.Execute.Pop();
-                    this.ExecuteBox.Text = "";
-                    ExecuteDR.Text = "";
-                    ExecuteOp1.Text = "";
-                    ExecuteOp2.Text = "";
+                    ClearExecuteText();
 
                     PushRegister(temp);
                     RegisterText(temp);
@@ -512,10 +481,7 @@ namespace Project2_HT
             if (temp.DecodeCC == 0)
             {
                 this.Decode.Pop();
-                this.DecodeBox.Text = "";
-                DecodeDR.Text = "";
-                DecodeOp1.Text = "";
-                DecodeOp2.Text = "";
+                ClearDecodeText();
 
                 PushExecute(temp);
             }
@@ -539,11 +505,13 @@ namespace Project2_HT
                 Instruction temp = this.Fetch.Peek(); //since just called PushFetch, there is no need to check Fetch.Count -HT
                 uint op = temp.OpCode;
                 //these checks are spread out for ease of understanding rather than one large convoluted if condition
-                if (op < 0)
+                /*if (op < 0)
                     InvalidFound();
                 if (op > 20 && op < 128)
                     InvalidFound();
                 if (op > 131)
+                    InvalidFound();*/   // if invalid, op code == 404
+                if (temp.OpCode == 404)
                     InvalidFound();
             }
             else if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
@@ -574,15 +542,24 @@ namespace Project2_HT
             CompareOpRegisters(i); //try again otherwise
         }
 
+
+        /**
+        * Method Name: ProcessDecode()
+        * Method Purpose: Pops from fetch and pushes onto decode if instruction needs to be decoded (i.DecodeCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
         public void ProcessDecode()
         {
             if (this.Fetch.Count > 0)
             {
                 Instruction i = this.Fetch.Pop();
-                this.FetchBox.Text = "";
-                FetchDR.Text = "";
-                FetchOp1.Text = "";
-                FetchOp2.Text = "";
+                ClearFetchText();
 
                 CompareOpRegisters(i);
                 if (i.writeBack == true)
@@ -609,15 +586,24 @@ namespace Project2_HT
             }
         }
 
+
+        /**
+        * Method Name: ProcessExecute()
+        * Method Purpose: Pops from Decode and pushes onto Execute if instruction needs to be executed (i.ExecuteCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
         public void ProcessExecute()
         {
             if (this.Decode.Count > 0)
             {
                 Instruction i = this.Decode.Pop();
-                this.DecodeBox.Text = "";
-                DecodeDR.Text = "";
-                DecodeOp1.Text = "";
-                DecodeOp2.Text = "";
+                ClearDecodeText();
 
                 if (i.ExecuteCC != 0)
                 {
@@ -645,15 +631,24 @@ namespace Project2_HT
             }
         }
 
+
+        /**
+        * Method Name: ProcessMemory()
+        * Method Purpose: Pops from Execute and pushes onto Memory (or Register) if instruction needs to access memory or writeback (i.MemoryCC OR i.RegisterCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
         public void ProcessMemory()
         {
             if (this.Execute.Count > 0)
             {
                 Instruction i = this.Execute.Pop();
-                this.ExecuteBox.Text = "";
-                ExecuteDR.Text = "";
-                ExecuteOp1.Text = "";
-                ExecuteOp2.Text = "";
+                ClearExecuteText();
 
                 if (i.MemoryCC != 0)
                 {
@@ -692,15 +687,23 @@ namespace Project2_HT
         }
 
 
+        /**
+        * Method Name: ProcessRegister()
+        * Method Purpose: Pops from Memory and pushes onto Register if instruction needs to writeback to a register (i.RegisterCC)
+        *                 Uses that value to check if a stall will occur, which will be resolved within a while loop
+        *                 Uses the KeepGoing method to process the other stacks while stalling
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
         public void ProcessRegister()
         {
             if (this.Memory.Count > 0)
             {
                 Instruction i = this.Memory.Pop();
-                this.MemoryBox.Text = "";
-                MemoryDR.Text = "";
-                MemoryOp1.Text = "";
-                MemoryOp2.Text = "";
+                ClearMemoryText();
 
                 if (i.RegisterCC != 0)
                 {
@@ -723,6 +726,8 @@ namespace Project2_HT
                 }
             }
         }
+
+
         /// <summary>Accepts an instruction and checks if its registers are available.
         /// On fail it waits until the registers are available. Used to get the registers ready to push.</summary>
         /// AM
@@ -745,18 +750,49 @@ namespace Project2_HT
             }
 
         }
+
+        /**
+        * Method Name: CountUpdate()
+        * Method Purpose: Increments cycle count and changes text to reflect new amount
+        *                 For simplicity purposes
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
         public void CountUpdate()
         {
             this.cycleCount++;
             cycleLabel.Text = cycleCount.ToString();
         }
 
+        /**
+        * Method Name: UpdateAndDelay()
+        * Method Purpose: Updates the entire form so changes can be seen, delays so that changes can be seen
+        *                 For simplicity purposes
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        */
         public void UpdateAndDelay()
         {
             Update();
             Task.Delay(time).Wait();
         }
 
+        /**
+        * Method Name: PushFetch(Instruction)
+        * Method Purpose: Pushes param onto Fetch stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Fetch Stack, decrements value for i, and then text is changed
+        */
         public void PushFetch(Instruction i)
         {
             i.FetchCC--;
@@ -764,6 +800,16 @@ namespace Project2_HT
             FetchText(i);
         }
 
+        /**
+        * Method Name: PushDecode(Instruction)
+        * Method Purpose: Pushes param onto Decode stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Decode Stack, decrements value for i, and then text is changed
+        */
         public void PushDecode(Instruction i)
         {
             i.DecodeCC--;
@@ -771,6 +817,16 @@ namespace Project2_HT
             DecodeText(i);
         }
 
+        /**
+        * Method Name: PushExecute(Instruction)
+        * Method Purpose: Pushes param onto Execute stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Execute Stack, decrements value for i, and then text is changed
+        */
         public void PushExecute(Instruction i)
         {
             i.ExecuteCC--;
@@ -778,6 +834,16 @@ namespace Project2_HT
             ExecuteText(i);
         }
 
+        /**
+        * Method Name: PushMemory(Instruction)
+        * Method Purpose: Pushes param onto Memory stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Memory Stack, decrements value for i, and then text is changed
+        */
         public void PushMemory(Instruction i)
         {
             i.MemoryCC--;
@@ -785,6 +851,16 @@ namespace Project2_HT
             MemoryText(i);
         }
 
+        /**
+        * Method Name: PushRegister(Instruction)
+        * Method Purpose: Pushes param onto Register stack, used for simplicity purposes 
+        *
+        * <hr>
+        * Date created: 03/01/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction i - Pushed onto Register Stack, decrements value for i, and then text is changed
+        */
         public void PushRegister(Instruction i)
         {
             i.RegisterCC--;
@@ -811,6 +887,24 @@ namespace Project2_HT
             RegisterOp2.Text = i.Reg2;
         }
 
+
+        /**
+        * Method Name: ClearRegisterText()
+        * Method Purpose: Updates RegisterText content
+        *
+        * <hr>
+        * Date created: 03/09/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ClearRegisterText()
+        {
+            RegisterBox.Text = "";
+            RegisterDR.Text = "";
+            RegisterOp1.Text = "";
+            RegisterOp2.Text = "";
+        }
+
         /**
         * Method Name: MemoryText(Instruction)
         * Method Purpose: Updates MemoryText content
@@ -827,6 +921,24 @@ namespace Project2_HT
             MemoryDR.Text = i.DestReg;
             MemoryOp1.Text = i.Reg1;
             MemoryOp2.Text = i.Reg2;
+        }
+
+
+        /**
+        * Method Name: ClearMemoryText()
+        * Method Purpose: Updates MemoryText content
+        *
+        * <hr>
+        * Date created: 03/09/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ClearMemoryText()
+        {
+            MemoryBox.Text = "";
+            MemoryDR.Text = "";
+            MemoryOp1.Text = "";
+            MemoryOp2.Text = "";
         }
 
         /**
@@ -847,6 +959,24 @@ namespace Project2_HT
             ExecuteOp2.Text = i.Reg2;
         }
 
+
+        /**
+        * Method Name: ClearExecuteText()
+        * Method Purpose: Updates ExecuteText content
+        *
+        * <hr>
+        * Date created: 03/09/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ClearExecuteText()
+        {
+            ExecuteBox.Text = "";
+            ExecuteDR.Text = "";
+            ExecuteOp1.Text = "";
+            ExecuteOp2.Text = "";
+        }
+
         /**
         * Method Name: DecodeText(Instruction)
         * Method Purpose: Updates DecodeText content
@@ -865,6 +995,25 @@ namespace Project2_HT
             DecodeOp2.Text = i.Reg2;
         }
 
+        
+
+        /**
+        * Method Name: ClearDecodeText()
+        * Method Purpose: Updates DecodeText content
+        *
+        * <hr>
+        * Date created: 03/09/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ClearDecodeText()
+        {
+            DecodeBox.Text = "";
+            DecodeDR.Text = "";
+            DecodeOp1.Text = "";
+            DecodeOp2.Text = "";
+        }
+
         /**
         * Method Name: FetchText(Instruction)
         * Method Purpose: Updates FetchText content
@@ -881,6 +1030,23 @@ namespace Project2_HT
             FetchDR.Text = i.DestReg;
             FetchOp1.Text = i.Reg1;
             FetchOp2.Text = i.Reg2;
+        }
+
+        /**
+        * Method Name: ClearFetchText()
+        * Method Purpose: Updates FetchText content
+        *
+        * <hr>
+        * Date created: 03/09/2022
+        * @Janine Day
+        * <hr>
+        */
+        public void ClearFetchText()
+        {
+            FetchBox.Text = "";
+            FetchDR.Text = "";
+            FetchOp1.Text = "";
+            FetchOp2.Text = "";
         }
 
         public static string dirParameter = AppDomain.CurrentDomain.BaseDirectory + @"\saveOut.txt";
