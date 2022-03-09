@@ -103,7 +103,7 @@ namespace Project2_HT
             // 
             this.FetchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FetchBox.Location = new System.Drawing.Point(80, 226);
-            this.FetchBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FetchBox.Margin = new System.Windows.Forms.Padding(4);
             this.FetchBox.Name = "FetchBox";
             this.FetchBox.Size = new System.Drawing.Size(132, 34);
             this.FetchBox.TabIndex = 1;
@@ -112,7 +112,7 @@ namespace Project2_HT
             // 
             this.DecodeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DecodeBox.Location = new System.Drawing.Point(283, 226);
-            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DecodeBox.Margin = new System.Windows.Forms.Padding(4);
             this.DecodeBox.Name = "DecodeBox";
             this.DecodeBox.Size = new System.Drawing.Size(132, 34);
             this.DecodeBox.TabIndex = 2;
@@ -121,7 +121,7 @@ namespace Project2_HT
             // 
             this.ExecuteBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExecuteBox.Location = new System.Drawing.Point(493, 226);
-            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4);
             this.ExecuteBox.Name = "ExecuteBox";
             this.ExecuteBox.Size = new System.Drawing.Size(132, 34);
             this.ExecuteBox.TabIndex = 3;
@@ -130,7 +130,7 @@ namespace Project2_HT
             // 
             this.MemoryBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MemoryBox.Location = new System.Drawing.Point(690, 226);
-            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MemoryBox.Margin = new System.Windows.Forms.Padding(4);
             this.MemoryBox.Name = "MemoryBox";
             this.MemoryBox.Size = new System.Drawing.Size(132, 34);
             this.MemoryBox.TabIndex = 4;
@@ -139,7 +139,7 @@ namespace Project2_HT
             // 
             this.RegisterBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RegisterBox.Location = new System.Drawing.Point(920, 226);
-            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RegisterBox.Margin = new System.Windows.Forms.Padding(4);
             this.RegisterBox.Name = "RegisterBox";
             this.RegisterBox.Size = new System.Drawing.Size(132, 34);
             this.RegisterBox.TabIndex = 5;
@@ -214,7 +214,7 @@ namespace Project2_HT
             this.StartButton.BackColor = System.Drawing.Color.Silver;
             this.StartButton.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.StartButton.Location = new System.Drawing.Point(56, 105);
-            this.StartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(4);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(187, 58);
             this.StartButton.TabIndex = 11;
