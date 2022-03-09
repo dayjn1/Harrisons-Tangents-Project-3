@@ -103,7 +103,7 @@ namespace Project2_HT
                 cycleCount = 0;
                 dataHazardCount = 0;
                 cycleLabel.Text = cycleCount.ToString();
-                label7.Text = dataHazardCount.ToString();
+                DHLabel.Text = dataHazardCount.ToString();
             }//end if
 
         }
@@ -542,8 +542,8 @@ namespace Project2_HT
             //CompareOpRegisters(i); //try again otherwise
             while((usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null))
             {
-                hazardCount++;
-                label7.Text = hazardCount.ToString();
+                dataHazardCount++;
+                DHLabel.Text = dataHazardCount.ToString();
                 KeepGoing(1);
                 CountUpdate(); //go stall
             }
@@ -584,7 +584,7 @@ namespace Project2_HT
                         i.DecodeCC--;
 
                         structuralHazardCount++;
-                        label13.Text = structuralHazardCount.ToString();
+                        SHLabel.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -629,7 +629,7 @@ namespace Project2_HT
                         i.ExecuteCC--;
 
                         structuralHazardCount++;
-                        label13.Text = structuralHazardCount.ToString();
+                        SHLabel.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -667,7 +667,7 @@ namespace Project2_HT
                         i.MemoryCC--;
 
                         structuralHazardCount++;
-                        label13.Text = structuralHazardCount.ToString();
+                        SHLabel.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -684,7 +684,7 @@ namespace Project2_HT
                         i.RegisterCC--;
 
                         structuralHazardCount++;
-                        label13.Text = structuralHazardCount.ToString();
+                        SHLabel.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -724,7 +724,7 @@ namespace Project2_HT
                         i.RegisterCC--;
 
                         structuralHazardCount++;
-                        label13.Text = structuralHazardCount.ToString();
+                        SHLabel.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -747,8 +747,8 @@ namespace Project2_HT
             {
                 while (usedRegisters.Contains(i.DestReg))
                 {
-                    hazardCount++;
-                    label7.Text = hazardCount.ToString();
+                    dataHazardCount++;
+                    DHLabel.Text = dataHazardCount.ToString();
                     KeepGoing(1);
                 }
             }
@@ -1256,6 +1256,34 @@ namespace Project2_HT
             label8.Text = "Saved";
 
 
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Input_Instructions.Clear();        
+            Save_Stats.Clear();
+            usedRegisters.Clear();
+
+
+            Fetch.Clear();
+            Decode.Clear();
+            Execute.Clear();
+            Memory.Clear();
+            Register.Clear();
+
+            cycleCount = 0;
+            cycleLabel.Text = cycleCount.ToString();
+
+            dataHazardCount = 0;
+            DHLabel.Text = dataHazardCount.ToString();
+
+            structuralHazardCount = 0;
+            SHLabel.Text = structuralHazardCount.ToString();
+            
+            SimulationCount = 0;
+
+            invalid = false;
+            halt = false;
         }
     }
 }

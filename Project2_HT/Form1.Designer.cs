@@ -57,7 +57,7 @@ namespace Project2_HT
             this.cycleLabel = new System.Windows.Forms.Label();
             this.cycledescrLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.DHLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -78,7 +78,8 @@ namespace Project2_HT
             this.RegisterOp1 = new System.Windows.Forms.Label();
             this.RegisterOp2 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.SHLabel = new System.Windows.Forms.Label();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +87,8 @@ namespace Project2_HT
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.resetToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
@@ -108,14 +110,14 @@ namespace Project2_HT
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -282,18 +284,18 @@ namespace Project2_HT
             this.label6.Text = "Data\r\nHazards:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // label7
+            // DHLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(1277, 138);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(24, 25);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "0";
+            this.DHLabel.AutoSize = true;
+            this.DHLabel.BackColor = System.Drawing.Color.Transparent;
+            this.DHLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DHLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.DHLabel.Location = new System.Drawing.Point(1277, 138);
+            this.DHLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DHLabel.Name = "DHLabel";
+            this.DHLabel.Size = new System.Drawing.Size(24, 25);
+            this.DHLabel.TabIndex = 17;
+            this.DHLabel.Text = "0";
             // 
             // label8
             // 
@@ -503,16 +505,23 @@ namespace Project2_HT
             this.label12.Text = "Structural\r\nHazards:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // label13
+            // SHLabel
             // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(1277, 201);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(24, 25);
-            this.label13.TabIndex = 38;
-            this.label13.Text = "0";
+            this.SHLabel.AutoSize = true;
+            this.SHLabel.BackColor = System.Drawing.Color.Transparent;
+            this.SHLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SHLabel.Location = new System.Drawing.Point(1277, 201);
+            this.SHLabel.Name = "SHLabel";
+            this.SHLabel.Size = new System.Drawing.Size(24, 25);
+            this.SHLabel.TabIndex = 38;
+            this.SHLabel.Text = "0";
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // Tangents
             // 
@@ -521,7 +530,7 @@ namespace Project2_HT
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1415, 586);
-            this.Controls.Add(this.label13);
+            this.Controls.Add(this.SHLabel);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.RegisterOp2);
             this.Controls.Add(this.RegisterOp1);
@@ -542,7 +551,7 @@ namespace Project2_HT
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.DHLabel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cycledescrLabel);
             this.Controls.Add(this.cycleLabel);
@@ -588,7 +597,7 @@ namespace Project2_HT
         private System.Windows.Forms.Label cycleLabel;
         private System.Windows.Forms.Label cycledescrLabel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label DHLabel;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
@@ -609,7 +618,8 @@ namespace Project2_HT
         private System.Windows.Forms.Label RegisterOp1;
         private System.Windows.Forms.Label RegisterOp2;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label SHLabel;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }
 
