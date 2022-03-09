@@ -1073,8 +1073,8 @@ namespace Project2_HT
             FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write);
             StreamWriter filewrite = new StreamWriter(fParameter);
 
-            filewrite.WriteLine("   Instruction                 |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack ");
-            filewrite.WriteLine("______________________________________________________________________________________________");
+            filewrite.WriteLine("   Instruction         |     Registers         |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack ");
+            filewrite.WriteLine("___________________________________________________________________________________________________________________________");
 
             int f, d, exe, m, w;
             int fetch = 0, 
@@ -1241,8 +1241,8 @@ namespace Project2_HT
                 }
 
 
-                filewrite.WriteLine("   " + Save_Stats[i].Mnemonic.PadRight(6, ' ') + "    " + 
-                                    fullOperand.PadRight(12, ' ') + "      " +
+                filewrite.WriteLine("      " + Save_Stats[i].Mnemonic.PadRight(6, ' ') + "               " + 
+                                    fullOperand.PadRight(12, ' ') + "              " +
                                    (fetch) + "             " +
                                    (decode.PadRight(7, ' ')) + "         " +
                                    (exec) + "              " +

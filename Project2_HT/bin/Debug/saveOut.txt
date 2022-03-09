@@ -1,12 +1,11 @@
-   Instruction                 |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack 
-______________________________________________________________________________________________
-   ADD        R1, R5, R0       1             2               3                              4          
-   STOR       R0, R0,          2             3               4              5 - 7                      
-   STOR       R3, R5,          3             4               5              8 - 10                     
-   HALT                        4             5               6                                         
+   Instruction         |     Registers         |    Fetch    |    Decode    |    Execute    |    Memory    |    WriteBack 
+___________________________________________________________________________________________________________________________
+      ADD                   R8, R9, R1               1             2               3                              4          
+      STOR                  R5, R3,                  2             3               4              5 - 7                      
+      SUB                   R8, R9, R2               3             4               5                              6          
 
 ______________________________________________________________________________________________
 
-Cycle count: 0
-Data Hazard count: 0
+Cycle count: 7
+Data Hazard count: 1
 Structural Hazard count: 0
