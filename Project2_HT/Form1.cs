@@ -1188,6 +1188,18 @@ namespace Project2_HT
                         executeE = (exe - 1) + executeS; //update if more than one
                         exec = executeS + " - " + executeE;
                     }
+                    else if (Save_Stats[i].Mnemonic == "HALT")
+                    {
+                        if (memE > executeE)
+                        {
+                            executeE = memE + 1;
+                            exec = executeE.ToString();
+                        }
+                        else
+                        {
+                            exec = executeE.ToString();
+                        }
+                    }
                     else
                         exec = executeS.ToString();
                 }
