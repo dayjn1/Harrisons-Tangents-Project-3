@@ -42,7 +42,13 @@ namespace Project2_HT
         int dataHazardCount = 0;                                                    //count hazards
         int structuralHazardCount = 0;
         int SimulationCount;
-        int time = 1500;
+        int time = 1000;
+
+        //use mostly in SaveFile to determine output calculations when a halt or invalid instruction is found - HT
+        //only works when save after run? -- may need to scratch this idea
+        //can use booleans in Simulation checks
+        bool invalid = false; 
+        bool halt = false;
 
         /**
         * Method Name: Tangents()
@@ -143,13 +149,22 @@ namespace Project2_HT
 
                 ProcessMemory();
                 
-                ProcessExecute();
+                ProcessExecute(); //add check here as well for halt
+                if (halt)
+                {
+                    return;
+                }
 
                 ProcessDecode();
 
                 FetchCycle();
 
-                UpdateAndDelay();
+                //check if Invalid was called and return from Simulation
+                //popup notice? --update label8 text to say an invlid was found -HT
+                if (invalid)
+                {
+                    return; //return to what called Simulation
+                }
 
             }
 
@@ -167,11 +182,17 @@ namespace Project2_HT
 
                 ProcessMemory();
 
-                ProcessExecute();
+                ProcessExecute(); //call halt method within ProcessExecute and add check if halt was found to return/break from simulation loop
+                if (halt)
+                {
+                    return;
+                }
 
                 ProcessDecode();
 
-                UpdateAndDelay();
+                //don't need to check for invalid here
+
+                
             }
 
         }//end simulation
@@ -187,6 +208,11 @@ namespace Project2_HT
         */
         public void InvalidFound()
         {
+            invalid = true;
+            label8.Text = "Invalid Instruction Found! Dumping Pipeline";
+
+            UpdateAndDelay(); //give system time to update the text in fetch to show invalid (double delay to give time to read message
+            UpdateAndDelay();
             //check each stack 
             if (this.Fetch.Count > 0)
             {
@@ -243,12 +269,12 @@ namespace Project2_HT
                 Update();
             }
 
-            //method call to close Gui??
-            System.Windows.Forms.Application.Exit();
+            //method call to close Gui?? --completes the crash
+            //System.Windows.Forms.Application.Exit();
         }
 
         /**
-        * Method Name: InvalidFound()
+        * Method Name: HaltFound()
         * Method Purpose: Method to finish simulation when halt reaches Execute before it is popped off
         *
         * <hr>
@@ -258,7 +284,8 @@ namespace Project2_HT
         */
         public void HaltFound()
         {
-            //clear any instructions loaded after halt
+            halt = true;
+            //clear any instructions loaded in after halt
             if(this.Fetch.Count > 0)
             {
                 this.Fetch.Pop();
@@ -282,6 +309,38 @@ namespace Project2_HT
             }
 
             //keep going if anything in memory or writeback (halt is in Execute)
+            while (this.Memory.Count > 0 || this.Register.Count > 0)
+            {
+                if(this.Register.Count > 0)
+                {
+                    this.Register.Pop();
+                    RegisterBox.Text = "";
+                    UpdateAndDelay();
+                }
+                else if (this.Memory.Count > 0)
+                {
+                    Instruction temp = this.Memory.Peek();
+                    if(temp.MemoryCC == 0)
+                    {
+                        temp = this.Memory.Pop();
+                        MemoryBox.Text = "";
+                        if(temp.RegisterCC > 0)
+                        {
+                            PushRegister(temp);
+                        }
+                    }
+                    else if (temp.MemoryCC > 0)
+                    {
+                        temp.MemoryCC--; //pop and push so actual instruction values in stack are updated
+                    }
+                    UpdateAndDelay();
+                }
+                //CountUpdate();  <-- I dont think this is needed -HT
+            }
+
+            //pop halt from execute
+            this.Execute.Pop();
+            ExecuteBox.Text = "";
 
         }
          
@@ -475,6 +534,17 @@ namespace Project2_HT
             {
                 PushFetch(this.Input_Instructions[this.SimulationCount]);
                 this.SimulationCount++;
+                //Update();
+                //add InvalidFound call after check-HT
+                Instruction temp = this.Fetch.Peek(); //since just called PushFetch, there is no need to check Fetch.Count -HT
+                uint op = temp.OpCode;
+                //these checks are spread out for ease of understanding rather than one large convoluted if condition
+                if (op < 0)
+                    InvalidFound();
+                if (op > 20 && op < 128)
+                    InvalidFound();
+                if (op > 131)
+                    InvalidFound();
             }
             else if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
             {
@@ -553,6 +623,13 @@ namespace Project2_HT
                 {
                     PushExecute(i);
                     UpdateAndDelay();
+                    //check for halt after i is loaded into Execute
+                    uint op = i.OpCode;
+                    if (op == 0)
+                    {
+                        HaltFound();
+                        return; //halt should clean up what the below while statement does...? I think
+                    }
 
                     while (i.ExecuteCC > 0)
                     {
