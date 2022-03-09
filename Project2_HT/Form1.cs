@@ -39,9 +39,10 @@ namespace Project2_HT
         Stack<Instruction> Register = new Stack<Instruction>();
         
         int cycleCount = 0;                                                     // Counts the number of cycles
-        int hazardCount = 0;                                                    //count hazards
+        int dataHazardCount = 0;                                                    //count hazards
+        int structuralHazardCount = 0;
         int SimulationCount;
-        int time = 500;
+        int time = 1500;
 
         /**
         * Method Name: Tangents()
@@ -94,9 +95,9 @@ namespace Project2_HT
                 }//end while
                 label8.Text = "Loaded";
                 cycleCount = 0;
-                hazardCount = 0;
+                dataHazardCount = 0;
                 cycleLabel.Text = cycleCount.ToString();
-                label7.Text = hazardCount.ToString();
+                label7.Text = dataHazardCount.ToString();
             }//end if
 
         }
@@ -148,6 +149,8 @@ namespace Project2_HT
 
                 FetchCycle();
 
+                UpdateAndDelay();
+
             }
 
             // clean up pipeline
@@ -168,17 +171,7 @@ namespace Project2_HT
 
                 ProcessDecode();
 
-                /*if (this.Fetch.Count > 0)
-                {
-                    //check for invalid before decode
-                    //.Peek() method to view instruction currently in Fetch stack - H
-                    //Instruction tempF = this.Fetch.Peek();
-
-                    //if (!(Instruction.InstructionSet.Contains(tempF))) --keeps entering the if even when the instruction is valid
-                    //    InvalidFound();
-
-                    ProcessDecode();
-                }*/
+                UpdateAndDelay();
             }
 
         }//end simulation
@@ -200,6 +193,10 @@ namespace Project2_HT
                 this.Fetch.Pop();
                 //update text
                 FetchBox.Text = "";
+                FetchDR.Text = "";
+                FetchOp1.Text = "";
+                FetchOp2.Text = "";
+
                 Update();
             }
             if (this.Decode.Count > 0)
@@ -207,6 +204,9 @@ namespace Project2_HT
                 this.Decode.Pop();
                 //update text
                 DecodeBox.Text = "";
+                DecodeDR.Text = "";
+                DecodeOp1.Text = "";
+                DecodeOp2.Text = "";
                 Update();
             }
             if (this.Execute.Count > 0)
@@ -214,6 +214,10 @@ namespace Project2_HT
                 this.Execute.Pop();
                 //update text
                 ExecuteBox.Text = "";
+                ExecuteDR.Text = "";
+                ExecuteOp1.Text = "";
+                ExecuteOp2.Text = "";
+
                 Update();
             }
             if (this.Memory.Count > 0)//memory
@@ -221,6 +225,10 @@ namespace Project2_HT
                 this.Memory.Pop();
                 //update text
                 MemoryBox.Text = "";
+                MemoryDR.Text = "";
+                MemoryOp1.Text = "";
+                MemoryOp2.Text = "";
+
                 Update();
             }
             if (this.Register.Count > 0)                //register
@@ -228,6 +236,10 @@ namespace Project2_HT
                 this.Register.Pop();
                 //update text
                 RegisterBox.Text = "";
+                RegisterDR.Text = "";
+                RegisterOp1.Text = "";
+                RegisterOp2.Text = "";
+
                 Update();
             }
 
@@ -252,6 +264,9 @@ namespace Project2_HT
                 this.Fetch.Pop();
                 //update text
                 FetchBox.Text = "";
+                FetchDR.Text = "";
+                FetchOp1.Text = "";
+                FetchOp2.Text = "";
                 Update();
             }
             if (this.Decode.Count > 0)
@@ -259,6 +274,10 @@ namespace Project2_HT
                 this.Decode.Pop();
                 //update text
                 DecodeBox.Text = "";
+                DecodeDR.Text = "";
+                DecodeOp1.Text = "";
+                DecodeOp2.Text = "";
+
                 Update();
             }
 
@@ -356,8 +375,9 @@ namespace Project2_HT
                 Instruction wb = this.Register.Pop();
                 usedRegisters.Remove(wb.DestReg);
                 this.RegisterBox.Text = "";
-                if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
-                    return;
+                RegisterDR.Text = "";
+                RegisterOp1.Text = "";
+                RegisterOp2.Text = "";
             }
         }
 
@@ -369,6 +389,9 @@ namespace Project2_HT
             {
                 temp = this.Memory.Pop();
                 this.MemoryBox.Text = "";
+                MemoryDR.Text = "";
+                MemoryOp1.Text = "";
+                MemoryOp2.Text = "";
 
                 if (temp.RegisterCC > 0)
                 {
@@ -378,6 +401,8 @@ namespace Project2_HT
             else if (temp.MemoryCC > 0)
             {
                 temp.MemoryCC--;
+                this.Memory.Pop();
+                this.Memory.Push(temp);
             }
         }
 
@@ -394,6 +419,11 @@ namespace Project2_HT
                 else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
                 {
                     this.Execute.Pop();
+                    this.ExecuteBox.Text = "";
+                    ExecuteDR.Text = "";
+                    ExecuteOp1.Text = "";
+                    ExecuteOp2.Text = "";
+
                     PushMemory(temp);
                     MemoryText(temp);
                 }
@@ -401,11 +431,19 @@ namespace Project2_HT
                 {
                     this.Execute.Pop();
                     this.ExecuteBox.Text = "";
+                    ExecuteDR.Text = "";
+                    ExecuteOp1.Text = "";
+                    ExecuteOp2.Text = "";
+
                     PushRegister(temp);
                     RegisterText(temp);
                 }
                 else if (temp.ExecuteCC > 0)
+                {
                     temp.ExecuteCC--;
+                    this.Execute.Pop();
+                    this.Execute.Push(temp);
+                }
             }
         }
 
@@ -416,11 +454,17 @@ namespace Project2_HT
             {
                 this.Decode.Pop();
                 this.DecodeBox.Text = "";
+                DecodeDR.Text = "";
+                DecodeOp1.Text = "";
+                DecodeOp2.Text = "";
+
                 PushExecute(temp);
             }
             else
             {
                 temp.DecodeCC--;
+                this.Decode.Pop();
+                this.Decode.Push(temp);
             }
 
         }
@@ -449,8 +493,8 @@ namespace Project2_HT
             //check if its in the stale registers
             if (usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null)
             {
-                hazardCount++;
-                label7.Text = hazardCount.ToString();
+                dataHazardCount++;
+                label7.Text = dataHazardCount.ToString();
                 CountUpdate(); //go stall
             }
             else
@@ -466,6 +510,10 @@ namespace Project2_HT
             {
                 Instruction i = this.Fetch.Pop();
                 this.FetchBox.Text = "";
+                FetchDR.Text = "";
+                FetchOp1.Text = "";
+                FetchOp2.Text = "";
+
                 CompareOpRegisters(i);
                 if (i.writeBack == true)
                 {
@@ -474,11 +522,15 @@ namespace Project2_HT
                 if (i.DecodeCC != 0)
                 {
                     PushDecode(i);
+
                     UpdateAndDelay();
 
                     while (i.DecodeCC > 0)
                     {
                         i.DecodeCC--;
+
+                        structuralHazardCount++;
+                        label13.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -493,6 +545,10 @@ namespace Project2_HT
             {
                 Instruction i = this.Decode.Pop();
                 this.DecodeBox.Text = "";
+                DecodeDR.Text = "";
+                DecodeOp1.Text = "";
+                DecodeOp2.Text = "";
+
                 if (i.ExecuteCC != 0)
                 {
                     PushExecute(i);
@@ -501,6 +557,9 @@ namespace Project2_HT
                     while (i.ExecuteCC > 0)
                     {
                         i.ExecuteCC--;
+
+                        structuralHazardCount++;
+                        label13.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -515,6 +574,9 @@ namespace Project2_HT
             {
                 Instruction i = this.Execute.Pop();
                 this.ExecuteBox.Text = "";
+                ExecuteDR.Text = "";
+                ExecuteOp1.Text = "";
+                ExecuteOp2.Text = "";
 
                 if (i.MemoryCC != 0)
                 {
@@ -524,6 +586,9 @@ namespace Project2_HT
                     while (i.MemoryCC > 0)
                     {
                         i.MemoryCC--;
+
+                        structuralHazardCount++;
+                        label13.Text = structuralHazardCount.ToString();
 
                         CountUpdate();
                         UpdateAndDelay();
@@ -539,6 +604,9 @@ namespace Project2_HT
                     {
                         i.RegisterCC--;
 
+                        structuralHazardCount++;
+                        label13.Text = structuralHazardCount.ToString();
+
                         CountUpdate();
                         UpdateAndDelay();
                     }
@@ -553,6 +621,9 @@ namespace Project2_HT
             {
                 Instruction i = this.Memory.Pop();
                 this.MemoryBox.Text = "";
+                MemoryDR.Text = "";
+                MemoryOp1.Text = "";
+                MemoryOp2.Text = "";
 
                 if (i.RegisterCC != 0)
                 {
@@ -565,10 +636,13 @@ namespace Project2_HT
                     {
                         i.RegisterCC--;
 
+                        structuralHazardCount++;
+                        label13.Text = structuralHazardCount.ToString();
+
                         CountUpdate();
                         UpdateAndDelay();
                     }
-                    usedRegisters.Clear();  //clear registers when no longer in use
+                    //usedRegisters.Clear();  //clear registers when no longer in use
                 }
             }
         }
@@ -586,8 +660,8 @@ namespace Project2_HT
             }
             else//if the register is in use already, wait until it is not.
             {
-                hazardCount++;
-                label7.Text = hazardCount.ToString();
+                dataHazardCount++;
+                label7.Text = dataHazardCount.ToString();
                 Task.Delay(time).Wait();
                 usedRegisters.Remove(i.DestReg);
                 CheckRegisters(i);
@@ -603,41 +677,41 @@ namespace Project2_HT
         public void UpdateAndDelay()
         {
             Update();
-            Task.Delay(500).Wait();
+            Task.Delay(time).Wait();
         }
 
         public void PushFetch(Instruction i)
         {
-            this.Fetch.Push(i);
             i.FetchCC--;
+            this.Fetch.Push(i);
             FetchText(i);
         }
 
         public void PushDecode(Instruction i)
         {
-            this.Decode.Push(i);
             i.DecodeCC--;
+            this.Decode.Push(i);
             DecodeText(i);
         }
 
         public void PushExecute(Instruction i)
         {
-            this.Execute.Push(i);
             i.ExecuteCC--;
+            this.Execute.Push(i);
             ExecuteText(i);
         }
 
         public void PushMemory(Instruction i)
         {
-            this.Memory.Push(i);
             i.MemoryCC--;
+            this.Memory.Push(i);
             MemoryText(i);
         }
 
         public void PushRegister(Instruction i)
         {
-            this.Register.Push(i);
             i.RegisterCC--;
+            this.Register.Push(i);
             RegisterText(i);
         }
 
@@ -655,6 +729,9 @@ namespace Project2_HT
         public void RegisterText(Instruction i)
         {
             RegisterBox.Text = i.Mnemonic;
+            RegisterDR.Text = i.DestReg;
+            RegisterOp1.Text = i.Reg1;
+            RegisterOp2.Text = i.Reg2;
         }
 
         /**
@@ -670,6 +747,9 @@ namespace Project2_HT
         public void MemoryText(Instruction i)
         {
             MemoryBox.Text = i.Mnemonic;
+            MemoryDR.Text = i.DestReg;
+            MemoryOp1.Text = i.Reg1;
+            MemoryOp2.Text = i.Reg2;
         }
 
         /**
@@ -685,6 +765,9 @@ namespace Project2_HT
         public void ExecuteText(Instruction i)
         {
             ExecuteBox.Text = i.Mnemonic;
+            ExecuteDR.Text = i.DestReg;
+            ExecuteOp1.Text = i.Reg1;
+            ExecuteOp2.Text = i.Reg2;
         }
 
         /**
@@ -700,6 +783,9 @@ namespace Project2_HT
         public void DecodeText(Instruction i)
         {
             DecodeBox.Text = i.Mnemonic;
+            DecodeDR.Text = i.DestReg;
+            DecodeOp1.Text = i.Reg1;
+            DecodeOp2.Text = i.Reg2;
         }
 
         /**
@@ -715,6 +801,9 @@ namespace Project2_HT
         public void FetchText(Instruction i)
         {
             FetchBox.Text = i.Mnemonic;
+            FetchDR.Text = i.DestReg;
+            FetchOp1.Text = i.Reg1;
+            FetchOp2.Text = i.Reg2;
         }
 
         public static string dirParameter = AppDomain.CurrentDomain.BaseDirectory + @"\saveOut.txt";
@@ -899,7 +988,9 @@ namespace Project2_HT
             filewrite.WriteLine("______________________________________________________________________________________________");
             filewrite.WriteLine();
             filewrite.WriteLine("Cycle count: " + cycleCount);
-            filewrite.WriteLine("Hazard count: " + hazardCount);
+            filewrite.WriteLine("Data Hazard count: " + dataHazardCount);
+            filewrite.WriteLine("Structural Hazard count: " + structuralHazardCount);
+
 
 
             filewrite.Flush();
@@ -908,154 +999,5 @@ namespace Project2_HT
 
 
         }
-
-        /*/ single cycle processes, going to overwrite old ones
-
-        public void SimAgain()
-        {
-            while (this.SimulationCount < this.Input_Instructions.Count)
-            {
-                CountUpdate();
-                UpdateAndDelay();
-
-
-                CycleRegister();
-                CycleMemory();
-                CycleExecute();
-                CycleDecode();
-                CycleFetch();
-
-                UpdateAndDelay();
-            }
-
-            // clean up pipeline
-
-            while (this.Fetch.Count != 0 || this.Decode.Count != 0 || this.Execute.Count != 0 || this.Memory.Count != 0 || this.Register.Count != 0)
-            {
-                CountUpdate();
-                UpdateAndDelay();
-
-                CycleRegister();
-
-                if (this.Fetch.Count == 0 && this.Decode.Count == 0 && this.Execute.Count == 0 && this.Memory.Count == 0)
-                    return;
-
-                CycleMemory();
-                CycleExecute();
-                CycleDecode();
-
-            }
-        }
-
-        public void CycleFetch()
-        {
-            Instruction temp;
-            if (this.Fetch.Count > 0)
-            {
-                temp = this.Fetch.Pop();
-                this.Decode.Push(temp);
-                DecodeText(temp);
-            }
-            else if (this.SimulationCount < this.Input_Instructions.Count && this.Fetch.Count == 0)
-            {
-                PushFetch(this.Input_Instructions[this.SimulationCount]);
-                this.SimulationCount++;
-            }
-        }
-
-        public void CycleDecode()
-        {
-            Instruction temp;
-            if (this.Decode.Count == 0 && this.Fetch.Count > 0)     // decode for one cycle
-            {
-                temp = this.Fetch.Pop();
-                PushDecode(temp);
-                UpdateAndDelay();
-            }
-        }
-
-        public void CycleExecute()
-        {
-            Instruction temp;
-            if (this.Execute.Count > 0)     // Execute for one cycle
-            {
-                temp = this.Execute.Peek();
-
-                if (temp.ExecuteCC == 0)
-                {
-                    if (temp.ExecuteCC == 0 && temp.MemoryCC == 0 && temp.RegisterCC == 0)
-                    {
-                        this.Execute.Pop();
-                    }
-                    else if (temp.MemoryCC > 0 && this.Memory.Count == 0)
-                    {
-                        this.Execute.Pop();
-                        PushMemory(temp);
-                        MemoryText(temp);
-                    }
-                    else if (temp.RegisterCC > 0 && this.Register.Count == 0)
-                    {
-                        this.Execute.Pop();
-                        this.ExecuteBox.Text = "";
-                        PushRegister(temp);
-                        RegisterText(temp);
-                    }
-                    //else if (temp.ExecuteCC > 0)
-                    //  temp.ExecuteCC--;
-                }
-
-            }
-            else if (this.Execute.Count == 0 && this.Decode.Count > 0)
-            {
-                temp = this.Decode.Pop();
-                this.Execute.Push(temp);
-                ExecuteText(temp);
-            }
-
-
-        }
-
-        public void CycleMemory()
-        {
-            Instruction temp;
-            if (this.Memory.Count > 0)      // memory for one cycle
-            {
-                temp = this.Memory.Peek();
-
-                if (temp.MemoryCC == 0)
-                {
-                    temp = this.Memory.Pop();
-                    this.MemoryBox.Text = "";
-
-                    if (temp.RegisterCC > 0)
-                    {
-                        PushRegister(temp);
-                    }
-                }
-                else if (temp.MemoryCC > 0)
-                {
-                    temp.MemoryCC--;
-                }
-                UpdateAndDelay();
-            }
-            else if (this.Memory.Count == 0 && this.Execute.Count > 0)
-            {
-                temp = this.Execute.Pop();
-                this.Memory.Push(temp);
-                MemoryText(temp);
-            }
-        }
-
-        public void CycleRegister()
-        {
-            if (this.Register.Count > 0)    // register for one cycle
-            {
-                this.Register.Pop();
-                this.RegisterBox.Text = "";
-                UpdateAndDelay();
-            }
-            else if ()
-
-        } */
     }
 }
