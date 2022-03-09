@@ -509,17 +509,24 @@ namespace Project2_HT
         public void CompareOpRegisters(Instruction i)
         {
             //check if its in the stale registers
-            if (usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null)
+            //if (usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null)
+            //{
+            //    hazardCount++;
+            //    label7.Text = hazardCount.ToString();
+            //    CountUpdate(); //go stall
+            //}
+            //else
+            //{
+            //    return; //if not, leave
+            //}
+            //CompareOpRegisters(i); //try again otherwise
+            while((usedRegisters.Contains(i.Reg1) && i.Reg1 != null || usedRegisters.Contains(i.Reg2) && i.Reg2 != null))
             {
                 hazardCount++;
                 label7.Text = hazardCount.ToString();
+                KeepGoing(1);
                 CountUpdate(); //go stall
             }
-            else
-            {
-                return; //if not, leave
-            }
-            CompareOpRegisters(i); //try again otherwise
         }
 
         public void ProcessDecode()
@@ -649,18 +656,26 @@ namespace Project2_HT
         {
 
             //see if register is available by checking the usedRegisters list
-            if (!usedRegisters.Contains(i.DestReg))
+            if (usedRegisters.Contains(i.DestReg))
+            {
+                while (usedRegisters.Contains(i.DestReg))
+                {
+                    hazardCount++;
+                    label7.Text = hazardCount.ToString();
+                    KeepGoing(1);
+                }
+            }
+            else
             {
                 usedRegisters.Add(i.DestReg);
             }
-            else//if the register is in use already, wait until it is not.
-            {
-                hazardCount++;
-                label7.Text = hazardCount.ToString();
-                Task.Delay(time).Wait();
-                usedRegisters.Remove(i.DestReg);
-                CheckRegisters(i);
-            }
+            //else//if the register is in use already, wait until it is not.
+            //{
+            //    hazardCount++;
+
+            //    Task.Delay(time).Wait();
+            //    usedRegisters.Remove(i.DestReg);
+            //}
 
         }
         public void CountUpdate()
