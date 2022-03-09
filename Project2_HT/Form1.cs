@@ -1106,12 +1106,15 @@ namespace Project2_HT
                 string opnd2 = inst.Reg2;
 
                 string fullOperand = " ";
-                if (destR != null)
-                    fullOperand += destR + ", ";
-                if (opnd1 != null)
-                    fullOperand += opnd1 + ", ";
-                if (opnd2 != null)
-                    fullOperand += opnd2;
+                if (Save_Stats[i].Mnemonic != "HALT" && Save_Stats[i].Mnemonic != "INVALID")
+                {
+                    if (destR != null)
+                        fullOperand += destR + ", ";
+                    if (opnd1 != null)
+                        fullOperand += opnd1 + ", ";
+                    if (opnd2 != null)
+                        fullOperand += opnd2; 
+                }
 
                 //in every case, fetch is calculated the same
                 fetch = f + i;
@@ -1157,6 +1160,18 @@ namespace Project2_HT
                     {
                         executeE = (exe - 1) + executeS; //update if more than one
                         exec = executeS + " - " + executeE;
+                    }
+                    else if(Save_Stats[i].Mnemonic == "HALT")
+                    {
+                        if(memE > executeE)
+                        {
+                            executeE = memE + 1;
+                            exec = executeE.ToString();
+                        }
+                        else
+                        {
+                            exec = executeE.ToString();
+                        }
                     }
                     else
                         exec = executeS.ToString();
@@ -1250,7 +1265,10 @@ namespace Project2_HT
                                    (stringWB) + "          ");
 
 
-                
+                if (Save_Stats[i].Mnemonic == "HALT" || Save_Stats[i].Mnemonic == "INVALID")
+                {
+                    break;
+                }
                 
 
 
@@ -1258,7 +1276,7 @@ namespace Project2_HT
 
 
             filewrite.WriteLine();
-            filewrite.WriteLine("______________________________________________________________________________________________");
+            filewrite.WriteLine("___________________________________________________________________________________________________________________________");
             filewrite.WriteLine();
             filewrite.WriteLine("Cycle count: " + cycleCount);
             filewrite.WriteLine("Data Hazard count: " + dataHazardCount);
