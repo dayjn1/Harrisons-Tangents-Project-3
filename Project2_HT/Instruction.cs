@@ -109,12 +109,6 @@ namespace Project2_HT
             this.ExecuteCC = execute;
             this.MemoryCC = memory;
             this.RegisterCC = register;
-
-            if (this.RegisterCC == 1)
-                this.writeBack = true;
-            else
-                this.writeBack = false;
-
             this.writeBack = writeBack;
             this.useRD = useRD;
             this.useR1 = useR1;
@@ -144,6 +138,7 @@ namespace Project2_HT
                     this.ExecuteCC = InstructionSet[i].ExecuteCC;
                     this.MemoryCC = InstructionSet[i].MemoryCC;
                     this.RegisterCC = InstructionSet[i].RegisterCC;
+                    this.writeBack = InstructionSet[i].writeBack;
                     this.useRD = InstructionSet[i].useRD;
                     this.useR1 = InstructionSet[i].useR1;
                     this.useR2 = InstructionSet[i].useR2;
@@ -193,20 +188,6 @@ namespace Project2_HT
             }
 
             FindIS();
-            // Sets Destination reg, reg 1, and reg 2 if the instruction uses the register -JM
-            if (this.useRD == true)
-            {
-                uint rd = (uint)input & 0x00F00000;
-                rd >>= 20;
-                this.DestReg = "R" + rd.ToString("X");              // Uses shifts to isolate certain bits in instruction hex - JND
-            }
-            
-            if (this.useR1 == true)
-            {
-                uint reg1 = (uint)input & 0x000F0000;
-                reg1 >>= 16;
-                this.Reg1 = "R" + reg1.ToString("X");
-            }
 
             // Sets Destination reg, reg 1, and reg 2 if the instruction uses the register -JM
             if (this.useRD == true)

@@ -57,8 +57,29 @@ namespace Project2_HT
             this.cycleLabel = new System.Windows.Forms.Label();
             this.cycledescrLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.DHLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.FetchDR = new System.Windows.Forms.Label();
+            this.FetchOp1 = new System.Windows.Forms.Label();
+            this.FetchOp2 = new System.Windows.Forms.Label();
+            this.DecodeDR = new System.Windows.Forms.Label();
+            this.DecodeOp1 = new System.Windows.Forms.Label();
+            this.DecodeOp2 = new System.Windows.Forms.Label();
+            this.ExecuteDR = new System.Windows.Forms.Label();
+            this.ExecuteOp1 = new System.Windows.Forms.Label();
+            this.ExecuteOp2 = new System.Windows.Forms.Label();
+            this.MemoryDR = new System.Windows.Forms.Label();
+            this.MemoryOp1 = new System.Windows.Forms.Label();
+            this.MemoryOp2 = new System.Windows.Forms.Label();
+            this.RegisterDR = new System.Windows.Forms.Label();
+            this.RegisterOp1 = new System.Windows.Forms.Label();
+            this.RegisterOp2 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.SHLabel = new System.Windows.Forms.Label();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,17 +87,18 @@ namespace Project2_HT
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.resetToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1240, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1415, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.fileToolStripMenuItem.BackColor = System.Drawing.Color.Silver;
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem});
@@ -88,21 +110,21 @@ namespace Project2_HT
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // FetchBox
             // 
             this.FetchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FetchBox.Location = new System.Drawing.Point(80, 226);
+            this.FetchBox.Location = new System.Drawing.Point(329, 342);
             this.FetchBox.Margin = new System.Windows.Forms.Padding(4);
             this.FetchBox.Name = "FetchBox";
             this.FetchBox.Size = new System.Drawing.Size(132, 34);
@@ -111,7 +133,7 @@ namespace Project2_HT
             // DecodeBox
             // 
             this.DecodeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DecodeBox.Location = new System.Drawing.Point(283, 226);
+            this.DecodeBox.Location = new System.Drawing.Point(532, 342);
             this.DecodeBox.Margin = new System.Windows.Forms.Padding(4);
             this.DecodeBox.Name = "DecodeBox";
             this.DecodeBox.Size = new System.Drawing.Size(132, 34);
@@ -120,7 +142,7 @@ namespace Project2_HT
             // ExecuteBox
             // 
             this.ExecuteBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExecuteBox.Location = new System.Drawing.Point(493, 226);
+            this.ExecuteBox.Location = new System.Drawing.Point(742, 342);
             this.ExecuteBox.Margin = new System.Windows.Forms.Padding(4);
             this.ExecuteBox.Name = "ExecuteBox";
             this.ExecuteBox.Size = new System.Drawing.Size(132, 34);
@@ -129,7 +151,7 @@ namespace Project2_HT
             // MemoryBox
             // 
             this.MemoryBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MemoryBox.Location = new System.Drawing.Point(690, 226);
+            this.MemoryBox.Location = new System.Drawing.Point(939, 342);
             this.MemoryBox.Margin = new System.Windows.Forms.Padding(4);
             this.MemoryBox.Name = "MemoryBox";
             this.MemoryBox.Size = new System.Drawing.Size(132, 34);
@@ -138,7 +160,7 @@ namespace Project2_HT
             // RegisterBox
             // 
             this.RegisterBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegisterBox.Location = new System.Drawing.Point(920, 226);
+            this.RegisterBox.Location = new System.Drawing.Point(1169, 342);
             this.RegisterBox.Margin = new System.Windows.Forms.Padding(4);
             this.RegisterBox.Name = "RegisterBox";
             this.RegisterBox.Size = new System.Drawing.Size(132, 34);
@@ -150,7 +172,7 @@ namespace Project2_HT
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Stencil", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(89, 183);
+            this.label1.Location = new System.Drawing.Point(338, 299);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 29);
@@ -163,7 +185,7 @@ namespace Project2_HT
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(289, 183);
+            this.label2.Location = new System.Drawing.Point(538, 299);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 29);
@@ -176,7 +198,7 @@ namespace Project2_HT
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(487, 183);
+            this.label3.Location = new System.Drawing.Point(736, 299);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 29);
@@ -189,12 +211,13 @@ namespace Project2_HT
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(700, 154);
+            this.label4.Location = new System.Drawing.Point(949, 270);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 58);
             this.label4.TabIndex = 9;
             this.label4.Text = "Access\r\nMemory";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -202,12 +225,13 @@ namespace Project2_HT
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Stencil", 13.8F);
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(915, 183);
+            this.label5.Location = new System.Drawing.Point(1147, 270);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(300, 29);
+            this.label5.Size = new System.Drawing.Size(184, 58);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Write to Register File";
+            this.label5.Text = "Write to\r\nRegister File";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // StartButton
             // 
@@ -226,11 +250,11 @@ namespace Project2_HT
             // 
             this.cycleLabel.AutoSize = true;
             this.cycleLabel.BackColor = System.Drawing.Color.Transparent;
-            this.cycleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cycleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cycleLabel.Location = new System.Drawing.Point(169, 314);
+            this.cycleLabel.Location = new System.Drawing.Point(1277, 67);
             this.cycleLabel.Name = "cycleLabel";
-            this.cycleLabel.Size = new System.Drawing.Size(27, 29);
+            this.cycleLabel.Size = new System.Drawing.Size(24, 25);
             this.cycleLabel.TabIndex = 14;
             this.cycleLabel.Text = "0";
             // 
@@ -238,11 +262,11 @@ namespace Project2_HT
             // 
             this.cycledescrLabel.AutoSize = true;
             this.cycledescrLabel.BackColor = System.Drawing.Color.Transparent;
-            this.cycledescrLabel.Font = new System.Drawing.Font("Stencil", 13.8F);
+            this.cycledescrLabel.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cycledescrLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cycledescrLabel.Location = new System.Drawing.Point(73, 316);
+            this.cycledescrLabel.Location = new System.Drawing.Point(1176, 67);
             this.cycledescrLabel.Name = "cycledescrLabel";
-            this.cycledescrLabel.Size = new System.Drawing.Size(90, 29);
+            this.cycledescrLabel.Size = new System.Drawing.Size(75, 24);
             this.cycledescrLabel.TabIndex = 15;
             this.cycledescrLabel.Text = "Cycle:";
             // 
@@ -250,27 +274,28 @@ namespace Project2_HT
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Stencil", 13.8F);
+            this.label6.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(325, 316);
+            this.label6.Location = new System.Drawing.Point(1148, 115);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(128, 29);
+            this.label6.Size = new System.Drawing.Size(103, 48);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Hazards:";
+            this.label6.Text = "Data\r\nHazards:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // label7
+            // DHLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(461, 314);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(27, 29);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "0";
+            this.DHLabel.AutoSize = true;
+            this.DHLabel.BackColor = System.Drawing.Color.Transparent;
+            this.DHLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DHLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.DHLabel.Location = new System.Drawing.Point(1277, 138);
+            this.DHLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DHLabel.Name = "DHLabel";
+            this.DHLabel.Size = new System.Drawing.Size(24, 25);
+            this.DHLabel.TabIndex = 17;
+            this.DHLabel.Text = "0";
             // 
             // label8
             // 
@@ -285,15 +310,248 @@ namespace Project2_HT
             this.label8.TabIndex = 18;
             this.label8.Text = "To get started, go to File and select open to get your file!";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(50, 428);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(243, 24);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Destination Register:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(171, 472);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(122, 24);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Operand 1:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(171, 514);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(122, 24);
+            this.label11.TabIndex = 21;
+            this.label11.Text = "Operand 2:";
+            // 
+            // FetchDR
+            // 
+            this.FetchDR.AutoSize = true;
+            this.FetchDR.BackColor = System.Drawing.Color.Transparent;
+            this.FetchDR.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FetchDR.Location = new System.Drawing.Point(353, 428);
+            this.FetchDR.Name = "FetchDR";
+            this.FetchDR.Size = new System.Drawing.Size(0, 24);
+            this.FetchDR.TabIndex = 22;
+            // 
+            // FetchOp1
+            // 
+            this.FetchOp1.AutoSize = true;
+            this.FetchOp1.BackColor = System.Drawing.Color.Transparent;
+            this.FetchOp1.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FetchOp1.Location = new System.Drawing.Point(353, 472);
+            this.FetchOp1.Name = "FetchOp1";
+            this.FetchOp1.Size = new System.Drawing.Size(0, 24);
+            this.FetchOp1.TabIndex = 23;
+            // 
+            // FetchOp2
+            // 
+            this.FetchOp2.AutoSize = true;
+            this.FetchOp2.BackColor = System.Drawing.Color.Transparent;
+            this.FetchOp2.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FetchOp2.Location = new System.Drawing.Point(353, 514);
+            this.FetchOp2.Name = "FetchOp2";
+            this.FetchOp2.Size = new System.Drawing.Size(0, 24);
+            this.FetchOp2.TabIndex = 24;
+            // 
+            // DecodeDR
+            // 
+            this.DecodeDR.AutoSize = true;
+            this.DecodeDR.BackColor = System.Drawing.Color.Transparent;
+            this.DecodeDR.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DecodeDR.Location = new System.Drawing.Point(559, 428);
+            this.DecodeDR.Name = "DecodeDR";
+            this.DecodeDR.Size = new System.Drawing.Size(0, 24);
+            this.DecodeDR.TabIndex = 25;
+            // 
+            // DecodeOp1
+            // 
+            this.DecodeOp1.AutoSize = true;
+            this.DecodeOp1.BackColor = System.Drawing.Color.Transparent;
+            this.DecodeOp1.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DecodeOp1.Location = new System.Drawing.Point(559, 472);
+            this.DecodeOp1.Name = "DecodeOp1";
+            this.DecodeOp1.Size = new System.Drawing.Size(0, 24);
+            this.DecodeOp1.TabIndex = 26;
+            // 
+            // DecodeOp2
+            // 
+            this.DecodeOp2.AutoSize = true;
+            this.DecodeOp2.BackColor = System.Drawing.Color.Transparent;
+            this.DecodeOp2.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DecodeOp2.Location = new System.Drawing.Point(559, 514);
+            this.DecodeOp2.Name = "DecodeOp2";
+            this.DecodeOp2.Size = new System.Drawing.Size(0, 24);
+            this.DecodeOp2.TabIndex = 27;
+            // 
+            // ExecuteDR
+            // 
+            this.ExecuteDR.AutoSize = true;
+            this.ExecuteDR.BackColor = System.Drawing.Color.Transparent;
+            this.ExecuteDR.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExecuteDR.Location = new System.Drawing.Point(762, 428);
+            this.ExecuteDR.Name = "ExecuteDR";
+            this.ExecuteDR.Size = new System.Drawing.Size(0, 24);
+            this.ExecuteDR.TabIndex = 28;
+            // 
+            // ExecuteOp1
+            // 
+            this.ExecuteOp1.AutoSize = true;
+            this.ExecuteOp1.BackColor = System.Drawing.Color.Transparent;
+            this.ExecuteOp1.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExecuteOp1.Location = new System.Drawing.Point(762, 472);
+            this.ExecuteOp1.Name = "ExecuteOp1";
+            this.ExecuteOp1.Size = new System.Drawing.Size(0, 24);
+            this.ExecuteOp1.TabIndex = 29;
+            // 
+            // ExecuteOp2
+            // 
+            this.ExecuteOp2.AutoSize = true;
+            this.ExecuteOp2.BackColor = System.Drawing.Color.Transparent;
+            this.ExecuteOp2.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExecuteOp2.Location = new System.Drawing.Point(762, 514);
+            this.ExecuteOp2.Name = "ExecuteOp2";
+            this.ExecuteOp2.Size = new System.Drawing.Size(0, 24);
+            this.ExecuteOp2.TabIndex = 30;
+            // 
+            // MemoryDR
+            // 
+            this.MemoryDR.AutoSize = true;
+            this.MemoryDR.BackColor = System.Drawing.Color.Transparent;
+            this.MemoryDR.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MemoryDR.Location = new System.Drawing.Point(972, 428);
+            this.MemoryDR.Name = "MemoryDR";
+            this.MemoryDR.Size = new System.Drawing.Size(0, 24);
+            this.MemoryDR.TabIndex = 31;
+            // 
+            // MemoryOp1
+            // 
+            this.MemoryOp1.AutoSize = true;
+            this.MemoryOp1.BackColor = System.Drawing.Color.Transparent;
+            this.MemoryOp1.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MemoryOp1.Location = new System.Drawing.Point(972, 472);
+            this.MemoryOp1.Name = "MemoryOp1";
+            this.MemoryOp1.Size = new System.Drawing.Size(0, 24);
+            this.MemoryOp1.TabIndex = 32;
+            // 
+            // MemoryOp2
+            // 
+            this.MemoryOp2.AutoSize = true;
+            this.MemoryOp2.BackColor = System.Drawing.Color.Transparent;
+            this.MemoryOp2.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MemoryOp2.Location = new System.Drawing.Point(972, 514);
+            this.MemoryOp2.Name = "MemoryOp2";
+            this.MemoryOp2.Size = new System.Drawing.Size(0, 24);
+            this.MemoryOp2.TabIndex = 33;
+            // 
+            // RegisterDR
+            // 
+            this.RegisterDR.AutoSize = true;
+            this.RegisterDR.BackColor = System.Drawing.Color.Transparent;
+            this.RegisterDR.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RegisterDR.Location = new System.Drawing.Point(1199, 428);
+            this.RegisterDR.Name = "RegisterDR";
+            this.RegisterDR.Size = new System.Drawing.Size(0, 24);
+            this.RegisterDR.TabIndex = 34;
+            // 
+            // RegisterOp1
+            // 
+            this.RegisterOp1.AutoSize = true;
+            this.RegisterOp1.BackColor = System.Drawing.Color.Transparent;
+            this.RegisterOp1.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RegisterOp1.Location = new System.Drawing.Point(1199, 472);
+            this.RegisterOp1.Name = "RegisterOp1";
+            this.RegisterOp1.Size = new System.Drawing.Size(0, 24);
+            this.RegisterOp1.TabIndex = 35;
+            // 
+            // RegisterOp2
+            // 
+            this.RegisterOp2.AutoSize = true;
+            this.RegisterOp2.BackColor = System.Drawing.Color.Transparent;
+            this.RegisterOp2.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RegisterOp2.Location = new System.Drawing.Point(1199, 514);
+            this.RegisterOp2.Name = "RegisterOp2";
+            this.RegisterOp2.Size = new System.Drawing.Size(0, 24);
+            this.RegisterOp2.TabIndex = 36;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(1115, 179);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(136, 48);
+            this.label12.TabIndex = 37;
+            this.label12.Text = "Structural\r\nHazards:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // SHLabel
+            // 
+            this.SHLabel.AutoSize = true;
+            this.SHLabel.BackColor = System.Drawing.Color.Transparent;
+            this.SHLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SHLabel.Location = new System.Drawing.Point(1277, 201);
+            this.SHLabel.Name = "SHLabel";
+            this.SHLabel.Size = new System.Drawing.Size(24, 25);
+            this.SHLabel.TabIndex = 38;
+            this.SHLabel.Text = "0";
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            // 
             // Tangents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1240, 400);
+            this.ClientSize = new System.Drawing.Size(1415, 586);
+            this.Controls.Add(this.SHLabel);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.RegisterOp2);
+            this.Controls.Add(this.RegisterOp1);
+            this.Controls.Add(this.RegisterDR);
+            this.Controls.Add(this.MemoryOp2);
+            this.Controls.Add(this.MemoryOp1);
+            this.Controls.Add(this.MemoryDR);
+            this.Controls.Add(this.ExecuteOp2);
+            this.Controls.Add(this.ExecuteOp1);
+            this.Controls.Add(this.ExecuteDR);
+            this.Controls.Add(this.DecodeOp2);
+            this.Controls.Add(this.DecodeOp1);
+            this.Controls.Add(this.DecodeDR);
+            this.Controls.Add(this.FetchOp2);
+            this.Controls.Add(this.FetchOp1);
+            this.Controls.Add(this.FetchDR);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.DHLabel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cycledescrLabel);
             this.Controls.Add(this.cycleLabel);
@@ -339,8 +597,29 @@ namespace Project2_HT
         private System.Windows.Forms.Label cycleLabel;
         private System.Windows.Forms.Label cycledescrLabel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label DHLabel;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label FetchDR;
+        private System.Windows.Forms.Label FetchOp1;
+        private System.Windows.Forms.Label FetchOp2;
+        private System.Windows.Forms.Label DecodeDR;
+        private System.Windows.Forms.Label DecodeOp1;
+        private System.Windows.Forms.Label DecodeOp2;
+        private System.Windows.Forms.Label ExecuteDR;
+        private System.Windows.Forms.Label ExecuteOp1;
+        private System.Windows.Forms.Label ExecuteOp2;
+        private System.Windows.Forms.Label MemoryDR;
+        private System.Windows.Forms.Label MemoryOp1;
+        private System.Windows.Forms.Label MemoryOp2;
+        private System.Windows.Forms.Label RegisterDR;
+        private System.Windows.Forms.Label RegisterOp1;
+        private System.Windows.Forms.Label RegisterOp2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label SHLabel;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }
 
