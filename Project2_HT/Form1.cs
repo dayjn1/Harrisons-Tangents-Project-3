@@ -2,7 +2,7 @@
 // Project name:                Project 2 - Harrison's Tangents
 // ---------------------------------------------------------------------------
 // Creator’s name:              Janine Day
-// Edited By:                   Janine Day, Jason Middlebrook, 
+// Edited By:                   Janine Day, Jason Middlebrook, Avery Marlow 
 // Course-Section:              CSCI-4717
 // Creation Date:               02/17/2022
 // ---------------------------------------------------------------------------
@@ -121,6 +121,7 @@ namespace Project2_HT
         */
         private void StartButton_Click(object sender, EventArgs e)
         {
+            usedRegisters.Clear();
             label8.Text = "Processing...";
             Simulation();
             label8.Text = "Finished";
