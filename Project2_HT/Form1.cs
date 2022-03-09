@@ -2,7 +2,8 @@
 // Project name:                Project 2 - Harrison's Tangents
 // ---------------------------------------------------------------------------
 // Creator’s name:              Janine Day
-// Edited By:                   Janine Day, Jason Middlebrook, Avery Marlow 
+// Edited By:                   Janine Day, Hannah Taylor, Nataliya Chibizova,
+//                              Jason Middlebrook, Avery Marlow 
 // Course-Section:              CSCI-4717
 // Creation Date:               02/17/2022
 // ---------------------------------------------------------------------------
@@ -144,13 +145,13 @@ namespace Project2_HT
                 CountUpdate();
                 UpdateAndDelay();
 
-                RegisterCycle();
+                RegisterCycle();                // cycles/clears the register stack
 
-                ProcessRegister();
+                ProcessRegister();              // if instruction in memory goes to reg stack
 
-                ProcessMemory();
+                ProcessMemory();                // if instruction in execute goes to memory or register
                 
-                ProcessExecute(); //add check here as well for halt
+                ProcessExecute();               // add check here as well for halt
                 if (halt)
                 {
                     return;
@@ -189,11 +190,7 @@ namespace Project2_HT
                     return;
                 }
 
-                ProcessDecode();
-
-                //don't need to check for invalid here
-
-                
+                ProcessDecode();                
             }
 
         }//end simulation
@@ -408,17 +405,34 @@ namespace Project2_HT
             }
         }
 
+        /**
+        * Method Name: RegisterCycle()
+        * Method Purpose: Process a single register cycle
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        */
         public void RegisterCycle()
         {
             if (this.Register.Count > 0)
             {
-
                 Instruction wb = this.Register.Pop();
                 usedRegisters.Remove(wb.DestReg);
                 ClearRegisterText();
             }
         }
 
+        /**
+        * Method Name: MemoryCycle()
+        * Method Purpose: Process a single memory cycle
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        */
         public void MemoryCycle()
         {
             Instruction temp = this.Memory.Peek();
@@ -441,6 +455,15 @@ namespace Project2_HT
             }
         }
 
+        /**
+        * Method Name: ExecuteCycle()
+        * Method Purpose: Process a single execute cycle
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        */
         public void ExecuteCycle()
         {
             Instruction temp = this.Execute.Peek();
@@ -476,6 +499,15 @@ namespace Project2_HT
             }
         }
 
+        /**
+        * Method Name: DecodeCycle()
+        * Method Purpose: Process a single decode cycle
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        */
         public void DecodeCycle()
         {
             Instruction temp = this.Decode.Peek();
@@ -495,6 +527,15 @@ namespace Project2_HT
 
         }
 
+        /**
+        * Method Name: FetchCycle()
+        * Method Purpose: Process a single fetch cycle
+        *
+        * <hr>
+        * Date created: 03/06/2022
+        * @Janine Day
+        * <hr>
+        */
         public void FetchCycle()
         {
             if(this.Fetch.Count == 0 && (this.SimulationCount < this.Input_Instructions.Count))
@@ -730,7 +771,6 @@ namespace Project2_HT
                         CountUpdate();
                         UpdateAndDelay();
                     }
-                    //usedRegisters.Clear();  //clear registers when no longer in use
                 }
             }
         }
