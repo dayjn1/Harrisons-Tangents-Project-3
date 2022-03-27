@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace Project2_HT.Properties
+namespace Project3_HT.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.

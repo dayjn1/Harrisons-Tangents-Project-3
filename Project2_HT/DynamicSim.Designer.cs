@@ -1,5 +1,5 @@
 ﻿
-namespace Project2_HT
+namespace Project3_HT
 {
     partial class DynamicSim
     {

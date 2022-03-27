@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Project2_HT
+namespace Project3_HT
 {
     public partial class DynamicSim : Form
     {
