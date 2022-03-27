@@ -47,17 +47,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="DynamicSim.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="DynamicSim.Designer.cs">
+      <DependentUpon>DynamicSim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPAdderRS.cs" />
+    <Compile Include="FPMultiplierRS.cs" />
+    <Compile Include="InstrucionQueue.cs" />
+    <Compile Include="IntegerRS.cs" />
+    <Compile Include="LoadBuffer.cs" />
+    <Compile Include="RegisterFile.cs" />
+    <Compile Include="ReorderBuffer.cs" />
+    <Compile Include="StaticSim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StaticSim.Designer.cs">
+      <DependentUpon>StaticSim.cs</DependentUpon>
     </Compile>
     <Compile Include="Instruction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="DynamicSim.resx">
+      <DependentUpon>DynamicSim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaticSim.resx">
+      <DependentUpon>StaticSim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
