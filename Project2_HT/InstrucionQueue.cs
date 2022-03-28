@@ -24,12 +24,37 @@ namespace Project3_HT
             IQueue.Enqueue(i);
         }
 
+        public void DecueueTheInstruction(Instruction i)
+        {
+            if (i.OpCode == 404) // invelid instruction, stop execution 
+            {
+
+            }
+            else if(i.OpCode == 0) // HALT do not decueue anything after
+            {
+
+            }
+            else if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
+            {
+
+            }
+            else if (i.OpCode == 2) // STORE -- send it to the address unit --> RO buffer --> memory unit
+            {
+
+            }
+            else if(i.OpCode >=3 || i.OpCode <= 20) // goes to the int 
+            {
+
+            }
+            else if(i.OpCode >= 128 ||i.OpCode <= 133) // goes to floating point
+            {
+
+            }
+            IQueue.Dequeue();
+        }
+
 
     }
 
-    // check where to go
-    // 1) Invalid 404
-    // 2) Halt    0  
-    // 3) Floating point - everything > 128
-    // 4) Int (3-20 included)
+   
 }
