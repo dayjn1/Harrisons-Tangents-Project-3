@@ -23,11 +23,13 @@ namespace Project3_HT
         {
             IQueue.Enqueue(i);
         }
+
+
     }
 
     // check where to go
-    // 1) Invalid 
-    // 2) Halt
-    // Other
-    //  
+    // 1) Invalid 404
+    // 2) Halt    0  
+    // 3) Floating point - everything > 128
+    // 4) Int (3-20 included)
 }
