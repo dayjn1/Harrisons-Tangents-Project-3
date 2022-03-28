@@ -9,3 +9,4 @@ C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Deb
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.csproj.CoreCompileInputs.cache
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.exe
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.pdb
+C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.Controller.resources

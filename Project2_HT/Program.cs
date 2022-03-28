@@ -16,7 +16,7 @@ namespace Project3_HT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Tangents());
+            Application.Run(new Controller());
         }
     }
 }
