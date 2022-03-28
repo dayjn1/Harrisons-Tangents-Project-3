@@ -17,25 +17,17 @@ namespace Project3_HT
 {
     class InstrucionQueue
     {
-        int linepos = 0;
-        public Queue<IQueueEntry> IQueue = new Queue<IQueueEntry>();
+
+        public Queue<Instruction> IQueue = new Queue<Instruction>();
         public void AddToIQueue(Instruction i)
         {
-
-            IQueueEntry myEntry = new IQueueEntry(i, linepos);
-            linepos++;
+            IQueue.Enqueue(i);
         }
     }
 
-    public struct IQueueEntry
-    {
-        public Instruction i;
-        public int linepos;
-
-        public IQueueEntry(Instruction i, int linepos)
-        {
-            this.i = i;
-            this.linepos = linepos;
-        }
-    }
+    // check where to go
+    // 1) Invalid 
+    // 2) Halt
+    // Other
+    //  
 }

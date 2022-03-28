@@ -62,9 +62,11 @@ namespace Project3_HT
             new Instruction(19, "ASR", 1, 1, 1, 0, 1, true, true, true, true, false),
             new Instruction(20, "MOV", 1, 1, 1, 0, 1, true, true, true, false, false),
             new Instruction(128, "FADD", 1, 1, 2, 0, 1, true, true, true, true, false),
-            new Instruction(129, "FSUB", 1, 1, 2, 0, 1, true, true, true, true, false),
-            new Instruction(130, "FMULT", 1, 1, 5, 0, 1, true, true, true, true, false),
-            new Instruction(131, "FDIV", 1, 1, 10, 0, 1, true, true, true, true, false),
+            new Instruction(129, "FADDI", 1, 1, 2, 0, 1, true, true, true, false, true),
+            new Instruction(130, "FSUB", 1, 1, 2, 0, 1, true, true, true, true, false),
+            new Instruction(131, "FSUBI", 1, 1, 2, 0, 1, true, true, true, false, true),
+            new Instruction(132, "FMULT", 1, 1, 5, 0, 1, true, true, true, true, false),
+            new Instruction(133, "FDIV", 1, 1, 10, 0, 1, true, true, true, true, false),
             new Instruction(404, "INVALID", 1, 1, 0, 0, 0, false, false, false, false, false)
         };
 
