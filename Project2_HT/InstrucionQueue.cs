@@ -3,7 +3,7 @@
 // Project name:                Project 3 - Harrison's Tangents
 // ---------------------------------------------------------------------------
 // Creator’s name:              Avery Marlow
-// Edited By:                   Avery Marlow, Nataliya Chibizova
+// Edited By:                   Avery Marlow
 // Course-Section:              CSCI-4717
 // Creation Date:               03/25/2022
 // ---------------------------------------------------------------------------
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class InstructionQueue
+    class InstrucionQueue
     {
 
         public Queue<Instruction> IQueue = new Queue<Instruction>();
@@ -28,7 +28,7 @@ namespace Project3_HT
         {
             if (i.OpCode == 404) // invelid instruction, stop execution 
             {
-                
+
             }
             else if(i.OpCode == 0) // HALT do not decueue anything after
             {
@@ -50,9 +50,6 @@ namespace Project3_HT
             {
 
             }
-            // some for added
-            // some for mutliplier
-
             IQueue.Dequeue();
         }
 
