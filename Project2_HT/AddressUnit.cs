@@ -16,6 +16,9 @@ namespace Project3_HT
             }
             else
             {
+                // check if there is a space on the reoder buffer.
+                // If it is, place it on the RO
+                // else, stull
                 //send the whole instruction to reorder buffer whenever that gets done.
             }
         }

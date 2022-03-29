@@ -8,5 +8,9 @@ namespace Project3_HT
 {
     class FPAdderRS
     {
+        internal static void PlaceInstruction(Instruction i)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
