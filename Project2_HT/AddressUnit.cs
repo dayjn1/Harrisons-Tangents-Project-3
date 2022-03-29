@@ -16,7 +16,7 @@ namespace Project3_HT
             }
             else
             {
-                //send to reorder buffer whenever that gets done.
+                //send the whole instruction to reorder buffer whenever that gets done.
             }
         }
     }
