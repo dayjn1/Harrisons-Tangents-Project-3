@@ -116,8 +116,8 @@ namespace Project3_HT
             this.FPAddMnem2 = new System.Windows.Forms.Label();
             this.FPAddDestReg1 = new System.Windows.Forms.Label();
             this.FPAddDestReg2 = new System.Windows.Forms.Label();
-            this.FPAddOperand1 = new System.Windows.Forms.Label();
             this.FPAddOperand2 = new System.Windows.Forms.Label();
+            this.FPAddOperand1 = new System.Windows.Forms.Label();
             this.FPMultiplierRSLayout = new System.Windows.Forms.TableLayoutPanel();
             this.FPMultOperand3 = new System.Windows.Forms.Label();
             this.FPMultDestReg3 = new System.Windows.Forms.Label();
@@ -1070,16 +1070,6 @@ namespace Project3_HT
             this.FPAddDestReg2.TabIndex = 4;
             this.FPAddDestReg2.Text = "DestReg";
             // 
-            // FPAddOperand1
-            // 
-            this.FPAddOperand1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FPAddOperand1.AutoSize = true;
-            this.FPAddOperand1.Location = new System.Drawing.Point(98, 35);
-            this.FPAddOperand1.Name = "FPAddOperand1";
-            this.FPAddOperand1.Size = new System.Drawing.Size(48, 13);
-            this.FPAddOperand1.TabIndex = 6;
-            this.FPAddOperand1.Text = "Operand";
-            // 
             // FPAddOperand2
             // 
             this.FPAddOperand2.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -1089,6 +1079,16 @@ namespace Project3_HT
             this.FPAddOperand2.Size = new System.Drawing.Size(48, 13);
             this.FPAddOperand2.TabIndex = 7;
             this.FPAddOperand2.Text = "Operand";
+            // 
+            // FPAddOperand1
+            // 
+            this.FPAddOperand1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.FPAddOperand1.AutoSize = true;
+            this.FPAddOperand1.Location = new System.Drawing.Point(98, 35);
+            this.FPAddOperand1.Name = "FPAddOperand1";
+            this.FPAddOperand1.Size = new System.Drawing.Size(48, 13);
+            this.FPAddOperand1.TabIndex = 6;
+            this.FPAddOperand1.Text = "Operand";
             // 
             // FPMultiplierRSLayout
             // 
@@ -1403,6 +1403,7 @@ namespace Project3_HT
             this.Controls.Add(this.InstructQueueLayout);
             this.Controls.Add(this.ReorderBufLayout);
             this.Name = "DynamicSim";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DynamicSim";
             this.ReorderBufLayout.ResumeLayout(false);
             this.ReorderBufLayout.PerformLayout();
