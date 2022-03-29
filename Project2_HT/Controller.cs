@@ -1,4 +1,13 @@
-﻿using Project3_HT;
+﻿// ---------------------------------------------------------------------------
+// File name:                   InstrucionQueue.cs
+// Project name:                Project 3 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Nataliya Chibizova
+// Edited By:                   Nataliya Chibizova
+// Course-Section:              CSCI-4717
+// Creation Date:               03/27/2022
+// ---------------------------------------------------------------------------
+using Project3_HT;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
