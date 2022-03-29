@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class InstrucionQueue
+    class InstructionQueue
     {
 
         public Queue<Instruction> IQueue = new Queue<Instruction>();
@@ -28,27 +28,33 @@ namespace Project3_HT
         {
             if (i.OpCode == 404) // invelid instruction, stop execution 
             {
-
+                IQueue.Dequeue();
             }
             else if(i.OpCode == 0) // HALT do not decueue anything after
             {
-
+                //call our halt method, wherever that is
             }
             else if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
             {
-
+                AddressUnit.ProcessAU(i); // go to address unit
+                IQueue.Dequeue();
             }
             else if (i.OpCode == 2) // STORE -- send it to the address unit --> RO buffer --> memory unit
             {
-
+                AddressUnit.ProcessAU(i); //go to address unit
+                IQueue.Dequeue();
             }
             else if(i.OpCode >=3 || i.OpCode <= 20) // goes to the int 
             {
-
+                //go to op bus/res station
             }
-            else if(i.OpCode >= 128 ||i.OpCode <= 133) // goes to floating point
+            else if(i.OpCode >= 128 ||i.OpCode <= 131) // goes to floating point
             {
-
+                //go to op bus// fp res station
+            }
+            else if(i.OpCode == 132 || i.OpCode == 133)
+            {
+                //go to op bus// fp res station
             }
             IQueue.Dequeue();
         }

@@ -73,6 +73,7 @@
       <DependentUpon>StaticSim.cs</DependentUpon>
     </Compile>
     <Compile Include="Instruction.cs" />
+    <Compile Include="InstructionQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controller.resx">
