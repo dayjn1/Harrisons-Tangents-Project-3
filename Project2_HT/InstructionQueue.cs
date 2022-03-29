@@ -3,7 +3,7 @@
 // Project name:                Project 3 - Harrison's Tangents
 // ---------------------------------------------------------------------------
 // Creator’s name:              Avery Marlow
-// Edited By:                   Avery Marlow
+// Edited By:                   Avery Marlow, Nataliya Chibizova
 // Course-Section:              CSCI-4717
 // Creation Date:               03/25/2022
 // ---------------------------------------------------------------------------
