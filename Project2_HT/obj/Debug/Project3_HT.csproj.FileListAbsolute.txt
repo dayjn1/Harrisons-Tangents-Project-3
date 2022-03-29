@@ -10,3 +10,15 @@ C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Deb
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.exe
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.pdb
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.Controller.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.csprojAssemblyReference.cache
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.Controller.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.DynamicSim.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.Tangents.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.Properties.Resources.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.csproj.GenerateResource.cache
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.csproj.CoreCompileInputs.cache
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.exe
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.pdb
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\bin\Debug\Project2_HT.exe.config
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\bin\Debug\Project2_HT.exe
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project2_HT\bin\Debug\Project2_HT.pdb
