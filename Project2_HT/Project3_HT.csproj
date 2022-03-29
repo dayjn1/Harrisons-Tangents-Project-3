@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressUnit.cs" />
     <Compile Include="Controller.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,7 +62,7 @@
     </Compile>
     <Compile Include="FPAdderRS.cs" />
     <Compile Include="FPMultiplierRS.cs" />
-    <Compile Include="InstrucionQueue.cs" />
+    <Compile Include="InstructionQueue.cs" />
     <Compile Include="IntegerRS.cs" />
     <Compile Include="LoadBuffer.cs" />
     <Compile Include="RegisterFile.cs" />
@@ -73,7 +74,6 @@
       <DependentUpon>StaticSim.cs</DependentUpon>
     </Compile>
     <Compile Include="Instruction.cs" />
-    <Compile Include="InstructionQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controller.resx">
