@@ -16,6 +16,7 @@ namespace Project3_HT
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
 
+
         public DynamicSim()
         {
             InitializeComponent();
@@ -59,7 +60,42 @@ namespace Project3_HT
 
         public void Simulation()
         {
+            /*  work backwards, like static pipeline - ideally most of this should be handled in each class
+                
+                Displaying everything will be tough since labels are non-static, aka can't change from outside the class
+                see below method changeReorderBuf for my idea on how to handle it, not too bad imo
+                
+                1. Check and see if value can be popped from reorder buffer
+                    check flag to see if instruction has come through CDB or store path
+                    if yes, pop and push to the reg file or memory unit, if needed
+                    if no, wait - do nothing
 
+                2. Check if value on CDB
+                    if yes, check res. stations one by one if they need the data before pushing to reorder buf
+                    if no, do nothing
+
+                3. Check if functional units are finished executing - fpadd, fpmult, int, load memory
+                    if yes, push ONLY ONE, set up so that each unit dequeues or checks if dequeue is ready before going back to beg
+                    if none are finished, then wait
+
+                4. Check res stations and load buffer
+                    if nothing in a given section is in the functional unit executing, queue it
+                    if something, wait
+
+                5. Check Instruction Queue
+                    'decode' instruction enough to check needed res station/memory and reorder buffer
+                    check reorder buffer first since every instrction will need it
+                    if both are free, dequeue from IQ and enqueue to specified sections
+                    if not free, wait
+
+                Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
+                                over and over until last instruction goes through reorder buffer
+
+                this way we could set up a run sim at clock count = 1 sec 
+                or allow user to click through clock cycles
+                we might need to rearrange visually so that it looks nicer
+
+            */
         }
 
         public void ChangeReorderBuf(Instruction[] array)

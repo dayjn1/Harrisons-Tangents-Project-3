@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class ReorderBuffer
+    static class ReorderBuffer
     {
-        public Queue<Instruction> ReorderBuf = new Queue<Instruction>();
+        public static Queue<Instruction> ReorderBuf = new Queue<Instruction>();
         
-        public void AddToReorderBuf(Instruction i)
+        public static void AddToReorderBuf(Instruction i)
         {
             ReorderBuf.Enqueue(i);
+        }
+
+        public static Instruction[] GetArray()
+        {
+            return ReorderBuf.ToArray();
         }
     }
 }
