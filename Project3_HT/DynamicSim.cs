@@ -15,6 +15,7 @@ namespace Project3_HT
     public partial class DynamicSim : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
+        public int cycleSpeed = 500;
 
 
         public DynamicSim()
@@ -108,5 +109,11 @@ namespace Project3_HT
                 Labels[i].Text = array[i].Mnemonic;
             }
         }
+		
+        private void cycleSpeedNUD_ValueChanged(object sender, EventArgs e)
+        {
+            cycleSpeed = (int)cycleSpeedNUD.Value;
+        }
+		
     }
 }
