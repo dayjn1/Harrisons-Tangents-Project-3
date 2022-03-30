@@ -20,13 +20,5 @@ namespace Project3_HT
             return ReorderBuf.ToArray();
         }
 
-        /// <summary>
-        /// Will be called by the CDB when data is available -JMid
-        /// </summary>
-        /// <param name="instr">Instruction being passed by CDB</param>
-        internal static void OnNext(Instruction instr)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

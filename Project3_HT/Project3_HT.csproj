@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="FPAdderRS.cs" />
     <Compile Include="FPMultiplierRS.cs" />
+    <Compile Include="IResStation.cs" />
     <Compile Include="InstructionQueue.cs" />
     <Compile Include="IntegerRS.cs" />
     <Compile Include="LoadBuffer.cs" />
