@@ -144,6 +144,8 @@ namespace Project3_HT
             this.LoadBuf2 = new System.Windows.Forms.Label();
             this.LoadBuf3 = new System.Windows.Forms.Label();
             this.LoadBuf4 = new System.Windows.Forms.Label();
+            this.cycleSpeedNUD = new System.Windows.Forms.NumericUpDown();
+            this.cycleSpeedLabel = new System.Windows.Forms.Label();
             this.ReorderBufLayout.SuspendLayout();
             this.InstructQueueLayout.SuspendLayout();
             this.RegisterFileLayout.SuspendLayout();
@@ -151,6 +153,7 @@ namespace Project3_HT
             this.FPMultiplierRSLayout.SuspendLayout();
             this.IntegerRSLayout.SuspendLayout();
             this.LoadBufLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cycleSpeedNUD)).BeginInit();
             this.SuspendLayout();
             // 
             // ReorderBufLayout
@@ -261,7 +264,7 @@ namespace Project3_HT
             // 
             this.InstructQueue1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.InstructQueue1.AutoSize = true;
-            this.InstructQueue1.Location = new System.Drawing.Point(17, 123);
+            this.InstructQueue1.Location = new System.Drawing.Point(17, 125);
             this.InstructQueue1.Name = "InstructQueue1";
             this.InstructQueue1.Size = new System.Drawing.Size(80, 13);
             this.InstructQueue1.TabIndex = 0;
@@ -271,7 +274,7 @@ namespace Project3_HT
             // 
             this.InstructQueue2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.InstructQueue2.AutoSize = true;
-            this.InstructQueue2.Location = new System.Drawing.Point(17, 97);
+            this.InstructQueue2.Location = new System.Drawing.Point(17, 101);
             this.InstructQueue2.Name = "InstructQueue2";
             this.InstructQueue2.Size = new System.Drawing.Size(80, 13);
             this.InstructQueue2.TabIndex = 1;
@@ -281,7 +284,7 @@ namespace Project3_HT
             // 
             this.InstructQueue3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.InstructQueue3.AutoSize = true;
-            this.InstructQueue3.Location = new System.Drawing.Point(17, 74);
+            this.InstructQueue3.Location = new System.Drawing.Point(17, 77);
             this.InstructQueue3.Name = "InstructQueue3";
             this.InstructQueue3.Size = new System.Drawing.Size(80, 13);
             this.InstructQueue3.TabIndex = 2;
@@ -291,7 +294,7 @@ namespace Project3_HT
             // 
             this.InstructQueue4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.InstructQueue4.AutoSize = true;
-            this.InstructQueue4.Location = new System.Drawing.Point(17, 51);
+            this.InstructQueue4.Location = new System.Drawing.Point(17, 53);
             this.InstructQueue4.Name = "InstructQueue4";
             this.InstructQueue4.Size = new System.Drawing.Size(80, 13);
             this.InstructQueue4.TabIndex = 3;
@@ -301,7 +304,7 @@ namespace Project3_HT
             // 
             this.InstructQueue5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.InstructQueue5.AutoSize = true;
-            this.InstructQueue5.Location = new System.Drawing.Point(17, 28);
+            this.InstructQueue5.Location = new System.Drawing.Point(17, 29);
             this.InstructQueue5.Name = "InstructQueue5";
             this.InstructQueue5.Size = new System.Drawing.Size(80, 13);
             this.InstructQueue5.TabIndex = 4;
@@ -981,7 +984,7 @@ namespace Project3_HT
             this.FPAdderRSLayout.ColumnCount = 3;
             this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.31818F));
             this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.68182F));
-            this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
+            this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             this.FPAdderRSLayout.Controls.Add(this.FPAddOperand3, 2, 0);
             this.FPAdderRSLayout.Controls.Add(this.FPAddDestReg3, 1, 0);
             this.FPAdderRSLayout.Controls.Add(this.FPAddMnem3, 0, 0);
@@ -1004,7 +1007,7 @@ namespace Project3_HT
             // 
             this.FPAddOperand3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddOperand3.AutoSize = true;
-            this.FPAddOperand3.Location = new System.Drawing.Point(95, 2);
+            this.FPAddOperand3.Location = new System.Drawing.Point(94, 2);
             this.FPAddOperand3.Name = "FPAddOperand3";
             this.FPAddOperand3.Size = new System.Drawing.Size(48, 13);
             this.FPAddOperand3.TabIndex = 8;
@@ -1014,7 +1017,7 @@ namespace Project3_HT
             // 
             this.FPAddDestReg3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddDestReg3.AutoSize = true;
-            this.FPAddDestReg3.Location = new System.Drawing.Point(43, 0);
+            this.FPAddDestReg3.Location = new System.Drawing.Point(42, 0);
             this.FPAddDestReg3.Name = "FPAddDestReg3";
             this.FPAddDestReg3.Size = new System.Drawing.Size(43, 18);
             this.FPAddDestReg3.TabIndex = 5;
@@ -1024,7 +1027,7 @@ namespace Project3_HT
             // 
             this.FPAddMnem3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddMnem3.AutoSize = true;
-            this.FPAddMnem3.Location = new System.Drawing.Point(6, 0);
+            this.FPAddMnem3.Location = new System.Drawing.Point(5, 0);
             this.FPAddMnem3.Name = "FPAddMnem3";
             this.FPAddMnem3.Size = new System.Drawing.Size(28, 18);
             this.FPAddMnem3.TabIndex = 2;
@@ -1034,7 +1037,7 @@ namespace Project3_HT
             // 
             this.FPAddMnem1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddMnem1.AutoSize = true;
-            this.FPAddMnem1.Location = new System.Drawing.Point(6, 36);
+            this.FPAddMnem1.Location = new System.Drawing.Point(5, 36);
             this.FPAddMnem1.Name = "FPAddMnem1";
             this.FPAddMnem1.Size = new System.Drawing.Size(28, 21);
             this.FPAddMnem1.TabIndex = 0;
@@ -1044,7 +1047,7 @@ namespace Project3_HT
             // 
             this.FPAddMnem2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddMnem2.AutoSize = true;
-            this.FPAddMnem2.Location = new System.Drawing.Point(6, 18);
+            this.FPAddMnem2.Location = new System.Drawing.Point(5, 18);
             this.FPAddMnem2.Name = "FPAddMnem2";
             this.FPAddMnem2.Size = new System.Drawing.Size(28, 18);
             this.FPAddMnem2.TabIndex = 1;
@@ -1054,7 +1057,7 @@ namespace Project3_HT
             // 
             this.FPAddDestReg1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddDestReg1.AutoSize = true;
-            this.FPAddDestReg1.Location = new System.Drawing.Point(43, 36);
+            this.FPAddDestReg1.Location = new System.Drawing.Point(42, 36);
             this.FPAddDestReg1.Name = "FPAddDestReg1";
             this.FPAddDestReg1.Size = new System.Drawing.Size(43, 21);
             this.FPAddDestReg1.TabIndex = 3;
@@ -1064,7 +1067,7 @@ namespace Project3_HT
             // 
             this.FPAddDestReg2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddDestReg2.AutoSize = true;
-            this.FPAddDestReg2.Location = new System.Drawing.Point(43, 18);
+            this.FPAddDestReg2.Location = new System.Drawing.Point(42, 18);
             this.FPAddDestReg2.Name = "FPAddDestReg2";
             this.FPAddDestReg2.Size = new System.Drawing.Size(43, 18);
             this.FPAddDestReg2.TabIndex = 4;
@@ -1074,7 +1077,7 @@ namespace Project3_HT
             // 
             this.FPAddOperand1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddOperand1.AutoSize = true;
-            this.FPAddOperand1.Location = new System.Drawing.Point(95, 40);
+            this.FPAddOperand1.Location = new System.Drawing.Point(94, 40);
             this.FPAddOperand1.Name = "FPAddOperand1";
             this.FPAddOperand1.Size = new System.Drawing.Size(48, 13);
             this.FPAddOperand1.TabIndex = 6;
@@ -1084,7 +1087,7 @@ namespace Project3_HT
             // 
             this.FPAddOperand2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddOperand2.AutoSize = true;
-            this.FPAddOperand2.Location = new System.Drawing.Point(95, 20);
+            this.FPAddOperand2.Location = new System.Drawing.Point(94, 20);
             this.FPAddOperand2.Name = "FPAddOperand2";
             this.FPAddOperand2.Size = new System.Drawing.Size(48, 13);
             this.FPAddOperand2.TabIndex = 7;
@@ -1095,7 +1098,7 @@ namespace Project3_HT
             this.FPMultiplierRSLayout.ColumnCount = 3;
             this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.12195F));
             this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.87805F));
-            this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.FPMultiplierRSLayout.Controls.Add(this.FPMultOperand3, 2, 0);
             this.FPMultiplierRSLayout.Controls.Add(this.FPMultDestReg3, 1, 0);
             this.FPMultiplierRSLayout.Controls.Add(this.FPMultMnem3, 0, 0);
@@ -1118,7 +1121,7 @@ namespace Project3_HT
             // 
             this.FPMultOperand3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultOperand3.AutoSize = true;
-            this.FPMultOperand3.Location = new System.Drawing.Point(92, 1);
+            this.FPMultOperand3.Location = new System.Drawing.Point(91, 1);
             this.FPMultOperand3.Name = "FPMultOperand3";
             this.FPMultOperand3.Size = new System.Drawing.Size(48, 13);
             this.FPMultOperand3.TabIndex = 8;
@@ -1128,7 +1131,7 @@ namespace Project3_HT
             // 
             this.FPMultDestReg3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultDestReg3.AutoSize = true;
-            this.FPMultDestReg3.Location = new System.Drawing.Point(45, 0);
+            this.FPMultDestReg3.Location = new System.Drawing.Point(44, 0);
             this.FPMultDestReg3.Name = "FPMultDestReg3";
             this.FPMultDestReg3.Size = new System.Drawing.Size(37, 16);
             this.FPMultDestReg3.TabIndex = 5;
@@ -1138,7 +1141,7 @@ namespace Project3_HT
             // 
             this.FPMultMnem3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultMnem3.AutoSize = true;
-            this.FPMultMnem3.Location = new System.Drawing.Point(6, 0);
+            this.FPMultMnem3.Location = new System.Drawing.Point(5, 0);
             this.FPMultMnem3.Name = "FPMultMnem3";
             this.FPMultMnem3.Size = new System.Drawing.Size(28, 16);
             this.FPMultMnem3.TabIndex = 2;
@@ -1148,7 +1151,7 @@ namespace Project3_HT
             // 
             this.FPMultMnem1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultMnem1.AutoSize = true;
-            this.FPMultMnem1.Location = new System.Drawing.Point(6, 32);
+            this.FPMultMnem1.Location = new System.Drawing.Point(5, 32);
             this.FPMultMnem1.Name = "FPMultMnem1";
             this.FPMultMnem1.Size = new System.Drawing.Size(28, 18);
             this.FPMultMnem1.TabIndex = 0;
@@ -1158,7 +1161,7 @@ namespace Project3_HT
             // 
             this.FPMultMnem2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultMnem2.AutoSize = true;
-            this.FPMultMnem2.Location = new System.Drawing.Point(6, 16);
+            this.FPMultMnem2.Location = new System.Drawing.Point(5, 16);
             this.FPMultMnem2.Name = "FPMultMnem2";
             this.FPMultMnem2.Size = new System.Drawing.Size(28, 16);
             this.FPMultMnem2.TabIndex = 1;
@@ -1168,7 +1171,7 @@ namespace Project3_HT
             // 
             this.FPMultDestReg1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultDestReg1.AutoSize = true;
-            this.FPMultDestReg1.Location = new System.Drawing.Point(45, 32);
+            this.FPMultDestReg1.Location = new System.Drawing.Point(44, 32);
             this.FPMultDestReg1.Name = "FPMultDestReg1";
             this.FPMultDestReg1.Size = new System.Drawing.Size(37, 18);
             this.FPMultDestReg1.TabIndex = 3;
@@ -1178,7 +1181,7 @@ namespace Project3_HT
             // 
             this.FPMultDestReg2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultDestReg2.AutoSize = true;
-            this.FPMultDestReg2.Location = new System.Drawing.Point(45, 16);
+            this.FPMultDestReg2.Location = new System.Drawing.Point(44, 16);
             this.FPMultDestReg2.Name = "FPMultDestReg2";
             this.FPMultDestReg2.Size = new System.Drawing.Size(37, 16);
             this.FPMultDestReg2.TabIndex = 4;
@@ -1188,7 +1191,7 @@ namespace Project3_HT
             // 
             this.FPMultOperand1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultOperand1.AutoSize = true;
-            this.FPMultOperand1.Location = new System.Drawing.Point(92, 34);
+            this.FPMultOperand1.Location = new System.Drawing.Point(91, 34);
             this.FPMultOperand1.Name = "FPMultOperand1";
             this.FPMultOperand1.Size = new System.Drawing.Size(48, 13);
             this.FPMultOperand1.TabIndex = 6;
@@ -1198,7 +1201,7 @@ namespace Project3_HT
             // 
             this.FPMultOperand2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultOperand2.AutoSize = true;
-            this.FPMultOperand2.Location = new System.Drawing.Point(92, 17);
+            this.FPMultOperand2.Location = new System.Drawing.Point(91, 17);
             this.FPMultOperand2.Name = "FPMultOperand2";
             this.FPMultOperand2.Size = new System.Drawing.Size(48, 13);
             this.FPMultOperand2.TabIndex = 7;
@@ -1209,7 +1212,7 @@ namespace Project3_HT
             this.IntegerRSLayout.ColumnCount = 3;
             this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.59406F));
             this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.40594F));
-            this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.IntegerRSLayout.Controls.Add(this.IntegerOperand3, 2, 0);
             this.IntegerRSLayout.Controls.Add(this.IntegerDestReg3, 1, 0);
             this.IntegerRSLayout.Controls.Add(this.IntegerMnem3, 0, 0);
@@ -1232,9 +1235,9 @@ namespace Project3_HT
             // 
             this.IntegerOperand3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.IntegerOperand3.AutoSize = true;
-            this.IntegerOperand3.Location = new System.Drawing.Point(102, 0);
+            this.IntegerOperand3.Location = new System.Drawing.Point(98, 0);
             this.IntegerOperand3.Name = "IntegerOperand3";
-            this.IntegerOperand3.Size = new System.Drawing.Size(42, 13);
+            this.IntegerOperand3.Size = new System.Drawing.Size(48, 13);
             this.IntegerOperand3.TabIndex = 8;
             this.IntegerOperand3.Text = "Operand";
             // 
@@ -1242,7 +1245,7 @@ namespace Project3_HT
             // 
             this.IntegerDestReg3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.IntegerDestReg3.AutoSize = true;
-            this.IntegerDestReg3.Location = new System.Drawing.Point(43, 0);
+            this.IntegerDestReg3.Location = new System.Drawing.Point(42, 0);
             this.IntegerDestReg3.Name = "IntegerDestReg3";
             this.IntegerDestReg3.Size = new System.Drawing.Size(49, 13);
             this.IntegerDestReg3.TabIndex = 5;
@@ -1282,7 +1285,7 @@ namespace Project3_HT
             // 
             this.IntegerDestReg1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.IntegerDestReg1.AutoSize = true;
-            this.IntegerDestReg1.Location = new System.Drawing.Point(43, 28);
+            this.IntegerDestReg1.Location = new System.Drawing.Point(42, 28);
             this.IntegerDestReg1.Name = "IntegerDestReg1";
             this.IntegerDestReg1.Size = new System.Drawing.Size(49, 13);
             this.IntegerDestReg1.TabIndex = 3;
@@ -1292,7 +1295,7 @@ namespace Project3_HT
             // 
             this.IntegerDestReg2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.IntegerDestReg2.AutoSize = true;
-            this.IntegerDestReg2.Location = new System.Drawing.Point(43, 13);
+            this.IntegerDestReg2.Location = new System.Drawing.Point(42, 13);
             this.IntegerDestReg2.Name = "IntegerDestReg2";
             this.IntegerDestReg2.Size = new System.Drawing.Size(49, 13);
             this.IntegerDestReg2.TabIndex = 4;
@@ -1302,9 +1305,9 @@ namespace Project3_HT
             // 
             this.IntegerOperand1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.IntegerOperand1.AutoSize = true;
-            this.IntegerOperand1.Location = new System.Drawing.Point(102, 26);
+            this.IntegerOperand1.Location = new System.Drawing.Point(98, 28);
             this.IntegerOperand1.Name = "IntegerOperand1";
-            this.IntegerOperand1.Size = new System.Drawing.Size(42, 17);
+            this.IntegerOperand1.Size = new System.Drawing.Size(48, 13);
             this.IntegerOperand1.TabIndex = 6;
             this.IntegerOperand1.Text = "Operand";
             // 
@@ -1312,9 +1315,9 @@ namespace Project3_HT
             // 
             this.IntegerOperand2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.IntegerOperand2.AutoSize = true;
-            this.IntegerOperand2.Location = new System.Drawing.Point(102, 13);
+            this.IntegerOperand2.Location = new System.Drawing.Point(98, 13);
             this.IntegerOperand2.Name = "IntegerOperand2";
-            this.IntegerOperand2.Size = new System.Drawing.Size(42, 13);
+            this.IntegerOperand2.Size = new System.Drawing.Size(48, 13);
             this.IntegerOperand2.TabIndex = 7;
             this.IntegerOperand2.Text = "Operand";
             // 
@@ -1389,12 +1392,48 @@ namespace Project3_HT
             this.LoadBuf4.TabIndex = 3;
             this.LoadBuf4.Text = "LoadBuf4";
             // 
+            // cycleSpeedNUD
+            // 
+            this.cycleSpeedNUD.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycleSpeedNUD.Location = new System.Drawing.Point(186, 51);
+            this.cycleSpeedNUD.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.cycleSpeedNUD.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.cycleSpeedNUD.Name = "cycleSpeedNUD";
+            this.cycleSpeedNUD.Size = new System.Drawing.Size(80, 24);
+            this.cycleSpeedNUD.TabIndex = 7;
+            this.cycleSpeedNUD.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.cycleSpeedNUD.ValueChanged += new System.EventHandler(this.cycleSpeedNUD_ValueChanged);
+            // 
+            // cycleSpeedLabel
+            // 
+            this.cycleSpeedLabel.AutoSize = true;
+            this.cycleSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycleSpeedLabel.Location = new System.Drawing.Point(65, 51);
+            this.cycleSpeedLabel.Name = "cycleSpeedLabel";
+            this.cycleSpeedLabel.Size = new System.Drawing.Size(98, 20);
+            this.cycleSpeedLabel.TabIndex = 8;
+            this.cycleSpeedLabel.Text = "Cycle Speed";
+            // 
             // DynamicSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1011, 749);
+            this.Controls.Add(this.cycleSpeedLabel);
+            this.Controls.Add(this.cycleSpeedNUD);
             this.Controls.Add(this.LoadBufLayout);
             this.Controls.Add(this.IntegerRSLayout);
             this.Controls.Add(this.FPMultiplierRSLayout);
@@ -1419,7 +1458,9 @@ namespace Project3_HT
             this.IntegerRSLayout.PerformLayout();
             this.LoadBufLayout.ResumeLayout(false);
             this.LoadBufLayout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cycleSpeedNUD)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1539,5 +1580,7 @@ namespace Project3_HT
         private System.Windows.Forms.Label FP0_Data;
         private System.Windows.Forms.Label R0_Data;
         private System.Windows.Forms.Label R1_Data;
+        private System.Windows.Forms.NumericUpDown cycleSpeedNUD;
+        private System.Windows.Forms.Label cycleSpeedLabel;
     }
 }
