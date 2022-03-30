@@ -46,7 +46,7 @@ namespace Project3_HT
                         Console.WriteLine("Invalid parse");
 
                 }//end while
-                
+
                 /*
                 label8.Text = "Loaded";
                 cycleCount = 0;
@@ -80,7 +80,7 @@ namespace Project3_HT
             // pass instr to register file
             // TODO: Create reg file 
 
-            if(instr != null)
+            if (instr != null)
             {
 
             }
@@ -122,7 +122,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { ReorderBuf1, ReorderBuf2, ReorderBuf3, ReorderBuf4, ReorderBuf5  };
 
-            for(int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
             }
@@ -131,9 +131,9 @@ namespace Project3_HT
         public void ChangeRegisterFile(Instruction[] array)
         {
             List<Label> Labels = new List<Label>()
-            {  R0_Data,  R1_Data,   R2_Data,   R3_Data,   R4_Data,   R5_Data,   R6_Data,   R7_Data, 
+            {  R0_Data,  R1_Data,   R2_Data,   R3_Data,   R4_Data,   R5_Data,   R6_Data,   R7_Data,
                R8_Data,  R9_Data,  R10_Data,  R11_Data,  R12_Data,  R13_Data,  R14_Data,  R15_Data,
-              FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data, 
+              FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data,
               FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
         }
 
@@ -172,4 +172,5 @@ namespace Project3_HT
               IntegerMnem2, IntegerDestReg2, IntegerOperand2,
               IntegerMnem3, IntegerDestReg3, IntegerOperand3};
         }
+    }
 }
