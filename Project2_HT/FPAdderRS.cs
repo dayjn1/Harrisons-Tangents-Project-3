@@ -81,9 +81,8 @@ namespace Project3_HT
             operand2 = i.Reg2;
         }
         
-        //update text
+        //need to update text
 
-        //
 
 
     }
