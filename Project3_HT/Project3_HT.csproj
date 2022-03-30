@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressUnit.cs" />
     <Compile Include="CDBus.cs" />
     <Compile Include="Controller.cs">
       <SubType>Form</SubType>
@@ -62,9 +63,10 @@
     </Compile>
     <Compile Include="FPAdderRS.cs" />
     <Compile Include="FPMultiplierRS.cs" />
-    <Compile Include="InstrucionQueue.cs" />
+    <Compile Include="InstructionQueue.cs" />
     <Compile Include="IntegerRS.cs" />
     <Compile Include="LoadBuffer.cs" />
+    <Compile Include="MemoryUnit.cs" />
     <Compile Include="RegisterFile.cs" />
     <Compile Include="ReorderBuffer.cs" />
     <Compile Include="StaticSim.cs">
