@@ -60,15 +60,34 @@ namespace Project3_HT
 
         public void Simulation()
         {
+            Instruction instr;
+            Instruction[] text;
+
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
                 Displaying everything will be tough since labels are non-static, aka can't change from outside the class
                 see below method changeReorderBuf for my idea on how to handle it, not too bad imo
                 
                 1. Check and see if value can be popped from reorder buffer
-                    check flag to see if instruction has come through CDB or store path
+                    check to see if instruction has come through CDB or store path
                     if yes, pop and push to the reg file or memory unit, if needed
                     if no, wait - do nothing
+            */
+            instr = ReorderBuffer.RemoveFromReorderBuf();
+            text = ReorderBuffer.GetArray();
+            ChangeReorderBuf(text);
+
+            // pass instr to register file
+            // TODO: Create reg file 
+
+            if(instr != null)
+            {
+
+            }
+
+
+            /*
+
 
                 2. Check if value on CDB
                     if yes, check res. stations one by one if they need the data before pushing to reorder buf
@@ -108,5 +127,49 @@ namespace Project3_HT
                 Labels[i].Text = array[i].Mnemonic;
             }
         }
-    }
+
+        public void ChangeRegisterFile(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            {  R0_Data,  R1_Data,   R2_Data,   R3_Data,   R4_Data,   R5_Data,   R6_Data,   R7_Data, 
+               R8_Data,  R9_Data,  R10_Data,  R11_Data,  R12_Data,  R13_Data,  R14_Data,  R15_Data,
+              FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data, 
+              FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
+        }
+
+        public void ChangeInstructionQueue(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6 };
+        }
+
+        public void ChangeLoadBuf(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5 };
+        }
+
+        public void ChangeFPAdd(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { FPAddMnem1, FPAddDestReg1, FPAddOperand1,
+              FPAddMnem2, FPAddDestReg2, FPAddOperand2,
+              FPAddMnem3, FPAddDestReg3, FPAddOperand3};
+        }
+
+        public void ChangeFPMult(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { FPMultMnem1, FPMultDestReg1, FPMultOperand1,
+              FPMultMnem2, FPMultDestReg2, FPMultOperand2,
+              FPMultMnem3, FPMultDestReg3, FPMultOperand3};
+        }
+
+        public void ChangeInteger(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { IntegerMnem1, IntegerDestReg1, IntegerOperand1,
+              IntegerMnem2, IntegerDestReg2, IntegerOperand2,
+              IntegerMnem3, IntegerDestReg3, IntegerOperand3};
+        }
 }

@@ -38,6 +38,7 @@ namespace Project3_HT
         public bool useR1;
         public bool useR2;
         public bool useImm;
+        public int lineNum;
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0, false, false, false, false, false),

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class InstrucionQueue
+    static class InstrucionQueue
     {
 
-        public Queue<Instruction> IQueue = new Queue<Instruction>();
-        public void AddToIQueue(Instruction i)
+        public static Queue<Instruction> IQueue = new Queue<Instruction>();
+        public static int LineNum = 0;
+        public static void AddToIQueue(Instruction i)
         {
+            LineNum++;
+            i.lineNum = LineNum;
             IQueue.Enqueue(i);
         }
 
