@@ -13,31 +13,60 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
+    ///Check each functional unit to see if it's done executing, receive results
+    ///from left to right on the pipeline and make sure that you're iterating
+    ///through which functional units we receive from every cycle
+    /// 
     /// <summary>
     /// The common data bus passes info from functional units back to reservation stations and to the ROB
     /// </summary>
-    internal class CDBus : IObserver<Instruction>, IObservable<Instruction>
+    internal class CDBus
     {
-        private List<IObserver<Instruction>> observers;
+        private List<IResStation> resStations;
+        public Instruction currentInstruction;
 
-        public CDBus(List<IObserver<Instruction>> ResStations)
+        public CDBus(List<IResStation> ResStations)
         {
-            observers = new List<IObserver<Instruction>>();
+            resStations = new List<IResStation>();
             foreach (var station in ResStations)
             {
-                observers.Add(station);
+                resStations.Add(station);
             }
         }
 
         public CDBus()
         {
-            observers = new List<IObserver<Instruction>>();
+            resStations = new List<IResStation>();
         }
 
-        public void AddResStations(List<IObserver<Instruction>> resStations)
+        public void AddResStations(List<IResStation> resStations)
         {
             foreach (var station in resStations)
-                observers.Add(station);
+                resStations.Add(station);
+        }
+
+        /// <summary>
+        /// Called every cycle:
+        ///     Check if value on CDB
+        ///     if yes, check res.stations one by one if they need the data before pushing to reorder buf
+        ///     if no, do nothing
+        /// </summary>
+        public void Cycle()
+        {
+            SendResults();
+        }
+        
+        public void SendResults()
+        {
+            if (currentInstruction != null)
+            {
+                for (int i = 0; i < resStations.Count; i++)
+                {
+                    resStations[i].ReceiveResults(currentInstruction);
+                }
+            }
+            ReorderBuffer.PassedtoRB(currentInstruction);
+            currentInstruction = null;
         }
 
         /// <summary>
@@ -45,38 +74,11 @@ namespace Project3_HT
         /// The goal is to send these results, including the rd info, to res stations and ROB.
         /// </summary>
         /// <param name="instr">The instruction that is being passed to the CDB</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void OnNext(Instruction instr)
+        public void ReceiveResults(Instruction instr)
         {
-            for (int i = 0; i < observers.Count; i++)
-            {
-                observers[i].OnNext(instr);
-            }
-            ReorderBuffer.OnNext(instr);
+            this.currentInstruction = instr;
 
-        }//end OnNext()
-
-        /// <summary>
-        /// Observers individually subscribe, adds observer to observers List<>
-        /// </summary>
-        /// <param name="observer">An individual observer to be added to observers</param>
-        /// <returns>Observer calls unsubscriber.Dispose() to unsubscribe</returns>
-        public IDisposable Subscribe(IObserver<Instruction> observer)
-        {
-            if (!observers.Contains(observer))
-                observers.Add(observer);
-            return new Unsubscriber(observers, observer);
-        }
-
-        public void OnCompleted()
-        {
-            //do nothing
-        }
-
-        public void OnError(Exception error)
-        {
-            throw new NotImplementedException();
-        }
+        }//end ReceiveResults()
 
     }//end CDBus class
 }
