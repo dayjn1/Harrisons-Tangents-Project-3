@@ -10,6 +10,9 @@ namespace Project3_HT
     {
         //attributes
         bool empty;                      //tells whether or not this reservation station is occupied
+        bool waitOnDR;
+        bool waitOnO1;
+        bool waitONO2;
         uint opcode;                            //holds the opcode of the instruction currently in the RS
         string destR;                           //holds the destination register of the current instruction
         string operand1;
@@ -53,6 +56,9 @@ namespace Project3_HT
         public FPAdderRS (Instruction i)
         {
             empty = false;
+            //if staleFlag for destReg == 1 waitOnDR == true
+            //if staleFlag for opnd1 == 1 waitOnO1 == true
+            //if staleFlag for opnd2 == 1 waitOnO2 == true
             opcode = i.OpCode;
             destR = i.DestReg;
             operand1 = i.Reg1;
@@ -75,15 +81,28 @@ namespace Project3_HT
          */
         public void populateEmptyRS(Instruction i)
         {
+            empty = false;
+            //if staleFlag for destReg == 1 waitOnDR == true
+            //if staleFlag for opnd1 == 1 waitOnO1 == true
+            //if staleFlag for opnd2 == 1 waitOnO2 == true
             opcode = i.OpCode;
             destR = i.DestReg;
             operand1 = i.Reg1;
             operand2 = i.Reg2;
         }
-        
-        //update text
 
-        //
+        //update text
+        public void updateRSText() 
+        {
+
+        }
+
+
+        //listen to CDB
+        public void listenToCDB()
+        {
+
+        }
 
 
     }
