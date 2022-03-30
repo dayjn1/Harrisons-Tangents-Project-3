@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using static MemoryUnit;
 namespace Project3_HT
 {
     public class LoadBuffer
@@ -26,6 +26,10 @@ namespace Project3_HT
         {
             AUTicket myAU = new AUTicket(i.Mnemonic,i.DestReg, i.Reg1);
             Buffer.Enqueue(myAU);
+        }
+        public static void SendToMemUnit()
+        {
+            AddToMemUnit(Buffer.Dequeue());
         }
     }
 }
