@@ -15,11 +15,12 @@ namespace Project3_HT
     public partial class DynamicSim : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-
+        public int cycleSpeed = 600;                                            //Defined so we can change the real time waiting period between cycles
 
         public DynamicSim()
         {
             InitializeComponent();
+            cycleSpeedNUD.Value = cycleSpeed;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,5 +109,11 @@ namespace Project3_HT
                 Labels[i].Text = array[i].Mnemonic;
             }
         }
+
+        private void cycleSpeedNUD_ValueChanged(object sender, EventArgs e)
+        {
+            this.cycleSpeed = (int)cycleSpeedNUD.Value;
+        }
+
     }
 }
