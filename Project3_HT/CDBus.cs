@@ -20,26 +20,12 @@ namespace Project3_HT
     /// <summary>
     /// The common data bus passes info from functional units back to reservation stations and to the ROB
     /// </summary>
-    internal class CDBus
+    internal static class CDBus
     {
-        private List<IResStation> resStations;
-        public Instruction currentInstruction;
+        private static List<IResStation> resStations = new List<IResStation>();
+        public static Instruction currentInstruction;
 
-        public CDBus(List<IResStation> ResStations)
-        {
-            resStations = new List<IResStation>();
-            foreach (var station in ResStations)
-            {
-                resStations.Add(station);
-            }
-        }
-
-        public CDBus()
-        {
-            resStations = new List<IResStation>();
-        }
-
-        public void AddResStations(List<IResStation> resStations)
+        public static void AddResStations(List<IResStation> resStations)
         {
             foreach (var station in resStations)
                 resStations.Add(station);
@@ -51,12 +37,12 @@ namespace Project3_HT
         ///     if yes, check res.stations one by one if they need the data before pushing to reorder buf
         ///     if no, do nothing
         /// </summary>
-        public void Cycle()
+        public static void Cycle()
         {
             SendResults();
         }
         
-        public void SendResults()
+        public static void SendResults()
         {
             if (currentInstruction != null)
             {
@@ -74,9 +60,9 @@ namespace Project3_HT
         /// The goal is to send these results, including the rd info, to res stations and ROB.
         /// </summary>
         /// <param name="instr">The instruction that is being passed to the CDB</param>
-        public void ReceiveResults(Instruction instr)
+        public static void ReceiveResults(Instruction instr)
         {
-            this.currentInstruction = instr;
+            currentInstruction = instr;
 
         }//end ReceiveResults()
 
