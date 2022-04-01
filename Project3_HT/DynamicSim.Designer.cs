@@ -151,6 +151,8 @@ namespace Project3_HT
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FPAddOpTwo1 = new System.Windows.Forms.Label();
+            this.cycleSpeedNUD = new System.Windows.Forms.NumericUpDown();
+            this.cycleSpeedLabel = new System.Windows.Forms.Label();
             this.ReorderBufLayout.SuspendLayout();
             this.InstructQueueLayout.SuspendLayout();
             this.RegisterFileLayout.SuspendLayout();
@@ -159,6 +161,7 @@ namespace Project3_HT
             this.IntegerRSLayout.SuspendLayout();
             this.LoadBufLayout.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cycleSpeedNUD)).BeginInit();
             this.SuspendLayout();
             // 
             // ReorderBufLayout
@@ -180,14 +183,14 @@ namespace Project3_HT
             this.ReorderBufLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.ReorderBufLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.ReorderBufLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.ReorderBufLayout.Size = new System.Drawing.Size(134, 45);
+            this.ReorderBufLayout.Size = new System.Drawing.Size(134, 77);
             this.ReorderBufLayout.TabIndex = 0;
             // 
             // ReorderBuf5
             // 
             this.ReorderBuf5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf5.AutoSize = true;
-            this.ReorderBuf5.Location = new System.Drawing.Point(33, 0);
+            this.ReorderBuf5.Location = new System.Drawing.Point(33, 1);
             this.ReorderBuf5.Name = "ReorderBuf5";
             this.ReorderBuf5.Size = new System.Drawing.Size(67, 9);
             this.ReorderBuf5.TabIndex = 4;
@@ -197,7 +200,7 @@ namespace Project3_HT
             // 
             this.ReorderBuf1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf1.AutoSize = true;
-            this.ReorderBuf1.Location = new System.Drawing.Point(33, 36);
+            this.ReorderBuf1.Location = new System.Drawing.Point(33, 62);
             this.ReorderBuf1.Name = "ReorderBuf1";
             this.ReorderBuf1.Size = new System.Drawing.Size(67, 9);
             this.ReorderBuf1.TabIndex = 0;
@@ -207,7 +210,7 @@ namespace Project3_HT
             // 
             this.ReorderBuf2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf2.AutoSize = true;
-            this.ReorderBuf2.Location = new System.Drawing.Point(33, 27);
+            this.ReorderBuf2.Location = new System.Drawing.Point(33, 46);
             this.ReorderBuf2.Name = "ReorderBuf2";
             this.ReorderBuf2.Size = new System.Drawing.Size(67, 9);
             this.ReorderBuf2.TabIndex = 1;
@@ -217,7 +220,7 @@ namespace Project3_HT
             // 
             this.ReorderBuf3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf3.AutoSize = true;
-            this.ReorderBuf3.Location = new System.Drawing.Point(33, 18);
+            this.ReorderBuf3.Location = new System.Drawing.Point(33, 31);
             this.ReorderBuf3.Name = "ReorderBuf3";
             this.ReorderBuf3.Size = new System.Drawing.Size(67, 9);
             this.ReorderBuf3.TabIndex = 2;
@@ -227,7 +230,7 @@ namespace Project3_HT
             // 
             this.ReorderBuf4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf4.AutoSize = true;
-            this.ReorderBuf4.Location = new System.Drawing.Point(33, 9);
+            this.ReorderBuf4.Location = new System.Drawing.Point(33, 16);
             this.ReorderBuf4.Name = "ReorderBuf4";
             this.ReorderBuf4.Size = new System.Drawing.Size(67, 9);
             this.ReorderBuf4.TabIndex = 3;
@@ -1455,13 +1458,55 @@ namespace Project3_HT
             this.FPAddOpTwo1.Size = new System.Drawing.Size(22, 20);
             this.FPAddOpTwo1.TabIndex = 9;
             this.FPAddOpTwo1.Text = "Operand 2";
+            // cycleSpeedNUD
+            // 
+            this.cycleSpeedNUD.BackColor = System.Drawing.SystemColors.Window;
+            this.cycleSpeedNUD.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycleSpeedNUD.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.cycleSpeedNUD.Location = new System.Drawing.Point(227, 46);
+            this.cycleSpeedNUD.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.cycleSpeedNUD.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.cycleSpeedNUD.Name = "cycleSpeedNUD";
+            this.cycleSpeedNUD.Size = new System.Drawing.Size(66, 24);
+            this.cycleSpeedNUD.TabIndex = 8;
+            this.cycleSpeedNUD.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.cycleSpeedNUD.ValueChanged += new System.EventHandler(this.cycleSpeedNUD_ValueChanged);
+            // 
+            // cycleSpeedLabel
+            // 
+            this.cycleSpeedLabel.AutoSize = true;
+            this.cycleSpeedLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.cycleSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cycleSpeedLabel.Location = new System.Drawing.Point(123, 47);
+            this.cycleSpeedLabel.Name = "cycleSpeedLabel";
+            this.cycleSpeedLabel.Size = new System.Drawing.Size(98, 20);
+            this.cycleSpeedLabel.TabIndex = 9;
+            this.cycleSpeedLabel.Text = "Cycle Speed";
             // 
             // DynamicSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1033, 749);
+            this.ClientSize = new System.Drawing.Size(1033, 781);
+            this.Controls.Add(this.cycleSpeedLabel);
+            this.Controls.Add(this.cycleSpeedNUD);
             this.Controls.Add(this.LoadBufLayout);
             this.Controls.Add(this.IntegerRSLayout);
             this.Controls.Add(this.FPMultiplierRSLayout);
@@ -1490,6 +1535,7 @@ namespace Project3_HT
             this.LoadBufLayout.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cycleSpeedNUD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1618,5 +1664,7 @@ namespace Project3_HT
         public System.Windows.Forms.Label ReorderBuf3;
         public System.Windows.Forms.Label ReorderBuf4;
         private System.Windows.Forms.Label FPAddOpTwo1;
+        private System.Windows.Forms.NumericUpDown cycleSpeedNUD;
+        private System.Windows.Forms.Label cycleSpeedLabel;
     }
 }
