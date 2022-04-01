@@ -10,6 +10,7 @@ namespace Project3_HT
     {
         //attributes
         bool empty;                      //tells whether or not this reservation station is occupied
+        bool ready;
         bool waitOnDR;
         bool waitOnO1;
         bool waitOnO2;
@@ -56,6 +57,7 @@ namespace Project3_HT
         public FPAdderRS (Instruction i)
         {
             empty = false;
+            //ReadyForExe
             //if staleFlag for destReg == 1 waitOnDR == true
             //if staleFlag for opnd1 == 1 waitOnO1 == true
             //if staleFlag for opnd2 == 1 waitOnO2 == true
@@ -64,6 +66,27 @@ namespace Project3_HT
             operand1 = i.Reg1;
             operand2 = i.Reg2;
         }
+
+
+        /**
+         * Method Name: ReadyForExe <br>
+         * Method Purpose: <br>
+         * 
+         * <hr>
+         * Date created:  <br>
+         * 
+         * <hr>
+         * Notes on specifications, special algorithms, and assumptions: N/A
+         * 
+         * <hr>
+         *   @param 
+         *   @return
+         */
+        public void ReadyForExe()
+        {
+            //need to check the stale register flags and return if ready or not ready to execute
+        }
+
 
         /**
          * Method Name: populateEmptyRS <br>
@@ -79,7 +102,7 @@ namespace Project3_HT
          *   @param Instruction
          *   
          */
-        public void populateEmptyRS(Instruction i)
+        public void populateEmptyRS(Instruction i) //may need to return something here
         {
             empty = false;
             //if staleFlag for destReg == 1 waitOnDR == true
@@ -101,6 +124,11 @@ namespace Project3_HT
 
 
         //listen to CDB
+        //if(CDB.destReg == operand1) waitOnOp1 == false;
+        // ^ about the same for all the wait flags
+        // ^ update flags when data is no longer stale
+
+
         
 
         internal static void PlaceInstruction(Instruction i)
