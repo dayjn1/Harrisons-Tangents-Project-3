@@ -48,8 +48,17 @@ namespace Project3_HT
                         Console.WriteLine("Invalid parse");
 
                 }//end while
-                ChangeInstrQueue(Input_Instructions.ToArray());
+                
 
+
+                // check the size of queue 
+                foreach (var item in Input_Instructions)
+                {
+                    InstructionQueue.AddToIQueue(item);
+                }
+
+                //InstructQueue1.Text = IQueue.Count().ToString();
+                
                 /*
                 label8.Text = "Loaded";
                 cycleCount = 0;
@@ -59,6 +68,12 @@ namespace Project3_HT
                 */
 
             }//end if
+
+            ChangeInstrQueue(IQueue.ToArray());
+
+            //dequeue
+
+            ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
         }
 
         public void Simulation()
@@ -126,7 +141,11 @@ namespace Project3_HT
 
             */
         }
-
+        /// <summary>
+        /// Display the message for invalid instruction
+        /// When HALT instruction is detected, do not display anything after it
+        /// </summary>
+        /// <param name="array"></param>
         public void ChangeInstrQueue(Instruction[] array)
         {
             List<Label> Labels = new List<Label>()
@@ -136,8 +155,11 @@ namespace Project3_HT
             {
                 if (array[i].OpCode == 404)
                 {
-                    MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now close","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    Application.Exit();
+                    Labels[i].Text = array[i].Mnemonic;
+                    MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.",
+                                    "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    
+                    Application.Restart();
 
                 }
                 if(array[i].OpCode == 0)
@@ -146,8 +168,9 @@ namespace Project3_HT
                     break;
                 }
                 Labels[i].Text = array[i].Mnemonic;
-            }
+            }//end of for
         }
+       
         public void ChangeLoadBuffer(Instruction[] array)
         {
             List<Label> Labels = new List<Label>()

@@ -21,7 +21,15 @@ namespace Project3_HT
         public static Queue<Instruction> IQueue = new Queue<Instruction>();
         public static void AddToIQueue(Instruction i)
         {
-            IQueue.Enqueue(i);
+            int counter = 0;
+            int size = 6;//size of queue
+            if (counter < size)
+            {
+                //Enqueue
+                IQueue.Enqueue(i);
+                counter += 1;
+            }
+           
         }
         //TO DO: 
         //1) make sure that queue has appropriate size
@@ -36,7 +44,7 @@ namespace Project3_HT
                                                                // stull, if there is no space available
                 IQueue.Dequeue();
             }
-            else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
+           /* else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
                                     // --> place it on RO
                                     // --> memory unit
             {
@@ -75,7 +83,7 @@ namespace Project3_HT
                 FPMultiplierRS.PlaceInstruction(i);
                 IQueue.Dequeue();
             }
-            IQueue.Dequeue();
+            IQueue.Dequeue();*/
         }
 
 
