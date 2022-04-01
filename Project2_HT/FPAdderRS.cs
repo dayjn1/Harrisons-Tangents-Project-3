@@ -10,10 +10,7 @@ namespace Project3_HT
     {
         //attributes
         bool empty;                      //tells whether or not this reservation station is occupied
-        bool waitOnDR;
-        bool waitOnO1;
-        bool waitOnO2;
-        string mnemonic;                            //holds the opcode of the instruction currently in the RS
+        uint opcode;                            //holds the opcode of the instruction currently in the RS
         string destR;                           //holds the destination register of the current instruction
         string operand1;
         string operand2;
@@ -56,10 +53,7 @@ namespace Project3_HT
         public FPAdderRS (Instruction i)
         {
             empty = false;
-            //if staleFlag for destReg == 1 waitOnDR == true
-            //if staleFlag for opnd1 == 1 waitOnO1 == true
-            //if staleFlag for opnd2 == 1 waitOnO2 == true
-            mnemonic = i.Mnemonic;
+            opcode = i.OpCode;
             destR = i.DestReg;
             operand1 = i.Reg1;
             operand2 = i.Reg2;
@@ -81,32 +75,16 @@ namespace Project3_HT
          */
         public void populateEmptyRS(Instruction i)
         {
-            empty = false;
-            //if staleFlag for destReg == 1 waitOnDR == true
-            //if staleFlag for opnd1 == 1 waitOnO1 == true
-            //if staleFlag for opnd2 == 1 waitOnO2 == true
-            mnemonic = i.Mnemonic;
+            opcode = i.OpCode;
             destR = i.DestReg;
             operand1 = i.Reg1;
             operand2 = i.Reg2;
         }
-
-        //update text
-        public String[] updateRSText() 
-        {
-            string[] text = new string[] { this.mnemonic, this.destR.ToString(), this.operand1.ToString(), this.operand2.ToString() };
-
-            return text;
-        }
-
-
-        //listen to CDB
         
+        //need to update text
 
-        internal static void PlaceInstruction(Instruction i)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
 
 }
