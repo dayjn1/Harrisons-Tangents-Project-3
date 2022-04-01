@@ -18,26 +18,18 @@ namespace Project3_HT
     class InstructionQueue
     {
 
-        public Queue<Instruction> IQueue = new Queue<Instruction>();
-        public void AddToIQueue(Instruction i)
+        public static Queue<Instruction> IQueue = new Queue<Instruction>();
+        public static void AddToIQueue(Instruction i)
         {
             IQueue.Enqueue(i);
         }
         //TO DO: 
         //1) make sure that queue has appropriate size
 
-        public void DecueueTheInstruction(Instruction i)
+        public static void DecueueTheInstruction(Instruction i)
         {
-            if (i.OpCode == 404) // invelid instruction, stop execution 
-            {
-                // stop the execution!
-            }
-            else if(i.OpCode == 0) // HALT do not decueue anything after
-            {
-                IQueue.Dequeue();
-                //call our halt method, wherever that is
-            }
-            else if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
+
+            if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
             {
                 AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
                                                                // --> check if there is space available on reoder buffer

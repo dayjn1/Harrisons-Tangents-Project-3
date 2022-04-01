@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Project3_HT.InstructionQueue;
 
 namespace Project3_HT
 {
@@ -46,6 +47,7 @@ namespace Project3_HT
                         Console.WriteLine("Invalid parse");
 
                 }//end while
+                ChangeInstrQueue(Input_Instructions.ToArray());
 
                 /*
                 label8.Text = "Loaded";
@@ -106,7 +108,12 @@ namespace Project3_HT
                     check reorder buffer first since every instrction will need it
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
+            */
+            InstructionQueue.AddToIQueue(instr);
 
+            DecueueTheInstruction(instr);
+            /*
+            
                 Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
                                 over and over until last instruction goes through reorder buffer
 
@@ -115,6 +122,28 @@ namespace Project3_HT
                 we might need to rearrange visually so that it looks nicer
 
             */
+        }
+
+        public void ChangeInstrQueue(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i].OpCode == 404)
+                {
+                    MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now close","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    Application.Exit();
+                    
+                }
+                if(array[i].OpCode == 0)
+                {
+                    Labels[i].Text = array[i].Mnemonic;
+                    break;
+                }
+                Labels[i].Text = array[i].Mnemonic;
+            }
         }
 
         public void ChangeReorderBuf(Instruction[] array)
