@@ -108,5 +108,18 @@ namespace Project3_HT
                 Labels[i].Text = array[i].Mnemonic;
             }
         }
+
+        //assume starting with one reservation station for each and one functional unit
+        //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something)
+        public void UpdateFPARS(String[] text)
+        {
+            List<Label> Labels = new List<Label>()
+            { FPAddMnem1, FPAddDestReg1, FPAddOperand1, FPAddOpTwo1};
+
+            for(int i = 0; i < text.Length; i++)
+            {
+                Labels[i].Text = text[i];
+            }
+        }
     }
 }

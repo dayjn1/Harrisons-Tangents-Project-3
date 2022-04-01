@@ -12,8 +12,8 @@ namespace Project3_HT
         bool empty;                      //tells whether or not this reservation station is occupied
         bool waitOnDR;
         bool waitOnO1;
-        bool waitONO2;
-        uint opcode;                            //holds the opcode of the instruction currently in the RS
+        bool waitOnO2;
+        string mnemonic;                            //holds the opcode of the instruction currently in the RS
         string destR;                           //holds the destination register of the current instruction
         string operand1;
         string operand2;
@@ -59,7 +59,7 @@ namespace Project3_HT
             //if staleFlag for destReg == 1 waitOnDR == true
             //if staleFlag for opnd1 == 1 waitOnO1 == true
             //if staleFlag for opnd2 == 1 waitOnO2 == true
-            opcode = i.OpCode;
+            mnemonic = i.Mnemonic;
             destR = i.DestReg;
             operand1 = i.Reg1;
             operand2 = i.Reg2;
@@ -85,25 +85,23 @@ namespace Project3_HT
             //if staleFlag for destReg == 1 waitOnDR == true
             //if staleFlag for opnd1 == 1 waitOnO1 == true
             //if staleFlag for opnd2 == 1 waitOnO2 == true
-            opcode = i.OpCode;
+            mnemonic = i.Mnemonic;
             destR = i.DestReg;
             operand1 = i.Reg1;
             operand2 = i.Reg2;
         }
 
         //update text
-        public void updateRSText() 
+        public String[] updateRSText() 
         {
+            string[] text = new string[] { this.mnemonic, this.destR.ToString(), this.operand1.ToString(), this.operand2.ToString() };
 
+            return text;
         }
 
 
         //listen to CDB
-        public void listenToCDB()
-        {
-
-        }
-
+        
 
     }
 
