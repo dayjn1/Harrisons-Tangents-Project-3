@@ -62,7 +62,7 @@ namespace Project3_HT
                 // check if there is a free space on the int RS
                 // check if thre is a free space on the RO
 
-                FPAdderRS.PlaceInstruction(i);
+               // FPAdderRS.populateEmptyRS(i);  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ASK FOR MORE INFO!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 IQueue.Dequeue();
                 
             }

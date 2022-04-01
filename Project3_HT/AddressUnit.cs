@@ -10,9 +10,10 @@ namespace Project3_HT
     {
         public static void ProcessAU(Instruction i)
         {
+            // check if LOAD has space
             if (i.OpCode == 1)
             {
-                LoadBuffer.AddToBuffer(i);
+                LoadBuffer.AddToLoadBuffer(i);
             }
             else
             {

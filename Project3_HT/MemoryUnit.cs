@@ -8,6 +8,7 @@ using static Project3_HT.LoadBuffer;
 
 public class MemoryUnit
 {
+    // takes dest and sourse regstrs
 	static Dictionary<String, String> MemoryEntries = new Dictionary<String, String>();
 	public static void AddToMemUnit(AUTicket myAU)
     {
