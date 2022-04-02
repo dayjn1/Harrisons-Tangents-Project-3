@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Project3_HT.InstructionQueue;
 
 namespace Project3_HT
 {
@@ -48,6 +49,28 @@ namespace Project3_HT
 
                 }//end while
                 
+
+
+                // check the size of queue 
+                foreach (var item in Input_Instructions)
+                {
+                    InstructionQueue.AddToIQueue(item);
+                    // remove the incstuction from the list
+                    Input_Instructions.Remove(item);
+
+                }
+
+                ChangeInstrQueue(IQueue.ToArray());
+
+                if (IQueue.Count > 0)
+                {
+                    InstructionQueue.DecueueTheInstruction();
+                }
+
+                // Check if we have place for another instuction
+
+                ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
+                //ChangeInstrQueue(IQueue.ToArray());
                 /*
                 label8.Text = "Loaded";
                 cycleCount = 0;
@@ -57,13 +80,18 @@ namespace Project3_HT
                 */
 
             }//end if
+
+            ChangeInstrQueue(IQueue.ToArray());
+
+            //dequeue
+
+            //ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
         }
 
-        public void Simulation()
+        public void SingleCycle()
         {
-            
-
-
+            Instruction instr;
+            Instruction[] text;
 
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
@@ -71,9 +99,24 @@ namespace Project3_HT
                 see below method changeReorderBuf for my idea on how to handle it, not too bad imo
                 
                 1. Check and see if value can be popped from reorder buffer
-                    check flag to see if instruction has come through CDB or store path
+                    check to see if instruction has come through CDB or store path
                     if yes, pop and push to the reg file or memory unit, if needed
                     if no, wait - do nothing
+            */
+            instr = ReorderBuffer.RemoveFromReorderBuf();
+            text = ReorderBuffer.GetArray();
+            ChangeReorderBuf(text);
+
+            // pass instr to register file
+            // TODO: Create reg file 
+
+            if (instr != null)
+            {
+                ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
+            }
+
+
+            /*
 
                 2. Check if value on CDB
                     if yes, check res. stations one by one if they need the data before pushing to reorder buf
@@ -89,18 +132,67 @@ namespace Project3_HT
 
                 5. Check Instruction Queue
                     'decode' instruction enough to check needed res station/memory and reorder buffer
+                    
                     check reorder buffer first since every instrction will need it
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
+            */
+            InstructionQueue.AddToIQueue(instr);
+
+            // display
+            // load
+
+            //DecueueTheInstruction();
+            /*
 
                 Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
                                 over and over until last instruction goes through reorder buffer
 
-                this way we could set up a run sim at clock count = 1 sec 
+                this way we could set up a run sim at clock count = 1 sec
                 or allow user to click through clock cycles
                 we might need to rearrange visually so that it looks nicer
 
             */
+        }
+        /// <summary>
+        /// Display the message for invalid instruction
+        /// When HALT instruction is detected, do not display anything after it
+        /// </summary>
+        /// <param name="array"></param>
+        public void ChangeInstrQueue(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i].OpCode == 404)
+                {
+                    //Labels[i].Text = array[i].Mnemonic;
+                    MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.",
+                                    "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    
+                    Application.Restart();
+
+                }
+                if(array[i].OpCode == 0)
+                {
+                    Labels[i].Text = array[i].Mnemonic;
+                    break;
+                }
+                Labels[i].Text = array[i].Mnemonic;
+            }//end of for
+        }
+       
+        public void ChangeLoadBuffer(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5};
+
+            for (int i = 0; i < array.Length; i++)
+            {
+               Labels[i].Text = array[i].Mnemonic;
+            }
         }
 
         public void ChangeReorderBuf(Instruction[] array)
@@ -111,6 +203,19 @@ namespace Project3_HT
             for(int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
+            }
+        }
+        public void ChangeRegisterFile(string[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            {  R0_Data,  R1_Data,   R2_Data,   R3_Data,   R4_Data,   R5_Data,   R6_Data,   R7_Data,
+               R8_Data,  R9_Data,  R10_Data,  R11_Data,  R12_Data,  R13_Data,  R14_Data,  R15_Data,
+              FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data,
+              FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                Labels[i].Text = array[i];
             }
         }
 

@@ -175,7 +175,7 @@ namespace Project3_HT
             this.ReorderBufLayout.Controls.Add(this.ReorderBuf2, 0, 3);
             this.ReorderBufLayout.Controls.Add(this.ReorderBuf3, 0, 2);
             this.ReorderBufLayout.Controls.Add(this.ReorderBuf4, 0, 1);
-            this.ReorderBufLayout.Location = new System.Drawing.Point(572, 46);
+            this.ReorderBufLayout.Location = new System.Drawing.Point(564, 46);
             this.ReorderBufLayout.Name = "ReorderBufLayout";
             this.ReorderBufLayout.RowCount = 5;
             this.ReorderBufLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -183,16 +183,16 @@ namespace Project3_HT
             this.ReorderBufLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.ReorderBufLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.ReorderBufLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.ReorderBufLayout.Size = new System.Drawing.Size(134, 45);
+            this.ReorderBufLayout.Size = new System.Drawing.Size(134, 133);
             this.ReorderBufLayout.TabIndex = 0;
             // 
             // ReorderBuf5
             // 
             this.ReorderBuf5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf5.AutoSize = true;
-            this.ReorderBuf5.Location = new System.Drawing.Point(33, 0);
+            this.ReorderBuf5.Location = new System.Drawing.Point(33, 6);
             this.ReorderBuf5.Name = "ReorderBuf5";
-            this.ReorderBuf5.Size = new System.Drawing.Size(67, 9);
+            this.ReorderBuf5.Size = new System.Drawing.Size(67, 13);
             this.ReorderBuf5.TabIndex = 4;
             this.ReorderBuf5.Text = "ReorderBuf5";
             // 
@@ -200,9 +200,9 @@ namespace Project3_HT
             // 
             this.ReorderBuf1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf1.AutoSize = true;
-            this.ReorderBuf1.Location = new System.Drawing.Point(33, 36);
+            this.ReorderBuf1.Location = new System.Drawing.Point(33, 112);
             this.ReorderBuf1.Name = "ReorderBuf1";
-            this.ReorderBuf1.Size = new System.Drawing.Size(67, 9);
+            this.ReorderBuf1.Size = new System.Drawing.Size(67, 13);
             this.ReorderBuf1.TabIndex = 0;
             this.ReorderBuf1.Text = "ReorderBuf1";
             // 
@@ -210,9 +210,9 @@ namespace Project3_HT
             // 
             this.ReorderBuf2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf2.AutoSize = true;
-            this.ReorderBuf2.Location = new System.Drawing.Point(33, 27);
+            this.ReorderBuf2.Location = new System.Drawing.Point(33, 84);
             this.ReorderBuf2.Name = "ReorderBuf2";
-            this.ReorderBuf2.Size = new System.Drawing.Size(67, 9);
+            this.ReorderBuf2.Size = new System.Drawing.Size(67, 13);
             this.ReorderBuf2.TabIndex = 1;
             this.ReorderBuf2.Text = "ReorderBuf2";
             // 
@@ -220,9 +220,9 @@ namespace Project3_HT
             // 
             this.ReorderBuf3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf3.AutoSize = true;
-            this.ReorderBuf3.Location = new System.Drawing.Point(33, 18);
+            this.ReorderBuf3.Location = new System.Drawing.Point(33, 58);
             this.ReorderBuf3.Name = "ReorderBuf3";
-            this.ReorderBuf3.Size = new System.Drawing.Size(67, 9);
+            this.ReorderBuf3.Size = new System.Drawing.Size(67, 13);
             this.ReorderBuf3.TabIndex = 2;
             this.ReorderBuf3.Text = "ReorderBuf3";
             // 
@@ -230,9 +230,9 @@ namespace Project3_HT
             // 
             this.ReorderBuf4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ReorderBuf4.AutoSize = true;
-            this.ReorderBuf4.Location = new System.Drawing.Point(33, 9);
+            this.ReorderBuf4.Location = new System.Drawing.Point(33, 32);
             this.ReorderBuf4.Name = "ReorderBuf4";
-            this.ReorderBuf4.Size = new System.Drawing.Size(67, 9);
+            this.ReorderBuf4.Size = new System.Drawing.Size(67, 13);
             this.ReorderBuf4.TabIndex = 3;
             this.ReorderBuf4.Text = "ReorderBuf4";
             // 
@@ -1505,7 +1505,7 @@ namespace Project3_HT
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1033, 749);
+            this.ClientSize = new System.Drawing.Size(1017, 837);
             this.Controls.Add(this.cycleSpeedLabel);
             this.Controls.Add(this.cycleSpeedNUD);
             this.Controls.Add(this.LoadBufLayout);
