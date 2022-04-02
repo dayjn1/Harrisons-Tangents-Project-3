@@ -50,16 +50,6 @@ namespace Project3_HT
                 }//end while
                 
 
-
-                // check the size of queue 
-                foreach (var item in Input_Instructions)
-                {
-                    InstructionQueue.AddToIQueue(item);
-                    // remove the incstuction from the list
-                    Input_Instructions.Remove(item);
-
-                }
-
                 ChangeInstrQueue(IQueue.ToArray());
 
 
@@ -187,7 +177,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                 if (array[i].OpCode == 404)
                 {
@@ -212,7 +202,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5};
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                Labels[i].Text = array[i].Mnemonic;
             }
@@ -223,7 +213,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { ReorderBuf1, ReorderBuf2, ReorderBuf3, ReorderBuf4, ReorderBuf5  };
 
-            for(int i = 0; i < array.Length; i++)
+            for(int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
             }
@@ -236,50 +226,9 @@ namespace Project3_HT
               FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data,
               FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
 
-            for (int i = 0; i < array.Length; i++)
-            {
-                Labels[i].Text = array[i];
-            }
-        }
-
-        /// <summary>
-        /// Display the message for invalid instruction
-        /// When HALT instruction is detected, do not display anything after it
-        /// </summary>
-        /// <param name="array"></param>
-        public void ChangeInstrQueue(Instruction[] array)
-        {
-            List<Label> Labels = new List<Label>()
-            { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
-
             for (int i = 0; i < array.Length && i < Labels.Count; i++)
             {
-                if (array[i].OpCode == 404)
-                {
-                    //Labels[i].Text = array[i].Mnemonic;
-                    MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.",
-                                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    Application.Restart();
-
-                }
-                if (array[i].OpCode == 0)
-                {
-                    Labels[i].Text = array[i].Mnemonic;
-                    break;
-                }
-                Labels[i].Text = array[i].Mnemonic;
-            }//end of for
-        }
-
-        public void ChangeLoadBuffer(Instruction[] array)
-        {
-            List<Label> Labels = new List<Label>()
-            { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5};
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                Labels[i].Text = array[i].Mnemonic;
+                Labels[i].Text = array[i];
             }
         }
 
@@ -291,7 +240,7 @@ namespace Project3_HT
               FPAddMnem2, FPAddDestReg2, FPAddOperand2,
               FPAddMnem3, FPAddDestReg3, FPAddOperand3};
         }
-        private void cycleSpeedNUD_ValueChanged(object sender, EventArgs e)
+        private void CycleSpeedNUD_ValueChanged(object sender, EventArgs e)
         {
             this.cycleSpeed = (int)cycleSpeedNUD.Value;
         }
@@ -316,7 +265,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { FPAddMnem1, FPAddDestReg1, FPAddOperand1, FPAddOpTwo1};
 
-            for (int i = 0; i < text.Length; i++)
+            for (int i = 0; i < text.Length && i < Labels.Count; i++)
             {
                 Labels[i].Text = text[i];
             }
