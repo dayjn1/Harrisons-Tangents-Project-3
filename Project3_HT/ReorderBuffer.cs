@@ -14,6 +14,15 @@ namespace Project3_HT
         public static void AddToReorderBuf(Instruction i)
         {
             ReorderBuf.Enqueue(i);
+      
+        }
+
+        public static bool IsReorderBufFree()
+        {
+            if (ReorderBuf.Count > 5)
+                return false;
+            else
+                return true;
         }
 
         public static Instruction RemoveFromReorderBuf()
@@ -38,5 +47,6 @@ namespace Project3_HT
         {
             return ReorderBuf.ToArray();
         }
+
     }
 }
