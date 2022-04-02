@@ -69,18 +69,18 @@ namespace Project3_HT
             }
         }
 
-        public static bool IsAvail(string reg)
+        public static RegTicket IsAvail(string reg)
         {
             string[] temp = reg.Split(' ');
             int i = Convert.ToInt32(temp[1], 16);
 
             if (temp[0].Equals("R"))
             {
-                return RegAvail[i].Avail;
+                return RegAvail[i];
             }
             else
             {
-                return RegAvail[i + 16].Avail;
+                return RegAvail[i + 16];
             }
         }
     }
