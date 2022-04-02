@@ -153,7 +153,6 @@ namespace Project3_HT
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cycleSpeedNUD = new System.Windows.Forms.NumericUpDown();
             this.cycleSpeedLabel = new System.Windows.Forms.Label();
-            this.FPAddOpTwo1 = new System.Windows.Forms.Label();
             this.ReorderBufLayout.SuspendLayout();
             this.InstructQueueLayout.SuspendLayout();
             this.RegisterFileLayout.SuspendLayout();
@@ -1103,15 +1102,7 @@ namespace Project3_HT
             this.FPAddOperand1.Size = new System.Drawing.Size(48, 13);
             this.FPAddOperand1.TabIndex = 6;
             this.FPAddOperand1.Text = "Operand";
-            // 
-            // FPAddOpTwo1
-            // 
-            this.FPAddOpTwo1.AutoSize = true;
-            this.FPAddOpTwo1.Location = new System.Drawing.Point(133, 32);
-            this.FPAddOpTwo1.Name = "FPAddOpTwo1";
-            this.FPAddOpTwo1.Size = new System.Drawing.Size(22, 20);
-            this.FPAddOpTwo1.TabIndex = 9;
-            this.FPAddOpTwo1.Text = "Operand 2";
+
             // 
             // FPMultiplierRSLayout
             // 
@@ -1435,7 +1426,6 @@ namespace Project3_HT
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
