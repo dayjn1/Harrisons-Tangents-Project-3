@@ -62,10 +62,8 @@ namespace Project3_HT
 
                 ChangeInstrQueue(IQueue.ToArray());
 
-                if (IQueue.Count > 0)
-                {
-                    InstructionQueue.DecueueTheInstruction();
-                }
+                //move to the SingleCycle 
+               
 
                 // Check if we have place for another instuction
 
@@ -153,6 +151,36 @@ namespace Project3_HT
                 we might need to rearrange visually so that it looks nicer
 
             */
+            // if there is an instuction on the list, try dequeue it
+            //TODO: Check for the RS and RB
+            if (IQueue.Any())
+            {
+                InstructionQueue.DecueueTheInstruction();
+            }
+            // check if our Instruction Queue is full
+            AddInstructionsToIQueue();
+            // display updated list of the instruction
+            ChangeInstrQueue(IQueue.ToArray());
+
+           
+        }
+
+        /// <summary>
+        /// As long as there is no HALT instruction, keep adding 
+        /// instruction to the list if needed
+        /// </summary>
+        public void AddInstructionsToIQueue()
+        {
+            while (Input_Instructions.Any() && IQueue.Count < 6 && haltNotFound.Equals(true))
+            {
+                foreach (var item in Input_Instructions)
+                {
+                    InstructionQueue.AddToIQueue(item);
+                    // remove the incstuction from the list
+                    Input_Instructions.Remove(item);
+
+                }
+            }
         }
         /// <summary>
         /// Display the message for invalid instruction

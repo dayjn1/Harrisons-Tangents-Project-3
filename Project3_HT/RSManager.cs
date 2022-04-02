@@ -8,17 +8,17 @@ namespace Project3_HT
 {
     static class RSManager
     {
-        //create list of reservation stations
+       /* //create list of reservation stations
         static List<ReservationStation> FPAddRS = new List<ReservationStation>();
         static List<ReservationStation> FPMultRS = new List<ReservationStation>();
         static List<ReservationStation> IntegerRS = new List<ReservationStation>();
-
+*/
         //Reservation station instances to add to list
         //ReservationStation FPAdd1 = new ReservationStation();
         //FPAddRS.Add()
 
-        //methods to control reservation station functions
-        public static void PopulateEmptyRS(Instruction i, ReservationStation rs)
+       /* //methods to control reservation station functions
+        static void PopulateEmptyRS(Instruction i, ReservationStation rs)
         {
             rs.empty = false;
             rs.ReadyForExe(i);
@@ -27,7 +27,7 @@ namespace Project3_HT
             operand1 = i.Reg1;
             operand2 = i.Reg2;
         }
-
+*/
 
     }
 }
