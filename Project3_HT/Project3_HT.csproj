@@ -66,6 +66,7 @@
     <Compile Include="IResStation.cs" />
     <Compile Include="InstructionQueue.cs" />
     <Compile Include="IntegerRS.cs" />
+    <Compile Include="IResStation.cs" />
     <Compile Include="LoadBuffer.cs" />
     <Compile Include="MemoryUnit.cs" />
     <Compile Include="RegisterFile.cs" />

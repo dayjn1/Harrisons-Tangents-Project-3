@@ -50,13 +50,23 @@ namespace Project3_HT
                 }//end while
                 
 
+                ChangeInstrQueue(IQueue.ToArray());
+
 
                 // check the size of queue 
-                foreach (var item in Input_Instructions)
+                /*foreach (var item in Input_Instructions)
                 {
                     InstructionQueue.AddToIQueue(item);
                     // remove the incstuction from the list
-                    Input_Instructions.Remove(item);
+                    //Input_Instructions.Remove(item);
+
+                }*/
+
+                for(int i = 0; i < 6 && i < Input_Instructions.Count; i++)
+                {
+                    InstructionQueue.AddToIQueue(Input_Instructions[0]);
+
+                    Input_Instructions.Remove(Input_Instructions[0]);
 
                 }
 
@@ -71,6 +81,8 @@ namespace Project3_HT
 
                 ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
                 //ChangeInstrQueue(IQueue.ToArray());
+
+
                 /*
                 label8.Text = "Loaded";
                 cycleCount = 0;
@@ -83,9 +95,6 @@ namespace Project3_HT
 
             ChangeInstrQueue(IQueue.ToArray());
 
-            //dequeue
-
-            //ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
         }
 
         public void SingleCycle()
@@ -153,6 +162,10 @@ namespace Project3_HT
                 we might need to rearrange visually so that it looks nicer
 
             */
+
+            InstructionQueue.AddToIQueue(instr);
+
+
         }
         /// <summary>
         /// Display the message for invalid instruction
@@ -164,7 +177,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                 if (array[i].OpCode == 404)
                 {
@@ -189,7 +202,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5};
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                Labels[i].Text = array[i].Mnemonic;
             }
@@ -200,7 +213,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { ReorderBuf1, ReorderBuf2, ReorderBuf3, ReorderBuf4, ReorderBuf5  };
 
-            for(int i = 0; i < array.Length; i++)
+            for(int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
             }
@@ -213,10 +226,36 @@ namespace Project3_HT
               FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data,
               FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                 Labels[i].Text = array[i];
             }
+        }
+
+
+        public void ChangeFPAdd(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { FPAddMnem1, FPAddDestReg1, FPAddOperand1,
+              FPAddMnem2, FPAddDestReg2, FPAddOperand2,
+              FPAddMnem3, FPAddDestReg3, FPAddOperand3};
+        }
+        private void CycleSpeedNUD_ValueChanged(object sender, EventArgs e)
+        {
+            this.cycleSpeed = (int)cycleSpeedNUD.Value;
+        }
+
+        public void ChangeInteger(Instruction[] array)
+        {
+            List<Label> Labels = new List<Label>()
+            { IntegerMnem1, IntegerDestReg1, IntegerOperand1,
+              IntegerMnem2, IntegerDestReg2, IntegerOperand2,
+              IntegerMnem3, IntegerDestReg3, IntegerOperand3};
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         //assume starting with one reservation station for each and one functional unit
@@ -226,7 +265,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { FPAddMnem1, FPAddDestReg1, FPAddOperand1, FPAddOpTwo1};
 
-            for(int i = 0; i < text.Length; i++)
+            for (int i = 0; i < text.Length && i < Labels.Count; i++)
             {
                 Labels[i].Text = text[i];
             }
@@ -235,6 +274,5 @@ namespace Project3_HT
         {
             this.cycleSpeed = (int)cycleSpeedNUD.Value;
         }
-
     }
 }

@@ -11,8 +11,8 @@ public class MemoryUnit
     // takes dest and sourse regstrs
     // One per cycle 
     // Getting data from memory in one cycle 
-	static Dictionary<String, String> MemoryEntries = new Dictionary<String, String>();
-	public static void AddToMemUnit(Instruction instruction)
+    static Dictionary<String, String> MemoryEntries = new Dictionary<String, String>();
+    public static void AddToMemUnit(Instruction instruction)
     {
         MemoryEntries.Add(instruction.DestReg, instruction.Reg1);
     }
