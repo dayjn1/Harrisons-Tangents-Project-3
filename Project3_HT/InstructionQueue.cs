@@ -84,8 +84,13 @@ namespace Project3_HT
                 // check if there is a free space on the int RS
                 // check if thre is a free space on the RO
 
-                //FPMultiplierRS.
-                //IQueue.Dequeue();
+                /*if (FPMultiplierRS.PopulateEmptyRS = t, RO.Empty = t)
+                {
+                    IQueue.Dequeue();
+                }*/
+                FPMultiplierRS.PopulateEmptyRS(i);
+
+                IQueue.Dequeue();
             }
             IQueue.Dequeue();
         }

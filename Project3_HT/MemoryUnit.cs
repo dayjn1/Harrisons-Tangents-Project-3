@@ -9,6 +9,8 @@ using static Project3_HT.LoadBuffer;
 public class MemoryUnit
 {
     // takes dest and sourse regstrs
+    // One per cycle 
+    // Getting data from memory in one cycle 
 	static Dictionary<String, String> MemoryEntries = new Dictionary<String, String>();
 	public static void AddToMemUnit(Instruction instruction)
     {
@@ -18,8 +20,9 @@ public class MemoryUnit
     {
         MemoryEntries.Clear();
     }
-    public static void SendToCDB()
+    // We need an actual instruction 
+    public static void SendToCDB(Instruction i)
     {
-        //will be implemented when CDB gets done
+        CDBus.ReceiveResults(i);
     }
 }

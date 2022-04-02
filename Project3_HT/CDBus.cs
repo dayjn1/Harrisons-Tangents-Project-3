@@ -23,7 +23,7 @@ namespace Project3_HT
     internal class CDBus
     {
         private List<IResStation> resStations;
-        public Instruction currentInstruction;
+        public static Instruction currentInstruction;
 
         public CDBus(List<IResStation> ResStations)
         {
@@ -74,9 +74,9 @@ namespace Project3_HT
         /// The goal is to send these results, including the rd info, to res stations and ROB.
         /// </summary>
         /// <param name="instr">The instruction that is being passed to the CDB</param>
-        public void ReceiveResults(Instruction instr)
+        public static void ReceiveResults(Instruction instr)
         {
-            this.currentInstruction = instr;
+            currentInstruction = instr;
 
         }//end ReceiveResults()
 
