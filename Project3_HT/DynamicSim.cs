@@ -56,6 +56,7 @@ namespace Project3_HT
                 {
                     InstructionQueue.AddToIQueue(item);
                     // remove the incstuction from the list
+                    // ERROR: we can not change Input_Instructions of foreach 
                     Input_Instructions.Remove(item);
 
                 }

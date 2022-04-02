@@ -10,10 +10,12 @@ namespace Project3_HT
     {
         public static void ProcessAU(Instruction i)
         {
-            // check if LOAD has space
+            
             if (i.OpCode == 1)
             {
+                // check if there is a space on the 
                 LoadBuffer.AddToLoadBuffer(i);
+
             }
             else
             {
@@ -21,7 +23,7 @@ namespace Project3_HT
                 // If it is, place it on the RO
                 // else, stull
                 //send the whole instruction to reorder buffer whenever that gets done.
-                ReorderBuffer.AddToReorderBuf(i);
+                ReorderBuffer.PassedtoRB(i);
             }
         }
     }

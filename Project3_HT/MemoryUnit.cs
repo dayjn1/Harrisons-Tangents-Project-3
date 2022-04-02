@@ -12,6 +12,12 @@ public class MemoryUnit
     // One per cycle 
     // Getting data from memory in one cycle 
     static Dictionary<String, String> MemoryEntries = new Dictionary<String, String>();
+    // make queue of 1
+    // keep the instuction 
+    // CDB will check if there any instuction on MemUnit 
+    // Dequeue
+    // 
+
     public static void AddToMemUnit(Instruction instruction)
     {
         MemoryEntries.Add(instruction.DestReg, instruction.Reg1);

@@ -9,25 +9,23 @@ namespace Project3_HT
     public class LoadBuffer
     {
         public static Queue<Instruction> LdBuffer = new Queue<Instruction>();
-        /*  public struct AUTicket
-          {
-              public string Name;
-              public String DestReg;
-              public String SourceReg;
-              public AUTicket(String name,String dr, String sr)
-              {
-                  Name = name;
-                  DestReg = dr;
-                  SourceReg = sr;
-              }
-          }*/
+        
         public static void AddToLoadBuffer(Instruction i)
         {
+            int counter = 0;
+            int size = 5;//size of queue
+            if (counter < size)
+            {
+                //Enqueue
+                LdBuffer.Enqueue(i);
+                counter++;
+            }
             //AUTicket myAU = new AUTicket(i.Mnemonic,i.DestReg, i.Reg1);
             LdBuffer.Enqueue(i);
         }
         public static void SendToMemUnit()
         {
+            
             AddToMemUnit(LdBuffer.Dequeue());
         }
     }

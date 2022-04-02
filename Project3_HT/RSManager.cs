@@ -9,9 +9,9 @@ namespace Project3_HT
     static class RSManager
     {
         //create list of reservation stations
-        static List<ReservationStation> FPAddRS = new List<ReservationStation>();
-        static List<ReservationStation> FPMultRS = new List<ReservationStation>();
-        static List<ReservationStation> IntegerRS = new List<ReservationStation>();
+        public static List<ReservationStation> FPAddRS = new List<ReservationStation>();
+        public static List<ReservationStation> FPMultRS = new List<ReservationStation>();
+        public static List<ReservationStation> IntegerRS = new List<ReservationStation>();
 
         //method to populate the Reservation station lists
         public static void PopulateLists()
