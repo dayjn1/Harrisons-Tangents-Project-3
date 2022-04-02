@@ -54,7 +54,7 @@ namespace Project3_HT
          *   @param Instruction
          *   
          */
-        public FPAdderRS(Instruction i)
+        public FPAdderRS (Instruction i)
         {
             empty = false;
             //ReadyForExe
@@ -115,7 +115,7 @@ namespace Project3_HT
         }
 
         //update text
-        public String[] updateRSText()
+        public String[] updateRSText() 
         {
             string[] text = new string[] { this.mnemonic, this.destR.ToString(), this.operand1.ToString(), this.operand2.ToString() };
 
@@ -127,7 +127,6 @@ namespace Project3_HT
         //if(CDB.destReg == operand1) waitOnOp1 == false;
         // ^ about the same for all the wait flags
         // ^ update flags when data is no longer stale
-
 
 
 

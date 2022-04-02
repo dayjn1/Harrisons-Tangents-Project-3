@@ -118,6 +118,7 @@ namespace Project3_HT
             this.FPAddDestReg2 = new System.Windows.Forms.Label();
             this.FPAddOperand2 = new System.Windows.Forms.Label();
             this.FPAddOperand1 = new System.Windows.Forms.Label();
+            this.FPAddOpTwo1 = new System.Windows.Forms.Label();
             this.FPMultiplierRSLayout = new System.Windows.Forms.TableLayoutPanel();
             this.FPMultOperand3 = new System.Windows.Forms.Label();
             this.FPMultDestReg3 = new System.Windows.Forms.Label();
@@ -1102,6 +1103,15 @@ namespace Project3_HT
             this.FPAddOperand1.Size = new System.Drawing.Size(48, 13);
             this.FPAddOperand1.TabIndex = 6;
             this.FPAddOperand1.Text = "Operand";
+            // 
+            // FPAddOpTwo1
+            // 
+            this.FPAddOpTwo1.AutoSize = true;
+            this.FPAddOpTwo1.Location = new System.Drawing.Point(133, 32);
+            this.FPAddOpTwo1.Name = "FPAddOpTwo1";
+            this.FPAddOpTwo1.Size = new System.Drawing.Size(22, 20);
+            this.FPAddOpTwo1.TabIndex = 9;
+            this.FPAddOpTwo1.Text = "Operand 2";
             // 
             // FPMultiplierRSLayout
             // 
