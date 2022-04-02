@@ -18,7 +18,7 @@ namespace Project3_HT
         //FPAddRS.Add()
 
         //methods to control reservation station functions
-        public static void PopulateEmptyRS(Instruction i)
+        public static void PopulateEmptyRS(Instruction i, ReservationStation rs)
         {
             empty = false;
             ReadyForExe(i);
