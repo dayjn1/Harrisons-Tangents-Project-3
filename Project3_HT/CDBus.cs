@@ -20,53 +20,31 @@ namespace Project3_HT
     /// <summary>
     /// The common data bus passes info from functional units back to reservation stations and to the ROB
     /// </summary>
-    internal class CDBus
+    internal static class CDBus
     {
-        private List<IResStation> resStations;
+        public static List<IResStation> resStations { get; set; }
         public static Instruction currentInstruction;
-
-        public CDBus(List<IResStation> ResStations)
-        {
-            resStations = new List<IResStation>();
-            foreach (var station in ResStations)
-            {
-                resStations.Add(station);
-            }
-        }
-
-        public CDBus()
-        {
-            resStations = new List<IResStation>();
-        }
-
-        public void AddResStations(List<IResStation> resStations)
-        {
-            foreach (var station in resStations)
-                resStations.Add(station);
-        }
 
         /// <summary>
         /// Called every cycle:
-        ///     Check if value on CDB
-        ///     if yes, check res.stations one by one if they need the data before pushing to reorder buf
-        ///     if no, do nothing
+        ///     ReceiveResults called externally
+        ///     SendResults
         /// </summary>
-        public void Cycle()
+        public static void Cycle()
         {
             SendResults();
         }
-        
-        public void SendResults()
+
+        ///Check if value on CDB
+        ///if yes, check res.stations one by one if they need the data (from res stations)
+        ///before pushing to reorder buf
+        ///if no, do nothing
+        public static void SendResults()
         {
             if (currentInstruction != null)
             {
-                for (int i = 0; i < resStations.Count; i++)
-                {
-                    resStations[i].ReceiveResults(currentInstruction);
-                }
+                ReorderBuffer.PassedtoRB(currentInstruction);
             }
-            ReorderBuffer.PassedtoRB(currentInstruction);
-            currentInstruction = null;
         }
 
         /// <summary>
@@ -77,7 +55,12 @@ namespace Project3_HT
         public static void ReceiveResults(Instruction instr)
         {
             currentInstruction = instr;
+        }//end ReceiveResults(Instruction)
 
+        /// Overload to nullify current instruction
+        public static void ReceiveResults()
+        {
+            currentInstruction = null;
         }//end ReceiveResults()
 
     }//end CDBus class
