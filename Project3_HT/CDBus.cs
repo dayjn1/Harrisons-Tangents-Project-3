@@ -36,20 +36,15 @@ namespace Project3_HT
         }
 
         ///Check if value on CDB
-        ///if yes, check res.stations one by one if they need the data before pushing to reorder buf
+        ///if yes, check res.stations one by one if they need the data (from res stations)
+        ///before pushing to reorder buf
         ///if no, do nothing
         public static void SendResults()
         {
             if (currentInstruction != null)
             {
-                for (int i = 0; i < resStations.Count; i++)
-                {
-                    resStations[i].ReceiveResults(currentInstruction);
-                }
                 ReorderBuffer.PassedtoRB(currentInstruction);
             }
-            else
-                currentInstruction = null;
         }
 
         /// <summary>
@@ -60,7 +55,12 @@ namespace Project3_HT
         public static void ReceiveResults(Instruction instr)
         {
             currentInstruction = instr;
+        }//end ReceiveResults(Instruction)
 
+        /// Overload to nullify current instruction
+        public static void ReceiveResults()
+        {
+            currentInstruction = null;
         }//end ReceiveResults()
 
     }//end CDBus class
