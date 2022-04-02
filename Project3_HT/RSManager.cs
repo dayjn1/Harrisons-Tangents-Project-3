@@ -9,9 +9,9 @@ namespace Project3_HT
     static class RSManager
     {
         //create list of reservation stations
-        static List<ReservationStation> FPAddRS = new List<ReservationStation>();
-        static List<ReservationStation> FPMultRS = new List<ReservationStation>();
-        static List<ReservationStation> IntegerRS = new List<ReservationStation>();
+        public static List<ReservationStation> FPAddRS = new List<ReservationStation>();
+        public static List<ReservationStation> FPMultRS = new List<ReservationStation>();
+        public static List<ReservationStation> IntegerRS = new List<ReservationStation>();
 
         //method to populate the Reservation station lists
         public static void PopulateLists()
@@ -45,7 +45,8 @@ namespace Project3_HT
         public static void PopulateEmptyRS(Instruction i, ReservationStation rs)
         {
             rs.empty = false;
-            //rs.ReadyForExe(i);
+            rs.ready = true;
+            ReadyForExe(rs);
             //rs.currentInst = i;
             rs.mnemonic = i.Mnemonic;
             rs.destR = i.DestReg;
@@ -78,30 +79,44 @@ namespace Project3_HT
 
             if(!rs.empty)
             {
-                if (/*rs.destR == stale*/true)
+                if (RegisterFile.IsAvail(rs.destR))
                 {
                     rs.waitOnDR = true;
                     rs.ready = false;
                 }
-                if (/*rs.operand1 == stale*/true)
+                if (RegisterFile.IsAvail(rs.operand1))
                 {
                     rs.waitOnO1 = true;
                     rs.ready = false;
                 }
-                if (/*rs.operand2 == stale*/true)
+                if (RegisterFile.IsAvail(rs.operand2))
                 {
                     rs.waitOnO2 = true;
                     rs.ready = false;
                 }
                 else
                     rs.ready = true;
+                
             }
         }
 
         //check for CDB
-        public static void CheckCDB(Instruction i)
+        public static void CheckCDB(ReservationStation rs)
         {
             //grab instruction.destReg and compare to registers waiting on something
+            Instruction temp = CDBus.currentInstruction;
+            if (temp != null)
+            {
+                if(!rs.ready)
+                {
+                    if (rs.waitOnDR && temp.DestReg == rs.destR)
+                        rs.waitOnDR = false;
+                    if (rs.waitOnO1 && temp.DestReg == rs.operand1)
+                        rs.waitOnO1 = false;
+                    if (rs.waitOnO2 && temp.DestReg == rs.operand2)
+                        rs.waitOnO2 = false;
+                }
+            }
         }
 
 
