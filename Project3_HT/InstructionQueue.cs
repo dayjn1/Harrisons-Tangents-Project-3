@@ -17,7 +17,7 @@ namespace Project3_HT
 {
     static class InstructionQueue
     {
-
+        public static bool haltNotFound = true; 
         public static Queue<Instruction> IQueue = new Queue<Instruction>();
         public static int LineNum = 0;
        
@@ -41,7 +41,11 @@ namespace Project3_HT
         public static void DecueueTheInstruction()
         {
             Instruction i = IQueue.Peek();
-            if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
+            if (i.OpCode == 0) // HALT ---> chnge the bool haltFound to true
+            {
+                haltNotFound = false;
+            }
+            else if (i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
             {
                 AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
                                                                // --> check if there is space available on reoder buffer
@@ -80,6 +84,7 @@ namespace Project3_HT
             }
             else if(i.OpCode == 132 || i.OpCode == 133) // FPMultiplierRS for multiply and divide 
             {
+                
                 //go to op bus// fp res station
                 // check if there is a free space on the int RS
                 // check if thre is a free space on the RO

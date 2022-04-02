@@ -71,6 +71,7 @@
     <Compile Include="MemoryUnit.cs" />
     <Compile Include="RegisterFile.cs" />
     <Compile Include="ReorderBuffer.cs" />
+    <Compile Include="RSManager.cs" />
     <Compile Include="StaticSim.cs">
       <SubType>Form</SubType>
     </Compile>

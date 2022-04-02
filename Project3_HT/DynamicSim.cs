@@ -50,39 +50,25 @@ namespace Project3_HT
                 }//end while
                 
 
-                ChangeInstrQueue(IQueue.ToArray());
-
 
                 // check the size of queue 
-                /*foreach (var item in Input_Instructions)
+                foreach (var item in Input_Instructions)
                 {
                     InstructionQueue.AddToIQueue(item);
                     // remove the incstuction from the list
-                    //Input_Instructions.Remove(item);
-
-                }*/
-
-                for(int i = 0; i < 6 && i < Input_Instructions.Count; i++)
-                {
-                    InstructionQueue.AddToIQueue(Input_Instructions[0]);
-
-                    Input_Instructions.Remove(Input_Instructions[0]);
+                    Input_Instructions.Remove(item);
 
                 }
 
                 ChangeInstrQueue(IQueue.ToArray());
 
-                if (IQueue.Count > 0)
-                {
-                    InstructionQueue.DecueueTheInstruction();
-                }
+                //move to the SingleCycle 
+               
 
                 // Check if we have place for another instuction
 
                 ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
                 //ChangeInstrQueue(IQueue.ToArray());
-
-
                 /*
                 label8.Text = "Loaded";
                 cycleCount = 0;
@@ -95,6 +81,9 @@ namespace Project3_HT
 
             ChangeInstrQueue(IQueue.ToArray());
 
+            //dequeue
+
+            //ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
         }
 
         public void SingleCycle()
@@ -162,10 +151,36 @@ namespace Project3_HT
                 we might need to rearrange visually so that it looks nicer
 
             */
+            // if there is an instuction on the list, try dequeue it
+            //TODO: Check for the RS and RB
+            if (IQueue.Any())
+            {
+                InstructionQueue.DecueueTheInstruction();
+            }
+            // check if our Instruction Queue is full
+            AddInstructionsToIQueue();
+            // display updated list of the instruction
+            ChangeInstrQueue(IQueue.ToArray());
 
-            InstructionQueue.AddToIQueue(instr);
+           
+        }
 
+        /// <summary>
+        /// As long as there is no HALT instruction, keep adding 
+        /// instruction to the list if needed
+        /// </summary>
+        public void AddInstructionsToIQueue()
+        {
+            while (Input_Instructions.Any() && IQueue.Count < 6 && haltNotFound.Equals(true))
+            {
+                foreach (var item in Input_Instructions)
+                {
+                    InstructionQueue.AddToIQueue(item);
+                    // remove the incstuction from the list
+                    Input_Instructions.Remove(item);
 
+                }
+            }
         }
         /// <summary>
         /// Display the message for invalid instruction
@@ -177,7 +192,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
 
-            for (int i = 0; i < array.Length && i < Labels.Count; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 if (array[i].OpCode == 404)
                 {
@@ -202,7 +217,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5};
 
-            for (int i = 0; i < array.Length && i < Labels.Count; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                Labels[i].Text = array[i].Mnemonic;
             }
@@ -213,7 +228,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { ReorderBuf1, ReorderBuf2, ReorderBuf3, ReorderBuf4, ReorderBuf5  };
 
-            for(int i = 0; i < array.Length && i < Labels.Count; i++)
+            for(int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
             }
@@ -226,53 +241,28 @@ namespace Project3_HT
               FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data,
               FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
 
-            for (int i = 0; i < array.Length && i < Labels.Count; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i];
             }
         }
 
-
-        public void ChangeFPAdd(Instruction[] array)
-        {
-            List<Label> Labels = new List<Label>()
-            { FPAddMnem1, FPAddDestReg1, FPAddOperand1,
-              FPAddMnem2, FPAddDestReg2, FPAddOperand2,
-              FPAddMnem3, FPAddDestReg3, FPAddOperand3};
-        }
-        private void CycleSpeedNUD_ValueChanged(object sender, EventArgs e)
-        {
-            this.cycleSpeed = (int)cycleSpeedNUD.Value;
-        }
-
-        public void ChangeInteger(Instruction[] array)
-        {
-            List<Label> Labels = new List<Label>()
-            { IntegerMnem1, IntegerDestReg1, IntegerOperand1,
-              IntegerMnem2, IntegerDestReg2, IntegerOperand2,
-              IntegerMnem3, IntegerDestReg3, IntegerOperand3};
-        }
-
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         //assume starting with one reservation station for each and one functional unit
-        //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something) -ht
-       /* public void UpdateFPARS(String[] text)
+        //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something)
+        public void UpdateFPARS(String[] text)
         {
             List<Label> Labels = new List<Label>()
             { FPAddMnem1, FPAddDestReg1, FPAddOperand1, FPAddOpTwo1};
 
-            for (int i = 0; i < text.Length && i < Labels.Count; i++)
+            for(int i = 0; i < text.Length; i++)
             {
                 Labels[i].Text = text[i];
             }
-        }*/
+        }
         private void cycleSpeedNUD_ValueChanged(object sender, EventArgs e)
         {
             this.cycleSpeed = (int)cycleSpeedNUD.Value;
         }
+
     }
 }
