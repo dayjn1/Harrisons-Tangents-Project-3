@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class FPMultiplierRS
+    static class FPMultiplierRS
     {
 
         /*
@@ -23,19 +23,24 @@ namespace Project3_HT
          */
 
         //attributes
-        bool empty;
-        bool ready;
-        bool waitOnDR;
-        bool waitOnO1;
-        bool waitOnO2;
-        string mnemonic, destR, operand1, operand2;
+        static bool empty;
+        static bool ready;
+        static bool waitOnDR;
+        static bool waitOnO1;
+        static bool waitOnO2;
+        static string mnemonic, destR, operand1, operand2;
 
-        public FPMultiplierRS()
+        /*public FPMultiplierRS()
         {
+            //initialize empty and ready to true and waits to false
             empty = true;
-        }
+            ready = true;
+            waitOnDR = false;
+            waitOnO1 = false;
+            waitOnO2 = false;
+        }*/
 
-        public FPMultiplierRS(Instruction i)
+        /*public FPMultiplierRS(Instruction i)
         {
             empty = false;
             ReadyForExe(i); //does this need i?
@@ -43,9 +48,9 @@ namespace Project3_HT
             destR = i.DestReg;
             operand1 = i.Reg1;
             operand2 = i.Reg2;
-        }
+        }*/
 
-        public void PopulateEmptyRS(Instruction i)
+        public static void PopulateEmptyRS(Instruction i)
         {
             empty = false;
             ReadyForExe(i);
@@ -55,19 +60,35 @@ namespace Project3_HT
             operand2 = i.Reg2;
         }
 
-        public void ClearRS()
+        public static void ClearRS()
         {
+            empty = true;
+            ready = true;
+            waitOnDR = false;
+            waitOnO1 = false;
+            waitOnO2 = false;
 
+            //reset the values of Instruction based attributes
+            mnemonic = "";
+            destR = "";
+            operand1 = "";
+            operand2 = "";
         }
 
-
-        public void ReadyForExe(Instruction inst)
+        //could use to keep count of dependency delays, just change to return bool ready
+        public static void ReadyForExe(Instruction inst) //send to functional unit from here???
         {
             //check registers used in inst
             // if stale registers found, then ready == false
             //  ^ also need to set waitOn flags
         }
 
+
+        //check for CDB
+        public static void CheckCDB(Instruction i)
+        {
+            //grab instruction.destReg and compare to registers waiting on something
+        }
 
 
 
