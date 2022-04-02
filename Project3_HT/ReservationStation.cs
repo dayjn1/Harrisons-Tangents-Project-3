@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class ReservationStation
+    public class ReservationStation
     {
         //attributes
-        static bool empty;
-        static bool ready;
-        static bool waitOnDR;
-        static bool waitOnO1;
-        static bool waitOnO2;
-        static string mnemonic, destR, operand1, operand2;
+        public static bool empty;
+        public static bool ready;
+        public static bool waitOnDR;
+        public static bool waitOnO1;
+        public static bool waitOnO2;
+        public static string mnemonic, destR, operand1, operand2;
 
 
         //constructors
