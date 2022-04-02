@@ -221,7 +221,7 @@ namespace Project3_HT
 
         //assume starting with one reservation station for each and one functional unit
         //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something) -ht
-        public void UpdateFPARS(String[] text)
+       /* public void UpdateFPARS(String[] text)
         {
             List<Label> Labels = new List<Label>()
             { FPAddMnem1, FPAddDestReg1, FPAddOperand1, FPAddOpTwo1};
@@ -230,7 +230,7 @@ namespace Project3_HT
             {
                 Labels[i].Text = text[i];
             }
-        }
+        }*/
         private void cycleSpeedNUD_ValueChanged(object sender, EventArgs e)
         {
             this.cycleSpeed = (int)cycleSpeedNUD.Value;
