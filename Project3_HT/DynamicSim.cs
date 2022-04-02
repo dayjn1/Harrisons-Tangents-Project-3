@@ -61,6 +61,10 @@ namespace Project3_HT
 
         public void Simulation()
         {
+            
+
+
+
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
                 Displaying everything will be tough since labels are non-static, aka can't change from outside the class
@@ -111,7 +115,7 @@ namespace Project3_HT
         }
 
         //assume starting with one reservation station for each and one functional unit
-        //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something)
+        //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something) -ht
         public void UpdateFPARS(String[] text)
         {
             List<Label> Labels = new List<Label>()
