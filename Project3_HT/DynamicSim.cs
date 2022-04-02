@@ -54,11 +54,19 @@ namespace Project3_HT
 
 
                 // check the size of queue 
-                foreach (var item in Input_Instructions)
+                /*foreach (var item in Input_Instructions)
                 {
                     InstructionQueue.AddToIQueue(item);
                     // remove the incstuction from the list
-                    Input_Instructions.Remove(item);
+                    //Input_Instructions.Remove(item);
+
+                }*/
+
+                for(int i = 0; i < 6 && i < Input_Instructions.Count; i++)
+                {
+                    InstructionQueue.AddToIQueue(Input_Instructions[0]);
+
+                    Input_Instructions.Remove(Input_Instructions[0]);
 
                 }
 
@@ -84,9 +92,12 @@ namespace Project3_HT
                 */
 
             }//end if
+
+            ChangeInstrQueue(IQueue.ToArray());
+
         }
 
-        public void SingleCycle(()
+        public void SingleCycle()
         {
             Instruction instr;
             Instruction[] text;
@@ -184,7 +195,7 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length && i < Labels.Count; i++)
             {
                 if (array[i].OpCode == 404)
                 {
