@@ -8,5 +8,9 @@ namespace Project3_HT
 {
     class IntegerRS
     {
+        internal static void PlaceInstruction(Instruction i)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

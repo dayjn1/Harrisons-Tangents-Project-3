@@ -1,0 +1,67 @@
+﻿// ---------------------------------------------------------------------------
+// File name:                   CDBus.cs
+// Project name:                Project 2 - Harrison's Tangents
+// Creator’s name:              Jason Middlebrook
+// Course-Section:              CSCI 4717-201
+// Creation Date:               03/28/2022
+// ---------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project3_HT
+{
+    ///Check each functional unit to see if it's done executing, receive results
+    ///from left to right on the pipeline and make sure that you're iterating
+    ///through which functional units we receive from every cycle
+    /// 
+    /// <summary>
+    /// The common data bus passes info from functional units back to reservation stations and to the ROB
+    /// </summary>
+    internal static class CDBus
+    {
+        public static List<IResStation> resStations { get; set; }
+        public static Instruction currentInstruction;
+
+        /// <summary>
+        /// Called every cycle:
+        ///     ReceiveResults called externally
+        ///     SendResults
+        /// </summary>
+        public static void Cycle()
+        {
+            SendResults();
+        }
+
+        ///Check if value on CDB
+        ///if yes, check res.stations one by one if they need the data (from res stations)
+        ///before pushing to reorder buf
+        ///if no, do nothing
+        public static void SendResults()
+        {
+            if (currentInstruction != null)
+            {
+                ReorderBuffer.PassedtoRB(currentInstruction);
+            }
+        }
+
+        /// <summary>
+        /// This method will be called when the CDB is given instruction results from functional units.
+        /// The goal is to send these results, including the rd info, to res stations and ROB.
+        /// </summary>
+        /// <param name="instr">The instruction that is being passed to the CDB</param>
+        public static void ReceiveResults(Instruction instr)
+        {
+            currentInstruction = instr;
+        }//end ReceiveResults(Instruction)
+
+        /// Overload to nullify current instruction
+        public static void ReceiveResults()
+        {
+            currentInstruction = null;
+        }//end ReceiveResults()
+
+    }//end CDBus class
+}
