@@ -9,13 +9,28 @@ namespace Project3_HT
     public static class RegisterFile
     {
         public static string[] RegInfo = new string[32];
-        public static bool[] RegAvail =
+        public static RegTicket[] RegAvail =
         {
-            true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1),
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1),
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1),
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
+            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1)
         };
+
+        public struct RegTicket
+         {
+             public bool Avail;
+             public int LineNum;
+             public RegTicket(bool Avail, int LineNum)
+             {
+                 this.Avail = Avail;
+                 this.LineNum = LineNum;
+             }
+         }
 
         public static string[] UpdateRegister(Instruction instr)
         {
@@ -25,27 +40,32 @@ namespace Project3_HT
             if (temp[0].Equals("R"))
             {
                 RegInfo[i] = instr.Mnemonic;
+                RegAvail[i].Avail = true;
             }
             else
             {
                 RegInfo[i + 16] = instr.Mnemonic;
+                RegAvail[i + 16].Avail = true;
+
             }
 
             return RegInfo;
         }
 
-        public static void MarkUnavail(string reg)
+        public static void MarkUnavail(string reg, int LineNum)
         {
             string[] temp = reg.Split(' ');
             int i = Convert.ToInt32(temp[1], 16);
 
             if (temp[0].Equals("R"))
             {
-                RegAvail[i] = false;
+                RegAvail[i].Avail = false;
+                RegAvail[i].LineNum = LineNum;
             }
             else
             {
-                RegAvail[i + 16] = false;
+                RegAvail[i + 16].Avail = false;
+                RegAvail[i + 16].LineNum = LineNum;
             }
         }
 
@@ -56,11 +76,11 @@ namespace Project3_HT
 
             if (temp[0].Equals("R"))
             {
-                return RegAvail[i];
+                return RegAvail[i].Avail;
             }
             else
             {
-                return RegAvail[i + 16];
+                return RegAvail[i + 16].Avail;
             }
         }
     }
