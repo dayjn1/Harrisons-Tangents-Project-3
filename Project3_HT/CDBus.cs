@@ -22,26 +22,22 @@ namespace Project3_HT
     /// </summary>
     internal static class CDBus
     {
-        private static List<IResStation> resStations = new List<IResStation>();
+        public static List<IResStation> resStations { get; set; }
         public static Instruction currentInstruction;
-
-        public static void AddResStations(List<IResStation> resStations)
-        {
-            foreach (var station in resStations)
-                resStations.Add(station);
-        }
 
         /// <summary>
         /// Called every cycle:
-        ///     Check if value on CDB
-        ///     if yes, check res.stations one by one if they need the data before pushing to reorder buf
-        ///     if no, do nothing
+        ///     ReceiveResults called externally
+        ///     SendResults
         /// </summary>
         public static void Cycle()
         {
             SendResults();
         }
-        
+
+        ///Check if value on CDB
+        ///if yes, check res.stations one by one if they need the data before pushing to reorder buf
+        ///if no, do nothing
         public static void SendResults()
         {
             if (currentInstruction != null)
@@ -50,9 +46,10 @@ namespace Project3_HT
                 {
                     resStations[i].ReceiveResults(currentInstruction);
                 }
+                ReorderBuffer.PassedtoRB(currentInstruction);
             }
-            ReorderBuffer.PassedtoRB(currentInstruction);
-            currentInstruction = null;
+            else
+                currentInstruction = null;
         }
 
         /// <summary>
