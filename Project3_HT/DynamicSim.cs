@@ -55,6 +55,9 @@ namespace Project3_HT
                 foreach (var item in Input_Instructions)
                 {
                     InstructionQueue.AddToIQueue(item);
+                    // remove the incstuction from the list
+                    Input_Instructions.Remove(item);
+
                 }
 
                 ChangeInstrQueue(IQueue.ToArray());
@@ -63,6 +66,8 @@ namespace Project3_HT
                 {
                     InstructionQueue.DecueueTheInstruction();
                 }
+
+                // Check if we have place for another instuction
 
                 ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
                 //ChangeInstrQueue(IQueue.ToArray());
@@ -83,7 +88,7 @@ namespace Project3_HT
             //ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
         }
 
-        public void Simulation()
+        public void SingleCycle()
         {
             Instruction instr;
             Instruction[] text;
@@ -127,6 +132,7 @@ namespace Project3_HT
 
                 5. Check Instruction Queue
                     'decode' instruction enough to check needed res station/memory and reorder buffer
+                    
                     check reorder buffer first since every instrction will need it
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait

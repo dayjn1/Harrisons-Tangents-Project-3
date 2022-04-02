@@ -19,15 +19,19 @@ namespace Project3_HT
     {
 
         public static Queue<Instruction> IQueue = new Queue<Instruction>();
+        public static int LineNum = 0;
+       
         public static void AddToIQueue(Instruction i)
         {
             int counter = 0;
             int size = 6;//size of queue
             if (counter < size)
             {
+                LineNum++;
+                i.lineNum = LineNum;
                 //Enqueue
                 IQueue.Enqueue(i);
-                counter += 1;
+                counter++;
             }
            
         }
@@ -70,7 +74,7 @@ namespace Project3_HT
                 // check if there is a free space on the int RS
                 // check if thre is a free space on the RO
 
-               // FPAdderRS.populateEmptyRS(i);  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ASK FOR MORE INFO!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //FPAdderRS.populateEmptyRS(i);  
                 IQueue.Dequeue();
                 
             }
@@ -80,8 +84,8 @@ namespace Project3_HT
                 // check if there is a free space on the int RS
                 // check if thre is a free space on the RO
 
-                FPMultiplierRS.PlaceInstruction(i);
-                IQueue.Dequeue();
+                //FPMultiplierRS.
+                //IQueue.Dequeue();
             }
             IQueue.Dequeue();
         }
