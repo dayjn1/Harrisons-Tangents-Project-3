@@ -17,6 +17,14 @@ namespace Project3_HT
       
         }
 
+        public static bool IsReorderBufFree()
+        {
+            if (ReorderBuf.Count > 5)
+                return false;
+            else
+                return true;
+        }
+
         public static Instruction RemoveFromReorderBuf()
         {
             Instruction temp = ReorderBuf.Peek();

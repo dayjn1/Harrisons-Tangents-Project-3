@@ -129,7 +129,6 @@ namespace Project3_HT
         // ^ update flags when data is no longer stale
 
 
-        
 
         internal static void PlaceInstruction(Instruction i)
         {
