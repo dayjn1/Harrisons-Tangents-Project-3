@@ -86,10 +86,15 @@ namespace Project3_HT
                 if (/*rs.operand1 == stale*/true)
                 {
                     rs.waitOnO1 = true;
-
+                    rs.ready = false;
                 }
                 if (/*rs.operand2 == stale*/true)
+                {
                     rs.waitOnO2 = true;
+                    rs.ready = false;
+                }
+                else
+                    rs.ready = true;
             }
         }
 
