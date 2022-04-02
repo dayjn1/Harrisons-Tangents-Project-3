@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class InstructionQueue
+    static class InstructionQueue
     {
 
         public static Queue<Instruction> IQueue = new Queue<Instruction>();
@@ -34,9 +34,9 @@ namespace Project3_HT
         //TO DO: 
         //1) make sure that queue has appropriate size
 
-        public static void DecueueTheInstruction(Instruction i)
+        public static void DecueueTheInstruction()
         {
-
+            Instruction i = IQueue.Peek();
             if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
             {
                 AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
@@ -44,7 +44,7 @@ namespace Project3_HT
                                                                // stull, if there is no space available
                 IQueue.Dequeue();
             }
-           /* else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
+            else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
                                     // --> place it on RO
                                     // --> memory unit
             {
@@ -83,7 +83,7 @@ namespace Project3_HT
                 FPMultiplierRS.PlaceInstruction(i);
                 IQueue.Dequeue();
             }
-            IQueue.Dequeue();*/
+            IQueue.Dequeue();
         }
 
 

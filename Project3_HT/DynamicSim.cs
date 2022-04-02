@@ -57,8 +57,15 @@ namespace Project3_HT
                     InstructionQueue.AddToIQueue(item);
                 }
 
-                //InstructQueue1.Text = IQueue.Count().ToString();
-                
+                ChangeInstrQueue(IQueue.ToArray());
+
+                if (IQueue.Count > 0)
+                {
+                    InstructionQueue.DecueueTheInstruction();
+                }
+
+                ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
+                //ChangeInstrQueue(IQueue.ToArray());
                 /*
                 label8.Text = "Loaded";
                 cycleCount = 0;
@@ -73,7 +80,7 @@ namespace Project3_HT
 
             //dequeue
 
-            ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
+            //ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
         }
 
         public void Simulation()
@@ -129,7 +136,7 @@ namespace Project3_HT
             // display
             // load
 
-            DecueueTheInstruction(instr);
+            //DecueueTheInstruction();
             /*
 
                 Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
@@ -155,7 +162,7 @@ namespace Project3_HT
             {
                 if (array[i].OpCode == 404)
                 {
-                    Labels[i].Text = array[i].Mnemonic;
+                    //Labels[i].Text = array[i].Mnemonic;
                     MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.",
                                     "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     

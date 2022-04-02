@@ -10,9 +10,9 @@ public class MemoryUnit
 {
     // takes dest and sourse regstrs
 	static Dictionary<String, String> MemoryEntries = new Dictionary<String, String>();
-	public static void AddToMemUnit(AUTicket myAU)
+	public static void AddToMemUnit(Instruction instruction)
     {
-        MemoryEntries.Add(myAU.DestReg, myAU.SourceReg);
+        MemoryEntries.Add(instruction.DestReg, instruction.Reg1);
     }
     public static void Clear()
     {
