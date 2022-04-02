@@ -20,8 +20,8 @@ namespace Project3_HT
         //methods to control reservation station functions
         public static void PopulateEmptyRS(Instruction i, ReservationStation rs)
         {
-            empty = false;
-            ReadyForExe(i);
+            rs.empty = false;
+            rs.ReadyForExe(i);
             mnemonic = i.Mnemonic;
             destR = i.DestReg;
             operand1 = i.Reg1;
