@@ -45,7 +45,8 @@ namespace Project3_HT
         public static void PopulateEmptyRS(Instruction i, ReservationStation rs)
         {
             rs.empty = false;
-            //rs.ReadyForExe(i);
+            rs.ready = true;
+            ReadyForExe(rs);
             //rs.currentInst = i;
             rs.mnemonic = i.Mnemonic;
             rs.destR = i.DestReg;
@@ -74,34 +75,50 @@ namespace Project3_HT
             //check registers used in inst
             // if stale registers found, then ready == false
             //  ^ also need to set waitOn flags
-
+            RegisterFile.RegTicket tempDR = RegisterFile.IsAvail(rs.destR);
+            RegisterFile.RegTicket tempO1 = RegisterFile.IsAvail(rs.destR);
+            RegisterFile.RegTicket tempO2 = RegisterFile.IsAvail(rs.destR);
 
             if(!rs.empty)
             {
-                if (/*rs.destR == stale*/true)
+                if (!tempDR.Avail)
                 {
                     rs.waitOnDR = true;
                     rs.ready = false;
                 }
-                if (/*rs.operand1 == stale*/true)
+                if (!tempO1.Avail)
                 {
                     rs.waitOnO1 = true;
                     rs.ready = false;
                 }
-                if (/*rs.operand2 == stale*/true)
+                if (!tempO2.Avail)
                 {
                     rs.waitOnO2 = true;
                     rs.ready = false;
                 }
                 else
                     rs.ready = true;
+                
             }
         }
 
         //check for CDB
-        public static void CheckCDB(Instruction i)
+        public static void CheckCDB(ReservationStation rs)
         {
             //grab instruction.destReg and compare to registers waiting on something
+            Instruction temp = CDBus.currentInstruction;
+            if (temp != null)
+            {
+                if(!rs.ready)
+                {
+                    if (rs.waitOnDR && temp.DestReg == rs.destR)
+                        rs.waitOnDR = false;
+                    if (rs.waitOnO1 && temp.DestReg == rs.operand1)
+                        rs.waitOnO1 = false;
+                    if (rs.waitOnO2 && temp.DestReg == rs.operand2)
+                        rs.waitOnO2 = false;
+                }
+            }
         }
 
 

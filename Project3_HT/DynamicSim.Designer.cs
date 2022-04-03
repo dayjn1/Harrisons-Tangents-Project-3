@@ -1489,15 +1489,6 @@ namespace Project3_HT
             this.cycleSpeedLabel.TabIndex = 9;
             this.cycleSpeedLabel.Text = "Cycle Speed";
             // 
-            // FPAddOpTwo1
-            // 
-            this.FPAddOpTwo1.AutoSize = true;
-            this.FPAddOpTwo1.Location = new System.Drawing.Point(133, 32);
-            this.FPAddOpTwo1.Name = "FPAddOpTwo1";
-            this.FPAddOpTwo1.Size = new System.Drawing.Size(15, 20);
-            this.FPAddOpTwo1.TabIndex = 9;
-            this.FPAddOpTwo1.Text = "label1";
-            // 
             // DynamicSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

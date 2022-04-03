@@ -63,14 +63,16 @@
     </Compile>
     <Compile Include="FPAdderRS.cs" />
     <Compile Include="FPMultiplierRS.cs" />
-    <Compile Include="FuncUnit.cs" />
-    <Compile Include="FuncUnits.cs" />
+    <Compile Include="IResStation.cs" />
     <Compile Include="InstructionQueue.cs" />
     <Compile Include="IntegerRS.cs" />
+    <Compile Include="IResStation.cs" />
     <Compile Include="LoadBuffer.cs" />
     <Compile Include="MemoryUnit.cs" />
     <Compile Include="RegisterFile.cs" />
     <Compile Include="ReorderBuffer.cs" />
+    <Compile Include="ReservationStation.cs" />
+    <Compile Include="RSManager.cs" />
     <Compile Include="StaticSim.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +82,7 @@
     <Compile Include="Instruction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unsubscriber.cs" />
     <EmbeddedResource Include="Controller.resx">
       <DependentUpon>Controller.cs</DependentUpon>
     </EmbeddedResource>
