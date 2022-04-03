@@ -20,11 +20,14 @@ namespace Project3_HT
         public Queue<Instruction> Instructions { get; set; }
         public string Name { get; set; }
 
-        public FuncUnit(string name)
+        public int ExecTime { get; set; }
+
+        public FuncUnit(string name, int execTime)
         {
             Instructions = new Queue<Instruction>();
             Executed = false;
             Name = name;
+            ExecTime = execTime;
         }
 
         /// <summary>

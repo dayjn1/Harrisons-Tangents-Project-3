@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Project3_HT.InstructionQueue;
+using static Project3_HT.LoadBuffer;
 
 namespace Project3_HT
 {
@@ -17,7 +18,7 @@ namespace Project3_HT
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
         public int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
-
+        
         public DynamicSim()
         {
             InitializeComponent();
@@ -48,28 +49,11 @@ namespace Project3_HT
                         Console.WriteLine("Invalid parse");
 
                 }//end while
-                
 
+                // add to the instuction queue in the beginning of the program, before the first cycle & display it
+                AddInstructionsToIQueue();
+                    
 
-                // check the size of queue 
-                foreach (var item in Input_Instructions)
-                {
-                    InstructionQueue.AddToIQueue(item);
-                    // remove the incstuction from the list
-                    // ERROR: we can not change Input_Instructions of foreach 
-                    Input_Instructions.Remove(item);
-
-                }
-
-                ChangeInstrQueue(IQueue.ToArray());
-
-                //move to the SingleCycle 
-               
-
-                // Check if we have place for another instuction
-
-                ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
-                //ChangeInstrQueue(IQueue.ToArray());
                 /*
                 label8.Text = "Loaded";
                 cycleCount = 0;
@@ -79,12 +63,7 @@ namespace Project3_HT
                 */
 
             }//end if
-
-            ChangeInstrQueue(IQueue.ToArray());
-
-            //dequeue
-
-            //ChangeLoadBuffer(LoadBuffer.LdBuffer.ToArray());
+                                 
         }
 
         public void SingleCycle()
@@ -136,11 +115,8 @@ namespace Project3_HT
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
             */
-            InstructionQueue.AddToIQueue(instr);
-
-            // display
-            // load
-
+           
+          
             //DecueueTheInstruction();
             /*
 
@@ -156,33 +132,52 @@ namespace Project3_HT
             //TODO: Check for the RS and RB
             if (IQueue.Any())
             {
-                InstructionQueue.DecueueTheInstruction();
+                DecueueTheInstruction();                // dequeue the instruction
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
+                // TODO: change the reservation station and RB
             }
-            // check if our Instruction Queue is full
-            AddInstructionsToIQueue();
-            // display updated list of the instruction
-            ChangeInstrQueue(IQueue.ToArray());
 
-           
+            AddInstructionsToIQueue();                  // add new instructions to the queue          
+            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
+            if (LdBuffer.Any())
+            {
+                SendToMemUnit();                        // dequeue from the LdBuffer
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            }
+                      
         }
 
         /// <summary>
         /// As long as there is no HALT instruction, keep adding 
-        /// instruction to the list if needed
-        /// </summary>
+        /// instruction to the Instruction queue if needed
+        /// </summary> -- NC
         public void AddInstructionsToIQueue()
         {
             while (Input_Instructions.Any() && IQueue.Count < 6 && haltNotFound.Equals(true))
             {
-                foreach (var item in Input_Instructions)
+                int size = Input_Instructions.Count();
+                
+                for (int j = 0; j < size; j++)              // check the size of queue 
                 {
-                    InstructionQueue.AddToIQueue(item);
-                    // remove the incstuction from the list
-                    Input_Instructions.Remove(item);
+                    if (IQueue.Count() < 6 && Input_Instructions.Any())
+                    {
+                        AddToIQueue(Input_Instructions[j]);
+                    }
+                }
+                
+                ChangeInstrQueue(IQueue.ToArray());         //display that are currently on the the queue
 
+                for (int i = IQueue.Count - 1; i >= 0; i--) // remove the incstuction from the list
+                {
+                    if (Input_Instructions.Any())
+                    {
+                        Input_Instructions.RemoveAt(i);
+                    }
                 }
             }
         }
+
+
         /// <summary>
         /// Display the message for invalid instruction
         /// When HALT instruction is detected, do not display anything after it
@@ -192,19 +187,21 @@ namespace Project3_HT
         {
             List<Label> Labels = new List<Label>()
             { InstructQueue1, InstructQueue2, InstructQueue3, InstructQueue4, InstructQueue5, InstructQueue6  };
+            
+            foreach (var lable in Labels)               //update the value of the lable
+            {
+                lable.Text = " ";
+            }
 
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i].OpCode == 404)
                 {
-                    //Labels[i].Text = array[i].Mnemonic;
-                    MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.",
-                                    "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    
+                    MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.", "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     Application.Restart();
 
                 }
-                if(array[i].OpCode == 0)
+                if(array[i].OpCode == 0)                // do not add any values after halt
                 {
                     Labels[i].Text = array[i].Mnemonic;
                     break;
@@ -213,11 +210,18 @@ namespace Project3_HT
             }//end of for
         }
        
+        /// <summary>
+        /// Update the text value of the LB
+        /// </summary>
+        /// <param name="array"></param>
         public void ChangeLoadBuffer(Instruction[] array)
         {
             List<Label> Labels = new List<Label>()
-            { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5};
-
+            { LoadBuf1, LoadBuf2, LoadBuf3, LoadBuf4, LoadBuf5}; 
+            foreach (var lable in Labels)               //update the value of the lable
+            {
+                lable.Text = " ";
+            }
             for (int i = 0; i < array.Length; i++)
             {
                Labels[i].Text = array[i].Mnemonic;
