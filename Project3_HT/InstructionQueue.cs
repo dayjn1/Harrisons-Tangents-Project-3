@@ -15,29 +15,33 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class InstructionQueue
+    static class InstructionQueue
     {
 
-        public Queue<Instruction> IQueue = new Queue<Instruction>();
-        public void AddToIQueue(Instruction i)
+        public static Queue<Instruction> IQueue = new Queue<Instruction>();
+        public static int LineNum = 0;
+       
+        public static void AddToIQueue(Instruction i)
         {
-            IQueue.Enqueue(i);
+            int counter = 0;
+            int size = 6;//size of queue
+            if (counter < size)
+            {
+                LineNum++;
+                i.lineNum = LineNum;
+                //Enqueue
+                IQueue.Enqueue(i);
+                counter++;
+            }
+           
         }
         //TO DO: 
         //1) make sure that queue has appropriate size
 
-        public void DecueueTheInstruction(Instruction i)
+        public static void DecueueTheInstruction()
         {
-            if (i.OpCode == 404) // invelid instruction, stop execution 
-            {
-                // stop the execution!
-            }
-            else if(i.OpCode == 0) // HALT do not decueue anything after
-            {
-                IQueue.Dequeue();
-                //call our halt method, wherever that is
-            }
-            else if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
+            Instruction i = IQueue.Peek();
+            if(i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
             {
                 AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
                                                                // --> check if there is space available on reoder buffer
@@ -70,7 +74,7 @@ namespace Project3_HT
                 // check if there is a free space on the int RS
                 // check if thre is a free space on the RO
 
-                FPAdderRS.PlaceInstruction(i);
+                //FPAdderRS.populateEmptyRS(i);  
                 IQueue.Dequeue();
                 
             }
@@ -80,7 +84,12 @@ namespace Project3_HT
                 // check if there is a free space on the int RS
                 // check if thre is a free space on the RO
 
-                FPMultiplierRS.PlaceInstruction(i);
+                /*if (FPMultiplierRS.PopulateEmptyRS = t, RO.Empty = t)
+                {
+                    IQueue.Dequeue();
+                }*/
+                FPMultiplierRS.PopulateEmptyRS(i);
+
                 IQueue.Dequeue();
             }
             IQueue.Dequeue();
