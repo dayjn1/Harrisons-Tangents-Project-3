@@ -75,21 +75,23 @@ namespace Project3_HT
             //check registers used in inst
             // if stale registers found, then ready == false
             //  ^ also need to set waitOn flags
-
+            RegisterFile.RegTicket tempDR = RegisterFile.IsAvail(rs.destR);
+            RegisterFile.RegTicket tempO1 = RegisterFile.IsAvail(rs.destR);
+            RegisterFile.RegTicket tempO2 = RegisterFile.IsAvail(rs.destR);
 
             if(!rs.empty)
             {
-                if (RegisterFile.IsAvail(rs.destR))
+                if (!tempDR.Avail)
                 {
                     rs.waitOnDR = true;
                     rs.ready = false;
                 }
-                if (RegisterFile.IsAvail(rs.operand1))
+                if (!tempO1.Avail)
                 {
                     rs.waitOnO1 = true;
                     rs.ready = false;
                 }
-                if (RegisterFile.IsAvail(rs.operand2))
+                if (!tempO2.Avail)
                 {
                     rs.waitOnO2 = true;
                     rs.ready = false;
