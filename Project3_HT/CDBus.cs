@@ -1,6 +1,6 @@
 ﻿// ---------------------------------------------------------------------------
 // File name:                   CDBus.cs
-// Project name:                Project 2 - Harrison's Tangents
+// Project name:                Project 3 - Harrison's Tangents
 // Developers:                  Jason Middlebrook
 // Course-Section:              CSCI 4717-201
 // Creation Date:               03/28/2022
@@ -29,8 +29,10 @@ namespace Project3_HT
 
         /// <summary>
         /// Called every cycle:
-        ///     ReceiveResults called externally
-        ///     SendResults
+        /// Check if value on CDB
+        ///     if yes, check res.stations one by one if they need the data (from res stations)
+        ///     before pushing to reorder buf
+        ///     if no, do nothing
         /// </summary>
         public static void Cycle()
         {
@@ -39,10 +41,9 @@ namespace Project3_HT
             //After this returns, main simulation should call res stations to get results from CDB
         }
 
-        ///Check if value on CDB
-        ///if yes, check res.stations one by one if they need the data (from res stations)
-        ///before pushing to reorder buf
-        ///if no, do nothing
+        /// <summary>
+        /// Send instruction execution results to the ReorderBuffer
+        /// </summary>
         public static void SendResults()
         {
             if (currentInstruction != null)
@@ -59,7 +60,7 @@ namespace Project3_HT
         {
             for (int i = 0; i < FuncUnits.Count; i++)                       //for length of array
             {
-                for (int j = iNextFuncUnit; j < FuncUnits.Count;)           //j is where we are in array
+                for (int j = iNextFuncUnit; j < FuncUnits.Count;)           //j is where we are in the array
                 {
                     if (FuncUnits.At(j).Executed)                           //If func unit is ready to send results
                     {
@@ -69,6 +70,7 @@ namespace Project3_HT
                         return;
                     }
 
+                    //If j has reached the end of the physical array, circle around to the beginning
                     if (j == FuncUnits.Count - 1)
                         j = 0;
                     else

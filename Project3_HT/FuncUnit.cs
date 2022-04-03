@@ -1,6 +1,6 @@
 ﻿// ---------------------------------------------------------------------------
 // File name:                   FuncUnit.cs
-// Project name:                Project 2 - Harrison's Tangents
+// Project name:                Project 3 - Harrison's Tangents
 // Developers:                  Jason Middlebrook, Hannah Taylor
 // Course-Section:              CSCI 4717-201
 // Creation Date:               04/02/2022
@@ -27,6 +27,17 @@ namespace Project3_HT
             Name = name;
         }
 
+        /// <summary>
+        /// Execution takes one cycle for each instruction
+        /// </summary>
+        public void Cycle()
+        {
+
+        }
+
+        /// <summary>
+        /// Send an instruction from reservation station or load buffer into functional unit
+        /// </summary>
         public bool Enqueue(Instruction instr)
         {
             if(Instructions.Count > 0)
@@ -39,6 +50,9 @@ namespace Project3_HT
             return true;
         }
 
+        /// <summary>
+        /// Send results to the common data bus
+        /// </summary>
         public Instruction Dequeue()
         {
             return Instructions.Dequeue();
@@ -46,7 +60,7 @@ namespace Project3_HT
 
         public override string ToString()
         {
-            return Instructions.Peek().ToString();
+            return Name + ": " + Instructions.Peek().Mnemonic;
         }
 
     }

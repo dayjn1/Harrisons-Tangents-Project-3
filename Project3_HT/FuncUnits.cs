@@ -1,6 +1,6 @@
 ﻿// ---------------------------------------------------------------------------
 // File name:                   FuncUnits.cs
-// Project name:                Project 2 - Harrison's Tangents
+// Project name:                Project 3 - Harrison's Tangents
 // Developers:                  Jason Middlebrook, Hannah Taylor
 // Course-Section:              CSCI 4717-201
 // Creation Date:               04/02/2022
