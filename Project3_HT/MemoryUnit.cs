@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Project3_HT.LoadBuffer;
 
-public class MemoryUnit
+public static class MemoryUnit
 {
     // takes dest and sourse regstrs
     // One per cycle 
@@ -23,6 +23,11 @@ public class MemoryUnit
     // We need an actual instruction 
     public static void SendToCDB(Instruction i)
     {
-        CDBus.ReceiveResults(i);
+        CDBus.ReceiveResults();
+    }
+
+    public static void Dequeue()
+    {
+        return;
     }
 }
