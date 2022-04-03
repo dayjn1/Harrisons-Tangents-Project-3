@@ -22,7 +22,7 @@ namespace Project3_HT
         };
 
         public struct RegTicket
-         {
+          {
              public bool Avail;
              public int LineNum;
              public RegTicket(bool Avail, int LineNum)
@@ -30,7 +30,7 @@ namespace Project3_HT
                  this.Avail = Avail;
                  this.LineNum = LineNum;
              }
-         }
+        }
 
         public static string[] UpdateRegister(Instruction instr)
         {
