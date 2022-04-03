@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +15,7 @@ namespace Project3_HT
     public partial class DynamicSim : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        public int cycleSpeed = 600;                                            //Defined so we can change the real time waiting period between cycles
+        public int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
 
         public DynamicSim()
         {
