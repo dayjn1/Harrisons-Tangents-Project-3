@@ -30,6 +30,14 @@ namespace Project3_HT
             ExecTime = execTime;
         }
 
+        public FuncUnit(string name, Instruction i)
+        {
+            Instructions = new Queue<Instruction>();
+            Executed = false;
+            Name = name;
+            ExecTime = CalcExecutionTime(i);
+        }
+
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
@@ -64,6 +72,11 @@ namespace Project3_HT
         public override string ToString()
         {
             return Name + ": " + Instructions.Peek().Mnemonic;
+        }
+
+        public int CalcExecutionTime(Instruction inst)
+        {
+            return inst.ExecuteCC;
         }
 
     }

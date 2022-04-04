@@ -62,7 +62,7 @@
       <DependentUpon>DynamicSim.cs</DependentUpon>
     </Compile>
     <Compile Include="FuncUnit.cs" />
-    <Compile Include="FuncUnits.cs" />
+    <Compile Include="FuncUnitManager.cs" />
     <Compile Include="InstructionQueue.cs" />
     <Compile Include="LoadBuffer.cs" />
     <Compile Include="RegisterFile.cs" />

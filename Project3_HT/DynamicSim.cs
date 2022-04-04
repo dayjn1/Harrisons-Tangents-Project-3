@@ -117,29 +117,31 @@ namespace Project3_HT
                 IRS2Ready = RSManager.CheckCDB(RSManager.IntegerRS[1]);
                 IRS3Ready = RSManager.CheckCDB(RSManager.IntegerRS[2]);
 
+                //TODO: push instruction on CDB to ROB
+                CDBus.SendResults();
 
             }
 
-            //TODO: push instruction on CDB to ROB
-            
-            
+
+
             /*
                 3. Check if functional units are finished executing - fpadd, fpmult, int, load memory
                     if yes, push ONLY ONE, set up so that each unit dequeues or checks if dequeue is ready before going back to beg
                     if none are finished, then wait
             */
+
             
-            
-            
+
+
             /*
                 4. Check res stations and load buffer
                     if nothing in a given section is in the functional unit executing, queue it
                     if something, wait
             */
-            
-            
-            
-            
+
+
+
+
             /*
                 5. Check Instruction Queue
                     'decode' instruction enough to check needed res station/memory and reorder buffer
@@ -148,8 +150,8 @@ namespace Project3_HT
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
             */
-           
-          
+
+
             //DecueueTheInstruction();
             /*
 

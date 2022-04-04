@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    internal static class FuncUnits
+    internal static class FuncUnitManager
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
