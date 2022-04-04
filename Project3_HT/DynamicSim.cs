@@ -17,12 +17,12 @@ namespace Project3_HT
     public partial class DynamicSim : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        public int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
-        
+        public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
+        public static string ProgramType = "Continuous";
+
         public DynamicSim()
         {
             InitializeComponent();
-            cycleSpeedNUD.Value = cycleSpeed;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,6 +64,39 @@ namespace Project3_HT
 
             }//end if
                                  
+        }
+
+        public static void Reset()
+        {
+
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (ProgramType == "Continuous")
+                ContinuousSim();
+            else
+                SingleCycle();
+        }
+
+        public void ContinuousSim()
+        {
+            bool areWeDone = false;
+            while(areWeDone == false)
+            {
+                SingleCycle();
+                areWeDone = IsFinished();
+            }
+        }
+
+        public bool IsFinished()
+        {
+            if (/* things are empty*/ 1 == 1)
+                return true;
+            else
+                return false;
+            
+
         }
 
         public void SingleCycle()
@@ -264,10 +297,14 @@ namespace Project3_HT
                 Labels[i].Text = text[i];
             }
         }
-        private void cycleSpeedNUD_ValueChanged(object sender, EventArgs e)
+
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.cycleSpeed = (int)cycleSpeedNUD.Value;
+            Settings settings = new Settings();
+            settings.Show();
         }
 
+        
     }
 }
