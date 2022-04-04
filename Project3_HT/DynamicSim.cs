@@ -274,5 +274,10 @@ namespace Project3_HT
         {
             this.cycleSpeed = (int)cycleSpeedNUD.Value;
         }
+
+        private void IntegerRSLayout_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
