@@ -271,9 +271,6 @@ namespace Project3_HT
             this.InstructQueue1.Location = new System.Drawing.Point(58, 152);
             this.InstructQueue1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.InstructQueue1.Name = "InstructQueue1";
-            this.InstructQueue1.Size = new System.Drawing.Size(105, 17);
-            this.InstructQueue1.TabIndex = 0;
-            this.InstructQueue1.Text = "InstructQueue1";
             // 
             // InstructQueue2
             // 
@@ -631,12 +628,6 @@ namespace Project3_HT
             this.FP5_Data.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FP5_Data.Name = "FP5_Data";
             this.FP5_Data.Size = new System.Drawing.Size(71, 17);
-            this.FP5_Data.TabIndex = 43;
-            this.FP5_Data.Text = "FP5_Data";
-            // 
-            // R5_Data
-            // 
-            this.R5_Data.AutoSize = true;
             this.R5_Data.Location = new System.Drawing.Point(113, 85);
             this.R5_Data.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.R5_Data.Name = "R5_Data";
@@ -662,11 +653,6 @@ namespace Project3_HT
             this.R4_Data.Name = "R4_Data";
             this.R4_Data.Size = new System.Drawing.Size(64, 17);
             this.R4_Data.TabIndex = 40;
-            this.R4_Data.Text = "R4_Data";
-            // 
-            // FP3_Data
-            // 
-            this.FP3_Data.AutoSize = true;
             this.FP3_Data.Location = new System.Drawing.Point(331, 51);
             this.FP3_Data.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FP3_Data.Name = "FP3_Data";
@@ -1595,6 +1581,7 @@ namespace Project3_HT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1339, 783);
@@ -1608,6 +1595,7 @@ namespace Project3_HT
             this.Controls.Add(this.InstructQueueLayout);
             this.Controls.Add(this.ReorderBufLayout);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DynamicSim";
