@@ -16,6 +16,7 @@ namespace Project3_HT
         public bool waitOnO1;
         public bool waitOnO2;
         public string mnemonic, destR, operand1, operand2;
+        public int lineNumOfInst;
 
 
         //constructors

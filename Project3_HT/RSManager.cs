@@ -46,12 +46,13 @@ namespace Project3_HT
         {
             rs.empty = false;
             rs.ready = true;
-            ReadyForExe(rs);
+            UpdateStaleFlagsOnReciept(rs);
             //rs.currentInst = i;
             rs.mnemonic = i.Mnemonic;
             rs.destR = i.DestReg;
             rs.operand1 = i.Reg1;
             rs.operand2 = i.Reg2;
+            rs.lineNumOfInst = i.lineNum;
         }
 
         public static void ClearRS(ReservationStation rs)
@@ -67,31 +68,33 @@ namespace Project3_HT
             rs.destR = "";
             rs.operand1 = "";
             rs.operand2 = "";
+            rs.lineNumOfInst = -1;
         }
 
         //could use to keep count of dependency delays, just change to return bool ready
-        public static void ReadyForExe(ReservationStation rs) //send to functional unit from here???
+        //use this 
+        public static void UpdateStaleFlagsOnReciept(ReservationStation rs) //send to functional unit from here???
         {
             //check registers used in inst
             // if stale registers found, then ready == false
             //  ^ also need to set waitOn flags
             RegisterFile.RegTicket tempDR = RegisterFile.IsAvail(rs.destR);
-            RegisterFile.RegTicket tempO1 = RegisterFile.IsAvail(rs.destR);
-            RegisterFile.RegTicket tempO2 = RegisterFile.IsAvail(rs.destR);
+            RegisterFile.RegTicket tempO1 = RegisterFile.IsAvail(rs.operand1);
+            RegisterFile.RegTicket tempO2 = RegisterFile.IsAvail(rs.operand2);
 
             if(!rs.empty)
             {
-                if (!tempDR.Avail)
+                if (!tempDR.Avail && tempDR.LineNum != rs.lineNumOfInst)        //RegTicket's lineNum is set on the line that should have marked it as stale, don't want an infinite stall if waiting on itself
                 {
                     rs.waitOnDR = true;
                     rs.ready = false;
                 }
-                if (!tempO1.Avail)
+                if (!tempO1.Avail && tempO1.LineNum != rs.lineNumOfInst)
                 {
                     rs.waitOnO1 = true;
                     rs.ready = false;
                 }
-                if (!tempO2.Avail)
+                if (!tempO2.Avail && tempO2.LineNum != rs.lineNumOfInst)
                 {
                     rs.waitOnO2 = true;
                     rs.ready = false;
@@ -100,10 +103,10 @@ namespace Project3_HT
                     rs.ready = true;
                 
             }
-        }
+        }//end ReadyForExe
 
         //check for CDB
-        public static void CheckCDB(ReservationStation rs)
+        public static bool CheckCDB(ReservationStation rs)
         {
             //grab instruction.destReg and compare to registers waiting on something
             Instruction temp = CDBus.currentInstruction;
@@ -119,8 +122,63 @@ namespace Project3_HT
                         rs.waitOnO2 = false;
                 }
             }
+
+            return IsReady(rs);
+        }//end checkCDB
+
+
+        public static bool IsReady(ReservationStation r)
+        {
+            if (r.waitOnDR || r.waitOnO1 || r.waitOnO2)
+                r.ready = false;
+            else
+                r.ready = true;
+
+            return r.ready;
         }
 
+
+        //after each foreach loop, if we have found one that's not empty, then return without wasting more time/resources
+        public static bool CheckAllRSEmpty()
+        {
+            bool allEmpty = true;
+
+            foreach (ReservationStation rs in FPAddRS)
+            {
+                if (!rs.empty)
+                {
+                    allEmpty = false;
+                    break;
+                }
+            }
+            if (!allEmpty)
+                return allEmpty;
+
+            foreach (ReservationStation rs in FPMultRS)
+            {
+                if (!rs.empty)
+                {
+                    allEmpty = false;
+                    break;
+                }
+            }
+            if (!allEmpty)
+                return allEmpty;
+
+            foreach (ReservationStation rs in IntegerRS)
+            {
+                if (!rs.empty)
+                {
+                    allEmpty = false;
+                    break;
+                }
+            }
+            if (!allEmpty)
+                return allEmpty;
+            else
+                return allEmpty;
+
+        }
 
     }
 }
