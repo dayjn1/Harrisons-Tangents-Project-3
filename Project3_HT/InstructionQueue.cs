@@ -45,17 +45,20 @@ namespace Project3_HT
             }
             else if (i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
             {
-                AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
-                                                               // --> check if there is space available on reoder buffer
-                                                               // stull, if there is no space available
-                IQueue.Dequeue();
+                if (ReorderBuffer.IsReorderBufFree().Equals(true) && LoadBuffer.LdBuffer.Count() < 5)
+                {
+                    AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
+                                              // --> check if there is space available on reoder buffer
+                                              // stull, if there is no space available
+                    IQueue.Dequeue(); 
+                }
             }
             else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
                                     // --> place it on RO
                                     // --> memory unit
             {
 
-                if (ReorderBuffer.IsReorderBufFree().Equals(true) && LoadBuffer.LdBuffer.Count() < 5)  // check for space of RB
+                if (ReorderBuffer.IsReorderBufFree().Equals(true))  // check for space of RB
                 {
                     AddressUnit.ProcessAU(i); //go to address unit
                     IQueue.Dequeue();

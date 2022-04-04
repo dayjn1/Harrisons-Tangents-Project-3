@@ -18,16 +18,16 @@ namespace Project3_HT
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
-            new FuncUnit("MemoryUnit"),
-            new FuncUnit("FPAdder"),
-            new FuncUnit("FPAdder"),
-            new FuncUnit("FPAdder"),
-            new FuncUnit("FPMultiplier"),
-            new FuncUnit("FPMultiplier"),
-            new FuncUnit("FPMultiplier"),
-            new FuncUnit("IntegerUnit"),
-            new FuncUnit("IntegerUnit"),
-            new FuncUnit("IntegerUnit")
+            new FuncUnit("MemoryUnit", 1),
+            new FuncUnit("FPAdder", 1),  // change needed
+            new FuncUnit("FPAdder", 1),
+            new FuncUnit("FPAdder", 1),
+            new FuncUnit("FPMultiplier", 1),
+            new FuncUnit("FPMultiplier", 1),
+            new FuncUnit("FPMultiplier", 1),
+            new FuncUnit("IntegerUnit", 1),
+            new FuncUnit("IntegerUnit", 1),
+            new FuncUnit("IntegerUnit", 1)
         };
 
         public static int Count {
