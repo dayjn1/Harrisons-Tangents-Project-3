@@ -152,6 +152,7 @@ namespace Project3_HT
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NextButton = new System.Windows.Forms.Button();
+            this.CycleCountLabel = new System.Windows.Forms.Label();
             this.ReorderBufLayout.SuspendLayout();
             this.InstructQueueLayout.SuspendLayout();
             this.RegisterFileLayout.SuspendLayout();
@@ -1069,7 +1070,7 @@ namespace Project3_HT
             this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.31818F));
             this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.68182F));
             this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
-            this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.FPAdderRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.FPAdderRSLayout.Controls.Add(this.FPAddOperand3, 2, 0);
             this.FPAdderRSLayout.Controls.Add(this.FPAddDestReg3, 1, 0);
             this.FPAdderRSLayout.Controls.Add(this.FPAddMnem3, 0, 0);
@@ -1094,7 +1095,7 @@ namespace Project3_HT
             // 
             this.FPAddOperand3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddOperand3.AutoSize = true;
-            this.FPAddOperand3.Location = new System.Drawing.Point(118, 14);
+            this.FPAddOperand3.Location = new System.Drawing.Point(117, 14);
             this.FPAddOperand3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPAddOperand3.Name = "FPAddOperand3";
             this.FPAddOperand3.Size = new System.Drawing.Size(64, 17);
@@ -1105,7 +1106,7 @@ namespace Project3_HT
             // 
             this.FPAddDestReg3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddDestReg3.AutoSize = true;
-            this.FPAddDestReg3.Location = new System.Drawing.Point(54, 6);
+            this.FPAddDestReg3.Location = new System.Drawing.Point(53, 6);
             this.FPAddDestReg3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPAddDestReg3.Name = "FPAddDestReg3";
             this.FPAddDestReg3.Size = new System.Drawing.Size(47, 34);
@@ -1149,7 +1150,7 @@ namespace Project3_HT
             // 
             this.FPAddDestReg1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddDestReg1.AutoSize = true;
-            this.FPAddDestReg1.Location = new System.Drawing.Point(54, 92);
+            this.FPAddDestReg1.Location = new System.Drawing.Point(53, 92);
             this.FPAddDestReg1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPAddDestReg1.Name = "FPAddDestReg1";
             this.FPAddDestReg1.Size = new System.Drawing.Size(47, 23);
@@ -1160,7 +1161,7 @@ namespace Project3_HT
             // 
             this.FPAddDestReg2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddDestReg2.AutoSize = true;
-            this.FPAddDestReg2.Location = new System.Drawing.Point(54, 52);
+            this.FPAddDestReg2.Location = new System.Drawing.Point(53, 52);
             this.FPAddDestReg2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPAddDestReg2.Name = "FPAddDestReg2";
             this.FPAddDestReg2.Size = new System.Drawing.Size(47, 34);
@@ -1171,7 +1172,7 @@ namespace Project3_HT
             // 
             this.FPAddOperand2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddOperand2.AutoSize = true;
-            this.FPAddOperand2.Location = new System.Drawing.Point(118, 60);
+            this.FPAddOperand2.Location = new System.Drawing.Point(117, 60);
             this.FPAddOperand2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPAddOperand2.Name = "FPAddOperand2";
             this.FPAddOperand2.Size = new System.Drawing.Size(64, 17);
@@ -1182,7 +1183,7 @@ namespace Project3_HT
             // 
             this.FPAddOperand1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPAddOperand1.AutoSize = true;
-            this.FPAddOperand1.Location = new System.Drawing.Point(118, 95);
+            this.FPAddOperand1.Location = new System.Drawing.Point(117, 95);
             this.FPAddOperand1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPAddOperand1.Name = "FPAddOperand1";
             this.FPAddOperand1.Size = new System.Drawing.Size(64, 17);
@@ -1191,7 +1192,7 @@ namespace Project3_HT
             // 
             // FPAddOpTwo1
             // 
-            this.FPAddOpTwo1.Location = new System.Drawing.Point(196, 92);
+            this.FPAddOpTwo1.Location = new System.Drawing.Point(195, 92);
             this.FPAddOpTwo1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPAddOpTwo1.Name = "FPAddOpTwo1";
             this.FPAddOpTwo1.Size = new System.Drawing.Size(25, 23);
@@ -1202,7 +1203,7 @@ namespace Project3_HT
             this.FPMultiplierRSLayout.ColumnCount = 3;
             this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.12195F));
             this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.87805F));
-            this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
+            this.FPMultiplierRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
             this.FPMultiplierRSLayout.Controls.Add(this.FPMultOperand3, 2, 0);
             this.FPMultiplierRSLayout.Controls.Add(this.FPMultDestReg3, 1, 0);
             this.FPMultiplierRSLayout.Controls.Add(this.FPMultMnem3, 0, 0);
@@ -1237,7 +1238,7 @@ namespace Project3_HT
             // 
             this.FPMultDestReg3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultDestReg3.AutoSize = true;
-            this.FPMultDestReg3.Location = new System.Drawing.Point(66, 10);
+            this.FPMultDestReg3.Location = new System.Drawing.Point(65, 10);
             this.FPMultDestReg3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPMultDestReg3.Name = "FPMultDestReg3";
             this.FPMultDestReg3.Size = new System.Drawing.Size(63, 17);
@@ -1281,7 +1282,7 @@ namespace Project3_HT
             // 
             this.FPMultDestReg1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultDestReg1.AutoSize = true;
-            this.FPMultDestReg1.Location = new System.Drawing.Point(66, 87);
+            this.FPMultDestReg1.Location = new System.Drawing.Point(65, 87);
             this.FPMultDestReg1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPMultDestReg1.Name = "FPMultDestReg1";
             this.FPMultDestReg1.Size = new System.Drawing.Size(63, 17);
@@ -1292,7 +1293,7 @@ namespace Project3_HT
             // 
             this.FPMultDestReg2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FPMultDestReg2.AutoSize = true;
-            this.FPMultDestReg2.Location = new System.Drawing.Point(66, 48);
+            this.FPMultDestReg2.Location = new System.Drawing.Point(65, 48);
             this.FPMultDestReg2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FPMultDestReg2.Name = "FPMultDestReg2";
             this.FPMultDestReg2.Size = new System.Drawing.Size(63, 17);
@@ -1326,7 +1327,7 @@ namespace Project3_HT
             this.IntegerRSLayout.ColumnCount = 3;
             this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.59406F));
             this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.40594F));
-            this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.IntegerRSLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
             this.IntegerRSLayout.Controls.Add(this.IntegerOperand3, 2, 0);
             this.IntegerRSLayout.Controls.Add(this.IntegerDestReg3, 1, 0);
             this.IntegerRSLayout.Controls.Add(this.IntegerMnem3, 0, 0);
@@ -1581,6 +1582,15 @@ namespace Project3_HT
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
+            // CycleCountLabel
+            // 
+            this.CycleCountLabel.AutoSize = true;
+            this.CycleCountLabel.Location = new System.Drawing.Point(1225, 210);
+            this.CycleCountLabel.Name = "CycleCountLabel";
+            this.CycleCountLabel.Size = new System.Drawing.Size(16, 17);
+            this.CycleCountLabel.TabIndex = 9;
+            this.CycleCountLabel.Text = "0";
+            // 
             // DynamicSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1588,6 +1598,7 @@ namespace Project3_HT
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1339, 783);
+            this.Controls.Add(this.CycleCountLabel);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.LoadBufLayout);
             this.Controls.Add(this.IntegerRSLayout);
@@ -1747,5 +1758,6 @@ namespace Project3_HT
         public System.Windows.Forms.Label ReorderBuf4;
         private System.Windows.Forms.Label FPAddOpTwo1;
         private System.Windows.Forms.Button NextButton;
+        private System.Windows.Forms.Label CycleCountLabel;
     }
 }

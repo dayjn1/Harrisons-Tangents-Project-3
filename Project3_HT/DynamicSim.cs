@@ -19,7 +19,8 @@ namespace Project3_HT
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
         public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
         public static string ProgramType = "Continuous";
-
+        public static int CycleCount = 0;
+        public static int ListCounter = 0;
         public DynamicSim()
         {
             InitializeComponent();
@@ -103,6 +104,8 @@ namespace Project3_HT
         {
             Instruction instr;
             Instruction[] text;
+            CycleCount++;
+            this.CycleCountLabel.Text = CycleCount.ToString();
 
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
@@ -177,6 +180,8 @@ namespace Project3_HT
                 SendToMemUnit();                        // dequeue from the LdBuffer
                 ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
             }
+
+            Update();
                       
         }//end SingleCycle()
 
@@ -186,27 +191,21 @@ namespace Project3_HT
         /// </summary> -- NC
         public void AddInstructionsToIQueue()
         {
-            while (Input_Instructions.Any() && IQueue.Count < 6 && haltNotFound.Equals(true))
+            while ((ListCounter < Input_Instructions.Count) && IQueue.Count < 6 && haltNotFound.Equals(true))
             {
                 int size = Input_Instructions.Count();
                 
-                for (int j = 0; j < size; j++)              // check the size of queue 
+                for (int j = ListCounter; j < size; j++)              // check the size of queue 
                 {
                     if (IQueue.Count() < 6 && Input_Instructions.Any())
                     {
                         AddToIQueue(Input_Instructions[j]);
+                        ListCounter++;
                     }
                 }
                 
                 ChangeInstrQueue(IQueue.ToArray());         //display that are currently on the the queue
 
-                for (int i = IQueue.Count - 1; i >= 0; i--) // remove the incstuction from the list
-                {
-                    if (Input_Instructions.Any())
-                    {
-                        Input_Instructions.RemoveAt(i);
-                    }
-                }
             }
         }
 
