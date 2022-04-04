@@ -114,19 +114,16 @@ namespace Project3_HT
                     if yes, pop and push to the reg file or memory unit, if needed
                     if no, wait - do nothing
             */
-            if (ReorderBuffer.ReorderBuf.Any())
+            instr = ReorderBuffer.RemoveFromReorderBuf();
+            text = ReorderBuffer.GetArray();
+            ChangeReorderBuf(text);
+
+            // pass instr to register file
+            // TODO: Create reg file 
+
+            if (instr != null)
             {
-                instr = ReorderBuffer.RemoveFromReorderBuf();
-                text = ReorderBuffer.GetArray();
-                ChangeReorderBuf(text);
-
-                // pass instr to register file
-                // TODO: Create reg file 
-
-                if (instr != null)
-                {
-                    ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
-                } 
+                ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }
 
 
