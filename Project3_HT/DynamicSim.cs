@@ -145,7 +145,7 @@ namespace Project3_HT
                 ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
             }
                       
-        }
+        }//end SingleCycle()
 
         /// <summary>
         /// As long as there is no HALT instruction, keep adding 
