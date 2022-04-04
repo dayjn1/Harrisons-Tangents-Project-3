@@ -1103,15 +1103,6 @@ namespace Project3_HT
             this.FPAddOperand1.TabIndex = 6;
             this.FPAddOperand1.Text = "Operand";
             // 
-            // FPAddOpTwo1
-            // 
-            this.FPAddOpTwo1.AutoSize = true;
-            this.FPAddOpTwo1.Location = new System.Drawing.Point(138, 66);
-            this.FPAddOpTwo1.Name = "FPAddOpTwo1";
-            this.FPAddOpTwo1.Size = new System.Drawing.Size(19, 19);
-            this.FPAddOpTwo1.TabIndex = 9;
-            this.FPAddOpTwo1.Text = "Operand 2";
-            // 
             // FPMultiplierRSLayout
             // 
             this.FPMultiplierRSLayout.ColumnCount = 3;
@@ -1435,7 +1426,6 @@ namespace Project3_HT
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 

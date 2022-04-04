@@ -1,9 +1,11 @@
 ﻿// ---------------------------------------------------------------------------
 // File name:                   CDBus.cs
-// Project name:                Project 2 - Harrison's Tangents
-// Creator’s name:              Jason Middlebrook
+// Project name:                Project 3 - Harrison's Tangents
+// Developers:                  Jason Middlebrook
 // Course-Section:              CSCI 4717-201
 // Creation Date:               03/28/2022
+// 
+// To do: Only one functional unit can send results over the CDB in a cycle. Need some way of keeping track of this
 // ---------------------------------------------------------------------------
 
 using System;
@@ -22,23 +24,26 @@ namespace Project3_HT
     /// </summary>
     internal static class CDBus
     {
-        public static List<IResStation> resStations { get; set; }
-        public static Instruction currentInstruction;
+        private static int iNextFuncUnit { get; set; }
+        public static Instruction currentInstruction { get; set; }
 
         /// <summary>
         /// Called every cycle:
-        ///     ReceiveResults called externally
-        ///     SendResults
+        /// Check if value on CDB
+        ///     if yes, check res.stations one by one if they need the data (from res stations)
+        ///     before pushing to reorder buf
+        ///     if no, do nothing
         /// </summary>
         public static void Cycle()
         {
+            ReceiveResults();
             SendResults();
+            //After this returns, main simulation should call res stations to get results from CDB
         }
 
-        ///Check if value on CDB
-        ///if yes, check res.stations one by one if they need the data (from res stations)
-        ///before pushing to reorder buf
-        ///if no, do nothing
+        /// <summary>
+        /// Send instruction execution results to the ReorderBuffer
+        /// </summary>
         public static void SendResults()
         {
             if (currentInstruction != null)
@@ -48,20 +53,35 @@ namespace Project3_HT
         }
 
         /// <summary>
-        /// This method will be called when the CDB is given instruction results from functional units.
+        /// The CDB must take results from functional units based on if they're ready and in order.
         /// The goal is to send these results, including the rd info, to res stations and ROB.
         /// </summary>
-        /// <param name="instr">The instruction that is being passed to the CDB</param>
-        public static void ReceiveResults(Instruction instr)
-        {
-            currentInstruction = instr;
-        }//end ReceiveResults(Instruction)
-
-        /// Overload to nullify current instruction
         public static void ReceiveResults()
         {
-            currentInstruction = null;
-        }//end ReceiveResults()
+            for (int i = 0; i < FuncUnits.Count; i++)                       //for length of array
+            {
+                for (int j = iNextFuncUnit; j < FuncUnits.Count;)           //j is where we are in the array
+                {
+                    if (FuncUnits.At(j).Executed)                           //If func unit is ready to send results
+                    {
+                        currentInstruction = FuncUnits.At(j).Instructions.Dequeue();
+
+                        iNextFuncUnit = j+1;                                //Iterates nextFuncUnit to after the one that was ready
+                        return;
+                    }
+
+                    //If j has reached the end of the physical array, circle around to the beginning
+                    if (j == FuncUnits.Count - 1)
+                        j = 0;
+                    else
+                        j++;
+
+                }//end for j
+
+            }//end for i
+            currentInstruction = null;                                      //No results ready
+
+        }//end ReceiveResults(Instruction)
 
     }//end CDBus class
 }
