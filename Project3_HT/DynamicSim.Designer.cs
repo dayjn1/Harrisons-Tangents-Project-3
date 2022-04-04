@@ -1240,7 +1240,6 @@ namespace Project3_HT
             this.IntegerRSLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.IntegerRSLayout.Size = new System.Drawing.Size(160, 85);
             this.IntegerRSLayout.TabIndex = 5;
-            this.IntegerRSLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.IntegerRSLayout_Paint);
             // 
             // IntegerOperand3
             // 
