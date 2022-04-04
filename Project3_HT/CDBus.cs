@@ -62,9 +62,10 @@ namespace Project3_HT
             {
                 for (int j = iNextFuncUnit; j < FuncUnitManager.Count;)           //j is where we are in the array
                 {
-                    if (FuncUnitManager.At(j).Executed)                           //If func unit is ready to send results
+                    if (FuncUnitManager.At(j).Instructions.Count > 0 && FuncUnitManager.At(j).Executed)                           //If func unit is ready to send results
                     {
                         currentInstruction = FuncUnitManager.At(j).Instructions.Dequeue();
+
 
                         iNextFuncUnit = j+1;                                //Iterates nextFuncUnit to after the one that was ready
                         return;

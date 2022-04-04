@@ -18,16 +18,16 @@ namespace Project3_HT
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
-            new FuncUnit("MemoryUnit", 1),
-            new FuncUnit("FPAdder", 1),  // change needed
-            new FuncUnit("FPAdder", 1),
-            new FuncUnit("FPAdder", 1),
-            new FuncUnit("FPMultiplier", 1),
-            new FuncUnit("FPMultiplier", 1),
-            new FuncUnit("FPMultiplier", 1),
-            new FuncUnit("IntegerUnit", 1),
-            new FuncUnit("IntegerUnit", 1),
-            new FuncUnit("IntegerUnit", 1)
+            new FuncUnit("MemoryUnit"),
+            new FuncUnit("FPAdder"),  // change needed
+            new FuncUnit("FPAdder"),
+            new FuncUnit("FPAdder"),
+            new FuncUnit("FPMultiplier"),
+            new FuncUnit("FPMultiplier"),
+            new FuncUnit("FPMultiplier"),
+            new FuncUnit("IntegerUnit"),
+            new FuncUnit("IntegerUnit"),
+            new FuncUnit("IntegerUnit")
         };
 
         public static int Count {
@@ -37,6 +37,24 @@ namespace Project3_HT
         public static FuncUnit At(int index)
         {
             return Units[index];
+        }
+
+        /// <summary>
+        /// Execution takes one cycle for each instruction
+        /// </summary>
+        public static void Cycle(int posInList)
+        {
+            foreach (FuncUnit funcUnit in Units)
+            {
+                if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
+                {
+                    Units[posInList].ExecTime--;
+                    funcUnit.Executed = false;
+
+                }
+                else
+                    funcUnit.Executed = true;
+            }
         }
 
     }
