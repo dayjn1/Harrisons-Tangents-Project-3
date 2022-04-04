@@ -71,6 +71,8 @@ namespace Project3_HT
             Instruction instr;
             Instruction[] text;
 
+            bool FARS1Ready, FARS2Ready, FARS3Ready, FMRS1Ready, FMRS2Ready, FMRS3Ready, IRS1Ready, IRS2Ready, IRS3Ready;
+
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
                 Displaying everything will be tough since labels are non-static, aka can't change from outside the class
@@ -99,15 +101,46 @@ namespace Project3_HT
                 2. Check if value on CDB
                     if yes, check res. stations one by one if they need the data before pushing to reorder buf
                     if no, do nothing
+            */
+            
+            if(CDBus.currentInstruction != null)
+            {
+                FARS1Ready = RSManager.CheckCDB(RSManager.FPAddRS[0]);
+                FARS2Ready = RSManager.CheckCDB(RSManager.FPAddRS[1]);
+                FARS3Ready = RSManager.CheckCDB(RSManager.FPAddRS[2]);
 
+                FMRS1Ready = RSManager.CheckCDB(RSManager.FPMultRS[0]);
+                FMRS2Ready = RSManager.CheckCDB(RSManager.FPMultRS[1]);
+                FMRS3Ready = RSManager.CheckCDB(RSManager.FPMultRS[2]);
+
+                IRS1Ready = RSManager.CheckCDB(RSManager.IntegerRS[0]);
+                IRS2Ready = RSManager.CheckCDB(RSManager.IntegerRS[1]);
+                IRS3Ready = RSManager.CheckCDB(RSManager.IntegerRS[2]);
+
+
+            }
+
+            //TODO: push instruction on CDB to ROB
+            
+            
+            /*
                 3. Check if functional units are finished executing - fpadd, fpmult, int, load memory
                     if yes, push ONLY ONE, set up so that each unit dequeues or checks if dequeue is ready before going back to beg
                     if none are finished, then wait
-
+            */
+            
+            
+            
+            /*
                 4. Check res stations and load buffer
                     if nothing in a given section is in the functional unit executing, queue it
                     if something, wait
-
+            */
+            
+            
+            
+            
+            /*
                 5. Check Instruction Queue
                     'decode' instruction enough to check needed res station/memory and reorder buffer
                     
