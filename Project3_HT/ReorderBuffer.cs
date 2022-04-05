@@ -43,7 +43,7 @@ namespace Project3_HT
         public static void AddToReorderBuf(Instruction i)
         {
             ReorderBuf.Enqueue(i);
-        }
+        }//end AddToReorderBuf
 
         /**
         * Method Name:    IsReorderBufFree()
@@ -61,8 +61,19 @@ namespace Project3_HT
                 return false;
             else
                 return true;
-        }
+        }//end IsReorderBufFree
 
+
+        /**
+        * Method Name:    IsReorderBufFree()
+        * Method Purpose: Determines if there is room in the reorder buffer
+        *
+        * <hr>
+        * Date created: 03/27/2022
+        * @Janine Day
+        * <hr>
+        * @return bool, true if free - false if not
+        */
         public static Instruction RemoveFromReorderBuf()
         {
             if (ReorderBuf.Count > 0)
