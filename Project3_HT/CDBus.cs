@@ -58,27 +58,26 @@ namespace Project3_HT
         /// </summary>
         public static void ReceiveResults()
         {
-            for (int i = 0; i < FuncUnits.Count; i++)                       //for length of array
+            int j = iNextFuncUnit;
+
+            for (; j < FuncUnitManager.Count; j++)           //j is where we are in the array
             {
-                for (int j = iNextFuncUnit; j < FuncUnits.Count;)           //j is where we are in the array
+                if (FuncUnitManager.At(j).Instructions.Count > 0 && FuncUnitManager.At(j).Executed)                           //If func unit is ready to send results
                 {
-                    if (FuncUnits.At(j).Executed)                           //If func unit is ready to send results
-                    {
-                        currentInstruction = FuncUnits.At(j).Instructions.Dequeue();
+                    currentInstruction = FuncUnitManager.At(j).Instructions.Dequeue();
 
-                        iNextFuncUnit = j+1;                                //Iterates nextFuncUnit to after the one that was ready
-                        return;
-                    }
 
-                    //If j has reached the end of the physical array, circle around to the beginning
-                    if (j == FuncUnits.Count - 1)
-                        j = 0;
-                    else
-                        j++;
+                    iNextFuncUnit = j + 1;                                //Iterates nextFuncUnit to after the one that was ready
+                    return;
+                }
 
-                }//end for j
+            }//end for j
 
-            }//end for i
+            //If j has reached the end of the physical array, circle around to the beginning
+
+            if (j == FuncUnitManager.Count - 1)
+                j = 0;
+
             currentInstruction = null;                                      //No results ready
 
         }//end ReceiveResults(Instruction)

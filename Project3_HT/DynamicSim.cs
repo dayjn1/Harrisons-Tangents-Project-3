@@ -53,7 +53,7 @@ namespace Project3_HT
 
                 // add to the instuction queue in the beginning of the program, before the first cycle & display it
                 AddInstructionsToIQueue();
-                    
+                RSManager.PopulateLists();
 
                 /*
                 label8.Text = "Loaded";
@@ -107,6 +107,8 @@ namespace Project3_HT
             CycleCount++;
             this.CycleCountLabel.Text = CycleCount.ToString();
 
+            bool FARS1Ready, FARS2Ready, FARS3Ready, FMRS1Ready, FMRS2Ready, FMRS3Ready, IRS1Ready, IRS2Ready, IRS3Ready;
+
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
                 Displaying everything will be tough since labels are non-static, aka can't change from outside the class
@@ -146,15 +148,48 @@ namespace Project3_HT
                 2. Check if value on CDB
                     if yes, check res. stations one by one if they need the data before pushing to reorder buf
                     if no, do nothing
+            */
 
+            if (CDBus.currentInstruction != null)
+            {
+                FARS1Ready = RSManager.CheckCDB(RSManager.FPAddRS[0]);
+                FARS2Ready = RSManager.CheckCDB(RSManager.FPAddRS[1]);
+                FARS3Ready = RSManager.CheckCDB(RSManager.FPAddRS[2]);
+
+                FMRS1Ready = RSManager.CheckCDB(RSManager.FPMultRS[0]);
+                FMRS2Ready = RSManager.CheckCDB(RSManager.FPMultRS[1]);
+                FMRS3Ready = RSManager.CheckCDB(RSManager.FPMultRS[2]);
+
+                IRS1Ready = RSManager.CheckCDB(RSManager.IntegerRS[0]);
+                IRS2Ready = RSManager.CheckCDB(RSManager.IntegerRS[1]);
+                IRS3Ready = RSManager.CheckCDB(RSManager.IntegerRS[2]);
+
+                //TODO: push instruction on CDB to ROB
+                CDBus.SendResults();
+
+            }
+
+
+
+            /*
                 3. Check if functional units are finished executing - fpadd, fpmult, int, load memory
                     if yes, push ONLY ONE, set up so that each unit dequeues or checks if dequeue is ready before going back to beg
                     if none are finished, then wait
+            */
+            CDBus.ReceiveResults(); //checks in a
 
+
+
+            /*
                 4. Check res stations and load buffer
                     if nothing in a given section is in the functional unit executing, queue it
                     if something, wait
+            */
+            FuncUnitManager.CheckStationsToPushToFuncUnits();
+            FuncUnitManager.ExeCycle();
 
+
+            /*
                 5. Check Instruction Queue
                     'decode' instruction enough to check needed res station/memory and reorder buffer
                     
@@ -162,19 +197,9 @@ namespace Project3_HT
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
             */
-            if (IQueue.Any())
-            {
-                DecueueTheInstruction();                // dequeue the instruction
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
-                ChangeInstrQueue(IQueue.ToArray());
-                // TODO: change the reservation station and RB
-            }
-
-            AddInstructionsToIQueue();                  // add new instructions to the queue          
-            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
 
 
-            
+            //DecueueTheInstruction();
             /*
 
                 Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
@@ -187,12 +212,16 @@ namespace Project3_HT
             */
             // if there is an instuction on the list, try dequeue it
             //TODO: Check for the RS and RB
+            if (IQueue.Any())
+            {
+                DecueueTheInstruction();                // dequeue the instruction
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
+                ChangeInstrQueue(IQueue.ToArray());
+                // TODO: change the reservation station and RB
+            }
 
-
-            // process the CDB
-
-
-
+            AddInstructionsToIQueue();                  // add new instructions to the queue          
+            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
 
             Update();
                       
