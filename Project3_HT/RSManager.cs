@@ -47,7 +47,7 @@ namespace Project3_HT
             rs.empty = false;
             rs.ready = true;
             UpdateStaleFlagsOnReciept(rs);
-            //rs.currentInst = i;
+            rs.currentInst = i;
             rs.mnemonic = i.Mnemonic;
             rs.destR = i.DestReg;
             rs.operand1 = i.Reg1;

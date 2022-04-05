@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,19 +43,59 @@ namespace Project3_HT
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
-        public static void Cycle(int posInList)
+        public static void ExeCycle()
         {
             foreach (FuncUnit funcUnit in Units)
             {
                 if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
                 {
-                    Units[posInList].ExecTime--;
+                    funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
                 }
                 else
                     funcUnit.Executed = true;
             }
+        }
+
+        //step 4 in main sim
+        public static void CheckStationsToPushToFuncUnits()
+        {
+            if (LoadBuffer.LdBuffer.Any())
+            {
+                LoadBuffer.SendToMemUnit();
+            }
+
+            for (int i=0; i < 3; i++) //check for FPAdders
+            {
+                ReservationStation rs = RSManager.FPAddRS[i];
+                if(!rs.empty && rs.ready && Units[i+1].Instructions.Count == 0)
+                {
+                    Units[i + 1].Enqueue(rs.currentInst);
+                    RSManager.ClearRS(rs);
+                }   
+            }
+
+            for (int i = 0; i < 3; i++) //check for FPMults
+            {
+                ReservationStation rs = RSManager.FPMultRS[i];
+                if (!rs.empty && rs.ready && Units[i + 4].Instructions.Count == 0)
+                {
+                    Units[i + 4].Enqueue(rs.currentInst);
+                    RSManager.ClearRS(rs);
+                }
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                ReservationStation rs = RSManager.IntegerRS[i];
+                if (!rs.empty && rs.ready && Units[i + 7].Instructions.Count == 0)
+                {
+                    Units[i + 7].Enqueue(rs.currentInst);
+                    RSManager.ClearRS(rs);
+                }
+            }
+
         }
 
     }

@@ -53,7 +53,7 @@ namespace Project3_HT
 
                 // add to the instuction queue in the beginning of the program, before the first cycle & display it
                 AddInstructionsToIQueue();
-                    
+                RSManager.PopulateLists();
 
                 /*
                 label8.Text = "Loaded";
@@ -165,8 +165,8 @@ namespace Project3_HT
                     if yes, push ONLY ONE, set up so that each unit dequeues or checks if dequeue is ready before going back to beg
                     if none are finished, then wait
             */
+            CDBus.ReceiveResults(); //checks in a
 
-            
 
 
             /*
@@ -174,8 +174,8 @@ namespace Project3_HT
                     if nothing in a given section is in the functional unit executing, queue it
                     if something, wait
             */
-
-
+            FuncUnitManager.CheckStationsToPushToFuncUnits();
+            FuncUnitManager.ExeCycle();
 
 
             /*

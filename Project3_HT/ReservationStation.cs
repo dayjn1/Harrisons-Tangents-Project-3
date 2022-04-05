@@ -10,7 +10,7 @@ namespace Project3_HT
     {
         //attributes
         public bool empty;
-        //public Instruction currentInst;
+        public Instruction currentInst;
         public bool ready;
         public bool waitOnDR;
         public bool waitOnO1;
