@@ -129,6 +129,17 @@ namespace Project3_HT
                 ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }
 
+            if (AddressUnit.AddressUnitQueue.Any())
+            {
+                AddressUnit.ProcessAU();                // send to LB or to pass to RO
+
+            }
+
+            if (LdBuffer.Any())
+            {
+                SendToMemUnit();                        // dequeue from the LdBuffer
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            }
 
             /*
 
@@ -151,9 +162,19 @@ namespace Project3_HT
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
             */
-           
-          
-            //DecueueTheInstruction();
+            if (IQueue.Any())
+            {
+                DecueueTheInstruction();                // dequeue the instruction
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
+                ChangeInstrQueue(IQueue.ToArray());
+                // TODO: change the reservation station and RB
+            }
+
+            AddInstructionsToIQueue();                  // add new instructions to the queue          
+            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
+
+
+            
             /*
 
                 Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
@@ -166,20 +187,12 @@ namespace Project3_HT
             */
             // if there is an instuction on the list, try dequeue it
             //TODO: Check for the RS and RB
-            if (IQueue.Any())
-            {
-                DecueueTheInstruction();                // dequeue the instruction
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
-                // TODO: change the reservation station and RB
-            }
 
-            AddInstructionsToIQueue();                  // add new instructions to the queue          
-            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
-            if (LdBuffer.Any())
-            {
-                SendToMemUnit();                        // dequeue from the LdBuffer
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
-            }
+
+            // process the CDB
+
+
+
 
             Update();
                       

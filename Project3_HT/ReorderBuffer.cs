@@ -42,6 +42,7 @@ namespace Project3_HT
         public static void PassedtoRB(Instruction i)
         {
             Passed.Add(i);
+
         }
 
         public static Instruction[] GetArray()
