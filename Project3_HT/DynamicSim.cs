@@ -139,7 +139,7 @@ namespace Project3_HT
                     if something, wait
             */
             FuncUnitManager.CheckStationsToPushToFuncUnits();
-
+            FuncUnitManager.ExeCycle();
 
 
             /*

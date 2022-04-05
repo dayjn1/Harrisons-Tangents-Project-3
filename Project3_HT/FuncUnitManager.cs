@@ -43,13 +43,13 @@ namespace Project3_HT
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
-        public static void ExeCycle(int posInList)
+        public static void ExeCycle()
         {
             foreach (FuncUnit funcUnit in Units)
             {
                 if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
                 {
-                    Units[posInList].ExecTime--;
+                    funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
                 }
