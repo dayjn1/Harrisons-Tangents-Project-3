@@ -58,28 +58,26 @@ namespace Project3_HT
         /// </summary>
         public static void ReceiveResults()
         {
-            for (int i = 0; i < FuncUnitManager.Count; i++)                       //for length of array
+            int j = iNextFuncUnit;
+
+            for (; j < FuncUnitManager.Count; j++)           //j is where we are in the array
             {
-                for (int j = iNextFuncUnit; j < FuncUnitManager.Count;)           //j is where we are in the array
+                if (FuncUnitManager.At(j).Instructions.Count > 0 && FuncUnitManager.At(j).Executed)                           //If func unit is ready to send results
                 {
-                    if (FuncUnitManager.At(j).Instructions.Count > 0 && FuncUnitManager.At(j).Executed)                           //If func unit is ready to send results
-                    {
-                        currentInstruction = FuncUnitManager.At(j).Instructions.Dequeue();
+                    currentInstruction = FuncUnitManager.At(j).Instructions.Dequeue();
                         
 
-                        iNextFuncUnit = j+1;                                //Iterates nextFuncUnit to after the one that was ready
-                        return;
-                    }
+                    iNextFuncUnit = j+1;                                //Iterates nextFuncUnit to after the one that was ready
+                    return;
+                }
 
-                    //If j has reached the end of the physical array, circle around to the beginning
-                    if (j == FuncUnitManager.Count - 1)
-                        j = 0;
-                    else
-                        j++;
+            }//end for j
 
-                }//end for j
+            //If j has reached the end of the physical array, circle around to the beginning
 
-            }//end for i
+            if (j == FuncUnitManager.Count - 1)
+                    j = 0;
+
             currentInstruction = null;                                      //No results ready
 
         }//end ReceiveResults(Instruction)
