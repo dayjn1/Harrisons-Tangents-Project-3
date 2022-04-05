@@ -71,3 +71,4 @@ C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT
 C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.csproj.CoreCompileInputs.cache
 C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project2_HT.exe
 C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project2_HT.pdb
+C:\Users\janin\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Settings.resources

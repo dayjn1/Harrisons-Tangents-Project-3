@@ -35,7 +35,7 @@ namespace Project3_HT
             }
            
         }
-        
+
         public static void DecueueTheInstruction()
         {
             Instruction i = IQueue.Peek();
@@ -47,10 +47,10 @@ namespace Project3_HT
             {
                 if (ReorderBuffer.IsReorderBufFree().Equals(true) && LoadBuffer.LdBuffer.Count() < 5)
                 {
-                    AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
-                                              // --> check if there is space available on reoder buffer
-                                              // stull, if there is no space available
-                    IQueue.Dequeue(); 
+                    AddressUnit.AddToAddressUnitQueue(i); // go to address unit --> check if there is space available on the LOAD buffer
+                                                          // --> check if there is space available on reoder buffer
+                                                          // stull, if there is no space available
+                    IQueue.Dequeue();
                 }
             }
             else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
@@ -60,28 +60,28 @@ namespace Project3_HT
 
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))  // check for space of RB
                 {
-                    AddressUnit.ProcessAU(i); //go to address unit
+                    AddressUnit.AddToAddressUnitQueue(i); //go to address unit
                     IQueue.Dequeue();
                 }
-                
+
             }
-            else if(i.OpCode >=3 || i.OpCode <= 20) // goes to the intRS 
+            else if (i.OpCode >= 3 || i.OpCode <= 20) // goes to the intRS 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
                 {
                     for (int j = 0; j < RSManager.IntegerRS.Count(); j++)
                     {
-                        if (RSManager.IntegerRS[j].Equals(true))
+                        if (RSManager.IntegerRS[j].empty.Equals(true))
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.IntegerRS[j]);
                             IQueue.Dequeue();
                         }
-                    } 
+                    }
                 }
             }
-            else if(i.OpCode >= 128 ||i.OpCode <= 131) // goes to floating point adder
+            else if (i.OpCode >= 128 || i.OpCode <= 131) // goes to floating point adder
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
@@ -94,28 +94,28 @@ namespace Project3_HT
                             RSManager.PopulateEmptyRS(i, RSManager.FPAddRS[j]);
                             IQueue.Dequeue();
                         }
-                    } 
+                    }
                 }
 
             }
-            else if(i.OpCode == 132 || i.OpCode == 133) // FPMultiplierRS for multiply and divide 
+            else if (i.OpCode == 132 || i.OpCode == 133) // FPMultiplierRS for multiply and divide 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
                 {
                     for (int j = 0; j < RSManager.FPMultRS.Count(); j++)
                     {
-                        if (RSManager.FPMultRS[j].Equals(true))
+                        if (RSManager.FPMultRS[j].empty.Equals(true))
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPMultRS[j]);
                             IQueue.Dequeue();
                         }
-                    } 
+                    }
                 }
-                
+
             }// end of else if
-            
+
         } // end of DequeueTheInstruction
 
 

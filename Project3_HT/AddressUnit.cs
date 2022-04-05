@@ -8,22 +8,34 @@ namespace Project3_HT
 {
     public class AddressUnit
     {
-        public static void ProcessAU(Instruction i)
+        public static Queue<Instruction> AddressUnitQueue = new Queue<Instruction>();
+
+        public static void AddToAddressUnitQueue(Instruction i)
         {
-            
+            int counter = 0;
+            int size = 1;           //size of queue
+            if (counter < size)
+            {
+                //Enqueue
+                AddressUnitQueue.Enqueue(i);
+                counter++;
+            }
+
+        }
+        public static void ProcessAU()
+        {
+            Instruction i = AddressUnitQueue.Peek();
             if (i.OpCode == 1)
             {
                 // check if there is a space on the 
                 LoadBuffer.AddToLoadBuffer(i);
+                AddressUnitQueue.Dequeue();
 
             }
             else
             {
-                // check if there is a space on the reoder buffer.
-                // If it is, place it on the RO
-                // else, stull
-                //send the whole instruction to reorder buffer whenever that gets done.
                 ReorderBuffer.PassedtoRB(i);
+                AddressUnitQueue.Dequeue();
             }
         }
     }
