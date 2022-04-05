@@ -27,10 +27,13 @@ namespace Project3_HT
 
         public static Instruction RemoveFromReorderBuf()
         {
-            Instruction temp = ReorderBuf.Peek();
-            if(Passed.Contains(temp))
+            if (ReorderBuf.Count > 0)
             {
-                return ReorderBuf.Dequeue();
+                Instruction temp = ReorderBuf.Peek();
+                if (Passed.Contains(temp))
+                {
+                    return ReorderBuf.Dequeue();
+                }
             }
 
             return null;
@@ -39,9 +42,8 @@ namespace Project3_HT
         public static void PassedtoRB(Instruction i)
         {
             Passed.Add(i);
+
         }
-
-
 
         public static Instruction[] GetArray()
         {

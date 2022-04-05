@@ -17,12 +17,13 @@ namespace Project3_HT
     public partial class DynamicSim : Form
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        public int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
-        
+        public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
+        public static string ProgramType = "Continuous";
+        public static int CycleCount = 0;
+        public static int ListCounter = 0;
         public DynamicSim()
         {
             InitializeComponent();
-            cycleSpeedNUD.Value = cycleSpeed;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -66,10 +67,45 @@ namespace Project3_HT
                                  
         }
 
+        public static void Reset()
+        {
+
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (ProgramType == "Continuous")
+                ContinuousSim();
+            else
+                SingleCycle();
+        }
+
+        public void ContinuousSim()
+        {
+            bool areWeDone = false;
+            while(areWeDone == false)
+            {
+                SingleCycle();
+                areWeDone = IsFinished();
+            }
+        }
+
+        public bool IsFinished()
+        {
+            if (/* things are empty*/ 1 == 1)
+                return true;
+            else
+                return false;
+            
+
+        }
+
         public void SingleCycle()
         {
             Instruction instr;
             Instruction[] text;
+            CycleCount++;
+            this.CycleCountLabel.Text = CycleCount.ToString();
 
             bool FARS1Ready, FARS2Ready, FARS3Ready, FMRS1Ready, FMRS2Ready, FMRS3Ready, IRS1Ready, IRS2Ready, IRS3Ready;
 
@@ -95,6 +131,17 @@ namespace Project3_HT
                 ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }
 
+            if (AddressUnit.AddressUnitQueue.Any())
+            {
+                AddressUnit.ProcessAU();                // send to LB or to pass to RO
+
+            }
+
+            if (LdBuffer.Any())
+            {
+                SendToMemUnit();                        // dequeue from the LdBuffer
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            }
 
             /*
 
@@ -150,9 +197,19 @@ namespace Project3_HT
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
             */
+            if (IQueue.Any())
+            {
+                DecueueTheInstruction();                // dequeue the instruction
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
+                ChangeInstrQueue(IQueue.ToArray());
+                // TODO: change the reservation station and RB
+            }
+
+            AddInstructionsToIQueue();                  // add new instructions to the queue          
+            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
 
 
-            //DecueueTheInstruction();
+            
             /*
 
                 Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
@@ -165,20 +222,14 @@ namespace Project3_HT
             */
             // if there is an instuction on the list, try dequeue it
             //TODO: Check for the RS and RB
-            if (IQueue.Any())
-            {
-                DecueueTheInstruction();                // dequeue the instruction
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
-                // TODO: change the reservation station and RB
-            }
 
-            AddInstructionsToIQueue();                  // add new instructions to the queue          
-            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
-            if (LdBuffer.Any())
-            {
-                SendToMemUnit();                        // dequeue from the LdBuffer
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
-            }
+
+            // process the CDB
+
+
+
+
+            Update();
                       
         }//end SingleCycle()
 
@@ -188,27 +239,21 @@ namespace Project3_HT
         /// </summary> -- NC
         public void AddInstructionsToIQueue()
         {
-            while (Input_Instructions.Any() && IQueue.Count < 6 && haltNotFound.Equals(true))
+            while ((ListCounter < Input_Instructions.Count) && IQueue.Count < 6 && haltNotFound.Equals(true))
             {
                 int size = Input_Instructions.Count();
                 
-                for (int j = 0; j < size; j++)              // check the size of queue 
+                for (int j = ListCounter; j < size; j++)              // check the size of queue 
                 {
                     if (IQueue.Count() < 6 && Input_Instructions.Any())
                     {
                         AddToIQueue(Input_Instructions[j]);
+                        ListCounter++;
                     }
                 }
                 
                 ChangeInstrQueue(IQueue.ToArray());         //display that are currently on the the queue
 
-                for (int i = IQueue.Count - 1; i >= 0; i--) // remove the incstuction from the list
-                {
-                    if (Input_Instructions.Any())
-                    {
-                        Input_Instructions.RemoveAt(i);
-                    }
-                }
             }
         }
 
@@ -299,10 +344,14 @@ namespace Project3_HT
                 Labels[i].Text = text[i];
             }
         }
-        private void cycleSpeedNUD_ValueChanged(object sender, EventArgs e)
+
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.cycleSpeed = (int)cycleSpeedNUD.Value;
+            Settings settings = new Settings();
+            settings.Show();
         }
 
+        
     }
 }

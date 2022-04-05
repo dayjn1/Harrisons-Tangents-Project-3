@@ -47,7 +47,7 @@ namespace Project3_HT
             {
                 if (ReorderBuffer.IsReorderBufFree().Equals(true) && LoadBuffer.LdBuffer.Count() < 5)
                 {
-                    AddressUnit.ProcessAU(i); // go to address unit --> check if there is space available on the LOAD buffer
+                    AddressUnit.AddToAddressUnitQueue(i); // go to address unit --> check if there is space available on the LOAD buffer
                                               // --> check if there is space available on reoder buffer
                                               // stull, if there is no space available
                     IQueue.Dequeue(); 
@@ -60,7 +60,7 @@ namespace Project3_HT
 
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))  // check for space of RB
                 {
-                    AddressUnit.ProcessAU(i); //go to address unit
+                    AddressUnit.AddToAddressUnitQueue(i); //go to address unit
                     IQueue.Dequeue();
                 }
                 
@@ -72,7 +72,7 @@ namespace Project3_HT
                 {
                     for (int j = 0; j < RSManager.IntegerRS.Count(); j++)
                     {
-                        if (RSManager.IntegerRS[j].Equals(true))
+                        if (RSManager.IntegerRS[j].empty.Equals(true))
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.IntegerRS[j]);
@@ -105,7 +105,7 @@ namespace Project3_HT
                 {
                     for (int j = 0; j < RSManager.FPMultRS.Count(); j++)
                     {
-                        if (RSManager.FPMultRS[j].Equals(true))
+                        if (RSManager.FPMultRS[j].empty.Equals(true))
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPMultRS[j]);
