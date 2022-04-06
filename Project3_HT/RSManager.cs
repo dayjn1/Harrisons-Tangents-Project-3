@@ -52,8 +52,7 @@ namespace Project3_HT
             rs.operand1 = i.Reg1;
             rs.operand2 = i.Reg2;
             rs.lineNumOfInst = i.lineNum;
-            if(rs.destR != null)
-                UpdateStaleFlagsOnReciept(rs);
+            UpdateStaleFlagsOnReciept(rs);
         }
 
         public static void ClearRS(ReservationStation rs)
@@ -80,6 +79,8 @@ namespace Project3_HT
             // if stale registers found, then ready == false
             //  ^ also need to set waitOn flags
             //RegisterFile.RegTicket tempDR = RegisterFile.IsAvail(rs.destR);
+            
+            
             RegisterFile.RegTicket tempO1 = RegisterFile.IsAvail(rs.operand1);
             RegisterFile.RegTicket tempO2 = RegisterFile.IsAvail(rs.operand2);
 

@@ -65,12 +65,11 @@ namespace Project3_HT
                 */
 
             }//end if
-                                 
         }
 
         public static void Reset()
         {
-
+            Application.Restart();
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -86,6 +85,7 @@ namespace Project3_HT
             bool areWeDone = false;
             while(areWeDone == false)
             {
+                // delay by cyclespeed
                 SingleCycle();
                 areWeDone = IsFinished();
             }
@@ -362,6 +362,5 @@ namespace Project3_HT
             Settings settings = new Settings();
             settings.Show();
         }
-
     }
 }
