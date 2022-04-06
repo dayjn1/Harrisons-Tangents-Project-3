@@ -54,6 +54,7 @@ namespace Project3_HT
                                                           // stull, if there is no space available
 
                     ReorderBuffer.AddToReorderBuf(i);
+                    RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                     IQueue.Dequeue();
                 }
             }
@@ -66,6 +67,7 @@ namespace Project3_HT
                 {
                     AddressUnit.AddToAddressUnitQueue(i); //go to address unit
                     ReorderBuffer.AddToReorderBuf(i);
+                    RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                     IQueue.Dequeue();
                 }
 
@@ -81,8 +83,9 @@ namespace Project3_HT
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.IntegerRS[j]);
+                            RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                             IQueue.Dequeue();
-                            populate = false;
+                           populate = false;
                         }
                     }
                 }
@@ -98,6 +101,7 @@ namespace Project3_HT
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPAddRS[j]);
+                            RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                             IQueue.Dequeue();
                             populate = false;
                         }
