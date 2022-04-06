@@ -38,6 +38,8 @@ namespace Project3_HT
 
         public static void DecueueTheInstruction()
         {
+            bool populate = true;
+            
             Instruction i = IQueue.Peek();
             if (i.OpCode == 0) // HALT ---> chnge the bool haltFound to true
             {
@@ -73,11 +75,12 @@ namespace Project3_HT
                 {
                     for (int j = 0; j < RSManager.IntegerRS.Count(); j++)
                     {
-                        if (RSManager.IntegerRS[j].empty.Equals(true))
+                        if (RSManager.IntegerRS[j].empty == true && populate)
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.IntegerRS[j]);
                             IQueue.Dequeue();
+                            populate = false;
                         }
                     }
                 }
@@ -89,11 +92,12 @@ namespace Project3_HT
                 {
                     for (int j = 0; j < RSManager.FPAddRS.Count(); j++)
                     {
-                        if (RSManager.FPAddRS[j].Equals(true))
+                        if (RSManager.FPAddRS[j].empty == true && populate)
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPAddRS[j]);
                             IQueue.Dequeue();
+                            populate = false;
                         }
                     }
                 }
@@ -106,11 +110,12 @@ namespace Project3_HT
                 {
                     for (int j = 0; j < RSManager.FPMultRS.Count(); j++)
                     {
-                        if (RSManager.FPMultRS[j].empty.Equals(true))
+                        if (RSManager.FPMultRS[j].empty.Equals(true) && populate)
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPMultRS[j]);
                             IQueue.Dequeue();
+                            populate = false;
                         }
                     }
                 }
