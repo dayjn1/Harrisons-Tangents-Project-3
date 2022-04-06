@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Project3_HT.InstructionQueue;
 using static Project3_HT.LoadBuffer;
+using static Project3_HT.ReorderBuffer;
 
 namespace Project3_HT
 {
@@ -91,17 +92,21 @@ namespace Project3_HT
             }
         }
 
+        /// <summary>
+        /// If the entire system is empty, end the simulation
+        /// </summary>
+        /// <returns></returns>
         public bool IsFinished()
         {
             if (
-                InstructionQueue.IQueue.Count == 0 &&
-                LoadBuffer.LdBuffer.Count == 0 &&
+                IQueue.Count == 0 &&
+                LdBuffer.Count == 0 &&
                 RSManager.FPMultRS.Count == 0 &&
                 RSManager.IntegerRS.Count == 0 &&
                 RSManager.FPAddRS.Count == 0 &&
                 FuncUnitManager.TotalInstrCount() == 0 &&
                 CDBus.currentInstruction == null &&
-                ReorderBuffer.ReorderBuf.Count == 0
+                ReorderBuf.Count == 0
                 )
                 return true;
             else
