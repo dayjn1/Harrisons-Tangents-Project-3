@@ -93,7 +93,16 @@ namespace Project3_HT
 
         public bool IsFinished()
         {
-            if (/* things are empty*/ 1 == 1)
+            if (
+                InstructionQueue.IQueue.Count == 0 &&
+                LoadBuffer.LdBuffer.Count == 0 &&
+                RSManager.FPMultRS.Count == 0 &&
+                RSManager.IntegerRS.Count == 0 &&
+                RSManager.FPAddRS.Count == 0 &&
+                FuncUnitManager.TotalInstrCount() == 0 &&
+                CDBus.currentInstruction == null &&
+                ReorderBuffer.ReorderBuf.Count == 0
+                )
                 return true;
             else
                 return false;
