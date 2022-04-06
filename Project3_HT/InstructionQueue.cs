@@ -35,9 +35,11 @@ namespace Project3_HT
             }
            
         }
-        
+
         public static void DecueueTheInstruction()
         {
+            bool populate = true;
+            
             Instruction i = IQueue.Peek();
             if (i.OpCode == 0) // HALT ---> chnge the bool haltFound to true
             {
@@ -48,9 +50,11 @@ namespace Project3_HT
                 if (ReorderBuffer.IsReorderBufFree().Equals(true) && LoadBuffer.LdBuffer.Count() < 5)
                 {
                     AddressUnit.AddToAddressUnitQueue(i); // go to address unit --> check if there is space available on the LOAD buffer
-                                              // --> check if there is space available on reoder buffer
-                                              // stull, if there is no space available
-                    IQueue.Dequeue(); 
+                                                          // --> check if there is space available on reoder buffer
+                                                          // stull, if there is no space available
+
+                    ReorderBuffer.AddToReorderBuf(i);
+                    IQueue.Dequeue();
                 }
             }
             else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
@@ -61,61 +65,65 @@ namespace Project3_HT
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))  // check for space of RB
                 {
                     AddressUnit.AddToAddressUnitQueue(i); //go to address unit
+                    ReorderBuffer.AddToReorderBuf(i);
                     IQueue.Dequeue();
                 }
-                
+
             }
-            else if(i.OpCode >=3 || i.OpCode <= 20) // goes to the intRS 
+            else if (i.OpCode >= 3 || i.OpCode <= 20) // goes to the intRS 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
                 {
                     for (int j = 0; j < RSManager.IntegerRS.Count(); j++)
                     {
-                        if (RSManager.IntegerRS[j].empty.Equals(true))
+                        if (RSManager.IntegerRS[j].empty == true && populate)
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.IntegerRS[j]);
                             IQueue.Dequeue();
+                            populate = false;
                         }
-                    } 
+                    }
                 }
             }
-            else if(i.OpCode >= 128 ||i.OpCode <= 131) // goes to floating point adder
+            else if (i.OpCode >= 128 || i.OpCode <= 131) // goes to floating point adder
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
                 {
                     for (int j = 0; j < RSManager.FPAddRS.Count(); j++)
                     {
-                        if (RSManager.FPAddRS[j].Equals(true))
+                        if (RSManager.FPAddRS[j].empty == true && populate)
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPAddRS[j]);
                             IQueue.Dequeue();
+                            populate = false;
                         }
-                    } 
+                    }
                 }
 
             }
-            else if(i.OpCode == 132 || i.OpCode == 133) // FPMultiplierRS for multiply and divide 
+            else if (i.OpCode == 132 || i.OpCode == 133) // FPMultiplierRS for multiply and divide 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
                 {
                     for (int j = 0; j < RSManager.FPMultRS.Count(); j++)
                     {
-                        if (RSManager.FPMultRS[j].empty.Equals(true))
+                        if (RSManager.FPMultRS[j].empty.Equals(true) && populate)
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPMultRS[j]);
                             IQueue.Dequeue();
+                            populate = false;
                         }
-                    } 
+                    }
                 }
-                
+
             }// end of else if
-            
+
         } // end of DequeueTheInstruction
 
 

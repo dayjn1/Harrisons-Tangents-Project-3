@@ -9,7 +9,7 @@ namespace Project3_HT
     public class AddressUnit
     {
         public static Queue<Instruction> AddressUnitQueue = new Queue<Instruction>();
-       
+
         public static void AddToAddressUnitQueue(Instruction i)
         {
             int counter = 0;
