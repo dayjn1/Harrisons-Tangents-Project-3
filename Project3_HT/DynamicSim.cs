@@ -93,10 +93,25 @@ namespace Project3_HT
 
         public bool IsFinished()
         {
-            if (/* things are empty*/ 1 == 1)
+            bool fin = false; //hannah
+            if ((InstructionQueue.IQueue.Count == 0 || InstructionQueue.haltNotFound == false) &&
+                AddressUnit.AddressUnitQueue.Count == 0 &&
+                RSManager.CheckAllRSEmpty() &&
+                LoadBuffer.LdBuffer.Count == 0 &&
+                FuncUnitManager.checkAllEmpty() &&
+                CDBus.currentInstruction == null &&
+                ReorderBuffer.ReorderBuf.Count == 0)
+            {
+                fin = true;
+            }
+            else
+                fin = false;
+
+            return fin;
+            /*if (/* things are empty* 1 == 1)
                 return true;
             else
-                return false;
+                return false;*/
         }
 
         public void SingleCycle()
