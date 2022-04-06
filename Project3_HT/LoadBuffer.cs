@@ -3,33 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static MemoryUnit;
+
 namespace Project3_HT
 {
-    public class LoadBuffer
+    public static class LoadBuffer
     {
         public static Queue<Instruction> LdBuffer = new Queue<Instruction>();
-      /*  public struct AUTicket
-        {
-            public string Name;
-            public String DestReg;
-            public String SourceReg;
-            public AUTicket(String name,String dr, String sr)
-            {
-                Name = name;
-                DestReg = dr;
-                SourceReg = sr;
-            }
-
-        }*/
+        
         public static void AddToLoadBuffer(Instruction i)
         {
+            int counter = 0;
+            int size = 5;//size of queue
+            if (counter < size)
+            {
+                //Enqueue
+                LdBuffer.Enqueue(i);
+                counter++;
+            }
             //AUTicket myAU = new AUTicket(i.Mnemonic,i.DestReg, i.Reg1);
-            LdBuffer.Enqueue(i);
+             
         }
+        /// <summary>
+        /// Send instruction to the MemUnit and Dequeue it from the Load Buffer
+        /// </summary>
         public static void SendToMemUnit()
         {
-            AddToMemUnit(LdBuffer.Dequeue());
+            if (FuncUnitManager.At(0).Instructions.Count == 0)
+            {
+                FuncUnitManager.At(0).Instructions.Enqueue(LdBuffer.Dequeue());
+            }
+
         }
+
     }
 }

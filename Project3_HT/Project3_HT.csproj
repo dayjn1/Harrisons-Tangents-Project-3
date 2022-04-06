@@ -61,16 +61,20 @@
     <Compile Include="DynamicSim.Designer.cs">
       <DependentUpon>DynamicSim.cs</DependentUpon>
     </Compile>
-    <Compile Include="FPAdderRS.cs" />
-    <Compile Include="FPMultiplierRS.cs" />
     <Compile Include="FuncUnit.cs" />
-    <Compile Include="FuncUnits.cs" />
+    <Compile Include="FuncUnitManager.cs" />
     <Compile Include="InstructionQueue.cs" />
-    <Compile Include="IntegerRS.cs" />
     <Compile Include="LoadBuffer.cs" />
-    <Compile Include="MemoryUnit.cs" />
     <Compile Include="RegisterFile.cs" />
     <Compile Include="ReorderBuffer.cs" />
+    <Compile Include="ReservationStation.cs" />
+    <Compile Include="RSManager.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="StaticSim.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DynamicSim.resx">
       <DependentUpon>DynamicSim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StaticSim.resx">
       <DependentUpon>StaticSim.cs</DependentUpon>

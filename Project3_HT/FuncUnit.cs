@@ -16,38 +16,44 @@ namespace Project3_HT
 {
     internal class FuncUnit
     {
-        public bool Executed { get; private set; }
+        public bool Executed { get; set; }
         public Queue<Instruction> Instructions { get; set; }
         public string Name { get; set; }
+
+        public int ExecTime { get; set; }
 
         public FuncUnit(string name)
         {
             Instructions = new Queue<Instruction>();
             Executed = false;
             Name = name;
+            //ExecTime = execTime;
         }
 
-        /// <summary>
-        /// Execution takes one cycle for each instruction
-        /// </summary>
-        public void Cycle()
+       /* public FuncUnit(string name, Instruction i)
         {
+            Instructions = new Queue<Instruction>();
+            Executed = false;
+            Name = name;
+            ExecTime = CalcExecutionTime(i);
+        }*/
 
-        }
+        
 
         /// <summary>
         /// Send an instruction from reservation station or load buffer into functional unit
         /// </summary>
-        public bool Enqueue(Instruction instr)
+        public void Enqueue(Instruction instr)
         {
             if(Instructions.Count > 0)
             {
                 throw new InvalidOperationException("Functional units can only execute one Instruction per cycle." +
                     "\nPlease Dequeue the instruction or stall execution.");
-                return false;
+                //return false;
             }
             Instructions.Enqueue(instr);
-            return true;
+            ExecTime = CalcExecutionTime(instr);
+            //return true;
         }
 
         /// <summary>
@@ -55,12 +61,18 @@ namespace Project3_HT
         /// </summary>
         public Instruction Dequeue()
         {
+            Executed = false;
             return Instructions.Dequeue();
         }
 
         public override string ToString()
         {
             return Name + ": " + Instructions.Peek().Mnemonic;
+        }
+
+        public int CalcExecutionTime(Instruction inst)
+        {
+            return inst.ExecuteCC;
         }
 
     }
