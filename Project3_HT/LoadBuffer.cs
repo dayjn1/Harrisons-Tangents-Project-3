@@ -28,9 +28,9 @@ namespace Project3_HT
         /// </summary>
         public static void SendToMemUnit()
         {
-            if (FuncUnits.At(0).Instructions.Count == 0)
+            if (FuncUnitManager.At(0).Instructions.Count == 0)
             {
-                FuncUnits.At(0).Instructions.Enqueue(LdBuffer.Dequeue());
+                FuncUnitManager.At(0).Instructions.Enqueue(LdBuffer.Dequeue());
             }
 
         }

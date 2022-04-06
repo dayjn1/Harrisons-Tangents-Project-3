@@ -21,6 +21,7 @@ namespace Project3_HT
         public static string ProgramType = "Continuous";
         public static int CycleCount = 0;
         public static int ListCounter = 0;
+        bool FirstInstruction = true;
         public DynamicSim()
         {
             InitializeComponent();
@@ -53,7 +54,7 @@ namespace Project3_HT
 
                 // add to the instuction queue in the beginning of the program, before the first cycle & display it
                 AddInstructionsToIQueue();
-                    
+                RSManager.PopulateLists();
 
                 /*
                 label8.Text = "Loaded";
@@ -64,12 +65,11 @@ namespace Project3_HT
                 */
 
             }//end if
-                                 
         }
 
         public static void Reset()
         {
-
+            Application.Restart();
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -85,6 +85,7 @@ namespace Project3_HT
             bool areWeDone = false;
             while(areWeDone == false)
             {
+                // delay by cyclespeed
                 SingleCycle();
                 areWeDone = IsFinished();
             }
@@ -96,8 +97,6 @@ namespace Project3_HT
                 return true;
             else
                 return false;
-            
-
         }
 
         public void SingleCycle()
@@ -106,6 +105,8 @@ namespace Project3_HT
             Instruction[] text;
             CycleCount++;
             this.CycleCountLabel.Text = CycleCount.ToString();
+
+            bool FARS1Ready, FARS2Ready, FARS3Ready, FMRS1Ready, FMRS2Ready, FMRS3Ready, IRS1Ready, IRS2Ready, IRS3Ready;
 
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
@@ -146,15 +147,48 @@ namespace Project3_HT
                 2. Check if value on CDB
                     if yes, check res. stations one by one if they need the data before pushing to reorder buf
                     if no, do nothing
+            */
 
+            if (CDBus.currentInstruction != null)
+            {
+                FARS1Ready = RSManager.CheckCDB(RSManager.FPAddRS[0]);
+                FARS2Ready = RSManager.CheckCDB(RSManager.FPAddRS[1]);
+                FARS3Ready = RSManager.CheckCDB(RSManager.FPAddRS[2]);
+
+                FMRS1Ready = RSManager.CheckCDB(RSManager.FPMultRS[0]);
+                FMRS2Ready = RSManager.CheckCDB(RSManager.FPMultRS[1]);
+                FMRS3Ready = RSManager.CheckCDB(RSManager.FPMultRS[2]);
+
+                IRS1Ready = RSManager.CheckCDB(RSManager.IntegerRS[0]);
+                IRS2Ready = RSManager.CheckCDB(RSManager.IntegerRS[1]);
+                IRS3Ready = RSManager.CheckCDB(RSManager.IntegerRS[2]);
+
+                //TODO: push instruction on CDB to ROB
+                CDBus.SendResults();
+
+            }
+
+
+
+            /*
                 3. Check if functional units are finished executing - fpadd, fpmult, int, load memory
                     if yes, push ONLY ONE, set up so that each unit dequeues or checks if dequeue is ready before going back to beg
                     if none are finished, then wait
+            */
+            CDBus.ReceiveResults(); //checks in a
 
+
+
+            /*
                 4. Check res stations and load buffer
                     if nothing in a given section is in the functional unit executing, queue it
                     if something, wait
+            */
+            FuncUnitManager.CheckStationsToPushToFuncUnits();
+            FuncUnitManager.ExeCycle();
 
+
+            /*
                 5. Check Instruction Queue
                     'decode' instruction enough to check needed res station/memory and reorder buffer
                     
@@ -162,19 +196,9 @@ namespace Project3_HT
                     if both are free, dequeue from IQ and enqueue to specified sections
                     if not free, wait
             */
-            if (IQueue.Any())
-            {
-                DecueueTheInstruction();                // dequeue the instruction
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
-                ChangeInstrQueue(IQueue.ToArray());
-                // TODO: change the reservation station and RB
-            }
-
-            AddInstructionsToIQueue();                  // add new instructions to the queue          
-            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
 
 
-            
+            //DecueueTheInstruction();
             /*
 
                 Clock cycle - instead of setting up a loop like before, i think just running a single clock cycle method
@@ -187,12 +211,24 @@ namespace Project3_HT
             */
             // if there is an instuction on the list, try dequeue it
             //TODO: Check for the RS and RB
+            if (IQueue.Any() && FirstInstruction == false)
+            {
+                DecueueTheInstruction();                // dequeue the instruction
+                //ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
+                ChangeInstrQueue(IQueue.ToArray());
+                // TODO: change the reservation station and RB
+                
+            }
 
+            AddInstructionsToIQueue();                  // add new instructions to the queue          
+            ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
 
-            // process the CDB
+            if (FirstInstruction)
+                FirstInstruction = false;
 
-
-
+            UpdateFPAddRS();
+            UpdateFPMultRS();
+            UpdateIntegerRS();
 
             Update();
                       
@@ -278,7 +314,12 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { ReorderBuf1, ReorderBuf2, ReorderBuf3, ReorderBuf4, ReorderBuf5  };
 
-            for(int i = 0; i < array.Length; i++)
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
+            }
+
+            for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
             }
@@ -291,6 +332,11 @@ namespace Project3_HT
               FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data,
               FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
 
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
+            }
+
             for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i];
@@ -299,15 +345,116 @@ namespace Project3_HT
 
         //assume starting with one reservation station for each and one functional unit
         //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something)
-        public void UpdateFPARS(String[] text)
+        public void UpdateFPAddRS()
         {
             List<Label> Labels = new List<Label>()
-            { FPAddMnem1, FPAddDestReg1, FPAddOperand1, FPAddOpTwo1};
-
-            for(int i = 0; i < text.Length; i++)
             {
-                Labels[i].Text = text[i];
+                FPAddMnem1, FPAddDestReg1, FPAddOp1_1, FPAddOp2_1,
+                FPAddMnem2, FPAddDestReg2, FPAddOp1_2, FPAddOp2_2,
+                FPAddMnem3, FPAddDestReg3, FPAddOp1_3, FPAddOp2_3
+            };
+
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
             }
+
+            if (RSManager.FPAddRS[0] != null)
+            {
+                Labels[0].Text = RSManager.FPAddRS[0].mnemonic;
+                Labels[1].Text = RSManager.FPAddRS[0].destR;
+                Labels[2].Text = RSManager.FPAddRS[0].operand1;
+                Labels[3].Text = RSManager.FPAddRS[0].operand2;
+            }
+            if (RSManager.FPAddRS[1] != null)
+            {
+                Labels[4].Text = RSManager.FPAddRS[1].mnemonic;
+                Labels[5].Text = RSManager.FPAddRS[1].destR;
+                Labels[6].Text = RSManager.FPAddRS[1].operand1;
+                Labels[7].Text = RSManager.FPAddRS[1].operand2;
+            }
+            if (RSManager.FPAddRS[2] != null)
+            {
+                Labels[8].Text = RSManager.FPAddRS[2].mnemonic;
+                Labels[9].Text = RSManager.FPAddRS[2].destR;
+                Labels[10].Text = RSManager.FPAddRS[2].operand1;
+                Labels[11].Text = RSManager.FPAddRS[2].operand2;
+            }
+        }
+
+        public void UpdateFPMultRS()
+        {
+            List<Label> Labels = new List<Label>()
+            {
+                FPMultMnem1, FPMultDestReg1, FPMultOp1_1, FPMultOp2_1,
+                FPMultMnem2, FPMultDestReg2, FPMultOp1_2, FPMultOp2_2,
+                FPMultMnem3, FPMultDestReg3, FPMultOp1_3, FPMultOp2_3
+            };
+
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
+            }
+
+            if (RSManager.FPMultRS[0] != null)
+            {
+                Labels[0].Text = RSManager.FPMultRS[0].mnemonic;
+                Labels[1].Text = RSManager.FPMultRS[0].destR;
+                Labels[2].Text = RSManager.FPMultRS[0].operand1;
+                Labels[3].Text = RSManager.FPMultRS[0].operand2;
+            }
+            if (RSManager.FPMultRS[1] != null)
+            {
+                Labels[4].Text = RSManager.FPMultRS[1].mnemonic;
+                Labels[5].Text = RSManager.FPMultRS[1].destR;
+                Labels[6].Text = RSManager.FPMultRS[1].operand1;
+                Labels[7].Text = RSManager.FPMultRS[1].operand2;
+            }
+            if (RSManager.FPMultRS[2] != null)
+            {
+                Labels[8].Text = RSManager.FPMultRS[2].mnemonic;
+                Labels[9].Text = RSManager.FPMultRS[2].destR;
+                Labels[10].Text = RSManager.FPMultRS[2].operand1;
+                Labels[11].Text = RSManager.FPMultRS[2].operand2;
+            }
+        }
+
+        public void UpdateIntegerRS()
+        {
+            List<Label> Labels = new List<Label>()
+            {
+                IntegerMnem1, IntegerDestReg1, IntegerOp1_1, IntegerOp2_1,
+                IntegerMnem2, IntegerDestReg2, IntegerOp1_2, IntegerOp2_2,
+                IntegerMnem3, IntegerDestReg3, IntegerOp1_3, IntegerOp2_3
+            };
+
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
+            }
+
+            if (RSManager.IntegerRS[0] != null)
+            {
+                Labels[0].Text = RSManager.IntegerRS[0].mnemonic;
+                Labels[1].Text = RSManager.IntegerRS[0].destR;
+                Labels[2].Text = RSManager.IntegerRS[0].operand1;
+                Labels[3].Text = RSManager.IntegerRS[0].operand2;
+            }
+            if (RSManager.IntegerRS[1] != null)
+            {
+                Labels[4].Text = RSManager.IntegerRS[1].mnemonic;
+                Labels[5].Text = RSManager.IntegerRS[1].destR;
+                Labels[6].Text = RSManager.IntegerRS[1].operand1;
+                Labels[7].Text = RSManager.IntegerRS[1].operand2;
+            }
+            if (RSManager.IntegerRS[2] != null)
+            {
+                Labels[8].Text = RSManager.IntegerRS[2].mnemonic;
+                Labels[9].Text = RSManager.IntegerRS[2].destR;
+                Labels[10].Text = RSManager.IntegerRS[2].operand1;
+                Labels[11].Text = RSManager.IntegerRS[2].operand2;
+            }
+
         }
 
 
@@ -316,7 +463,5 @@ namespace Project3_HT
             Settings settings = new Settings();
             settings.Show();
         }
-
-        
     }
 }
