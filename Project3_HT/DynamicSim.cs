@@ -21,6 +21,7 @@ namespace Project3_HT
         public static string ProgramType = "Continuous";
         public static int CycleCount = 0;
         public static int ListCounter = 0;
+        bool FirstInstruction = true;
         public DynamicSim()
         {
             InitializeComponent();
@@ -96,8 +97,6 @@ namespace Project3_HT
                 return true;
             else
                 return false;
-            
-
         }
 
         public void SingleCycle()
@@ -212,7 +211,7 @@ namespace Project3_HT
             */
             // if there is an instuction on the list, try dequeue it
             //TODO: Check for the RS and RB
-            if (IQueue.Any())
+            if (IQueue.Any() && FirstInstruction == false)
             {
                 DecueueTheInstruction();                // dequeue the instruction
                 ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
@@ -222,6 +221,9 @@ namespace Project3_HT
 
             AddInstructionsToIQueue();                  // add new instructions to the queue          
             ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
+
+            if (FirstInstruction)
+                FirstInstruction = false;
 
             Update();
                       
@@ -307,7 +309,12 @@ namespace Project3_HT
             List<Label> Labels = new List<Label>()
             { ReorderBuf1, ReorderBuf2, ReorderBuf3, ReorderBuf4, ReorderBuf5  };
 
-            for(int i = 0; i < array.Length; i++)
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
+            }
+
+            for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
             }
@@ -320,6 +327,11 @@ namespace Project3_HT
               FP0_Data, FP1_Data,  FP2_Data,  FP3_Data,  FP4_Data,  FP5_Data,  FP6_Data,  FP7_Data,
               FP8_Data, FP9_Data, FP10_Data, FP11_Data, FP12_Data, FP13_Data, FP14_Data, FP15_Data };
 
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
+            }
+
             for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i];
@@ -331,9 +343,14 @@ namespace Project3_HT
         public void UpdateFPARS(String[] text)
         {
             List<Label> Labels = new List<Label>()
-            { FPAddMnem1, FPAddDestReg1, FPAddOperand1, FPAddOpTwo1};
+            { FPAddMnem1, FPAddDestReg1, FPAddOp1_1, FPAddOp2_1};
 
-            for(int i = 0; i < text.Length; i++)
+            foreach (var label in Labels)               //update the value of the label
+            {
+                label.Text = " ";
+            }
+
+            for (int i = 0; i < text.Length; i++)
             {
                 Labels[i].Text = text[i];
             }
@@ -346,6 +363,5 @@ namespace Project3_HT
             settings.Show();
         }
 
-        
     }
 }

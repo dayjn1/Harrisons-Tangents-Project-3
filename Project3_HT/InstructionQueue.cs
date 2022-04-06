@@ -61,6 +61,7 @@ namespace Project3_HT
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))  // check for space of RB
                 {
                     AddressUnit.AddToAddressUnitQueue(i); //go to address unit
+                    ReorderBuffer.AddToReorderBuf(i);
                     IQueue.Dequeue();
                 }
 
