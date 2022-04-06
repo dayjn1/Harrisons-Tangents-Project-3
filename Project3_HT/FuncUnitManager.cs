@@ -60,8 +60,8 @@ namespace Project3_HT
 
         //step 4 in main sim
         public static void CheckStationsToPushToFuncUnits()
-        {/*
-            if (LoadBuffer.LdBuffer.Any())
+        {
+            /*if (LoadBuffer.LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();
             }*/

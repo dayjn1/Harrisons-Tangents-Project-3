@@ -57,7 +57,7 @@ namespace Project3_HT
         */
         public static bool IsReorderBufFree()
         {
-            if (ReorderBuf.Count > 5)
+            if (ReorderBuf.Count > 4)
                 return false;
             else
                 return true;
@@ -75,17 +75,32 @@ namespace Project3_HT
         * @return bool, true if free - false if not
         */
         public static Instruction RemoveFromReorderBuf()
-        {
+        {           
             if (ReorderBuf.Count > 0)
             {
                 Instruction temp = ReorderBuf.Peek();
                 if (Passed.Contains(temp))
                 {
-                    return ReorderBuf.Dequeue();
+                    if(temp.OpCode == 2)
+                        SendToMemUnit();
+                    else
+                        return ReorderBuf.Dequeue();
                 }
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Send instruction to the MemUnit and Dequeue it from the Load Buffer
+        /// </summary>
+        public static void SendToMemUnit()
+        {
+            if (FuncUnitManager.At(0).Instructions.Count == 0)
+            {
+                FuncUnitManager.At(0).Instructions.Enqueue(ReorderBuf.Dequeue());
+            }
+
         }
 
         public static void PassedtoRB(Instruction i)
