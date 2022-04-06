@@ -116,6 +116,7 @@ namespace Project3_HT
                 ReorderBuffer.ReorderBuf.Count == 0))
             {
                 fin = true;
+                NextButton.Enabled = false;
             }
             else
                 fin = false;
@@ -158,16 +159,17 @@ namespace Project3_HT
                 ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }
 
+
+            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            if (LdBuffer.Any())
+            {
+                SendToMemUnit();                        // dequeue from the LdBuffer
+            }
+
             if (AddressUnit.AddressUnitQueue.Any())
             {
                 AddressUnit.ProcessAU();                // send to LB or to pass to RO
 
-            }
-
-            if (LdBuffer.Any())
-            {
-                SendToMemUnit();                        // dequeue from the LdBuffer
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
             }
 
             /*
