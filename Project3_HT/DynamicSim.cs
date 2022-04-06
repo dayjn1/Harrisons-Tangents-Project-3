@@ -18,7 +18,7 @@ namespace Project3_HT
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
         public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
-        public static string ProgramType = "Step by step";
+        public static string ProgramType = "Continuous";
         public static int CycleCount = 0;
         public static int ListCounter = 0;
         bool FirstInstruction = true;
@@ -101,12 +101,15 @@ namespace Project3_HT
         public bool IsFinished()
         {
             bool fin = false; //hannah
-            if (InstructionQueue.LineNum == Input_Instructions.Count || InstructionQueue.haltNotFound == false) fin = true;
-            if (RSManager.CheckAllRSEmpty()) fin = true;
-            if (LoadBuffer.LdBuffer.Count == 0) fin = true;
-            if (FuncUnitManager.checkAllEmpty()) fin = true;
-            if (CDBus.currentInstruction == null) fin = true;
-            if (ReorderBuffer.ReorderBuf.Count == 0) fin = true;
+            if ((InstructionQueue.IQueue.Count == 0 || InstructionQueue.haltNotFound == false) &&
+                RSManager.CheckAllRSEmpty() &&
+                LoadBuffer.LdBuffer.Count == 0 &&
+                FuncUnitManager.checkAllEmpty() &&
+                CDBus.currentInstruction == null &&
+                ReorderBuffer.ReorderBuf.Count == 0)
+            {
+                fin = true;
+            }
             else
                 fin = false;
 

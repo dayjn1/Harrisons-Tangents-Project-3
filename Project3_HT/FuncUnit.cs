@@ -70,10 +70,7 @@ namespace Project3_HT
             return Instructions.Dequeue();
         }
 
-        public override string ToString()
-        {
-            return Name + ": " + Instructions.Peek().Mnemonic;
-        }
+
 
         public int CalcExecutionTime(Instruction inst)
         {
