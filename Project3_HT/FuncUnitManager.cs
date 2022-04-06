@@ -40,6 +40,25 @@ namespace Project3_HT
             return Units[index];
         }
 
+        public static bool checkAllEmpty()
+        {
+            bool allClear = true;
+
+            for (int f = 0; f < Units.Count; f++)
+            {
+                if (Units[f].Empty)
+                    allClear = true;
+                else
+                {
+                    allClear = false;
+                    break;
+                }
+
+            }
+            return allClear;
+        }
+
+
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>

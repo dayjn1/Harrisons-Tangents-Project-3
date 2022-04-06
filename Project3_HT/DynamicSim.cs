@@ -18,7 +18,7 @@ namespace Project3_HT
     {
         List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
         public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
-        public static string ProgramType = "Continuous";
+        public static string ProgramType = "Step by step";
         public static int CycleCount = 0;
         public static int ListCounter = 0;
         bool FirstInstruction = true;
@@ -77,7 +77,13 @@ namespace Project3_HT
             if (ProgramType == "Continuous")
                 ContinuousSim();
             else
+            {
                 SingleCycle();
+                if (IsFinished())
+                {
+                    NextButton.Enabled = false;
+                }
+            }
         }
 
         public void ContinuousSim()
@@ -86,6 +92,7 @@ namespace Project3_HT
             while(areWeDone == false)
             {
                 // delay by cyclespeed
+                Task.Delay(cycleSpeed).Wait();  //hannah
                 SingleCycle();
                 areWeDone = IsFinished();
             }
@@ -93,10 +100,21 @@ namespace Project3_HT
 
         public bool IsFinished()
         {
-            if (/* things are empty*/ 1 == 1)
+            bool fin = false; //hannah
+            if (InstructionQueue.LineNum == Input_Instructions.Count || InstructionQueue.haltNotFound == false) fin = true;
+            if (RSManager.CheckAllRSEmpty()) fin = true;
+            if (LoadBuffer.LdBuffer.Count == 0) fin = true;
+            if (FuncUnitManager.checkAllEmpty()) fin = true;
+            if (CDBus.currentInstruction == null) fin = true;
+            if (ReorderBuffer.ReorderBuf.Count == 0) fin = true;
+            else
+                fin = false;
+
+            return fin;
+            /*if (/* things are empty* 1 == 1)
                 return true;
             else
-                return false;
+                return false;*/
         }
 
         public void SingleCycle()
@@ -175,7 +193,7 @@ namespace Project3_HT
                     if yes, push ONLY ONE, set up so that each unit dequeues or checks if dequeue is ready before going back to beg
                     if none are finished, then wait
             */
-            CDBus.ReceiveResults(); //checks in a
+            CDBus.ReceiveResults(); 
 
 
 
@@ -214,7 +232,7 @@ namespace Project3_HT
             if (IQueue.Any() && FirstInstruction == false)
             {
                 DecueueTheInstruction();                // dequeue the instruction
-                //ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
+                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
                 ChangeInstrQueue(IQueue.ToArray());
                 // TODO: change the reservation station and RB
                 
