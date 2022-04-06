@@ -65,7 +65,7 @@ namespace Project3_HT
             {
                 if (FuncUnitManager.At(j).Instructions.Count > 0 && FuncUnitManager.At(j).Executed)                           //If func unit is ready to send results
                 {
-                    currentInstruction = FuncUnitManager.At(j).Instructions.Dequeue();
+                    currentInstruction = FuncUnitManager.At(j).Dequeue();
 
 
                     iNextFuncUnit = j + 1;                                //Iterates nextFuncUnit to after the one that was ready

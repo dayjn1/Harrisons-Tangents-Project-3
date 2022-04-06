@@ -118,6 +118,7 @@ namespace Project3_HT
             this.Controls.Add(this.cycleSpeed);
             this.Controls.Add(this.SpeedLabel);
             this.Name = "Settings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cycleSpeed)).EndInit();
