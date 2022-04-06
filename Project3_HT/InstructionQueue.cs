@@ -52,6 +52,8 @@ namespace Project3_HT
                     AddressUnit.AddToAddressUnitQueue(i); // go to address unit --> check if there is space available on the LOAD buffer
                                                           // --> check if there is space available on reoder buffer
                                                           // stull, if there is no space available
+
+                    ReorderBuffer.AddToReorderBuf(i);
                     IQueue.Dequeue();
                 }
             }

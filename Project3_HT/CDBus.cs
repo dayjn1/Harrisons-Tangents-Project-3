@@ -59,8 +59,9 @@ namespace Project3_HT
         public static void ReceiveResults()
         {
             int j = iNextFuncUnit;
+            int Count = FuncUnitManager.Count;
 
-            for (; j < FuncUnitManager.Count; j++)           //j is where we are in the array
+            for (int i = 0; i < Count; i++)           //j is where we are in the array
             {
                 if (FuncUnitManager.At(j).Instructions.Count > 0 && FuncUnitManager.At(j).Executed)                           //If func unit is ready to send results
                 {
@@ -71,16 +72,21 @@ namespace Project3_HT
                     return;
                 }
 
+                j++;
+
+                if (j == Count)
+                    j = 0;
+
             }//end for j
 
             //If j has reached the end of the physical array, circle around to the beginning
 
-            if (j == FuncUnitManager.Count - 1)
-                j = 0;
+           
 
             currentInstruction = null;                                      //No results ready
 
         }//end ReceiveResults(Instruction)
+
 
     }//end CDBus class
 }

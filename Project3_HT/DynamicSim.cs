@@ -214,7 +214,7 @@ namespace Project3_HT
             if (IQueue.Any() && FirstInstruction == false)
             {
                 DecueueTheInstruction();                // dequeue the instruction
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
+                //ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions in LB
                 ChangeInstrQueue(IQueue.ToArray());
                 // TODO: change the reservation station and RB
             }

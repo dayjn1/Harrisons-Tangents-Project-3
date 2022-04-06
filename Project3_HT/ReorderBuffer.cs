@@ -57,7 +57,7 @@ namespace Project3_HT
         */
         public static bool IsReorderBufFree()
         {
-            if (ReorderBuf.Count > 5)
+            if (ReorderBuf.Count > 4)
                 return false;
             else
                 return true;

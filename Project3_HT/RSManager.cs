@@ -52,7 +52,8 @@ namespace Project3_HT
             rs.operand1 = i.Reg1;
             rs.operand2 = i.Reg2;
             rs.lineNumOfInst = i.lineNum;
-            UpdateStaleFlagsOnReciept(rs);
+            if(rs.destR != null)
+                UpdateStaleFlagsOnReciept(rs);
         }
 
         public static void ClearRS(ReservationStation rs)
