@@ -102,6 +102,7 @@ namespace Project3_HT
         {
             bool fin = false; //hannah
             if ((InstructionQueue.IQueue.Count == 0 || InstructionQueue.haltNotFound == false) &&
+                AddressUnit.AddressUnitQueue.Count == 0 &&
                 RSManager.CheckAllRSEmpty() &&
                 LoadBuffer.LdBuffer.Count == 0 &&
                 FuncUnitManager.checkAllEmpty() &&
