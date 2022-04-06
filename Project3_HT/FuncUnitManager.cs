@@ -60,11 +60,11 @@ namespace Project3_HT
 
         //step 4 in main sim
         public static void CheckStationsToPushToFuncUnits()
-        {
+        {/*
             if (LoadBuffer.LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();
-            }
+            }*/
 
             for (int i=0; i < 3; i++) //check for FPAdders
             {
