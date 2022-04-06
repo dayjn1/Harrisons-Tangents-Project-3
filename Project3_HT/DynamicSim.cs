@@ -77,15 +77,23 @@ namespace Project3_HT
             if (ProgramType == "Continuous")
                 ContinuousSim();
             else
+            {
                 SingleCycle();
+                if (IsFinished())
+                {
+                    NextButton.Enabled = false;
+                }
+            }
         }
+
 
         public void ContinuousSim()
         {
             bool areWeDone = false;
-            while(areWeDone == false)
+            while (areWeDone == false)
             {
                 // delay by cyclespeed
+                Task.Delay(cycleSpeed).Wait();  //hannah
                 SingleCycle();
                 areWeDone = IsFinished();
             }
