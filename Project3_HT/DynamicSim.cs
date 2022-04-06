@@ -22,6 +22,8 @@ namespace Project3_HT
         public static int CycleCount = 0;
         public static int ListCounter = 0;
         bool FirstInstruction = true;
+        bool invalid = false;
+
         public DynamicSim()
         {
             InitializeComponent();
@@ -102,13 +104,16 @@ namespace Project3_HT
         public bool IsFinished()
         {
             bool fin = false; //hannah
-            if ((InstructionQueue.IQueue.Count == 0 || InstructionQueue.haltNotFound == false) &&
+
+
+
+            if (invalid || ((InstructionQueue.IQueue.Count == 0 || InstructionQueue.haltNotFound == false) &&
                 AddressUnit.AddressUnitQueue.Count == 0 &&
                 RSManager.CheckAllRSEmpty() &&
                 LoadBuffer.LdBuffer.Count == 0 &&
                 FuncUnitManager.checkAllEmpty() &&
                 CDBus.currentInstruction == null &&
-                ReorderBuffer.ReorderBuf.Count == 0)
+                ReorderBuffer.ReorderBuf.Count == 0))
             {
                 fin = true;
             }
@@ -302,8 +307,10 @@ namespace Project3_HT
                 if (array[i].OpCode == 404)
                 {
                     MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.", "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    Application.Restart();
-
+                    invalid = true;
+                    Close();
+                    Reset();
+                    break;
                 }
                 if(array[i].OpCode == 0)                // do not add any values after halt
                 {
