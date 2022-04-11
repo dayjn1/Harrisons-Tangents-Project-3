@@ -72,7 +72,7 @@ namespace Project3_HT
                 }
 
             }
-            else if (i.OpCode >= 3 || i.OpCode <= 20) // goes to the intRS 
+            else if (i.OpCode >= 3 && i.OpCode <= 20) // goes to the intRS 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
@@ -90,7 +90,7 @@ namespace Project3_HT
                     }
                 }
             }
-            else if (i.OpCode >= 128 || i.OpCode <= 131) // goes to floating point adder
+            else if (i.OpCode >= 128 && i.OpCode <= 131) // goes to floating point adder
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
