@@ -16,6 +16,7 @@ namespace Project3_HT
             int size = 1;           //size of queue
             if (counter < size)
             {
+                //i.Address = i.Reg1 + i.Imm;
                 //Enqueue
                 AddressUnitQueue.Enqueue(i);
                 counter++;

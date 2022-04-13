@@ -34,6 +34,8 @@ namespace Project3_HT
         bool FirstInstruction = true;
         bool invalid = false;
 
+        public static uint[] Memory = new uint[2 ^ 20];
+
         public DynamicSim()
         {
             InitializeComponent();

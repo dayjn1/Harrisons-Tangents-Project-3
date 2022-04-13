@@ -45,7 +45,7 @@ namespace Project3_HT
             {
                 haltNotFound = false;
             }
-            else if (i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
+            else if (i.OpCode == 1 || i.OpCode == 3) // LOAD -- send it to the address unit --> LOAD buffer
             {
                 if (ReorderBuffer.IsReorderBufFree().Equals(true) && LoadBuffer.LdBuffer.Count() < 5)
                 {
@@ -58,7 +58,7 @@ namespace Project3_HT
                     IQueue.Dequeue();
                 }
             }
-            else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
+            else if (i.OpCode == 2 || i.OpCode == 4) // STORE -- send it to the address unit --> (check if there is space available on RO)
                                     // --> place it on RO
                                     // --> memory unit
             {
@@ -72,7 +72,7 @@ namespace Project3_HT
                 }
 
             }
-            else if (i.OpCode >= 3 && i.OpCode <= 20) // goes to the intRS 
+            else if (i.OpCode >= 5 && i.OpCode <= 22) // goes to the intRS 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))

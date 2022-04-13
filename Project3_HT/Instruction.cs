@@ -27,41 +27,36 @@ namespace Project3_HT
     public class Instruction
     {
         public string Mnemonic;
-        public uint OpCode;
-        public string DestReg;
-        public string Reg1;
-        public string Reg2;
-        public string Imm;
-        public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC;
-        public bool writeBack;
-        public bool useRD;
-        public bool useR1;
-        public bool useR2;
-        public bool useImm;
-        public int lineNum;
+        public uint OpCode, Address;
+        public string DestReg, Reg1, Reg2, Imm;
+        public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC, lineNum;
+        public bool writeBack, useRD, useR1, useR2, useImm;
+
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0, false, false, false, false, false),
             new Instruction(1, "LOAD", 1, 1, 1, 3, 1, true, true, true, false, false),
             new Instruction(2, "STOR", 1, 1, 1, 3, 0, false, true, true, false, false),
-            new Instruction(3, "ADD", 1, 1, 1, 0, 1, true, true, true, true, false),
-            new Instruction(4, "ADDI", 1, 1, 1, 0, 1, true, true, true, false, true),
-            new Instruction(5, "SUB", 1, 1, 1, 0, 1, true, true, true, true, false),
-            new Instruction(6, "SUBI", 1, 1, 1, 0, 1, true, true, true, false, true),
-            new Instruction(7, "BR", 1, 1, 1, 0, 0,  false, true, false, false, false),
-            new Instruction(8, "BRLT", 1, 1, 1, 0, 0, false, true, false, false, false),
-            new Instruction(9, "BRLE", 1, 1, 1, 0, 0, false, true, false, false, false),
-            new Instruction(10, "BREQ", 1, 1, 1, 0, 0, false, true, false, false, false),
-            new Instruction(11, "BRNE", 1, 1, 1, 0, 0, false, true, false, false, false),
-            new Instruction(12, "BRGT", 1, 1, 1, 0, 0, false, true, false, false, false),
-            new Instruction(13, "BRGE", 1, 1, 1, 0, 0, false, true, false, false, false),
-            new Instruction(14, "AND", 1, 1, 1, 0, 1, true, true, true, true, false),
-            new Instruction(15, "OR", 1, 1, 1, 0, 1,  true, true, true, true, false),
-            new Instruction(16, "NOT", 1, 1, 1, 0, 1, true, true, false, false, false),
-            new Instruction(17, "NEG", 1, 1, 1, 0, 1, true, true, false, false, false),
-            new Instruction(18, "ASL", 1, 1, 1, 0, 1, true, true, true, true, false),               //R1 operand to be shifted, R2 shift value -JM
-            new Instruction(19, "ASR", 1, 1, 1, 0, 1, true, true, true, true, false),
-            new Instruction(20, "MOV", 1, 1, 1, 0, 1, true, true, true, false, false),
+            new Instruction(3, "LOADI", 1, 1, 1, 3, 1, true, true, false, false, true),
+            new Instruction(4, "STORI", 1, 1, 1, 3, 0, false, true, false, false, true),
+            new Instruction(5, "ADD", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(6, "ADDI", 1, 1, 1, 0, 1, true, true, true, false, true),
+            new Instruction(7, "SUB", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(8, "SUBI", 1, 1, 1, 0, 1, true, true, true, false, true),
+            new Instruction(9, "BR", 1, 1, 1, 0, 0,  false, true, false, false, false),
+            new Instruction(10, "BRLT", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(11, "BRLE", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(12, "BREQ", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(13, "BRNE", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(14, "BRGT", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(15, "BRGE", 1, 1, 1, 0, 0, false, true, false, false, false),
+            new Instruction(16, "AND", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(17, "OR", 1, 1, 1, 0, 1,  true, true, true, true, false),
+            new Instruction(18, "NOT", 1, 1, 1, 0, 1, true, true, false, false, false),
+            new Instruction(19, "NEG", 1, 1, 1, 0, 1, true, true, false, false, false),
+            new Instruction(20, "ASL", 1, 1, 1, 0, 1, true, true, true, true, false),               //R1 operand to be shifted, R2 shift value -JM
+            new Instruction(21, "ASR", 1, 1, 1, 0, 1, true, true, true, true, false),
+            new Instruction(22, "MOV", 1, 1, 1, 0, 1, true, true, true, false, false),
             new Instruction(128, "FADD", 1, 1, 2, 0, 1, true, true, true, true, false),
             new Instruction(129, "FADDI", 1, 1, 2, 0, 1, true, true, true, false, true),
             new Instruction(130, "FSUB", 1, 1, 2, 0, 1, true, true, true, true, false),
