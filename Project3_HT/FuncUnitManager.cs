@@ -19,7 +19,7 @@ namespace Project3_HT
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
-            new FuncUnit("MemoryUnit"),
+            new MemUnit("MemoryUnit"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
@@ -38,6 +38,24 @@ namespace Project3_HT
         public static FuncUnit At(int index)
         {
             return Units[index];
+        }
+
+        public static bool checkAllEmpty()
+        {
+            bool allClear = true;
+
+            for (int f = 0; f < Units.Count; f++)
+            {
+                if (Units[f].Empty)
+                    allClear = true;
+                else
+                {
+                    allClear = false;
+                    break;
+                }
+
+            }
+            return allClear;
         }
 
         /// <summary>

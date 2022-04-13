@@ -85,11 +85,11 @@ namespace Project3_HT
                         SendToMemUnit();
                     else
                         return ReorderBuf.Dequeue();
-                }
-            }
+                }//end if
+            }//end if
 
             return null;
-        }
+        }//end RemoveFromReorderBuf()
 
         /// <summary>
         /// Send instruction to the MemUnit and Dequeue it from the Load Buffer
@@ -99,19 +99,37 @@ namespace Project3_HT
             if (FuncUnitManager.At(0).Instructions.Count == 0)
             {
                 FuncUnitManager.At(0).Instructions.Enqueue(ReorderBuf.Dequeue());
-            }
+            }//end if
+        }//end SendToMemUnit()
 
-        }
-
+        /**
+        * Method Name:    PassedtoRB(Instruction)
+        * Method Purpose: Adds instruction to Passed list, used for dequeue purposes
+        *
+        * <hr>
+        * Date created: 03/27/2022
+        * @Janine Day
+        * <hr>
+        * @param Instruction
+        */
         public static void PassedtoRB(Instruction i)
         {
             Passed.Add(i);
-        }
+        }//end PassedtoRB(Instruction)
 
+        /**
+        * Method Name:    GetArray()
+        * Method Purpose: Converts ReorderBuf to an array, used for visuals
+        *
+        * <hr>
+        * Date created: 03/27/2022
+        * @Janine Day
+        * <hr>
+        * @return Instruction[]
+        */
         public static Instruction[] GetArray()
         {
             return ReorderBuf.ToArray();
-        }
-
-    }
-}
+        }//end GetArray()
+    }//end ReorderBuffer
+}//end Project3_HT

@@ -54,6 +54,7 @@ namespace Project3_HT
                                                           // stull, if there is no space available
 
                     ReorderBuffer.AddToReorderBuf(i);
+                    RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                     IQueue.Dequeue();
                 }
             }
@@ -66,11 +67,12 @@ namespace Project3_HT
                 {
                     AddressUnit.AddToAddressUnitQueue(i); //go to address unit
                     ReorderBuffer.AddToReorderBuf(i);
+                    RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                     IQueue.Dequeue();
                 }
 
             }
-            else if (i.OpCode >= 3 || i.OpCode <= 20) // goes to the intRS 
+            else if (i.OpCode >= 3 && i.OpCode <= 20) // goes to the intRS 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
@@ -81,13 +83,14 @@ namespace Project3_HT
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.IntegerRS[j]);
+                            RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                             IQueue.Dequeue();
-                            populate = false;
+                           populate = false;
                         }
                     }
                 }
             }
-            else if (i.OpCode >= 128 || i.OpCode <= 131) // goes to floating point adder
+            else if (i.OpCode >= 128 && i.OpCode <= 131) // goes to floating point adder
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
@@ -98,6 +101,7 @@ namespace Project3_HT
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPAddRS[j]);
+                            RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                             IQueue.Dequeue();
                             populate = false;
                         }

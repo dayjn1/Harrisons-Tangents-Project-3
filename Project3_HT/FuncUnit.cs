@@ -17,6 +17,7 @@ namespace Project3_HT
     internal class FuncUnit
     {
         public bool Executed { get; set; }
+        public bool Empty;
         public Queue<Instruction> Instructions { get; set; }
         public string Name { get; set; }
 
@@ -27,18 +28,8 @@ namespace Project3_HT
             Instructions = new Queue<Instruction>();
             Executed = false;
             Name = name;
-            //ExecTime = execTime;
-        }
-
-       /* public FuncUnit(string name, Instruction i)
-        {
-            Instructions = new Queue<Instruction>();
-            Executed = false;
-            Name = name;
-            ExecTime = CalcExecutionTime(i);
-        }*/
-
-        
+            Empty = true;
+        }        
 
         /// <summary>
         /// Send an instruction from reservation station or load buffer into functional unit
@@ -53,6 +44,7 @@ namespace Project3_HT
             }
             Instructions.Enqueue(instr);
             ExecTime = CalcExecutionTime(instr);
+            Empty = false;
             //return true;
         }
 
@@ -62,6 +54,7 @@ namespace Project3_HT
         public Instruction Dequeue()
         {
             Executed = false;
+            Empty = true;
             return Instructions.Dequeue();
         }
 
