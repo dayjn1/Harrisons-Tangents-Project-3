@@ -1,12 +1,12 @@
-﻿// ---------------------------------------------------------------------------
+﻿// -------------------------------------------------------------------------------
 // File name:                   DynamicSim.cs
 // Project name:                Project 3 - Harrison's Tangents
-// ---------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 // Edited By:                   Nataliya Chibizova, Janine Day, Jason Middlebrook,
 //                              Avery Marlow, Hannah Taylor
 // Course-Section:              CSCI-4717
 // Creation Date:               03/27/2022
-// ---------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -26,15 +26,12 @@ namespace Project3_HT
 {
     public partial class DynamicSim : Form
     {
-        List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
+        public static List<Instruction> Input_Instructions = new List<Instruction>();
+        public static List<int> Actual_Input = new List<int>();
+        public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0, ProgramCounter = 0;                                            
         public static string ProgramType = "Continuous";
-        public static int CycleCount = 0;
-        public static int ListCounter = 0;
-        bool FirstInstruction = true;
-        bool invalid = false;
-
         public static uint[] Memory = new uint[2 ^ 20];
+        bool FirstInstruction = true, invalid = false;        
 
         public DynamicSim()
         {
@@ -59,7 +56,7 @@ namespace Project3_HT
                     if (valid)
                     {
                         Input_Instructions.Add(new Instruction(input));         // Creates instructions and adds them to list -JND
-                        //Save_Stats.Add(new Instruction(input));
+                        Actual_Input.Add(input);
                     }
                     else
                         Console.WriteLine("Invalid parse");

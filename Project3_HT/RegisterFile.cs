@@ -28,14 +28,14 @@ namespace Project3_HT
         public static string[] RegInfo = new string[32];
         public static RegTicket[] RegAvail =
         {
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1),
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1),
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1),
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), 
-            new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1), new RegTicket(true, -1)
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0)
         };
 
         /**
@@ -50,13 +50,15 @@ namespace Project3_HT
         */
         public struct RegTicket
         {
-             public bool Avail;
-             public int LineNum;
-             public RegTicket(bool Avail, int LineNum)
-             {
-                 this.Avail = Avail;
-                 this.LineNum = LineNum;
-             }//end RegTicket(bool, int)
+            public bool Avail;
+            public int LineNum;
+            public uint Data;
+            public RegTicket(bool Avail, int LineNum, uint Data)
+            {
+                this.Avail = Avail;
+                this.LineNum = LineNum;
+                this.Data = Data;
+            }//end RegTicket(bool, int)
         }//end RegTicket
 
 
@@ -147,7 +149,7 @@ namespace Project3_HT
                 }//end else
             }//end if
 
-            return new RegTicket(true, -1);
+            return new RegTicket(true, -1, 0);
             
         }//end IsAvail(string)
     }//end RegisterFile
