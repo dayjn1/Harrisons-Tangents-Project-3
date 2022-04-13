@@ -29,18 +29,7 @@ namespace Project3_HT
             Executed = false;
             Name = name;
             Empty = true;
-            //ExecTime = execTime;
-        }
-
-       /* public FuncUnit(string name, Instruction i)
-        {
-            Instructions = new Queue<Instruction>();
-            Executed = false;
-            Name = name;
-            ExecTime = CalcExecutionTime(i);
-        }*/
-
-        
+        }        
 
         /// <summary>
         /// Send an instruction from reservation station or load buffer into functional unit

@@ -19,7 +19,7 @@ namespace Project3_HT
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
-            new FuncUnit("MemoryUnit"),
+            new MemUnit("MemoryUnit"),
             new FuncUnit("FPAdder"),  // change needed
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
