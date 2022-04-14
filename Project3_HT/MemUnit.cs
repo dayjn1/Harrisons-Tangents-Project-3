@@ -12,12 +12,5 @@ namespace Project3_HT
         {
         }
 
-        public void ProgramPopulate()
-        {
-            //DynamicSim.Actual_Input
-
-
-        }
-
     }
 }

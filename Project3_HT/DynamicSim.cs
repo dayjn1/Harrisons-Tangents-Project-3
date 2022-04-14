@@ -28,9 +28,8 @@ namespace Project3_HT
     {
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static List<int> Actual_Input = new List<int>();
-        public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0, ProgramCounter = 0;                                            
+        public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
-        public static uint[] Memory = new uint[2 ^ 20];
         bool FirstInstruction = true, invalid = false;        
 
         public DynamicSim()
@@ -66,14 +65,6 @@ namespace Project3_HT
                 // add to the instuction queue in the beginning of the program, before the first cycle & display it
                 AddInstructionsToIQueue();
                 RSManager.PopulateLists();
-
-                /*
-                label8.Text = "Loaded";
-                cycleCount = 0;
-                dataHazardCount = 0;
-                cycleLabel.Text = cycleCount.ToString();
-                DHLabel.Text = dataHazardCount.ToString();
-                */
 
             }//end if
         }

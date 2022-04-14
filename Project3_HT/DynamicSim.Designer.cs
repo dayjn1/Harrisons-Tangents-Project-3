@@ -160,8 +160,8 @@ namespace Project3_HT
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NextButton = new System.Windows.Forms.Button();
             this.CycleCountLabel = new System.Windows.Forms.Label();
-            this.ProgramCounter = new System.Windows.Forms.Label();
             this.PCValue = new System.Windows.Forms.Label();
+            this.PCLabel = new System.Windows.Forms.Label();
             this.ReorderBufLayout.SuspendLayout();
             this.InstructQueueLayout.SuspendLayout();
             this.RegisterFileLayout.SuspendLayout();
@@ -1683,15 +1683,6 @@ namespace Project3_HT
             this.CycleCountLabel.TabIndex = 9;
             this.CycleCountLabel.Text = "0";
             // 
-            // ProgramCounter
-            // 
-            this.ProgramCounter.AutoSize = true;
-            this.ProgramCounter.Location = new System.Drawing.Point(753, 20);
-            this.ProgramCounter.Name = "ProgramCounter";
-            this.ProgramCounter.Size = new System.Drawing.Size(120, 17);
-            this.ProgramCounter.TabIndex = 10;
-            this.ProgramCounter.Text = "Program Counter:";
-            // 
             // PCValue
             // 
             this.PCValue.AutoSize = true;
@@ -1701,6 +1692,15 @@ namespace Project3_HT
             this.PCValue.TabIndex = 11;
             this.PCValue.Text = "0";
             // 
+            // PCLabel
+            // 
+            this.PCLabel.AutoSize = true;
+            this.PCLabel.Location = new System.Drawing.Point(760, 20);
+            this.PCLabel.Name = "PCLabel";
+            this.PCLabel.Size = new System.Drawing.Size(120, 17);
+            this.PCLabel.TabIndex = 12;
+            this.PCLabel.Text = "Program Counter:";
+            // 
             // DynamicSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1709,8 +1709,8 @@ namespace Project3_HT
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1240, 783);
+            this.Controls.Add(this.PCLabel);
             this.Controls.Add(this.PCValue);
-            this.Controls.Add(this.ProgramCounter);
             this.Controls.Add(this.CycleCountLabel);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.LoadBufLayout);
@@ -1880,7 +1880,7 @@ namespace Project3_HT
         private System.Windows.Forms.Label IntegerOp2_1;
         private System.Windows.Forms.Label IntegerOp2_2;
         private System.Windows.Forms.Label IntegerOp2_3;
-        private System.Windows.Forms.Label ProgramCounter;
         private System.Windows.Forms.Label PCValue;
+        private System.Windows.Forms.Label PCLabel;
     }
 }
