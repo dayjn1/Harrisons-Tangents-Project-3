@@ -65,6 +65,7 @@ namespace Project3_HT
                 // add to the instuction queue in the beginning of the program, before the first cycle & display it
                 AddInstructionsToIQueue();
                 RSManager.PopulateLists();
+                Memory.MemPopulate();
 
             }//end if
         }

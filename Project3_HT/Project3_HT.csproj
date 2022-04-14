@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="AddressUnit.cs" />
     <Compile Include="CDBus.cs" />
+    <Compile Include="Memory.cs" />
     <Compile Include="Controller.cs">
       <SubType>Form</SubType>
     </Compile>
