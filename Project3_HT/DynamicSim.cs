@@ -27,7 +27,6 @@ namespace Project3_HT
     public partial class DynamicSim : Form
     {
         public static List<Instruction> Input_Instructions = new List<Instruction>();
-        public static List<int> Actual_Input = new List<int>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
         bool FirstInstruction = true, invalid = false;        
@@ -50,12 +49,11 @@ namespace Project3_HT
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
 
                     //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, JM
-                    int input;
-                    bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
+                    bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int input);
                     if (valid)
                     {
                         Input_Instructions.Add(new Instruction(input));         // Creates instructions and adds them to list -JND
-                        Actual_Input.Add(input);
+                        Memory.MemPopulate(input);
                     }
                     else
                         Console.WriteLine("Invalid parse");
@@ -65,7 +63,6 @@ namespace Project3_HT
                 // add to the instuction queue in the beginning of the program, before the first cycle & display it
                 AddInstructionsToIQueue();
                 RSManager.PopulateLists();
-                Memory.MemPopulate();
 
             }//end if
         }

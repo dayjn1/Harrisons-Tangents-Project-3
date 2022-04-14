@@ -69,11 +69,19 @@ namespace Project3_HT
                 {
                     funcUnit.ExecTime--;
                     funcUnit.Executed = false;
-
                 }
                 else
+                {
                     funcUnit.Executed = true;
+                    if(funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)
+                    {
+                        //Instruction temp = 
+                    }
+
+                }
+
             }
+
         }
 
         //step 4 in main sim

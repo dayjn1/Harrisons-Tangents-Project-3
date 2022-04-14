@@ -27,7 +27,7 @@ namespace Project3_HT
     public class Instruction
     {
         public string Mnemonic;
-        public uint OpCode, Address;
+        public uint OpCode, Address, Result;
         public string DestReg, Reg1, Reg2, Imm;
         public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC, lineNum;
         public bool writeBack, useRD, useR1, useR2, useImm;
