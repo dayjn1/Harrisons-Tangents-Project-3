@@ -35,10 +35,10 @@ namespace Project3_HT
         static List<Instruction> InstructionSet = new List<Instruction>()
         {
             new Instruction(0, "HALT", 1, 1, 1, 0, 0, false, false, false, false, false),
-            new Instruction(1, "LOAD", 1, 1, 1, 3, 1, true, true, true, false, false),
-            new Instruction(2, "STOR", 1, 1, 1, 3, 0, false, true, true, false, false),
-            new Instruction(3, "LOADI", 1, 1, 1, 3, 1, true, true, false, false, true),
-            new Instruction(4, "STORI", 1, 1, 1, 3, 0, false, true, false, false, true),
+            new Instruction(1, "LOAD", 1, 1, 1, 3, 1, true, true, true, true, false),
+            new Instruction(2, "STOR", 1, 1, 1, 3, 0, false, true, true, true, false),
+            new Instruction(3, "LOADI", 1, 1, 1, 3, 1, true, true, true, false, true),
+            new Instruction(4, "STORI", 1, 1, 1, 3, 0, false, true, true, false, true),
             new Instruction(5, "ADD", 1, 1, 1, 0, 1, true, true, true, true, false),
             new Instruction(6, "ADDI", 1, 1, 1, 0, 1, true, true, true, false, true),
             new Instruction(7, "SUB", 1, 1, 1, 0, 1, true, true, true, true, false),
