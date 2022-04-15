@@ -8,8 +8,6 @@ namespace Project3_HT
 {
     internal class MemUnit : FuncUnit
     {
-        public int Set { get; set; }                            //Tag used by cache for memory partitioning
-        public int Tag { get; set; }                            //Tag used by cache for memory accesses
 
         public MemUnit(string name) : base(name)
         {
@@ -25,19 +23,7 @@ namespace Project3_HT
             Instructions.Enqueue(instr);
             ExecTime = CalcExecutionTime(instr);
 
-            Set = CalcSet(instr);
-            Tag = CalcTag(instr);
-
             Empty = false;
-        }
-
-        public int CalcSet(Instruction instr)
-        {
-            throw new NotImplementedException();
-        }
-        public int CalcTag(Instruction instr)
-        {
-            throw new NotImplementedException();
         }
 
     }
