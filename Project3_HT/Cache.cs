@@ -64,9 +64,10 @@ namespace Project3_HT
         {
             // for future working address unit, if Address does not return 0x67890
             //instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier); 
-            
+
             // for testing DELETE LATER
-            instr.Address = uint.Parse("12345", System.Globalization.NumberStyles.AllowHexSpecifier);
+            instr.Address = 13579;
+            instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier);
            
             uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
             

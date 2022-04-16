@@ -15,7 +15,7 @@ namespace Project3_HT
         static void Main()
         {
             Cache cache = new Cache();
-            Instruction i = new Instruction(0x03F12345);
+            Instruction i = new Instruction(0x03F13579);
 
            
 
