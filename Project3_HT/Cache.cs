@@ -1,4 +1,6 @@
-﻿using System;
+﻿///Created by Jason Middlebrook
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,16 +50,44 @@ namespace Project3_HT
             {
                 for (int j = 0; j < SetAssociativity; j++)
                 {
-                    CacheArray[i, j] = -1;
+                    CacheArray[i, j] = -1; //Change to have invalid bit instead of int -1
                 }
             }
         }//end Cache()
 
         /// <summary>
-        /// Checks to see if entry with the given tag and index is in the cache
+        /// FOR IMMEDIATE LOADS AND STORES -jfm
+        /// Uses Reg1 to as the offset and Imm (16 bits) as the index and tag
+        /// Hardcoded to be with a 4-way set associative cache (16 entries total)
         /// </summary>
-        public bool Check(int tag, int index)
+        public void DeconstructInstruction(Instruction instr)
         {
+            //Use substring to move past "R" in instr properties
+            uint offset = Convert.ToUInt32(instr.Reg1.Substring(2), 16);          //Offset 4 bits (taken from R1)
+
+            uint index = Convert.ToUInt32(instr.Imm, 16) & 0x000F;   //Index is last two bits
+            index = (index & 0b_0000_0000_0000_0011);
+
+            uint tag = Convert.ToUInt32(instr.Imm, 16) & 0xFFFF;     //Tag is 3.5 nibbles
+            tag = (tag & 0b_11_1111_1111_1111_00) >> 2;                   //Starts at 2nd least significant bit to accomodate index
+
+            //Put all this info into the entry in the cache
+            Console.WriteLine("Tag and Index x: " + UInt32.Parse(instr.Imm).ToString());
+            Console.WriteLine("Offset: " + offset.ToString("X"));
+            Console.WriteLine("Index: " + index.ToString("X"));
+            Console.WriteLine("Tag x: " + tag.ToString("X"));
+            Console.WriteLine("Tag d: " + tag);
+
+
+        }//end DeconstructInstruction(Instruction)
+
+        /// <summary>
+        /// Checks to see if entry with the given tag and index is in the cache
+        /// WIP -jfm
+        /// </summary>
+        public bool Check(int index, int tag)
+        {
+
             bool hit = false;
             for (int i = 0; i < SetAssociativity; i++)
             {
