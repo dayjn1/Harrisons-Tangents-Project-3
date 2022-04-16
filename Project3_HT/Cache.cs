@@ -62,15 +62,20 @@ namespace Project3_HT
         /// </summary>
         public CacheEntry DeconstructInstruction(Instruction instr)
         {
-            //Use substring to move past "R" in instr properties
-            uint offset = instr.Address;          //Offset 4 bits (taken from R1)
+            // for future working address unit, if Address does not return 0x67890
+            //instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier); 
+            
+            // for testing DELETE LATER
+            instr.Address = uint.Parse("12345", System.Globalization.NumberStyles.AllowHexSpecifier);
+           
+            uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
+            
+            uint index = instr.Address & 0x000F0;               //Index is two bits after the offset
+            index = (index & 0b_0000_0000_0000_0011_0000) >> 4;
 
-            uint index = instr.Address & 0x000F;   //Index is last two bits
-            index = (index & 0b_0000_0000_0000_0011);
-
-            uint tag = instr.Address & 0xFFFF;     //Tag is 3.5 nibbles
-            tag = (tag & 0b_11_1111_1111_1111_00) >> 2;                   //Starts at 2nd least significant bit to accomodate index
-            //instr.Address    we should use this
+            uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
+            tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
+            
             CacheEntry ce = new CacheEntry(offset, index, tag);
 
             //Put all this info into the entry in the cache
