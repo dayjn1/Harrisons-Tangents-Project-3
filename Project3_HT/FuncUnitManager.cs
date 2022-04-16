@@ -20,7 +20,7 @@ namespace Project3_HT
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"),
-            new FuncUnit("FPAdder"),  // change needed
+            new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPMultiplier"),
@@ -137,7 +137,18 @@ namespace Project3_HT
                 }
             }
 
-        }
+        }//end CheckStationsToPushToFuncUnits
+
+        /// <returns>total is the total amound of instructions in all functional units, waiting or otherwise</returns>
+        public static int TotalInstrCount()
+        {
+            int total = 0;
+            foreach (FuncUnit fu in Units)
+            {
+                total += fu.Instructions.Count;
+            }
+            return total;
+        }//end TotalExecuting
 
     }
 }
