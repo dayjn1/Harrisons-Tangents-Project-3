@@ -73,14 +73,14 @@ namespace Project3_HT
 
                     if (processed == false)
                     {
-                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)
+                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = Memory.LoadInstr(temp.Address);
                             funcUnit.Instructions.Enqueue(temp);
                             processed = true;
                         }
-                        else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)
+                        else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
                         {
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
                             // Need to make a method in reg file to return contents of given register
