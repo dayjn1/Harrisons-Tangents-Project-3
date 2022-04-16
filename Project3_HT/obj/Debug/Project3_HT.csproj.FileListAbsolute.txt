@@ -75,3 +75,16 @@ C:\Users\Jason Middlebrook\Documents\Spring-2022\Arch\Harrisons-Tangents-Project
 C:\Users\Jason Middlebrook\Documents\Spring-2022\Arch\Harrisons-Tangents-Project-3\Project3_HT\bin\Debug\Project3_HT.pdb
 C:\Users\Jason Middlebrook\Documents\Spring-2022\Arch\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.exe
 C:\Users\Jason Middlebrook\Documents\Spring-2022\Arch\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.pdb
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\bin\Debug\Project3_HT.exe.config
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\bin\Debug\Project3_HT.exe
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\bin\Debug\Project3_HT.pdb
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.csprojAssemblyReference.cache
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Controller.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.DynamicSim.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Settings.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Tangents.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Properties.Resources.resources
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.csproj.GenerateResource.cache
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.csproj.CoreCompileInputs.cache
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.exe
+D:\Program Files\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.pdb
