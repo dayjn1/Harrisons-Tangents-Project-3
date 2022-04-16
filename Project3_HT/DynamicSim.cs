@@ -160,7 +160,7 @@ namespace Project3_HT
             ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
             if (LdBuffer.Any())
             {
-                SendToMemUnit();                        // dequeue from the LdBuffer
+                LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
             }//end if
 
             if (AddressUnit.AddressUnitQueue.Any())

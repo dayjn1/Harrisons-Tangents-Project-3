@@ -208,10 +208,9 @@ namespace Project3_HT
                 reg2 >>= 12;
                 this.Reg2 = "R " + reg2.ToString("X");
             }
-
-            if (this.useImm == true)                                //Put immediate value in Imm for ADDI and SUBI
+            else if (this.useImm == true)                               //CANNOT USE R2 AND IMM
             {
-                uint immediate = (uint)input & 0x00000FFF;
+                uint immediate = (uint)input & 0x0000FFFF;
                 this.Imm = immediate.ToString("X");
             }
 
