@@ -63,14 +63,14 @@ namespace Project3_HT
         public CacheEntry DeconstructInstruction(Instruction instr)
         {
             //Use substring to move past "R" in instr properties
-            uint offset = Convert.ToUInt32(instr.Reg1.Substring(2), 16);          //Offset 4 bits (taken from R1)
+            uint offset = instr.Address;          //Offset 4 bits (taken from R1)
 
-            uint index = Convert.ToUInt32(instr.Imm, 16) & 0x000F;   //Index is last two bits
+            uint index = instr.Address & 0x000F;   //Index is last two bits
             index = (index & 0b_0000_0000_0000_0011);
 
-            uint tag = Convert.ToUInt32(instr.Imm, 16) & 0xFFFF;     //Tag is 3.5 nibbles
+            uint tag = instr.Address & 0xFFFF;     //Tag is 3.5 nibbles
             tag = (tag & 0b_11_1111_1111_1111_00) >> 2;                   //Starts at 2nd least significant bit to accomodate index
-
+            //instr.Address    we should use this
             CacheEntry ce = new CacheEntry(offset, index, tag);
 
             //Put all this info into the entry in the cache
