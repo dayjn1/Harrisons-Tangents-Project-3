@@ -152,5 +152,26 @@ namespace Project3_HT
             return new RegTicket(true, -1, 0);
             
         }//end IsAvail(string)
+
+        public static uint ReturnReg(string reg)
+        {
+            if (reg != null)
+            {
+                string[] temp = reg.Split(' ');
+                int i = Convert.ToInt32(temp[1], 16);
+
+                if (temp[0].Equals("R"))
+                {
+                    return RegAvail[i].Data;
+                }//end if
+                else
+                {
+                    return RegAvail[i + 16].Data;
+                }//end else
+            }//end if
+            else
+                return 0;
+
+        }
     }//end RegisterFile
 }//end Project3_HT

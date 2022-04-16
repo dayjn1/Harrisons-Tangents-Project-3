@@ -10,7 +10,6 @@ C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Deb
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.exe
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project2_HT.pdb
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project2_HT\obj\Debug\Project3_HT.Controller.resources
-C:\Users\janin\OneDrive\Documents\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.csprojAssemblyReference.cache
 C:\Users\janin\OneDrive\Documents\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Controller.resources
 C:\Users\janin\OneDrive\Documents\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.DynamicSim.resources
 C:\Users\janin\OneDrive\Documents\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Tangents.resources
@@ -72,3 +71,6 @@ C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT
 C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project2_HT.exe
 C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project2_HT.pdb
 C:\Users\janin\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Settings.resources
+C:\Users\janin\OneDrive\Documents\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.csproj.AssemblyReference.cache
+C:\Users\janin\OneDrive\Documents\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.csproj.SuggestedBindingRedirects.cache
+C:\Users\janin\OneDrive\Documents\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Settings.resources

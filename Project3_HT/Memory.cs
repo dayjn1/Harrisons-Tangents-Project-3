@@ -45,7 +45,7 @@ namespace Project3_HT
             return Mem[addr];
         }
 
-        public static void StoreInstr(int addr, uint data)
+        public static void StoreInstr(uint addr, uint data)
         {
             Mem[addr] = data;
         }
