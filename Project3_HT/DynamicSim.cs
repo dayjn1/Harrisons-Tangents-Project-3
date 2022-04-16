@@ -1,4 +1,14 @@
-﻿using System;
+﻿// -------------------------------------------------------------------------------
+// File name:                   DynamicSim.cs
+// Project name:                Project 3 - Harrison's Tangents
+// -------------------------------------------------------------------------------
+// Edited By:                   Nataliya Chibizova, Janine Day, Jason Middlebrook,
+//                              Avery Marlow, Hannah Taylor
+// Course-Section:              CSCI-4717
+// Creation Date:               03/27/2022
+// -------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,12 +26,11 @@ namespace Project3_HT
 {
     public partial class DynamicSim : Form
     {
-        List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
+        public static List<Instruction> Input_Instructions = new List<Instruction>();
+        public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
-        public static int CycleCount = 0;
-        public static int ListCounter = 0;
-        bool FirstInstruction = true;
+        bool FirstInstruction = true, invalid = false;        
+
         public DynamicSim()
         {
             InitializeComponent();
@@ -40,12 +49,11 @@ namespace Project3_HT
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
 
                     //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, JM
-                    int input;
-                    bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
+                    bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int input);
                     if (valid)
                     {
                         Input_Instructions.Add(new Instruction(input));         // Creates instructions and adds them to list -JND
-                        //Save_Stats.Add(new Instruction(input));
+                        Memory.MemPopulate(input);
                     }
                     else
                         Console.WriteLine("Invalid parse");
@@ -56,48 +64,61 @@ namespace Project3_HT
                 AddInstructionsToIQueue();
                 RSManager.PopulateLists();
 
-                /*
-                label8.Text = "Loaded";
-                cycleCount = 0;
-                dataHazardCount = 0;
-                cycleLabel.Text = cycleCount.ToString();
-                DHLabel.Text = dataHazardCount.ToString();
-                */
-
             }//end if
         }
 
         public static void Reset()
         {
             Application.Restart();
-        }
+        }//end Reset()
 
         private void NextButton_Click(object sender, EventArgs e)
         {
             if (ProgramType == "Continuous")
                 ContinuousSim();
             else
+            {
                 SingleCycle();
-        }
+                if (IsFinished())
+                {
+                    NextButton.Enabled = false;
+                }//end if
+            }//end else
+        }//end NextButton_Click(object, EventArgs)
+
 
         public void ContinuousSim()
         {
             bool areWeDone = false;
-            while(areWeDone == false)
+            while (areWeDone == false)
             {
                 // delay by cyclespeed
+                Task.Delay(cycleSpeed).Wait();  //hannah
                 SingleCycle();
                 areWeDone = IsFinished();
-            }
-        }
+            }//end while
+        }//end ContinuousSim()
 
         public bool IsFinished()
         {
-            if (/* things are empty*/ 1 == 1)
-                return true;
+            bool fin = false; //hannah
+
+            if (invalid || ((InstructionQueue.IQueue.Count == 0 || InstructionQueue.haltNotFound == false) &&
+                AddressUnit.AddressUnitQueue.Count == 0 &&
+                RSManager.CheckAllRSEmpty() &&
+                LoadBuffer.LdBuffer.Count == 0 &&
+                FuncUnitManager.checkAllEmpty() &&
+                CDBus.currentInstruction == null &&
+                ReorderBuffer.ReorderBuf.Count == 0))
+            {
+                fin = true;
+                NextButton.Enabled = false;
+            }//end if
             else
-                return false;
-        }
+                fin = false;
+
+            return fin;
+        }//end IsFinished()
 
         public void SingleCycle()
         {
@@ -128,19 +149,20 @@ namespace Project3_HT
             if (instr != null)
             {
                 ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
-            }
+            }//end if
+
+
+            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            if (LdBuffer.Any())
+            {
+                SendToMemUnit();                        // dequeue from the LdBuffer
+            }//end if
 
             if (AddressUnit.AddressUnitQueue.Any())
             {
                 AddressUnit.ProcessAU();                // send to LB or to pass to RO
 
-            }
-
-            if (LdBuffer.Any())
-            {
-                SendToMemUnit();                        // dequeue from the LdBuffer
-                ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
-            }
+            }//end if
 
             /*
 
@@ -166,7 +188,7 @@ namespace Project3_HT
                 //TODO: push instruction on CDB to ROB
                 CDBus.SendResults();
 
-            }
+            }//end if
 
 
 
@@ -218,7 +240,7 @@ namespace Project3_HT
                 ChangeInstrQueue(IQueue.ToArray());
                 // TODO: change the reservation station and RB
                 
-            }
+            }//end if
 
             AddInstructionsToIQueue();                  // add new instructions to the queue          
             ChangeInstrQueue(IQueue.ToArray());         // display updated queue of instructions 
@@ -250,13 +272,13 @@ namespace Project3_HT
                     {
                         AddToIQueue(Input_Instructions[j]);
                         ListCounter++;
-                    }
-                }
+                    }//end if
+                }//end for
                 
                 ChangeInstrQueue(IQueue.ToArray());         //display that are currently on the the queue
 
-            }
-        }
+            }//end while
+        }//end AddInstructionsToIQueue()
 
 
         /// <summary>
@@ -272,25 +294,27 @@ namespace Project3_HT
             foreach (var lable in Labels)               //update the value of the lable
             {
                 lable.Text = " ";
-            }
+            }//end foreach
 
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i].OpCode == 404)
                 {
                     MessageBox.Show("The pipeline encountered an invalid instruction. Check your code! The program will now restart.", "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    Application.Restart();
-
-                }
+                    invalid = true;
+                    Close();
+                    Reset();
+                    break;
+                }//end if
                 if(array[i].OpCode == 0)                // do not add any values after halt
                 {
                     Labels[i].Text = array[i].Mnemonic;
                     break;
-                }
+                }//end if
                 Labels[i].Text = array[i].Mnemonic;
             }//end of for
-        }
-       
+        }//end ChangeInstrQueue(Instruction[])
+
         /// <summary>
         /// Update the text value of the LB
         /// </summary>
@@ -302,12 +326,12 @@ namespace Project3_HT
             foreach (var lable in Labels)               //update the value of the lable
             {
                 lable.Text = " ";
-            }
+            }//end foreach
             for (int i = 0; i < array.Length; i++)
             {
                Labels[i].Text = array[i].Mnemonic;
-            }
-        }
+            }//end for
+        }//end ChangeLoadBuffer(Instruction[])
 
         public void ChangeReorderBuf(Instruction[] array)
         {
@@ -317,13 +341,13 @@ namespace Project3_HT
             foreach (var label in Labels)               //update the value of the label
             {
                 label.Text = " ";
-            }
+            }//end foreach
 
             for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i].Mnemonic;
-            }
-        }
+            }//end for
+        }//end ChangeReorderBuf(Instruction[])
         public void ChangeRegisterFile(string[] array)
         {
             List<Label> Labels = new List<Label>()
@@ -335,13 +359,13 @@ namespace Project3_HT
             foreach (var label in Labels)               //update the value of the label
             {
                 label.Text = " ";
-            }
+            }//end foreach
 
             for (int i = 0; i < array.Length; i++)
             {
                 Labels[i].Text = array[i];
-            }
-        }
+            }//end for
+        }//end ChangeRegisterFile(string[])
 
         //assume starting with one reservation station for each and one functional unit
         //when add more, can add a label/index attribute to the rs classes and just populate the labels based on which station we're in (ie, FPaddMnem1 label or something)
@@ -357,7 +381,7 @@ namespace Project3_HT
             foreach (var label in Labels)               //update the value of the label
             {
                 label.Text = " ";
-            }
+            }//end foreach
 
             if (RSManager.FPAddRS[0] != null)
             {
@@ -365,22 +389,22 @@ namespace Project3_HT
                 Labels[1].Text = RSManager.FPAddRS[0].destR;
                 Labels[2].Text = RSManager.FPAddRS[0].operand1;
                 Labels[3].Text = RSManager.FPAddRS[0].operand2;
-            }
+            }//end if
             if (RSManager.FPAddRS[1] != null)
             {
                 Labels[4].Text = RSManager.FPAddRS[1].mnemonic;
                 Labels[5].Text = RSManager.FPAddRS[1].destR;
                 Labels[6].Text = RSManager.FPAddRS[1].operand1;
                 Labels[7].Text = RSManager.FPAddRS[1].operand2;
-            }
+            }//end if
             if (RSManager.FPAddRS[2] != null)
             {
                 Labels[8].Text = RSManager.FPAddRS[2].mnemonic;
                 Labels[9].Text = RSManager.FPAddRS[2].destR;
                 Labels[10].Text = RSManager.FPAddRS[2].operand1;
                 Labels[11].Text = RSManager.FPAddRS[2].operand2;
-            }
-        }
+            }//end if
+        }//end UpdateFPAddRS()
 
         public void UpdateFPMultRS()
         {
@@ -394,7 +418,7 @@ namespace Project3_HT
             foreach (var label in Labels)               //update the value of the label
             {
                 label.Text = " ";
-            }
+            }//end foreach
 
             if (RSManager.FPMultRS[0] != null)
             {
@@ -402,22 +426,22 @@ namespace Project3_HT
                 Labels[1].Text = RSManager.FPMultRS[0].destR;
                 Labels[2].Text = RSManager.FPMultRS[0].operand1;
                 Labels[3].Text = RSManager.FPMultRS[0].operand2;
-            }
+            }//end if
             if (RSManager.FPMultRS[1] != null)
             {
                 Labels[4].Text = RSManager.FPMultRS[1].mnemonic;
                 Labels[5].Text = RSManager.FPMultRS[1].destR;
                 Labels[6].Text = RSManager.FPMultRS[1].operand1;
                 Labels[7].Text = RSManager.FPMultRS[1].operand2;
-            }
+            }//end if
             if (RSManager.FPMultRS[2] != null)
             {
                 Labels[8].Text = RSManager.FPMultRS[2].mnemonic;
                 Labels[9].Text = RSManager.FPMultRS[2].destR;
                 Labels[10].Text = RSManager.FPMultRS[2].operand1;
                 Labels[11].Text = RSManager.FPMultRS[2].operand2;
-            }
-        }
+            }//end if
+        }//end UpdateFPMultRS()
 
         public void UpdateIntegerRS()
         {
@@ -431,7 +455,7 @@ namespace Project3_HT
             foreach (var label in Labels)               //update the value of the label
             {
                 label.Text = " ";
-            }
+            }//end foreach
 
             if (RSManager.IntegerRS[0] != null)
             {
@@ -439,29 +463,28 @@ namespace Project3_HT
                 Labels[1].Text = RSManager.IntegerRS[0].destR;
                 Labels[2].Text = RSManager.IntegerRS[0].operand1;
                 Labels[3].Text = RSManager.IntegerRS[0].operand2;
-            }
+            }//end if
             if (RSManager.IntegerRS[1] != null)
             {
                 Labels[4].Text = RSManager.IntegerRS[1].mnemonic;
                 Labels[5].Text = RSManager.IntegerRS[1].destR;
                 Labels[6].Text = RSManager.IntegerRS[1].operand1;
                 Labels[7].Text = RSManager.IntegerRS[1].operand2;
-            }
+            }//end if
             if (RSManager.IntegerRS[2] != null)
             {
                 Labels[8].Text = RSManager.IntegerRS[2].mnemonic;
                 Labels[9].Text = RSManager.IntegerRS[2].destR;
                 Labels[10].Text = RSManager.IntegerRS[2].operand1;
                 Labels[11].Text = RSManager.IntegerRS[2].operand2;
-            }
-
-        }
+            }//end if
+        }//end UpdateIntegerRS()
 
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings settings = new Settings();
             settings.Show();
-        }
-    }
-}
+        }//end resetToolStripMenuItem_Click(object, EventArgs)
+    }//end DynamicSim
+}//end Project3_HT
