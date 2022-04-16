@@ -63,6 +63,9 @@ namespace Project3_HT
 
         public int CalcExecutionTime(Instruction inst)
         {
+            if (inst.MemoryCC > 0)
+                return inst.MemoryCC;
+            
             return inst.ExecuteCC;
         }
 

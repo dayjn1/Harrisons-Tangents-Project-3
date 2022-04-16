@@ -1,12 +1,12 @@
-﻿// ---------------------------------------------------------------------------
+﻿// -------------------------------------------------------------------------------
 // File name:                   DynamicSim.cs
 // Project name:                Project 3 - Harrison's Tangents
-// ---------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 // Edited By:                   Nataliya Chibizova, Janine Day, Jason Middlebrook,
 //                              Avery Marlow, Hannah Taylor
 // Course-Section:              CSCI-4717
 // Creation Date:               03/27/2022
-// ---------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -27,13 +27,10 @@ namespace Project3_HT
 {
     public partial class DynamicSim : Form
     {
-        List<Instruction> Input_Instructions = new List<Instruction>();         // Creates a list of Instruction class types -JND
-        public static int cycleSpeed = 500;                                            //Defined so we can change the real time waiting period between cycles
+        public static List<Instruction> Input_Instructions = new List<Instruction>();
+        public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
-        public static int CycleCount = 0;
-        public static int ListCounter = 0;
-        bool FirstInstruction = true;
-        bool invalid = false;
+        bool FirstInstruction = true, invalid = false;        
 
         public DynamicSim()
         {
@@ -53,12 +50,11 @@ namespace Project3_HT
                     string inputData = f.ReadLine();                            //Declares inputData so lines can be read from input
 
                     //try to parse one line of input, converting hexadecimal to int and sending to disassembler -H, JM
-                    int input;
-                    bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out input);
+                    bool valid = Int32.TryParse(inputData, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int input);
                     if (valid)
                     {
                         Input_Instructions.Add(new Instruction(input));         // Creates instructions and adds them to list -JND
-                        //Save_Stats.Add(new Instruction(input));
+                        Memory.MemPopulate(input);
                     }
                     else
                         Console.WriteLine("Invalid parse");
@@ -68,14 +64,6 @@ namespace Project3_HT
                 // add to the instuction queue in the beginning of the program, before the first cycle & display it
                 AddInstructionsToIQueue();
                 RSManager.PopulateLists();
-
-                /*
-                label8.Text = "Loaded";
-                cycleCount = 0;
-                dataHazardCount = 0;
-                cycleLabel.Text = cycleCount.ToString();
-                DHLabel.Text = dataHazardCount.ToString();
-                */
 
             }//end if
         }
