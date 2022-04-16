@@ -63,22 +63,23 @@ namespace Project3_HT
         public CacheEntry DeconstructInstruction(Instruction instr)
         {
             //Use substring to move past "R" in instr properties
-            uint offset = UInt32.Parse(instr.Reg1.Substring(1));          //Offset is least significant 4 bits
+            uint offset = Convert.ToUInt32(instr.Reg1.Substring(2), 16);          //Offset 4 bits (taken from R1)
 
-            uint index = UInt32.Parse(instr.Imm.Substring(1)) & 0x000F;           //Index is last two bits
-            index = index >> 2;
+            uint index = Convert.ToUInt32(instr.Imm, 16) & 0x000F;   //Index is last two bits
+            index = (index & 0b_0000_0000_0000_0011);
 
-            uint tag = UInt32.Parse(instr.Imm.Substring(1)) & 0xFFFF;             //Tag is 3.5 nibbles
-            tag = (tag & 0b1111111111111100) >> 2;          //Starts at 2nd least significant bit to accomodate index
+            uint tag = Convert.ToUInt32(instr.Imm, 16) & 0xFFFF;     //Tag is 3.5 nibbles
+            tag = (tag & 0b_11_1111_1111_1111_00) >> 2;                   //Starts at 2nd least significant bit to accomodate index
 
             CacheEntry ce = new CacheEntry(offset, index, tag);
 
             //Put all this info into the entry in the cache
+            Console.WriteLine("Tag and Index x: " + UInt32.Parse(instr.Imm).ToString());
             Console.WriteLine("Offset: " + offset.ToString("X"));
             Console.WriteLine("Index: " + index.ToString("X"));
-            Console.WriteLine("Tag: " + tag.ToString("X"));
-            return ce;
-
+            Console.WriteLine("Tag x: " + tag.ToString("X"));
+            Console.WriteLine("Tag d: " + tag);
+			return ce;
 
         }//end DeconstructInstruction(Instruction)
 
