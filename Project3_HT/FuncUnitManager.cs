@@ -20,7 +20,7 @@ namespace Project3_HT
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"),
-            new FuncUnit("FPAdder"),
+            new FuncUnit("FPAdder"),  // change needed
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPMultiplier"),
@@ -73,14 +73,14 @@ namespace Project3_HT
 
                     if (processed == false)
                     {
-                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
+                        if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3))
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = Memory.LoadInstr(temp.Address);
                             funcUnit.Instructions.Enqueue(temp);
                             processed = true;
                         }
-                        else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
+                        else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
                         {
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
                             // Need to make a method in reg file to return contents of given register
@@ -91,8 +91,6 @@ namespace Project3_HT
                 else
                 {
                     funcUnit.Executed = true;
-                    
-
                 }
 
             }
@@ -137,18 +135,7 @@ namespace Project3_HT
                 }
             }
 
-        }//end CheckStationsToPushToFuncUnits
-
-        /// <returns>total is the total amound of instructions in all functional units, waiting or otherwise</returns>
-        public static int TotalInstrCount()
-        {
-            int total = 0;
-            foreach (FuncUnit fu in Units)
-            {
-                total += fu.Instructions.Count;
-            }
-            return total;
-        }//end TotalExecuting
+        }
 
     }
 }
