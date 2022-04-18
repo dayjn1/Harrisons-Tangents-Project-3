@@ -40,14 +40,14 @@ namespace Project3_HT
             ReservedMem += 4;
         }
 
-        public static uint LoadInstr(uint addr)
+        public static int LoadInstr(uint addr)
         {
-            return Mem[addr];
+            return (int)Mem[addr];
         }
 
-        public static void StoreInstr(uint addr, uint data)
+        public static void StoreInstr(uint addr, int data)
         {
-            Mem[addr] = data;
+            Mem[addr] = (uint)data;
         }
 
 

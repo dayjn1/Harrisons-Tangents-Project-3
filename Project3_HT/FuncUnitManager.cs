@@ -86,11 +86,18 @@ namespace Project3_HT
                             // Need to make a method in reg file to return contents of given register
                             processed = true;
                         }
+                        else if (funcUnit.Instructions.Peek().OpCode == 5)
+                        {
+                            Instruction temp = funcUnit.Instructions.Dequeue();
+                            temp.Result = ALU.ADD(temp.Reg1, temp.Reg2);
+                            funcUnit.Instructions.Enqueue(temp);
+                        }
                     }
                 }
                 else
                 {
                     funcUnit.Executed = true;
+                    
                 }
 
             }
