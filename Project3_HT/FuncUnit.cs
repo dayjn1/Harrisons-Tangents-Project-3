@@ -45,6 +45,7 @@ namespace Project3_HT
             Instructions.Enqueue(instr);
             ExecTime = CalcExecutionTime(instr);
             Empty = false;
+            Executed = false;
             //return true;
         }
 

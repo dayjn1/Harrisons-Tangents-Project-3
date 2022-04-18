@@ -81,7 +81,7 @@ namespace Project3_HT
                 Instruction temp = ReorderBuf.Peek();
                 if (Passed.Contains(temp))
                 {
-                    if(temp.OpCode == 2)
+                    if(temp.OpCode == 2 || temp.OpCode == 4)
                         SendToMemUnit();
                     else
                         return ReorderBuf.Dequeue();
@@ -98,7 +98,7 @@ namespace Project3_HT
         {
             if (FuncUnitManager.At(0).Instructions.Count == 0)
             {
-                FuncUnitManager.At(0).Instructions.Enqueue(ReorderBuf.Dequeue());
+                FuncUnitManager.At(0).Enqueue(ReorderBuf.Dequeue());
             }//end if
         }//end SendToMemUnit()
 
