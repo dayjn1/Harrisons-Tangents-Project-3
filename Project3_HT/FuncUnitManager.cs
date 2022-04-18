@@ -19,8 +19,8 @@ namespace Project3_HT
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
-            new FuncUnit("MemoryUnit"),
-            new FuncUnit("FPAdder"),  // change needed
+            new MemUnit("MemoryUnit"),
+            new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPMultiplier"),
@@ -58,7 +58,6 @@ namespace Project3_HT
             return allClear;
         }
 
-
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
@@ -66,15 +65,38 @@ namespace Project3_HT
         {
             foreach (FuncUnit funcUnit in Units)
             {
+                bool processed = false;     // used to check if mem instruction has been processed
                 if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
                 {
                     funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
+                    if (processed == false)
+                    {
+                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
+                        {
+                            Instruction temp = funcUnit.Instructions.Dequeue();
+                            temp.Result = Memory.LoadInstr(temp.Address);
+                            funcUnit.Instructions.Enqueue(temp);
+                            processed = true;
+                        }
+                        else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
+                        {
+                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
+                            // Need to make a method in reg file to return contents of given register
+                            processed = true;
+                        }
+                    }
                 }
                 else
+                {
                     funcUnit.Executed = true;
+                    
+
+                }
+
             }
+
         }
 
         //step 4 in main sim
@@ -115,7 +137,18 @@ namespace Project3_HT
                 }
             }
 
-        }
+        }//end CheckStationsToPushToFuncUnits
+
+        /// <returns>total is the total amound of instructions in all functional units, waiting or otherwise</returns>
+        public static int TotalInstrCount()
+        {
+            int total = 0;
+            foreach (FuncUnit fu in Units)
+            {
+                total += fu.Instructions.Count;
+            }
+            return total;
+        }//end TotalExecuting
 
     }
 }

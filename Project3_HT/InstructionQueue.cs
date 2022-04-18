@@ -45,7 +45,7 @@ namespace Project3_HT
             {
                 haltNotFound = false;
             }
-            else if (i.OpCode == 1) // LOAD -- send it to the address unit --> LOAD buffer
+            else if (i.OpCode == 1 || i.OpCode == 3) // LOAD -- send it to the address unit --> LOAD buffer
             {
                 if (ReorderBuffer.IsReorderBufFree().Equals(true) && LoadBuffer.LdBuffer.Count() < 5)
                 {
@@ -54,10 +54,11 @@ namespace Project3_HT
                                                           // stull, if there is no space available
 
                     ReorderBuffer.AddToReorderBuf(i);
+                    RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                     IQueue.Dequeue();
                 }
             }
-            else if (i.OpCode == 2) // STORE -- send it to the address unit --> (check if there is space available on RO)
+            else if (i.OpCode == 2 || i.OpCode == 4) // STORE -- send it to the address unit --> (check if there is space available on RO)
                                     // --> place it on RO
                                     // --> memory unit
             {
@@ -66,11 +67,12 @@ namespace Project3_HT
                 {
                     AddressUnit.AddToAddressUnitQueue(i); //go to address unit
                     ReorderBuffer.AddToReorderBuf(i);
+                    RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                     IQueue.Dequeue();
                 }
 
             }
-            else if (i.OpCode >= 3 || i.OpCode <= 20) // goes to the intRS 
+            else if (i.OpCode >= 5 && i.OpCode <= 22) // goes to the intRS 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
@@ -81,13 +83,14 @@ namespace Project3_HT
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.IntegerRS[j]);
+                            RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                             IQueue.Dequeue();
-                            populate = false;
+                           populate = false;
                         }
                     }
                 }
             }
-            else if (i.OpCode >= 128 || i.OpCode <= 131) // goes to floating point adder
+            else if (i.OpCode >= 128 && i.OpCode <= 131) // goes to floating point adder
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
@@ -98,6 +101,7 @@ namespace Project3_HT
                         {
                             ReorderBuffer.AddToReorderBuf(i);
                             RSManager.PopulateEmptyRS(i, RSManager.FPAddRS[j]);
+                            RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                             IQueue.Dequeue();
                             populate = false;
                         }

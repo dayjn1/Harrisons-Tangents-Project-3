@@ -17,7 +17,6 @@ namespace Project3_HT
     internal class FuncUnit
     {
         public bool Executed { get; set; }
-
         public bool Empty;
         public Queue<Instruction> Instructions { get; set; }
         public string Name { get; set; }
@@ -30,34 +29,21 @@ namespace Project3_HT
             Executed = false;
             Name = name;
             Empty = true;
-            //ExecTime = execTime;
-        }
-
-       /* public FuncUnit(string name, Instruction i)
-        {
-            Instructions = new Queue<Instruction>();
-            Executed = false;
-            Name = name;
-            ExecTime = CalcExecutionTime(i);
-        }*/
-
-        
+        }        
 
         /// <summary>
         /// Send an instruction from reservation station or load buffer into functional unit
         /// </summary>
-        public void Enqueue(Instruction instr)
+        public virtual void Enqueue(Instruction instr)
         {
             if(Instructions.Count > 0)
             {
                 throw new InvalidOperationException("Functional units can only execute one Instruction per cycle." +
                     "\nPlease Dequeue the instruction or stall execution.");
-                //return false;
             }
             Instructions.Enqueue(instr);
             ExecTime = CalcExecutionTime(instr);
             Empty = false;
-            //return true;
         }
 
         /// <summary>
@@ -70,10 +56,16 @@ namespace Project3_HT
             return Instructions.Dequeue();
         }
 
-
+        public override string ToString()
+        {
+            return Name + ": " + Instructions.Peek().Mnemonic;
+        }
 
         public int CalcExecutionTime(Instruction inst)
         {
+            if (inst.MemoryCC > 0)
+                return inst.MemoryCC;
+            
             return inst.ExecuteCC;
         }
 
