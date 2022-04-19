@@ -82,14 +82,16 @@ namespace Project3_HT
             if (temp[0].Equals("R"))
             {
                 //RegInfo[i] = instr.Result.ToString();
-                Registers[i].Data = instr.Result;
+                if(instr.Result != null)
+                    Registers[i].Data = (int)instr.Result;
                 Registers[i].LineNum = instr.lineNum;
                 Registers[i].Avail = true;
             }//end if
             else
             {
                 //RegInfo[i + 16] = instr.Result.ToString();
-                Registers[i + 16].Data = instr.Result;
+                if (instr.Result != null)
+                    Registers[i + 16].Data = (int)instr.Result;
                 Registers[i + 16].LineNum = instr.lineNum;
                 Registers[i + 16].Avail = true;
             }//end else

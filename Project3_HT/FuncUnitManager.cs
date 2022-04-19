@@ -89,7 +89,7 @@ namespace Project3_HT
                         else if (funcUnit.Instructions.Peek().OpCode == 5)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
-                            temp.Result = ALU.ADD(temp.Reg1, temp.Reg2);
+                            temp.Result = ALU.InstructDecomp(temp);
                             funcUnit.Instructions.Enqueue(temp);
                         }
                     }

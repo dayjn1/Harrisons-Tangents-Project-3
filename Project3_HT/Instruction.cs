@@ -29,7 +29,8 @@ namespace Project3_HT
         public string Mnemonic;
         public uint OpCode, Address;
         public string DestReg, Reg1, Reg2, Imm;
-        public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC, lineNum, Result;
+        public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC, lineNum;
+        public int? Result;
         public bool writeBack, useRD, useR1, useR2, useImm;
 
         static List<Instruction> InstructionSet = new List<Instruction>()
