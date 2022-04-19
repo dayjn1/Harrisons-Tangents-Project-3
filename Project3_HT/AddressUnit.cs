@@ -22,10 +22,12 @@ namespace Project3_HT
                 if (i.useImm && Int32.TryParse(i.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempImm))
                 {
                     i.Address = (uint)Reg1 + (uint)tempImm;
+                    i.Address &= 0x000FFFFF;
                 }
                 else if(i.useR2 && Int32.TryParse(i.Reg2, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempReg2))
                 {
                     i.Address = (uint)Reg1 + (uint)tempReg2;
+                    i.Address &= 0x000FFFFF;
                 }
 
                 //Enqueue

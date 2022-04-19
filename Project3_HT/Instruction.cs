@@ -30,6 +30,7 @@ namespace Project3_HT
         public uint OpCode, Address;
         public string DestReg, Reg1, Reg2, Imm;
         public int FetchCC, DecodeCC, ExecuteCC, MemoryCC, RegisterCC, lineNum;
+        public int Reg1Data, Reg2Data, ImmData; // assigned in RS, to make sure correct data is used and not just pulling from RegFile
         public int? Result;
         public bool writeBack, useRD, useR1, useR2, useImm;
 

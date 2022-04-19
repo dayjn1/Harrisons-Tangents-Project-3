@@ -28,7 +28,7 @@ namespace Project3_HT
         //public static string[] RegInfo = new string[32];
         public static RegTicket[] Registers =
         {
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 1), new RegTicket(true, -1, 2), new RegTicket(true, -1, 0),
+            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),

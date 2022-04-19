@@ -86,7 +86,7 @@ namespace Project3_HT
                             // Need to make a method in reg file to return contents of given register
                             processed = true;
                         }
-                        else if (funcUnit.Instructions.Peek().OpCode == 5)
+                        else if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = ALU.InstructDecomp(temp);
