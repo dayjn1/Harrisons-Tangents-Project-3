@@ -17,6 +17,7 @@ namespace Project3_HT
 {
     internal static class FuncUnitManager
     {
+        public static Cache TheCache = new Cache();
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"),
@@ -57,7 +58,6 @@ namespace Project3_HT
             }
             return allClear;
         }
-
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
@@ -76,28 +76,40 @@ namespace Project3_HT
                         if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
-                            temp.Result = Memory.LoadInstr(temp.Address);
-                            funcUnit.Instructions.Enqueue(temp);
-                            processed = true;
-                        }
+                            if (TheCache.Check(funcUnit.Instructions.Peek()))       //If there is a cache hit
+                            {
+                                //temp.Result = Cache.LoadInstr(temp.Address);
+                                funcUnit.Instructions.Enqueue(temp);
+                                processed = true;
+                            }
+                            else                                                    //Cache miss; load from mem and put in cache
+                            {
+                                temp.Result = Memory.LoadInstr(temp.Address);
+                                TheCache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
+                                temp.ExecuteCC *= 5;
+                                funcUnit.Instructions.Enqueue(temp);
+                                processed = true;
+                            }
+
+                        }//end if load
                         else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
                         {
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
                             // Need to make a method in reg file to return contents of given register
                             processed = true;
-                        }
+                        }//end if store
                     }
                 }
                 else
                 {
                     funcUnit.Executed = true;
-                    
+
 
                 }
 
             }
 
-        }
+        }//end ExeCycle()
 
         //step 4 in main sim
         public static void CheckStationsToPushToFuncUnits()
