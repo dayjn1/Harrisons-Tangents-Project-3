@@ -82,9 +82,10 @@ namespace Project3_HT
                                 funcUnit.Instructions.Enqueue(temp);
                                 processed = true;
                             }
-                            else                                                    //Cache miss; load from mem
+                            else                                                    //Cache miss; load from mem and put in cache
                             {
                                 temp.Result = Memory.LoadInstr(temp.Address);
+                                TheCache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
                                 temp.ExecuteCC *= 5;
                                 funcUnit.Instructions.Enqueue(temp);
                                 processed = true;
