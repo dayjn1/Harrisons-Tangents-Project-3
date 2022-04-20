@@ -8,6 +8,23 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
+    //entry for storing cache data more easily
+    //AM
+    public struct CacheEntry
+    {
+        public uint offset;
+        public uint index;
+        public uint tag;
+        public bool valid;
+        public CacheEntry(uint offset, uint index, uint tag)
+        {
+            this.offset = offset;
+            this.index = index;
+            this.tag = tag;
+            valid = false;
+        }
+    }
+
     internal class Cache
     {
         public int SetAssociativity { get; set; }
@@ -107,20 +124,32 @@ namespace Project3_HT
 
             return hit;
         }//end Check(int, int)
-        //entry for storing cache data more easily
-        //AM
-        public struct CacheEntry
+
+        public bool Check(Instruction instr)
         {
-            public uint offset;
-            public uint index;
-            public uint tag;
-            public bool valid;
-            public CacheEntry(uint offset, uint index, uint tag)
+            CacheEntry ce = DeconstructInstruction(instr);
+
+            bool hit = false;
+            for (int i = 0; i < SetAssociativity; i++)
             {
-                this.offset = offset;
-                this.index = index;
-                this.tag = tag;
-                valid = false;
+                if (CacheArray[ce.index, i].tag == ce.tag)
+                {
+                    return true;
+                }
+            }
+
+            return hit;
+        }//end Check(Instruction)
+
+        //Adds a cache entry to the cache, assumes there is a place for it
+        public void Add(CacheEntry ce)
+        {
+            for (int i = 0; i < SetAssociativity; i++)
+            {
+                if (CacheArray[ce.index, i].valid == false)
+                {
+                    CacheArray[ce.index, i] = ce;
+                }
             }
         }
 
