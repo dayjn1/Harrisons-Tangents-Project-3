@@ -104,6 +104,9 @@ namespace Project2_HT
             this.AddressOffset = new System.Windows.Forms.Label();
             this.multBox = new System.Windows.Forms.RichTextBox();
             this.hitTextBox = new System.Windows.Forms.RichTextBox();
+            this.CompMiss = new System.Windows.Forms.RichTextBox();
+            this.CapMiss = new System.Windows.Forms.RichTextBox();
+            this.ConflictMiss = new System.Windows.Forms.RichTextBox();
             this.cacheImageBlock1.SuspendLayout();
             this.cacheImageBlock2.SuspendLayout();
             this.cacheImageBlock3.SuspendLayout();
@@ -117,7 +120,7 @@ namespace Project2_HT
             this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.85106F));
             this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.14893F));
             this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49F));
             this.cacheImageBlock1.Controls.Add(this.Set0_Entry0_valid, 0, 0);
             this.cacheImageBlock1.Controls.Add(this.Set0_Entry0_tag, 1, 0);
             this.cacheImageBlock1.Controls.Add(this.Set0_Entry0_index, 2, 0);
@@ -165,7 +168,7 @@ namespace Project2_HT
             // Set0_Entry0_index
             // 
             this.Set0_Entry0_index.AutoSize = true;
-            this.Set0_Entry0_index.Location = new System.Drawing.Point(130, 0);
+            this.Set0_Entry0_index.Location = new System.Drawing.Point(129, 0);
             this.Set0_Entry0_index.Name = "Set0_Entry0_index";
             this.Set0_Entry0_index.Size = new System.Drawing.Size(38, 39);
             this.Set0_Entry0_index.TabIndex = 2;
@@ -192,7 +195,7 @@ namespace Project2_HT
             // Set1_Entry0_index
             // 
             this.Set1_Entry0_index.AutoSize = true;
-            this.Set1_Entry0_index.Location = new System.Drawing.Point(130, 42);
+            this.Set1_Entry0_index.Location = new System.Drawing.Point(129, 42);
             this.Set1_Entry0_index.Name = "Set1_Entry0_index";
             this.Set1_Entry0_index.Size = new System.Drawing.Size(38, 39);
             this.Set1_Entry0_index.TabIndex = 5;
@@ -201,7 +204,7 @@ namespace Project2_HT
             // Set0_Entry0_data
             // 
             this.Set0_Entry0_data.AutoSize = true;
-            this.Set0_Entry0_data.Location = new System.Drawing.Point(176, 0);
+            this.Set0_Entry0_data.Location = new System.Drawing.Point(175, 0);
             this.Set0_Entry0_data.Name = "Set0_Entry0_data";
             this.Set0_Entry0_data.Size = new System.Drawing.Size(42, 39);
             this.Set0_Entry0_data.TabIndex = 6;
@@ -210,7 +213,7 @@ namespace Project2_HT
             // Set1_Entry0_data
             // 
             this.Set1_Entry0_data.AutoSize = true;
-            this.Set1_Entry0_data.Location = new System.Drawing.Point(176, 42);
+            this.Set1_Entry0_data.Location = new System.Drawing.Point(175, 42);
             this.Set1_Entry0_data.Name = "Set1_Entry0_data";
             this.Set1_Entry0_data.Size = new System.Drawing.Size(42, 39);
             this.Set1_Entry0_data.TabIndex = 7;
@@ -237,7 +240,7 @@ namespace Project2_HT
             // Set2_Entry0_index
             // 
             this.Set2_Entry0_index.AutoSize = true;
-            this.Set2_Entry0_index.Location = new System.Drawing.Point(130, 84);
+            this.Set2_Entry0_index.Location = new System.Drawing.Point(129, 84);
             this.Set2_Entry0_index.Name = "Set2_Entry0_index";
             this.Set2_Entry0_index.Size = new System.Drawing.Size(38, 30);
             this.Set2_Entry0_index.TabIndex = 10;
@@ -246,7 +249,7 @@ namespace Project2_HT
             // Set2_Entry0_data
             // 
             this.Set2_Entry0_data.AutoSize = true;
-            this.Set2_Entry0_data.Location = new System.Drawing.Point(176, 84);
+            this.Set2_Entry0_data.Location = new System.Drawing.Point(175, 84);
             this.Set2_Entry0_data.Name = "Set2_Entry0_data";
             this.Set2_Entry0_data.Size = new System.Drawing.Size(42, 30);
             this.Set2_Entry0_data.TabIndex = 11;
@@ -273,7 +276,7 @@ namespace Project2_HT
             // Set3_Entry0_index
             // 
             this.Set3_Entry0_index.AutoSize = true;
-            this.Set3_Entry0_index.Location = new System.Drawing.Point(130, 114);
+            this.Set3_Entry0_index.Location = new System.Drawing.Point(129, 114);
             this.Set3_Entry0_index.Name = "Set3_Entry0_index";
             this.Set3_Entry0_index.Size = new System.Drawing.Size(38, 33);
             this.Set3_Entry0_index.TabIndex = 14;
@@ -282,7 +285,7 @@ namespace Project2_HT
             // Set3_Entry0_data
             // 
             this.Set3_Entry0_data.AutoSize = true;
-            this.Set3_Entry0_data.Location = new System.Drawing.Point(176, 114);
+            this.Set3_Entry0_data.Location = new System.Drawing.Point(175, 114);
             this.Set3_Entry0_data.Name = "Set3_Entry0_data";
             this.Set3_Entry0_data.Size = new System.Drawing.Size(42, 33);
             this.Set3_Entry0_data.TabIndex = 15;
@@ -294,7 +297,7 @@ namespace Project2_HT
             this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.95652F));
             this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.04348F));
             this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.cacheImageBlock2.Controls.Add(this.Set0_Entry1_valid, 0, 0);
             this.cacheImageBlock2.Controls.Add(this.Set0_Entry1_tag, 1, 0);
             this.cacheImageBlock2.Controls.Add(this.Set0_Entry1_index, 2, 0);
@@ -333,7 +336,7 @@ namespace Project2_HT
             // Set0_Entry1_tag
             // 
             this.Set0_Entry1_tag.AutoSize = true;
-            this.Set0_Entry1_tag.Location = new System.Drawing.Point(47, 0);
+            this.Set0_Entry1_tag.Location = new System.Drawing.Point(46, 0);
             this.Set0_Entry1_tag.Name = "Set0_Entry1_tag";
             this.Set0_Entry1_tag.Size = new System.Drawing.Size(65, 26);
             this.Set0_Entry1_tag.TabIndex = 1;
@@ -342,7 +345,7 @@ namespace Project2_HT
             // Set0_Entry1_index
             // 
             this.Set0_Entry1_index.AutoSize = true;
-            this.Set0_Entry1_index.Location = new System.Drawing.Point(122, 0);
+            this.Set0_Entry1_index.Location = new System.Drawing.Point(121, 0);
             this.Set0_Entry1_index.Name = "Set0_Entry1_index";
             this.Set0_Entry1_index.Size = new System.Drawing.Size(38, 39);
             this.Set0_Entry1_index.TabIndex = 2;
@@ -351,9 +354,9 @@ namespace Project2_HT
             // Set0_Entry1_data
             // 
             this.Set0_Entry1_data.AutoSize = true;
-            this.Set0_Entry1_data.Location = new System.Drawing.Point(169, 0);
+            this.Set0_Entry1_data.Location = new System.Drawing.Point(168, 0);
             this.Set0_Entry1_data.Name = "Set0_Entry1_data";
-            this.Set0_Entry1_data.Size = new System.Drawing.Size(42, 39);
+            this.Set0_Entry1_data.Size = new System.Drawing.Size(48, 39);
             this.Set0_Entry1_data.TabIndex = 3;
             this.Set0_Entry1_data.Text = "Set0_Entry1_data";
             // 
@@ -369,7 +372,7 @@ namespace Project2_HT
             // Set1_Entry1_tag
             // 
             this.Set1_Entry1_tag.AutoSize = true;
-            this.Set1_Entry1_tag.Location = new System.Drawing.Point(47, 43);
+            this.Set1_Entry1_tag.Location = new System.Drawing.Point(46, 43);
             this.Set1_Entry1_tag.Name = "Set1_Entry1_tag";
             this.Set1_Entry1_tag.Size = new System.Drawing.Size(65, 26);
             this.Set1_Entry1_tag.TabIndex = 5;
@@ -378,7 +381,7 @@ namespace Project2_HT
             // Set1_Entry1_index
             // 
             this.Set1_Entry1_index.AutoSize = true;
-            this.Set1_Entry1_index.Location = new System.Drawing.Point(122, 43);
+            this.Set1_Entry1_index.Location = new System.Drawing.Point(121, 43);
             this.Set1_Entry1_index.Name = "Set1_Entry1_index";
             this.Set1_Entry1_index.Size = new System.Drawing.Size(38, 39);
             this.Set1_Entry1_index.TabIndex = 6;
@@ -387,9 +390,9 @@ namespace Project2_HT
             // Set1_Entry1_data
             // 
             this.Set1_Entry1_data.AutoSize = true;
-            this.Set1_Entry1_data.Location = new System.Drawing.Point(169, 43);
+            this.Set1_Entry1_data.Location = new System.Drawing.Point(168, 43);
             this.Set1_Entry1_data.Name = "Set1_Entry1_data";
-            this.Set1_Entry1_data.Size = new System.Drawing.Size(42, 39);
+            this.Set1_Entry1_data.Size = new System.Drawing.Size(48, 39);
             this.Set1_Entry1_data.TabIndex = 7;
             this.Set1_Entry1_data.Text = "Set1_Entry1_data";
             // 
@@ -405,7 +408,7 @@ namespace Project2_HT
             // Set2_Entry1_tag
             // 
             this.Set2_Entry1_tag.AutoSize = true;
-            this.Set2_Entry1_tag.Location = new System.Drawing.Point(47, 86);
+            this.Set2_Entry1_tag.Location = new System.Drawing.Point(46, 86);
             this.Set2_Entry1_tag.Name = "Set2_Entry1_tag";
             this.Set2_Entry1_tag.Size = new System.Drawing.Size(65, 26);
             this.Set2_Entry1_tag.TabIndex = 9;
@@ -414,7 +417,7 @@ namespace Project2_HT
             // Set2_Entry1_index
             // 
             this.Set2_Entry1_index.AutoSize = true;
-            this.Set2_Entry1_index.Location = new System.Drawing.Point(122, 86);
+            this.Set2_Entry1_index.Location = new System.Drawing.Point(121, 86);
             this.Set2_Entry1_index.Name = "Set2_Entry1_index";
             this.Set2_Entry1_index.Size = new System.Drawing.Size(38, 31);
             this.Set2_Entry1_index.TabIndex = 10;
@@ -423,9 +426,9 @@ namespace Project2_HT
             // Set2_Entry1_data
             // 
             this.Set2_Entry1_data.AutoSize = true;
-            this.Set2_Entry1_data.Location = new System.Drawing.Point(169, 86);
+            this.Set2_Entry1_data.Location = new System.Drawing.Point(168, 86);
             this.Set2_Entry1_data.Name = "Set2_Entry1_data";
-            this.Set2_Entry1_data.Size = new System.Drawing.Size(42, 31);
+            this.Set2_Entry1_data.Size = new System.Drawing.Size(48, 31);
             this.Set2_Entry1_data.TabIndex = 11;
             this.Set2_Entry1_data.Text = "Set2_Entry1_data";
             // 
@@ -441,7 +444,7 @@ namespace Project2_HT
             // Set3_Entry1_tag
             // 
             this.Set3_Entry1_tag.AutoSize = true;
-            this.Set3_Entry1_tag.Location = new System.Drawing.Point(47, 117);
+            this.Set3_Entry1_tag.Location = new System.Drawing.Point(46, 117);
             this.Set3_Entry1_tag.Name = "Set3_Entry1_tag";
             this.Set3_Entry1_tag.Size = new System.Drawing.Size(65, 26);
             this.Set3_Entry1_tag.TabIndex = 13;
@@ -450,7 +453,7 @@ namespace Project2_HT
             // Set3_Entry1_index
             // 
             this.Set3_Entry1_index.AutoSize = true;
-            this.Set3_Entry1_index.Location = new System.Drawing.Point(122, 117);
+            this.Set3_Entry1_index.Location = new System.Drawing.Point(121, 117);
             this.Set3_Entry1_index.Name = "Set3_Entry1_index";
             this.Set3_Entry1_index.Size = new System.Drawing.Size(38, 30);
             this.Set3_Entry1_index.TabIndex = 14;
@@ -459,9 +462,9 @@ namespace Project2_HT
             // Set3_Entry1_data
             // 
             this.Set3_Entry1_data.AutoSize = true;
-            this.Set3_Entry1_data.Location = new System.Drawing.Point(169, 117);
+            this.Set3_Entry1_data.Location = new System.Drawing.Point(168, 117);
             this.Set3_Entry1_data.Name = "Set3_Entry1_data";
-            this.Set3_Entry1_data.Size = new System.Drawing.Size(42, 30);
+            this.Set3_Entry1_data.Size = new System.Drawing.Size(48, 30);
             this.Set3_Entry1_data.TabIndex = 15;
             this.Set3_Entry1_data.Text = "Set3_Entry1_data";
             // 
@@ -471,7 +474,7 @@ namespace Project2_HT
             this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.03448F));
             this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.96552F));
             this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.cacheImageBlock3.Controls.Add(this.Set0_Entry2_valid, 0, 0);
             this.cacheImageBlock3.Controls.Add(this.Set0_Entry2_tag, 1, 0);
             this.cacheImageBlock3.Controls.Add(this.Set0_Entry2_index, 2, 0);
@@ -519,7 +522,7 @@ namespace Project2_HT
             // Set0_Entry2_index
             // 
             this.Set0_Entry2_index.AutoSize = true;
-            this.Set0_Entry2_index.Location = new System.Drawing.Point(110, 0);
+            this.Set0_Entry2_index.Location = new System.Drawing.Point(109, 0);
             this.Set0_Entry2_index.Name = "Set0_Entry2_index";
             this.Set0_Entry2_index.Size = new System.Drawing.Size(51, 39);
             this.Set0_Entry2_index.TabIndex = 2;
@@ -528,7 +531,7 @@ namespace Project2_HT
             // Set0_Entry2_data
             // 
             this.Set0_Entry2_data.AutoSize = true;
-            this.Set0_Entry2_data.Location = new System.Drawing.Point(167, 0);
+            this.Set0_Entry2_data.Location = new System.Drawing.Point(166, 0);
             this.Set0_Entry2_data.Name = "Set0_Entry2_data";
             this.Set0_Entry2_data.Size = new System.Drawing.Size(48, 39);
             this.Set0_Entry2_data.TabIndex = 3;
@@ -555,7 +558,7 @@ namespace Project2_HT
             // Set1_Entry2_index
             // 
             this.Set1_Entry2_index.AutoSize = true;
-            this.Set1_Entry2_index.Location = new System.Drawing.Point(110, 42);
+            this.Set1_Entry2_index.Location = new System.Drawing.Point(109, 42);
             this.Set1_Entry2_index.Name = "Set1_Entry2_index";
             this.Set1_Entry2_index.Size = new System.Drawing.Size(51, 39);
             this.Set1_Entry2_index.TabIndex = 6;
@@ -564,7 +567,7 @@ namespace Project2_HT
             // Set1_Entry2_data
             // 
             this.Set1_Entry2_data.AutoSize = true;
-            this.Set1_Entry2_data.Location = new System.Drawing.Point(167, 42);
+            this.Set1_Entry2_data.Location = new System.Drawing.Point(166, 42);
             this.Set1_Entry2_data.Name = "Set1_Entry2_data";
             this.Set1_Entry2_data.Size = new System.Drawing.Size(48, 39);
             this.Set1_Entry2_data.TabIndex = 7;
@@ -591,7 +594,7 @@ namespace Project2_HT
             // Set2_Entry2_index
             // 
             this.Set2_Entry2_index.AutoSize = true;
-            this.Set2_Entry2_index.Location = new System.Drawing.Point(110, 84);
+            this.Set2_Entry2_index.Location = new System.Drawing.Point(109, 84);
             this.Set2_Entry2_index.Name = "Set2_Entry2_index";
             this.Set2_Entry2_index.Size = new System.Drawing.Size(51, 32);
             this.Set2_Entry2_index.TabIndex = 10;
@@ -600,7 +603,7 @@ namespace Project2_HT
             // Set2_Entry2_data
             // 
             this.Set2_Entry2_data.AutoSize = true;
-            this.Set2_Entry2_data.Location = new System.Drawing.Point(167, 84);
+            this.Set2_Entry2_data.Location = new System.Drawing.Point(166, 84);
             this.Set2_Entry2_data.Name = "Set2_Entry2_data";
             this.Set2_Entry2_data.Size = new System.Drawing.Size(48, 32);
             this.Set2_Entry2_data.TabIndex = 11;
@@ -627,7 +630,7 @@ namespace Project2_HT
             // Set3_Entry2_index
             // 
             this.Set3_Entry2_index.AutoSize = true;
-            this.Set3_Entry2_index.Location = new System.Drawing.Point(110, 116);
+            this.Set3_Entry2_index.Location = new System.Drawing.Point(109, 116);
             this.Set3_Entry2_index.Name = "Set3_Entry2_index";
             this.Set3_Entry2_index.Size = new System.Drawing.Size(51, 31);
             this.Set3_Entry2_index.TabIndex = 14;
@@ -636,7 +639,7 @@ namespace Project2_HT
             // Set3_Entry2_data
             // 
             this.Set3_Entry2_data.AutoSize = true;
-            this.Set3_Entry2_data.Location = new System.Drawing.Point(167, 116);
+            this.Set3_Entry2_data.Location = new System.Drawing.Point(166, 116);
             this.Set3_Entry2_data.Name = "Set3_Entry2_data";
             this.Set3_Entry2_data.Size = new System.Drawing.Size(48, 31);
             this.Set3_Entry2_data.TabIndex = 15;
@@ -648,7 +651,7 @@ namespace Project2_HT
             this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.17391F));
             this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.82609F));
             this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49F));
             this.cacheImageBlock4.Controls.Add(this.Set0_Entry3_valid, 0, 0);
             this.cacheImageBlock4.Controls.Add(this.Set0_Entry3_tag, 1, 0);
             this.cacheImageBlock4.Controls.Add(this.Set0_Entry3_index, 2, 0);
@@ -687,7 +690,7 @@ namespace Project2_HT
             // Set0_Entry3_tag
             // 
             this.Set0_Entry3_tag.AutoSize = true;
-            this.Set0_Entry3_tag.Location = new System.Drawing.Point(43, 0);
+            this.Set0_Entry3_tag.Location = new System.Drawing.Point(42, 0);
             this.Set0_Entry3_tag.Name = "Set0_Entry3_tag";
             this.Set0_Entry3_tag.Size = new System.Drawing.Size(74, 26);
             this.Set0_Entry3_tag.TabIndex = 1;
@@ -696,7 +699,7 @@ namespace Project2_HT
             // Set0_Entry3_index
             // 
             this.Set0_Entry3_index.AutoSize = true;
-            this.Set0_Entry3_index.Location = new System.Drawing.Point(127, 0);
+            this.Set0_Entry3_index.Location = new System.Drawing.Point(126, 0);
             this.Set0_Entry3_index.Name = "Set0_Entry3_index";
             this.Set0_Entry3_index.Size = new System.Drawing.Size(38, 39);
             this.Set0_Entry3_index.TabIndex = 2;
@@ -705,7 +708,7 @@ namespace Project2_HT
             // Set0_Entry3_data
             // 
             this.Set0_Entry3_data.AutoSize = true;
-            this.Set0_Entry3_data.Location = new System.Drawing.Point(174, 0);
+            this.Set0_Entry3_data.Location = new System.Drawing.Point(173, 0);
             this.Set0_Entry3_data.Name = "Set0_Entry3_data";
             this.Set0_Entry3_data.Size = new System.Drawing.Size(42, 39);
             this.Set0_Entry3_data.TabIndex = 3;
@@ -723,7 +726,7 @@ namespace Project2_HT
             // Set1_Entry3_tag
             // 
             this.Set1_Entry3_tag.AutoSize = true;
-            this.Set1_Entry3_tag.Location = new System.Drawing.Point(43, 40);
+            this.Set1_Entry3_tag.Location = new System.Drawing.Point(42, 40);
             this.Set1_Entry3_tag.Name = "Set1_Entry3_tag";
             this.Set1_Entry3_tag.Size = new System.Drawing.Size(74, 26);
             this.Set1_Entry3_tag.TabIndex = 5;
@@ -732,7 +735,7 @@ namespace Project2_HT
             // Set1_Entry3_index
             // 
             this.Set1_Entry3_index.AutoSize = true;
-            this.Set1_Entry3_index.Location = new System.Drawing.Point(127, 40);
+            this.Set1_Entry3_index.Location = new System.Drawing.Point(126, 40);
             this.Set1_Entry3_index.Name = "Set1_Entry3_index";
             this.Set1_Entry3_index.Size = new System.Drawing.Size(38, 39);
             this.Set1_Entry3_index.TabIndex = 6;
@@ -741,7 +744,7 @@ namespace Project2_HT
             // Set1_Entry3_data
             // 
             this.Set1_Entry3_data.AutoSize = true;
-            this.Set1_Entry3_data.Location = new System.Drawing.Point(174, 40);
+            this.Set1_Entry3_data.Location = new System.Drawing.Point(173, 40);
             this.Set1_Entry3_data.Name = "Set1_Entry3_data";
             this.Set1_Entry3_data.Size = new System.Drawing.Size(42, 39);
             this.Set1_Entry3_data.TabIndex = 7;
@@ -759,7 +762,7 @@ namespace Project2_HT
             // Set2_Entry3_tag
             // 
             this.Set2_Entry3_tag.AutoSize = true;
-            this.Set2_Entry3_tag.Location = new System.Drawing.Point(43, 80);
+            this.Set2_Entry3_tag.Location = new System.Drawing.Point(42, 80);
             this.Set2_Entry3_tag.Name = "Set2_Entry3_tag";
             this.Set2_Entry3_tag.Size = new System.Drawing.Size(74, 26);
             this.Set2_Entry3_tag.TabIndex = 9;
@@ -768,7 +771,7 @@ namespace Project2_HT
             // Set2_Entry3_index
             // 
             this.Set2_Entry3_index.AutoSize = true;
-            this.Set2_Entry3_index.Location = new System.Drawing.Point(127, 80);
+            this.Set2_Entry3_index.Location = new System.Drawing.Point(126, 80);
             this.Set2_Entry3_index.Name = "Set2_Entry3_index";
             this.Set2_Entry3_index.Size = new System.Drawing.Size(38, 33);
             this.Set2_Entry3_index.TabIndex = 10;
@@ -777,7 +780,7 @@ namespace Project2_HT
             // Set2_Entry3_data
             // 
             this.Set2_Entry3_data.AutoSize = true;
-            this.Set2_Entry3_data.Location = new System.Drawing.Point(174, 80);
+            this.Set2_Entry3_data.Location = new System.Drawing.Point(173, 80);
             this.Set2_Entry3_data.Name = "Set2_Entry3_data";
             this.Set2_Entry3_data.Size = new System.Drawing.Size(42, 33);
             this.Set2_Entry3_data.TabIndex = 11;
@@ -795,7 +798,7 @@ namespace Project2_HT
             // Set3_Entry3_tag
             // 
             this.Set3_Entry3_tag.AutoSize = true;
-            this.Set3_Entry3_tag.Location = new System.Drawing.Point(43, 113);
+            this.Set3_Entry3_tag.Location = new System.Drawing.Point(42, 113);
             this.Set3_Entry3_tag.Name = "Set3_Entry3_tag";
             this.Set3_Entry3_tag.Size = new System.Drawing.Size(74, 26);
             this.Set3_Entry3_tag.TabIndex = 13;
@@ -804,7 +807,7 @@ namespace Project2_HT
             // Set3_Entry3_index
             // 
             this.Set3_Entry3_index.AutoSize = true;
-            this.Set3_Entry3_index.Location = new System.Drawing.Point(127, 113);
+            this.Set3_Entry3_index.Location = new System.Drawing.Point(126, 113);
             this.Set3_Entry3_index.Name = "Set3_Entry3_index";
             this.Set3_Entry3_index.Size = new System.Drawing.Size(38, 34);
             this.Set3_Entry3_index.TabIndex = 14;
@@ -813,7 +816,7 @@ namespace Project2_HT
             // Set3_Entry3_data
             // 
             this.Set3_Entry3_data.AutoSize = true;
-            this.Set3_Entry3_data.Location = new System.Drawing.Point(174, 113);
+            this.Set3_Entry3_data.Location = new System.Drawing.Point(173, 113);
             this.Set3_Entry3_data.Name = "Set3_Entry3_data";
             this.Set3_Entry3_data.Size = new System.Drawing.Size(42, 34);
             this.Set3_Entry3_data.TabIndex = 15;
@@ -824,7 +827,7 @@ namespace Project2_HT
             this.incomingAddressPanel.ColumnCount = 3;
             this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.88754F));
             this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.11246F));
-            this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.incomingAddressPanel.Controls.Add(this.AddressTag, 0, 0);
             this.incomingAddressPanel.Controls.Add(this.AddressIndex, 1, 0);
             this.incomingAddressPanel.Controls.Add(this.AddressOffset, 2, 0);
@@ -847,7 +850,7 @@ namespace Project2_HT
             // AddressIndex
             // 
             this.AddressIndex.AutoSize = true;
-            this.AddressIndex.Location = new System.Drawing.Point(153, 0);
+            this.AddressIndex.Location = new System.Drawing.Point(152, 0);
             this.AddressIndex.Name = "AddressIndex";
             this.AddressIndex.Size = new System.Drawing.Size(33, 13);
             this.AddressIndex.TabIndex = 1;
@@ -856,17 +859,17 @@ namespace Project2_HT
             // AddressOffset
             // 
             this.AddressOffset.AutoSize = true;
-            this.AddressOffset.Location = new System.Drawing.Point(286, 0);
+            this.AddressOffset.Location = new System.Drawing.Point(285, 0);
             this.AddressOffset.Name = "AddressOffset";
-            this.AddressOffset.Size = new System.Drawing.Size(41, 13);
+            this.AddressOffset.Size = new System.Drawing.Size(45, 26);
             this.AddressOffset.TabIndex = 2;
-            this.AddressOffset.Text = "label58";
+            this.AddressOffset.Text = "AddressOffset";
             // 
             // multBox
             // 
             this.multBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.multBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.multBox.Location = new System.Drawing.Point(262, 383);
+            this.multBox.Location = new System.Drawing.Point(308, 420);
             this.multBox.Name = "multBox";
             this.multBox.ReadOnly = true;
             this.multBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -877,13 +880,42 @@ namespace Project2_HT
             // hitTextBox
             // 
             this.hitTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hitTextBox.Location = new System.Drawing.Point(83, 418);
+            this.hitTextBox.Location = new System.Drawing.Point(90, 456);
             this.hitTextBox.Name = "hitTextBox";
             this.hitTextBox.ReadOnly = true;
             this.hitTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.hitTextBox.Size = new System.Drawing.Size(64, 20);
             this.hitTextBox.TabIndex = 6;
             this.hitTextBox.Text = "    HIT";
+            // 
+            // CompMiss
+            // 
+            this.CompMiss.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CompMiss.Location = new System.Drawing.Point(414, 410);
+            this.CompMiss.Name = "CompMiss";
+            this.CompMiss.ReadOnly = true;
+            this.CompMiss.Size = new System.Drawing.Size(100, 31);
+            this.CompMiss.TabIndex = 7;
+            this.CompMiss.Text = "Comp";
+            // 
+            // CapMiss
+            // 
+            this.CapMiss.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CapMiss.Location = new System.Drawing.Point(524, 410);
+            this.CapMiss.Name = "CapMiss";
+            this.CapMiss.Size = new System.Drawing.Size(100, 31);
+            this.CapMiss.TabIndex = 8;
+            this.CapMiss.Text = "Capacity";
+            // 
+            // ConflictMiss
+            // 
+            this.ConflictMiss.BackColor = System.Drawing.SystemColors.Window;
+            this.ConflictMiss.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConflictMiss.Location = new System.Drawing.Point(640, 410);
+            this.ConflictMiss.Name = "ConflictMiss";
+            this.ConflictMiss.Size = new System.Drawing.Size(100, 31);
+            this.ConflictMiss.TabIndex = 9;
+            this.ConflictMiss.Text = "Conflict";
             // 
             // CacheFourWay
             // 
@@ -892,6 +924,9 @@ namespace Project2_HT
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(942, 493);
+            this.Controls.Add(this.ConflictMiss);
+            this.Controls.Add(this.CapMiss);
+            this.Controls.Add(this.CompMiss);
             this.Controls.Add(this.hitTextBox);
             this.Controls.Add(this.multBox);
             this.Controls.Add(this.incomingAddressPanel);
@@ -993,5 +1028,8 @@ namespace Project2_HT
         private System.Windows.Forms.Label AddressTag;
         private System.Windows.Forms.Label AddressIndex;
         private System.Windows.Forms.Label AddressOffset;
+        private System.Windows.Forms.RichTextBox CompMiss;
+        private System.Windows.Forms.RichTextBox CapMiss;
+        private System.Windows.Forms.RichTextBox ConflictMiss;
     }
 }
