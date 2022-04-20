@@ -13,7 +13,7 @@ namespace Project3_HT
         {
         }
 
-        public override void Enqueue(Instruction instr)
+       /* public override void Enqueue(Instruction instr)
         {
             if (Instructions.Count > 0)
             {
@@ -24,7 +24,7 @@ namespace Project3_HT
             ExecTime = CalcExecutionTime(instr);
 
             Empty = false;
-        }
+        }*/
 
 
     }

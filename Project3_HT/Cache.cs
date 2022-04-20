@@ -66,8 +66,13 @@ namespace Project3_HT
             //instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier); 
 
             // for testing DELETE LATER
-            instr.Address = 13579;
-            instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            // ADDRESS IS DECIMAL   
+            instr.Address = 424080;
+
+            var hex = Convert.ToString(instr.Address, 16);
+
+            instr.Address = uint.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
            
             uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
             

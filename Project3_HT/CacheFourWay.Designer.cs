@@ -42,7 +42,7 @@ namespace Project2_HT
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CacheFourWay";
-            this.Text = "Form1";
+            this.Text = "Cache";
             this.ResumeLayout(false);
 
         }
