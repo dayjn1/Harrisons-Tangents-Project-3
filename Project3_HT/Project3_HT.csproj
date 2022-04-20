@@ -63,6 +63,12 @@
     <Compile Include="DynamicSim.Designer.cs">
       <DependentUpon>DynamicSim.cs</DependentUpon>
     </Compile>
+    <Compile Include="CacheFourWay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CacheFourWay.Designer.cs">
+      <DependentUpon>CacheFourWay.cs</DependentUpon>
+    </Compile>
     <Compile Include="FuncUnit.cs" />
     <Compile Include="FuncUnitManager.cs" />
     <Compile Include="InstructionQueue.cs" />
@@ -92,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DynamicSim.resx">
       <DependentUpon>DynamicSim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CacheFourWay.resx">
+      <DependentUpon>CacheFourWay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
