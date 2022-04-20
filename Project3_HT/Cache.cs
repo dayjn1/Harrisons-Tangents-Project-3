@@ -15,7 +15,7 @@ namespace Project3_HT
         public uint offset;
         public uint index;
         public uint tag;
-        public bool valid;
+        public bool valid; //tag a valid location for replacement?
         public CacheEntry(uint offset, uint index, uint tag)
         {
             this.offset = offset;
@@ -24,12 +24,14 @@ namespace Project3_HT
             valid = false;
         }
     }
-
+    
     internal class Cache
     {
+       
         public int SetAssociativity { get; set; }
         public int TotalSize { get; set; }
         public CacheEntry[,] CacheArray { get; set; }
+        static Random kill = new Random(3);
 
         /// <summary>
         /// Non-default constructor if you want to specify properties
@@ -149,15 +151,20 @@ namespace Project3_HT
 
             for (int i = 0; i < SetAssociativity; i++)
             {
-                if (CacheArray[ce.index, i].valid == false)
+                if (CacheArray[ce.index, i].valid== false)
                 {
                     CacheArray[ce.index, i] = ce;
                 }
-                else
+                if(IsSetFull() == true)
                 {
+
                     Replace(ce);
                 }
             }
+        }
+        public bool IsSetFull()
+        {
+            return false;
         }
 
         /// <summary>
@@ -166,6 +173,9 @@ namespace Project3_HT
         /// <param name="ce"></param>
         public void Replace(CacheEntry ce)
         {
+         
+            int victim = kill.Next();
+            CacheArray[ce.index, victim] = ce; 
             return;
         }
 
