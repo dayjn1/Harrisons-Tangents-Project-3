@@ -49,8 +49,22 @@ namespace Project3_HT
             rs.currentInst = i;
             rs.mnemonic = i.Mnemonic;
             rs.destR = i.DestReg;
-            rs.operand1 = i.Reg1;
-            rs.operand2 = i.Reg2;
+
+            if (i.useR1)
+                rs.operand1 = i.Reg1;
+            else
+                rs.operand1 = null;
+
+            if (i.useR2)
+                rs.operand2 = i.Reg2;
+            else
+                rs.operand2 = null;
+
+            if (i.useImm)
+                rs.imm = i.Imm;
+            else
+                rs.imm = null;
+            
             rs.lineNumOfInst = i.lineNum;
             UpdateStaleFlagsOnReciept(rs);
         }
@@ -91,6 +105,7 @@ namespace Project3_HT
                     rs.waitOnDR = true;
                     rs.ready = false;
                 }*/
+
                 if (!tempO1.Avail && tempO1.LineNum != rs.lineNumOfInst)
                 {
                     rs.waitOnO1 = true;
@@ -101,9 +116,16 @@ namespace Project3_HT
                     rs.waitOnO2 = true;
                     rs.ready = false;
                 }
-                else
-                    rs.ready = true;
                 
+                if(!rs.waitOnO1 && !rs.waitOnO2)
+                {
+                    rs.ready = true;
+                    if(rs.operand1 != null)
+                        rs.currentInst.Reg1Data = RegisterFile.ReturnReg(rs.operand1);
+                    if(rs.operand2 != null)
+                        rs.currentInst.Reg2Data = RegisterFile.ReturnReg(rs.operand2);
+                }
+
             }
         }//end ReadyForExe
 
@@ -116,12 +138,18 @@ namespace Project3_HT
             {
                 if(!rs.ready)
                 {
-                    if (rs.waitOnDR && temp.DestReg == rs.destR)
-                        rs.waitOnDR = false;
                     if (rs.waitOnO1 && temp.DestReg == rs.operand1)
+                    {
                         rs.waitOnO1 = false;
+                        rs.currentInst.Reg1Data = (int)temp.Result;
+                    }
                     if (rs.waitOnO2 && temp.DestReg == rs.operand2)
+                    {
                         rs.waitOnO2 = false;
+                        rs.currentInst.Reg2Data = (int)temp.Result;
+                    }
+
+
                 }
             }
 
