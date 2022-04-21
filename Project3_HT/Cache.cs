@@ -83,9 +83,9 @@ namespace Project3_HT
             //instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier); 
 
             // for testing DELETE LATER
-            instr.Address = 13579;
-            instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier);
-           
+            //instr.Address = 13579;
+            //instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier);
+            
             uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
             
             uint index = instr.Address & 0x000F0;               //Index is two bits after the offset
