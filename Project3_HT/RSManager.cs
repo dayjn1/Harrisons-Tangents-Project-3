@@ -156,6 +156,38 @@ namespace Project3_HT
             return IsReady(rs);
         }//end checkCDB
 
+        public static bool CheckRegFile(ReservationStation rs)
+        {
+            RegisterFile.RegTicket temp;
+            
+            //grab instruction.destReg and compare to registers waiting on something
+            if (!rs.ready)
+            {
+                if (rs.waitOnO1)
+                {
+                    temp = RegisterFile.IsAvail(rs.currentInst.Reg1);
+                    if (temp.Avail)
+                    {   
+                        rs.currentInst.Reg1Data = (int)temp.Data;
+                        rs.waitOnO1 = false;
+                    }
+                }
+                if (rs.waitOnO2)
+                {
+                    temp = RegisterFile.IsAvail(rs.currentInst.Reg2);
+                    if (temp.Avail)
+                    {
+                        rs.currentInst.Reg2Data = (int)temp.Data;
+                        rs.waitOnO2 = false;
+                    }
+                }
+
+
+            }
+            
+
+            return IsReady(rs);
+        }//end checkCDB
 
         public static bool IsReady(ReservationStation r)
         {
@@ -166,6 +198,7 @@ namespace Project3_HT
 
             return r.ready;
         }
+
 
 
         //after each foreach loop, if we have found one that's not empty, then return without wasting more time/resources

@@ -67,12 +67,12 @@ namespace Project3_HT
                 {
                     AddressUnit.AddToAddressUnitQueue(i); //go to address unit
                     ReorderBuffer.AddToReorderBuf(i);
-                    RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
+                    //RegisterFile.MarkUnavail(i.DestReg, i.lineNum);
                     IQueue.Dequeue();
                 }
 
             }
-            else if (i.OpCode >= 5 && i.OpCode <= 22) // goes to the intRS 
+            else if (i.OpCode >= 5 && i.OpCode <= 21) // goes to the intRS 
             {
                 // Check for space on the RB and RS and dequeue
                 if (ReorderBuffer.IsReorderBufFree().Equals(true))
