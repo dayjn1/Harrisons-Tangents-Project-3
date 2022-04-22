@@ -213,6 +213,10 @@ namespace Project3_HT
                 uint immediate = (uint)input & 0x0000FFFF;
                 this.Imm = immediate.ToString("X");
             }
+            if(OpCode > 0 && OpCode < 5)                                //If load or store
+            {
+                this.Address = (uint)input & 0xFFFFF;
+            }
 
         }//end disassemble
 
