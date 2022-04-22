@@ -56,7 +56,7 @@ namespace Project3_HT
             new Instruction(17, "OR", 1, 1, 1, 0, 1,  true, true, true, true, false),
             new Instruction(18, "NOT", 1, 1, 1, 0, 1, true, true, false, false, false),
             new Instruction(19, "NEG", 1, 1, 1, 0, 1, true, true, false, false, false),
-            new Instruction(20, "ASL", 1, 1, 1, 0, 1, true, true, true, true, false),               //R1 operand to be shifted, R2 shift value -JM
+            new Instruction(20, "ASL", 1, 1, 1, 0, 1, true, true, true, true, false),
             new Instruction(21, "ASR", 1, 1, 1, 0, 1, true, true, true, true, false),
             new Instruction(22, "MOV", 1, 1, 1, 0, 1, true, true, false, false, true),
             new Instruction(128, "FADD", 1, 1, 2, 0, 1, true, true, true, true, false),

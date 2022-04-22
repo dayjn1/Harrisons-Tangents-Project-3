@@ -62,17 +62,12 @@ namespace Project3_HT
         /// </summary>
         public CacheEntry DeconstructInstruction(Instruction instr)
         {
-            // for future working address unit, if Address does not return 0x67890
-            //instr.Address = uint.Parse(instr.Address.ToString(), System.Globalization.NumberStyles.AllowHexSpecifier); 
+            // instr.Address = 424080;         // just an example 67890
+           // instr.Address = 0x67890;
 
-            // for testing DELETE LATER
+           // var hex = Convert.ToString(instr.Address, 16);      // Address is in the decimal, convert it into hex
 
-            // ADDRESS IS DECIMAL   
-            instr.Address = 424080;
-
-            var hex = Convert.ToString(instr.Address, 16);
-
-            instr.Address = uint.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
+           // instr.Address = uint.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
            
             uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
             
