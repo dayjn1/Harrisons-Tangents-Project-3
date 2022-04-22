@@ -190,10 +190,24 @@ namespace Project3_HT
                 IRS2Ready = RSManager.CheckCDB(RSManager.IntegerRS[1]);
                 IRS3Ready = RSManager.CheckCDB(RSManager.IntegerRS[2]);
 
-                //TODO: push instruction on CDB to ROB
+                
+
+                //TODO: push instruction on CDB to ROB CheckRegFile
                 CDBus.SendResults();
 
             }//end if
+
+            RSManager.CheckRegFile(RSManager.FPAddRS[0]);
+            RSManager.CheckRegFile(RSManager.FPAddRS[1]);
+            RSManager.CheckRegFile(RSManager.FPAddRS[2]);
+
+            RSManager.CheckRegFile(RSManager.FPMultRS[0]);
+            RSManager.CheckRegFile(RSManager.FPMultRS[1]);
+            RSManager.CheckRegFile(RSManager.FPMultRS[2]);
+
+            RSManager.CheckRegFile(RSManager.IntegerRS[0]);
+            RSManager.CheckRegFile(RSManager.IntegerRS[1]);
+            RSManager.CheckRegFile(RSManager.IntegerRS[2]);
 
 
 
@@ -353,7 +367,7 @@ namespace Project3_HT
                 Labels[i].Text = array[i].Mnemonic;
             }//end for
         }//end ChangeReorderBuf(Instruction[])
-        public void ChangeRegisterFile(string[] array)
+        public void ChangeRegisterFile(List<int> RegData)
         {
             List<Label> Labels = new List<Label>()
             {  R0_Data,  R1_Data,   R2_Data,   R3_Data,   R4_Data,   R5_Data,   R6_Data,   R7_Data,
@@ -366,9 +380,9 @@ namespace Project3_HT
                 label.Text = " ";
             }//end foreach
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < RegData.Count; i++)
             {
-                Labels[i].Text = array[i];
+                Labels[i].Text = RegData[i].ToString();
             }//end for
         }//end ChangeRegisterFile(string[])
 

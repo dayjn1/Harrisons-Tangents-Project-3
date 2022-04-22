@@ -34,16 +34,19 @@ namespace Project3_HT
         /// <summary>
         /// Send an instruction from reservation station or load buffer into functional unit
         /// </summary>
-        public virtual void Enqueue(Instruction instr)
+        public void Enqueue(Instruction instr)
         {
             if(Instructions.Count > 0)
             {
                 throw new InvalidOperationException("Functional units can only execute one Instruction per cycle." +
                     "\nPlease Dequeue the instruction or stall execution.");
+                //return false;
             }
             Instructions.Enqueue(instr);
             ExecTime = CalcExecutionTime(instr);
             Empty = false;
+            Executed = false;
+            //return true;
         }
 
         /// <summary>

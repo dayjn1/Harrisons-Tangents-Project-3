@@ -17,7 +17,6 @@ namespace Project3_HT
 {
     internal static class FuncUnitManager
     {
-        public static Cache TheCache = new Cache();
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"),
@@ -76,26 +75,31 @@ namespace Project3_HT
                         if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
-                            if (TheCache.Check(funcUnit.Instructions.Peek()))       //If there is a cache hit
+                            if (Cache.Check(temp))       //If there is a cache hit
                             {
                                 //temp.Result = Cache.LoadInstr(temp.Address);
                                 funcUnit.Instructions.Enqueue(temp);
-                                processed = true;
                             }
-                            else                                                    //Cache miss; load from mem and put in cache
+                            else                                                    //Cache miss; load from mem and put in cache -jfm
                             {
                                 temp.Result = Memory.LoadInstr(temp.Address);
-                                TheCache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
+                                Cache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
                                 temp.ExecuteCC *= 5;
                                 funcUnit.Instructions.Enqueue(temp);
-                                processed = true;
                             }
+                            processed = true;
 
                         }//end if load
                         else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
                         {
+                            Instruction temp = funcUnit.Instructions.Dequeue();
+                            if (Cache.Check(temp))       //If there is a cache hit, store to cache and mem, otherwise just mem -jfm
+                            {
+                                Cache.Add(temp);                                 //Store to cache and memory -jfm
+                            }
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
                             // Need to make a method in reg file to return contents of given register
+                            funcUnit.Instructions.Enqueue(temp);
                             processed = true;
                         }//end if store
                     }
@@ -103,7 +107,6 @@ namespace Project3_HT
                 else
                 {
                     funcUnit.Executed = true;
-
 
                 }
 

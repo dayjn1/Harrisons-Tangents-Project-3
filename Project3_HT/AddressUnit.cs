@@ -17,12 +17,18 @@ namespace Project3_HT
             int size = 1;           //size of queue
             if (counter < size)
             {
-                bool valid1 = Int32.TryParse(i.DestReg, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempDR);
-                bool valid2 = Int32.TryParse(i.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempImm);
-
-                if (valid1 && valid2)
+                int Reg1 = RegisterFile.ReturnReg(i.Reg1);
+                
+                if (i.useImm && Int32.TryParse(i.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempImm))
                 {
-                    i.Address = (uint)tempDR + (uint)tempImm;
+                    i.Address = (uint)Reg1 + (uint)tempImm;
+                    i.Address &= 0x000FFFFF;
+                }
+                else if(i.useR2)
+                {
+                    int Reg2 = RegisterFile.ReturnReg(i.Reg2);
+                    i.Address = (uint)Reg1 + (uint)Reg2;
+                    i.Address &= 0x000FFFFF;
                 }
 
                 //Enqueue
