@@ -119,8 +119,8 @@ namespace Project2_HT
             this.cacheImageBlock1.ColumnCount = 4;
             this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.85106F));
             this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.14893F));
-            this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 61F));
+            this.cacheImageBlock1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.cacheImageBlock1.Controls.Add(this.Set0_Entry0_valid, 0, 0);
             this.cacheImageBlock1.Controls.Add(this.Set0_Entry0_tag, 1, 0);
             this.cacheImageBlock1.Controls.Add(this.Set0_Entry0_index, 2, 0);
@@ -152,25 +152,25 @@ namespace Project2_HT
             this.Set0_Entry0_valid.AutoSize = true;
             this.Set0_Entry0_valid.Location = new System.Drawing.Point(3, 0);
             this.Set0_Entry0_valid.Name = "Set0_Entry0_valid";
-            this.Set0_Entry0_valid.Size = new System.Drawing.Size(32, 42);
+            this.Set0_Entry0_valid.Size = new System.Drawing.Size(26, 42);
             this.Set0_Entry0_valid.TabIndex = 0;
             this.Set0_Entry0_valid.Text = "Set0_Entry0_valid";
             // 
             // Set0_Entry0_tag
             // 
             this.Set0_Entry0_tag.AutoSize = true;
-            this.Set0_Entry0_tag.Location = new System.Drawing.Point(42, 0);
+            this.Set0_Entry0_tag.Location = new System.Drawing.Point(37, 0);
             this.Set0_Entry0_tag.Name = "Set0_Entry0_tag";
-            this.Set0_Entry0_tag.Size = new System.Drawing.Size(80, 26);
+            this.Set0_Entry0_tag.Size = new System.Drawing.Size(65, 26);
             this.Set0_Entry0_tag.TabIndex = 1;
             this.Set0_Entry0_tag.Text = "Set0_Entry0_tag";
             // 
             // Set0_Entry0_index
             // 
             this.Set0_Entry0_index.AutoSize = true;
-            this.Set0_Entry0_index.Location = new System.Drawing.Point(129, 0);
+            this.Set0_Entry0_index.Location = new System.Drawing.Point(113, 0);
             this.Set0_Entry0_index.Name = "Set0_Entry0_index";
-            this.Set0_Entry0_index.Size = new System.Drawing.Size(38, 39);
+            this.Set0_Entry0_index.Size = new System.Drawing.Size(54, 26);
             this.Set0_Entry0_index.TabIndex = 2;
             this.Set0_Entry0_index.Text = "Set0_Entry0_index";
             // 
@@ -179,32 +179,32 @@ namespace Project2_HT
             this.Set1_Entry0_valid.AutoSize = true;
             this.Set1_Entry0_valid.Location = new System.Drawing.Point(3, 42);
             this.Set1_Entry0_valid.Name = "Set1_Entry0_valid";
-            this.Set1_Entry0_valid.Size = new System.Drawing.Size(32, 42);
+            this.Set1_Entry0_valid.Size = new System.Drawing.Size(26, 42);
             this.Set1_Entry0_valid.TabIndex = 3;
             this.Set1_Entry0_valid.Text = "Set1_Entry0_valid";
             // 
             // Set1_Entry0_tag
             // 
             this.Set1_Entry0_tag.AutoSize = true;
-            this.Set1_Entry0_tag.Location = new System.Drawing.Point(42, 42);
+            this.Set1_Entry0_tag.Location = new System.Drawing.Point(37, 42);
             this.Set1_Entry0_tag.Name = "Set1_Entry0_tag";
-            this.Set1_Entry0_tag.Size = new System.Drawing.Size(80, 26);
+            this.Set1_Entry0_tag.Size = new System.Drawing.Size(65, 26);
             this.Set1_Entry0_tag.TabIndex = 4;
             this.Set1_Entry0_tag.Text = "Set1_Entry0_tag";
             // 
             // Set1_Entry0_index
             // 
             this.Set1_Entry0_index.AutoSize = true;
-            this.Set1_Entry0_index.Location = new System.Drawing.Point(129, 42);
+            this.Set1_Entry0_index.Location = new System.Drawing.Point(113, 42);
             this.Set1_Entry0_index.Name = "Set1_Entry0_index";
-            this.Set1_Entry0_index.Size = new System.Drawing.Size(38, 39);
+            this.Set1_Entry0_index.Size = new System.Drawing.Size(54, 26);
             this.Set1_Entry0_index.TabIndex = 5;
             this.Set1_Entry0_index.Text = "Set1_Entry0_index";
             // 
             // Set0_Entry0_data
             // 
             this.Set0_Entry0_data.AutoSize = true;
-            this.Set0_Entry0_data.Location = new System.Drawing.Point(175, 0);
+            this.Set0_Entry0_data.Location = new System.Drawing.Point(174, 0);
             this.Set0_Entry0_data.Name = "Set0_Entry0_data";
             this.Set0_Entry0_data.Size = new System.Drawing.Size(42, 39);
             this.Set0_Entry0_data.TabIndex = 6;
@@ -213,7 +213,7 @@ namespace Project2_HT
             // Set1_Entry0_data
             // 
             this.Set1_Entry0_data.AutoSize = true;
-            this.Set1_Entry0_data.Location = new System.Drawing.Point(175, 42);
+            this.Set1_Entry0_data.Location = new System.Drawing.Point(174, 42);
             this.Set1_Entry0_data.Name = "Set1_Entry0_data";
             this.Set1_Entry0_data.Size = new System.Drawing.Size(42, 39);
             this.Set1_Entry0_data.TabIndex = 7;
@@ -224,32 +224,32 @@ namespace Project2_HT
             this.Set2_Entry0_valid.AutoSize = true;
             this.Set2_Entry0_valid.Location = new System.Drawing.Point(3, 84);
             this.Set2_Entry0_valid.Name = "Set2_Entry0_valid";
-            this.Set2_Entry0_valid.Size = new System.Drawing.Size(32, 30);
+            this.Set2_Entry0_valid.Size = new System.Drawing.Size(26, 30);
             this.Set2_Entry0_valid.TabIndex = 8;
             this.Set2_Entry0_valid.Text = "Set2_Entry0_valid";
             // 
             // Set2_Entry0_tag
             // 
             this.Set2_Entry0_tag.AutoSize = true;
-            this.Set2_Entry0_tag.Location = new System.Drawing.Point(42, 84);
+            this.Set2_Entry0_tag.Location = new System.Drawing.Point(37, 84);
             this.Set2_Entry0_tag.Name = "Set2_Entry0_tag";
-            this.Set2_Entry0_tag.Size = new System.Drawing.Size(80, 26);
+            this.Set2_Entry0_tag.Size = new System.Drawing.Size(65, 26);
             this.Set2_Entry0_tag.TabIndex = 9;
             this.Set2_Entry0_tag.Text = "Set2_Entry0_tag";
             // 
             // Set2_Entry0_index
             // 
             this.Set2_Entry0_index.AutoSize = true;
-            this.Set2_Entry0_index.Location = new System.Drawing.Point(129, 84);
+            this.Set2_Entry0_index.Location = new System.Drawing.Point(113, 84);
             this.Set2_Entry0_index.Name = "Set2_Entry0_index";
-            this.Set2_Entry0_index.Size = new System.Drawing.Size(38, 30);
+            this.Set2_Entry0_index.Size = new System.Drawing.Size(54, 26);
             this.Set2_Entry0_index.TabIndex = 10;
             this.Set2_Entry0_index.Text = "Set2_Entry0_index";
             // 
             // Set2_Entry0_data
             // 
             this.Set2_Entry0_data.AutoSize = true;
-            this.Set2_Entry0_data.Location = new System.Drawing.Point(175, 84);
+            this.Set2_Entry0_data.Location = new System.Drawing.Point(174, 84);
             this.Set2_Entry0_data.Name = "Set2_Entry0_data";
             this.Set2_Entry0_data.Size = new System.Drawing.Size(42, 30);
             this.Set2_Entry0_data.TabIndex = 11;
@@ -260,32 +260,32 @@ namespace Project2_HT
             this.Set3_Entry0_valid.AutoSize = true;
             this.Set3_Entry0_valid.Location = new System.Drawing.Point(3, 114);
             this.Set3_Entry0_valid.Name = "Set3_Entry0_valid";
-            this.Set3_Entry0_valid.Size = new System.Drawing.Size(32, 33);
+            this.Set3_Entry0_valid.Size = new System.Drawing.Size(26, 33);
             this.Set3_Entry0_valid.TabIndex = 12;
             this.Set3_Entry0_valid.Text = "Set3_Entry0_valid";
             // 
             // Set3_Entry0_tag
             // 
             this.Set3_Entry0_tag.AutoSize = true;
-            this.Set3_Entry0_tag.Location = new System.Drawing.Point(42, 114);
+            this.Set3_Entry0_tag.Location = new System.Drawing.Point(37, 114);
             this.Set3_Entry0_tag.Name = "Set3_Entry0_tag";
-            this.Set3_Entry0_tag.Size = new System.Drawing.Size(80, 26);
+            this.Set3_Entry0_tag.Size = new System.Drawing.Size(65, 26);
             this.Set3_Entry0_tag.TabIndex = 13;
             this.Set3_Entry0_tag.Text = "Set3_Entry0_tag";
             // 
             // Set3_Entry0_index
             // 
             this.Set3_Entry0_index.AutoSize = true;
-            this.Set3_Entry0_index.Location = new System.Drawing.Point(129, 114);
+            this.Set3_Entry0_index.Location = new System.Drawing.Point(113, 114);
             this.Set3_Entry0_index.Name = "Set3_Entry0_index";
-            this.Set3_Entry0_index.Size = new System.Drawing.Size(38, 33);
+            this.Set3_Entry0_index.Size = new System.Drawing.Size(54, 26);
             this.Set3_Entry0_index.TabIndex = 14;
             this.Set3_Entry0_index.Text = "Set3_Entry0_index";
             // 
             // Set3_Entry0_data
             // 
             this.Set3_Entry0_data.AutoSize = true;
-            this.Set3_Entry0_data.Location = new System.Drawing.Point(175, 114);
+            this.Set3_Entry0_data.Location = new System.Drawing.Point(174, 114);
             this.Set3_Entry0_data.Name = "Set3_Entry0_data";
             this.Set3_Entry0_data.Size = new System.Drawing.Size(42, 33);
             this.Set3_Entry0_data.TabIndex = 15;
@@ -296,8 +296,8 @@ namespace Project2_HT
             this.cacheImageBlock2.ColumnCount = 4;
             this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.95652F));
             this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.04348F));
-            this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.cacheImageBlock2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.cacheImageBlock2.Controls.Add(this.Set0_Entry1_valid, 0, 0);
             this.cacheImageBlock2.Controls.Add(this.Set0_Entry1_tag, 1, 0);
             this.cacheImageBlock2.Controls.Add(this.Set0_Entry1_index, 2, 0);
@@ -329,32 +329,32 @@ namespace Project2_HT
             this.Set0_Entry1_valid.AutoSize = true;
             this.Set0_Entry1_valid.Location = new System.Drawing.Point(3, 0);
             this.Set0_Entry1_valid.Name = "Set0_Entry1_valid";
-            this.Set0_Entry1_valid.Size = new System.Drawing.Size(37, 39);
+            this.Set0_Entry1_valid.Size = new System.Drawing.Size(35, 43);
             this.Set0_Entry1_valid.TabIndex = 0;
             this.Set0_Entry1_valid.Text = "Set0_Entry1_valid";
             // 
             // Set0_Entry1_tag
             // 
             this.Set0_Entry1_tag.AutoSize = true;
-            this.Set0_Entry1_tag.Location = new System.Drawing.Point(46, 0);
+            this.Set0_Entry1_tag.Location = new System.Drawing.Point(44, 0);
             this.Set0_Entry1_tag.Name = "Set0_Entry1_tag";
-            this.Set0_Entry1_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set0_Entry1_tag.Size = new System.Drawing.Size(59, 26);
             this.Set0_Entry1_tag.TabIndex = 1;
             this.Set0_Entry1_tag.Text = "Set0_Entry1_tag";
             // 
             // Set0_Entry1_index
             // 
             this.Set0_Entry1_index.AutoSize = true;
-            this.Set0_Entry1_index.Location = new System.Drawing.Point(121, 0);
+            this.Set0_Entry1_index.Location = new System.Drawing.Point(113, 0);
             this.Set0_Entry1_index.Name = "Set0_Entry1_index";
-            this.Set0_Entry1_index.Size = new System.Drawing.Size(38, 39);
+            this.Set0_Entry1_index.Size = new System.Drawing.Size(48, 39);
             this.Set0_Entry1_index.TabIndex = 2;
             this.Set0_Entry1_index.Text = "Set0_Entry1_index";
             // 
             // Set0_Entry1_data
             // 
             this.Set0_Entry1_data.AutoSize = true;
-            this.Set0_Entry1_data.Location = new System.Drawing.Point(168, 0);
+            this.Set0_Entry1_data.Location = new System.Drawing.Point(167, 0);
             this.Set0_Entry1_data.Name = "Set0_Entry1_data";
             this.Set0_Entry1_data.Size = new System.Drawing.Size(48, 39);
             this.Set0_Entry1_data.TabIndex = 3;
@@ -365,32 +365,32 @@ namespace Project2_HT
             this.Set1_Entry1_valid.AutoSize = true;
             this.Set1_Entry1_valid.Location = new System.Drawing.Point(3, 43);
             this.Set1_Entry1_valid.Name = "Set1_Entry1_valid";
-            this.Set1_Entry1_valid.Size = new System.Drawing.Size(37, 39);
+            this.Set1_Entry1_valid.Size = new System.Drawing.Size(35, 43);
             this.Set1_Entry1_valid.TabIndex = 4;
             this.Set1_Entry1_valid.Text = "Set1_Entry1_valid";
             // 
             // Set1_Entry1_tag
             // 
             this.Set1_Entry1_tag.AutoSize = true;
-            this.Set1_Entry1_tag.Location = new System.Drawing.Point(46, 43);
+            this.Set1_Entry1_tag.Location = new System.Drawing.Point(44, 43);
             this.Set1_Entry1_tag.Name = "Set1_Entry1_tag";
-            this.Set1_Entry1_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set1_Entry1_tag.Size = new System.Drawing.Size(59, 26);
             this.Set1_Entry1_tag.TabIndex = 5;
             this.Set1_Entry1_tag.Text = "Set1_Entry1_tag";
             // 
             // Set1_Entry1_index
             // 
             this.Set1_Entry1_index.AutoSize = true;
-            this.Set1_Entry1_index.Location = new System.Drawing.Point(121, 43);
+            this.Set1_Entry1_index.Location = new System.Drawing.Point(113, 43);
             this.Set1_Entry1_index.Name = "Set1_Entry1_index";
-            this.Set1_Entry1_index.Size = new System.Drawing.Size(38, 39);
+            this.Set1_Entry1_index.Size = new System.Drawing.Size(48, 39);
             this.Set1_Entry1_index.TabIndex = 6;
             this.Set1_Entry1_index.Text = "Set1_Entry1_index";
             // 
             // Set1_Entry1_data
             // 
             this.Set1_Entry1_data.AutoSize = true;
-            this.Set1_Entry1_data.Location = new System.Drawing.Point(168, 43);
+            this.Set1_Entry1_data.Location = new System.Drawing.Point(167, 43);
             this.Set1_Entry1_data.Name = "Set1_Entry1_data";
             this.Set1_Entry1_data.Size = new System.Drawing.Size(48, 39);
             this.Set1_Entry1_data.TabIndex = 7;
@@ -401,32 +401,32 @@ namespace Project2_HT
             this.Set2_Entry1_valid.AutoSize = true;
             this.Set2_Entry1_valid.Location = new System.Drawing.Point(3, 86);
             this.Set2_Entry1_valid.Name = "Set2_Entry1_valid";
-            this.Set2_Entry1_valid.Size = new System.Drawing.Size(37, 31);
+            this.Set2_Entry1_valid.Size = new System.Drawing.Size(35, 31);
             this.Set2_Entry1_valid.TabIndex = 8;
             this.Set2_Entry1_valid.Text = "Set2_Entry1_valid";
             // 
             // Set2_Entry1_tag
             // 
             this.Set2_Entry1_tag.AutoSize = true;
-            this.Set2_Entry1_tag.Location = new System.Drawing.Point(46, 86);
+            this.Set2_Entry1_tag.Location = new System.Drawing.Point(44, 86);
             this.Set2_Entry1_tag.Name = "Set2_Entry1_tag";
-            this.Set2_Entry1_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set2_Entry1_tag.Size = new System.Drawing.Size(59, 26);
             this.Set2_Entry1_tag.TabIndex = 9;
             this.Set2_Entry1_tag.Text = "Set2_Entry1_tag";
             // 
             // Set2_Entry1_index
             // 
             this.Set2_Entry1_index.AutoSize = true;
-            this.Set2_Entry1_index.Location = new System.Drawing.Point(121, 86);
+            this.Set2_Entry1_index.Location = new System.Drawing.Point(113, 86);
             this.Set2_Entry1_index.Name = "Set2_Entry1_index";
-            this.Set2_Entry1_index.Size = new System.Drawing.Size(38, 31);
+            this.Set2_Entry1_index.Size = new System.Drawing.Size(48, 31);
             this.Set2_Entry1_index.TabIndex = 10;
             this.Set2_Entry1_index.Text = "Set2_Entry1_index";
             // 
             // Set2_Entry1_data
             // 
             this.Set2_Entry1_data.AutoSize = true;
-            this.Set2_Entry1_data.Location = new System.Drawing.Point(168, 86);
+            this.Set2_Entry1_data.Location = new System.Drawing.Point(167, 86);
             this.Set2_Entry1_data.Name = "Set2_Entry1_data";
             this.Set2_Entry1_data.Size = new System.Drawing.Size(48, 31);
             this.Set2_Entry1_data.TabIndex = 11;
@@ -437,32 +437,32 @@ namespace Project2_HT
             this.Set3_Entry1_valid.AutoSize = true;
             this.Set3_Entry1_valid.Location = new System.Drawing.Point(3, 117);
             this.Set3_Entry1_valid.Name = "Set3_Entry1_valid";
-            this.Set3_Entry1_valid.Size = new System.Drawing.Size(37, 30);
+            this.Set3_Entry1_valid.Size = new System.Drawing.Size(35, 30);
             this.Set3_Entry1_valid.TabIndex = 12;
             this.Set3_Entry1_valid.Text = "Set3_Entry1_valid";
             // 
             // Set3_Entry1_tag
             // 
             this.Set3_Entry1_tag.AutoSize = true;
-            this.Set3_Entry1_tag.Location = new System.Drawing.Point(46, 117);
+            this.Set3_Entry1_tag.Location = new System.Drawing.Point(44, 117);
             this.Set3_Entry1_tag.Name = "Set3_Entry1_tag";
-            this.Set3_Entry1_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set3_Entry1_tag.Size = new System.Drawing.Size(59, 26);
             this.Set3_Entry1_tag.TabIndex = 13;
             this.Set3_Entry1_tag.Text = "Set3_Entry1_tag";
             // 
             // Set3_Entry1_index
             // 
             this.Set3_Entry1_index.AutoSize = true;
-            this.Set3_Entry1_index.Location = new System.Drawing.Point(121, 117);
+            this.Set3_Entry1_index.Location = new System.Drawing.Point(113, 117);
             this.Set3_Entry1_index.Name = "Set3_Entry1_index";
-            this.Set3_Entry1_index.Size = new System.Drawing.Size(38, 30);
+            this.Set3_Entry1_index.Size = new System.Drawing.Size(48, 30);
             this.Set3_Entry1_index.TabIndex = 14;
             this.Set3_Entry1_index.Text = "Set3_Entry1_index";
             // 
             // Set3_Entry1_data
             // 
             this.Set3_Entry1_data.AutoSize = true;
-            this.Set3_Entry1_data.Location = new System.Drawing.Point(168, 117);
+            this.Set3_Entry1_data.Location = new System.Drawing.Point(167, 117);
             this.Set3_Entry1_data.Name = "Set3_Entry1_data";
             this.Set3_Entry1_data.Size = new System.Drawing.Size(48, 30);
             this.Set3_Entry1_data.TabIndex = 15;
@@ -471,10 +471,10 @@ namespace Project2_HT
             // cacheImageBlock3
             // 
             this.cacheImageBlock3.ColumnCount = 4;
-            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.03448F));
-            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.96552F));
-            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.19048F));
+            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.80952F));
+            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.cacheImageBlock3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.cacheImageBlock3.Controls.Add(this.Set0_Entry2_valid, 0, 0);
             this.cacheImageBlock3.Controls.Add(this.Set0_Entry2_tag, 1, 0);
             this.cacheImageBlock3.Controls.Add(this.Set0_Entry2_index, 2, 0);
@@ -506,34 +506,34 @@ namespace Project2_HT
             this.Set0_Entry2_valid.AutoSize = true;
             this.Set0_Entry2_valid.Location = new System.Drawing.Point(3, 0);
             this.Set0_Entry2_valid.Name = "Set0_Entry2_valid";
-            this.Set0_Entry2_valid.Size = new System.Drawing.Size(26, 42);
+            this.Set0_Entry2_valid.Size = new System.Drawing.Size(32, 42);
             this.Set0_Entry2_valid.TabIndex = 0;
             this.Set0_Entry2_valid.Text = "Set0_Entry2_valid";
             // 
             // Set0_Entry2_tag
             // 
             this.Set0_Entry2_tag.AutoSize = true;
-            this.Set0_Entry2_tag.Location = new System.Drawing.Point(36, 0);
+            this.Set0_Entry2_tag.Location = new System.Drawing.Point(42, 0);
             this.Set0_Entry2_tag.Name = "Set0_Entry2_tag";
-            this.Set0_Entry2_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set0_Entry2_tag.Size = new System.Drawing.Size(59, 26);
             this.Set0_Entry2_tag.TabIndex = 1;
             this.Set0_Entry2_tag.Text = "Set0_Entry2_tag";
             // 
             // Set0_Entry2_index
             // 
             this.Set0_Entry2_index.AutoSize = true;
-            this.Set0_Entry2_index.Location = new System.Drawing.Point(109, 0);
+            this.Set0_Entry2_index.Location = new System.Drawing.Point(111, 0);
             this.Set0_Entry2_index.Name = "Set0_Entry2_index";
-            this.Set0_Entry2_index.Size = new System.Drawing.Size(51, 39);
+            this.Set0_Entry2_index.Size = new System.Drawing.Size(48, 39);
             this.Set0_Entry2_index.TabIndex = 2;
             this.Set0_Entry2_index.Text = "Set0_Entry2_index";
             // 
             // Set0_Entry2_data
             // 
             this.Set0_Entry2_data.AutoSize = true;
-            this.Set0_Entry2_data.Location = new System.Drawing.Point(166, 0);
+            this.Set0_Entry2_data.Location = new System.Drawing.Point(165, 0);
             this.Set0_Entry2_data.Name = "Set0_Entry2_data";
-            this.Set0_Entry2_data.Size = new System.Drawing.Size(48, 39);
+            this.Set0_Entry2_data.Size = new System.Drawing.Size(51, 26);
             this.Set0_Entry2_data.TabIndex = 3;
             this.Set0_Entry2_data.Text = "Set0_Entry2_data";
             // 
@@ -542,34 +542,34 @@ namespace Project2_HT
             this.Set1_Entry2_valid.AutoSize = true;
             this.Set1_Entry2_valid.Location = new System.Drawing.Point(3, 42);
             this.Set1_Entry2_valid.Name = "Set1_Entry2_valid";
-            this.Set1_Entry2_valid.Size = new System.Drawing.Size(26, 42);
+            this.Set1_Entry2_valid.Size = new System.Drawing.Size(32, 42);
             this.Set1_Entry2_valid.TabIndex = 4;
             this.Set1_Entry2_valid.Text = "Set1_Entry2_valid";
             // 
             // Set1_Entry2_tag
             // 
             this.Set1_Entry2_tag.AutoSize = true;
-            this.Set1_Entry2_tag.Location = new System.Drawing.Point(36, 42);
+            this.Set1_Entry2_tag.Location = new System.Drawing.Point(42, 42);
             this.Set1_Entry2_tag.Name = "Set1_Entry2_tag";
-            this.Set1_Entry2_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set1_Entry2_tag.Size = new System.Drawing.Size(59, 26);
             this.Set1_Entry2_tag.TabIndex = 5;
             this.Set1_Entry2_tag.Text = "Set1_Entry2_tag";
             // 
             // Set1_Entry2_index
             // 
             this.Set1_Entry2_index.AutoSize = true;
-            this.Set1_Entry2_index.Location = new System.Drawing.Point(109, 42);
+            this.Set1_Entry2_index.Location = new System.Drawing.Point(111, 42);
             this.Set1_Entry2_index.Name = "Set1_Entry2_index";
-            this.Set1_Entry2_index.Size = new System.Drawing.Size(51, 39);
+            this.Set1_Entry2_index.Size = new System.Drawing.Size(48, 39);
             this.Set1_Entry2_index.TabIndex = 6;
             this.Set1_Entry2_index.Text = "Set1_Entry2_index";
             // 
             // Set1_Entry2_data
             // 
             this.Set1_Entry2_data.AutoSize = true;
-            this.Set1_Entry2_data.Location = new System.Drawing.Point(166, 42);
+            this.Set1_Entry2_data.Location = new System.Drawing.Point(165, 42);
             this.Set1_Entry2_data.Name = "Set1_Entry2_data";
-            this.Set1_Entry2_data.Size = new System.Drawing.Size(48, 39);
+            this.Set1_Entry2_data.Size = new System.Drawing.Size(51, 26);
             this.Set1_Entry2_data.TabIndex = 7;
             this.Set1_Entry2_data.Text = "Set1_Entry2_data";
             // 
@@ -578,34 +578,34 @@ namespace Project2_HT
             this.Set2_Entry2_valid.AutoSize = true;
             this.Set2_Entry2_valid.Location = new System.Drawing.Point(3, 84);
             this.Set2_Entry2_valid.Name = "Set2_Entry2_valid";
-            this.Set2_Entry2_valid.Size = new System.Drawing.Size(26, 32);
+            this.Set2_Entry2_valid.Size = new System.Drawing.Size(32, 32);
             this.Set2_Entry2_valid.TabIndex = 8;
             this.Set2_Entry2_valid.Text = "Set2_Entry2_valid";
             // 
             // Set2_Entry2_tag
             // 
             this.Set2_Entry2_tag.AutoSize = true;
-            this.Set2_Entry2_tag.Location = new System.Drawing.Point(36, 84);
+            this.Set2_Entry2_tag.Location = new System.Drawing.Point(42, 84);
             this.Set2_Entry2_tag.Name = "Set2_Entry2_tag";
-            this.Set2_Entry2_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set2_Entry2_tag.Size = new System.Drawing.Size(59, 26);
             this.Set2_Entry2_tag.TabIndex = 9;
             this.Set2_Entry2_tag.Text = "Set2_Entry2_tag";
             // 
             // Set2_Entry2_index
             // 
             this.Set2_Entry2_index.AutoSize = true;
-            this.Set2_Entry2_index.Location = new System.Drawing.Point(109, 84);
+            this.Set2_Entry2_index.Location = new System.Drawing.Point(111, 84);
             this.Set2_Entry2_index.Name = "Set2_Entry2_index";
-            this.Set2_Entry2_index.Size = new System.Drawing.Size(51, 32);
+            this.Set2_Entry2_index.Size = new System.Drawing.Size(48, 32);
             this.Set2_Entry2_index.TabIndex = 10;
             this.Set2_Entry2_index.Text = "Set2_Entry2_index";
             // 
             // Set2_Entry2_data
             // 
             this.Set2_Entry2_data.AutoSize = true;
-            this.Set2_Entry2_data.Location = new System.Drawing.Point(166, 84);
+            this.Set2_Entry2_data.Location = new System.Drawing.Point(165, 84);
             this.Set2_Entry2_data.Name = "Set2_Entry2_data";
-            this.Set2_Entry2_data.Size = new System.Drawing.Size(48, 32);
+            this.Set2_Entry2_data.Size = new System.Drawing.Size(51, 26);
             this.Set2_Entry2_data.TabIndex = 11;
             this.Set2_Entry2_data.Text = "Set2_Entry2_data";
             // 
@@ -614,34 +614,34 @@ namespace Project2_HT
             this.Set3_Entry2_valid.AutoSize = true;
             this.Set3_Entry2_valid.Location = new System.Drawing.Point(3, 116);
             this.Set3_Entry2_valid.Name = "Set3_Entry2_valid";
-            this.Set3_Entry2_valid.Size = new System.Drawing.Size(26, 31);
+            this.Set3_Entry2_valid.Size = new System.Drawing.Size(32, 31);
             this.Set3_Entry2_valid.TabIndex = 12;
             this.Set3_Entry2_valid.Text = "Set3_Entry2_valid";
             // 
             // Set3_Entry2_tag
             // 
             this.Set3_Entry2_tag.AutoSize = true;
-            this.Set3_Entry2_tag.Location = new System.Drawing.Point(36, 116);
+            this.Set3_Entry2_tag.Location = new System.Drawing.Point(42, 116);
             this.Set3_Entry2_tag.Name = "Set3_Entry2_tag";
-            this.Set3_Entry2_tag.Size = new System.Drawing.Size(65, 26);
+            this.Set3_Entry2_tag.Size = new System.Drawing.Size(59, 26);
             this.Set3_Entry2_tag.TabIndex = 13;
             this.Set3_Entry2_tag.Text = "Set3_Entry2_tag";
             // 
             // Set3_Entry2_index
             // 
             this.Set3_Entry2_index.AutoSize = true;
-            this.Set3_Entry2_index.Location = new System.Drawing.Point(109, 116);
+            this.Set3_Entry2_index.Location = new System.Drawing.Point(111, 116);
             this.Set3_Entry2_index.Name = "Set3_Entry2_index";
-            this.Set3_Entry2_index.Size = new System.Drawing.Size(51, 31);
+            this.Set3_Entry2_index.Size = new System.Drawing.Size(48, 31);
             this.Set3_Entry2_index.TabIndex = 14;
             this.Set3_Entry2_index.Text = "Set3_Entry2_index";
             // 
             // Set3_Entry2_data
             // 
             this.Set3_Entry2_data.AutoSize = true;
-            this.Set3_Entry2_data.Location = new System.Drawing.Point(166, 116);
+            this.Set3_Entry2_data.Location = new System.Drawing.Point(165, 116);
             this.Set3_Entry2_data.Name = "Set3_Entry2_data";
-            this.Set3_Entry2_data.Size = new System.Drawing.Size(48, 31);
+            this.Set3_Entry2_data.Size = new System.Drawing.Size(51, 26);
             this.Set3_Entry2_data.TabIndex = 15;
             this.Set3_Entry2_data.Text = "Set3_Entry2_data";
             // 
@@ -650,8 +650,8 @@ namespace Project2_HT
             this.cacheImageBlock4.ColumnCount = 4;
             this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.17391F));
             this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.82609F));
-            this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.cacheImageBlock4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.cacheImageBlock4.Controls.Add(this.Set0_Entry3_valid, 0, 0);
             this.cacheImageBlock4.Controls.Add(this.Set0_Entry3_tag, 1, 0);
             this.cacheImageBlock4.Controls.Add(this.Set0_Entry3_index, 2, 0);
@@ -683,32 +683,32 @@ namespace Project2_HT
             this.Set0_Entry3_valid.AutoSize = true;
             this.Set0_Entry3_valid.Location = new System.Drawing.Point(3, 0);
             this.Set0_Entry3_valid.Name = "Set0_Entry3_valid";
-            this.Set0_Entry3_valid.Size = new System.Drawing.Size(32, 40);
+            this.Set0_Entry3_valid.Size = new System.Drawing.Size(29, 40);
             this.Set0_Entry3_valid.TabIndex = 0;
             this.Set0_Entry3_valid.Text = "Set0_Entry3_valid";
             // 
             // Set0_Entry3_tag
             // 
             this.Set0_Entry3_tag.AutoSize = true;
-            this.Set0_Entry3_tag.Location = new System.Drawing.Point(42, 0);
+            this.Set0_Entry3_tag.Location = new System.Drawing.Point(38, 0);
             this.Set0_Entry3_tag.Name = "Set0_Entry3_tag";
-            this.Set0_Entry3_tag.Size = new System.Drawing.Size(74, 26);
+            this.Set0_Entry3_tag.Size = new System.Drawing.Size(65, 26);
             this.Set0_Entry3_tag.TabIndex = 1;
             this.Set0_Entry3_tag.Text = "Set0_Entry3_tag";
             // 
             // Set0_Entry3_index
             // 
             this.Set0_Entry3_index.AutoSize = true;
-            this.Set0_Entry3_index.Location = new System.Drawing.Point(126, 0);
+            this.Set0_Entry3_index.Location = new System.Drawing.Point(112, 0);
             this.Set0_Entry3_index.Name = "Set0_Entry3_index";
-            this.Set0_Entry3_index.Size = new System.Drawing.Size(38, 39);
+            this.Set0_Entry3_index.Size = new System.Drawing.Size(54, 26);
             this.Set0_Entry3_index.TabIndex = 2;
             this.Set0_Entry3_index.Text = "Set0_Entry3_index";
             // 
             // Set0_Entry3_data
             // 
             this.Set0_Entry3_data.AutoSize = true;
-            this.Set0_Entry3_data.Location = new System.Drawing.Point(173, 0);
+            this.Set0_Entry3_data.Location = new System.Drawing.Point(172, 0);
             this.Set0_Entry3_data.Name = "Set0_Entry3_data";
             this.Set0_Entry3_data.Size = new System.Drawing.Size(42, 39);
             this.Set0_Entry3_data.TabIndex = 3;
@@ -719,32 +719,32 @@ namespace Project2_HT
             this.Set1_Entry3_valid.AutoSize = true;
             this.Set1_Entry3_valid.Location = new System.Drawing.Point(3, 40);
             this.Set1_Entry3_valid.Name = "Set1_Entry3_valid";
-            this.Set1_Entry3_valid.Size = new System.Drawing.Size(32, 40);
+            this.Set1_Entry3_valid.Size = new System.Drawing.Size(29, 40);
             this.Set1_Entry3_valid.TabIndex = 4;
             this.Set1_Entry3_valid.Text = "Set1_Entry3_valid";
             // 
             // Set1_Entry3_tag
             // 
             this.Set1_Entry3_tag.AutoSize = true;
-            this.Set1_Entry3_tag.Location = new System.Drawing.Point(42, 40);
+            this.Set1_Entry3_tag.Location = new System.Drawing.Point(38, 40);
             this.Set1_Entry3_tag.Name = "Set1_Entry3_tag";
-            this.Set1_Entry3_tag.Size = new System.Drawing.Size(74, 26);
+            this.Set1_Entry3_tag.Size = new System.Drawing.Size(65, 26);
             this.Set1_Entry3_tag.TabIndex = 5;
             this.Set1_Entry3_tag.Text = "Set1_Entry3_tag";
             // 
             // Set1_Entry3_index
             // 
             this.Set1_Entry3_index.AutoSize = true;
-            this.Set1_Entry3_index.Location = new System.Drawing.Point(126, 40);
+            this.Set1_Entry3_index.Location = new System.Drawing.Point(112, 40);
             this.Set1_Entry3_index.Name = "Set1_Entry3_index";
-            this.Set1_Entry3_index.Size = new System.Drawing.Size(38, 39);
+            this.Set1_Entry3_index.Size = new System.Drawing.Size(54, 26);
             this.Set1_Entry3_index.TabIndex = 6;
             this.Set1_Entry3_index.Text = "Set1_Entry3_index";
             // 
             // Set1_Entry3_data
             // 
             this.Set1_Entry3_data.AutoSize = true;
-            this.Set1_Entry3_data.Location = new System.Drawing.Point(173, 40);
+            this.Set1_Entry3_data.Location = new System.Drawing.Point(172, 40);
             this.Set1_Entry3_data.Name = "Set1_Entry3_data";
             this.Set1_Entry3_data.Size = new System.Drawing.Size(42, 39);
             this.Set1_Entry3_data.TabIndex = 7;
@@ -755,32 +755,32 @@ namespace Project2_HT
             this.Set2_Entry3_valid.AutoSize = true;
             this.Set2_Entry3_valid.Location = new System.Drawing.Point(3, 80);
             this.Set2_Entry3_valid.Name = "Set2_Entry3_valid";
-            this.Set2_Entry3_valid.Size = new System.Drawing.Size(32, 33);
+            this.Set2_Entry3_valid.Size = new System.Drawing.Size(29, 33);
             this.Set2_Entry3_valid.TabIndex = 8;
             this.Set2_Entry3_valid.Text = "Set2_Entry3_valid";
             // 
             // Set2_Entry3_tag
             // 
             this.Set2_Entry3_tag.AutoSize = true;
-            this.Set2_Entry3_tag.Location = new System.Drawing.Point(42, 80);
+            this.Set2_Entry3_tag.Location = new System.Drawing.Point(38, 80);
             this.Set2_Entry3_tag.Name = "Set2_Entry3_tag";
-            this.Set2_Entry3_tag.Size = new System.Drawing.Size(74, 26);
+            this.Set2_Entry3_tag.Size = new System.Drawing.Size(65, 26);
             this.Set2_Entry3_tag.TabIndex = 9;
             this.Set2_Entry3_tag.Text = "Set2_Entry3_tag";
             // 
             // Set2_Entry3_index
             // 
             this.Set2_Entry3_index.AutoSize = true;
-            this.Set2_Entry3_index.Location = new System.Drawing.Point(126, 80);
+            this.Set2_Entry3_index.Location = new System.Drawing.Point(112, 80);
             this.Set2_Entry3_index.Name = "Set2_Entry3_index";
-            this.Set2_Entry3_index.Size = new System.Drawing.Size(38, 33);
+            this.Set2_Entry3_index.Size = new System.Drawing.Size(54, 26);
             this.Set2_Entry3_index.TabIndex = 10;
             this.Set2_Entry3_index.Text = "Set2_Entry3_index";
             // 
             // Set2_Entry3_data
             // 
             this.Set2_Entry3_data.AutoSize = true;
-            this.Set2_Entry3_data.Location = new System.Drawing.Point(173, 80);
+            this.Set2_Entry3_data.Location = new System.Drawing.Point(172, 80);
             this.Set2_Entry3_data.Name = "Set2_Entry3_data";
             this.Set2_Entry3_data.Size = new System.Drawing.Size(42, 33);
             this.Set2_Entry3_data.TabIndex = 11;
@@ -791,32 +791,32 @@ namespace Project2_HT
             this.Set3_Entry3_valid.AutoSize = true;
             this.Set3_Entry3_valid.Location = new System.Drawing.Point(3, 113);
             this.Set3_Entry3_valid.Name = "Set3_Entry3_valid";
-            this.Set3_Entry3_valid.Size = new System.Drawing.Size(32, 34);
+            this.Set3_Entry3_valid.Size = new System.Drawing.Size(29, 34);
             this.Set3_Entry3_valid.TabIndex = 12;
             this.Set3_Entry3_valid.Text = "Set3_Entry3_valid";
             // 
             // Set3_Entry3_tag
             // 
             this.Set3_Entry3_tag.AutoSize = true;
-            this.Set3_Entry3_tag.Location = new System.Drawing.Point(42, 113);
+            this.Set3_Entry3_tag.Location = new System.Drawing.Point(38, 113);
             this.Set3_Entry3_tag.Name = "Set3_Entry3_tag";
-            this.Set3_Entry3_tag.Size = new System.Drawing.Size(74, 26);
+            this.Set3_Entry3_tag.Size = new System.Drawing.Size(65, 26);
             this.Set3_Entry3_tag.TabIndex = 13;
             this.Set3_Entry3_tag.Text = "Set3_Entry3_tag";
             // 
             // Set3_Entry3_index
             // 
             this.Set3_Entry3_index.AutoSize = true;
-            this.Set3_Entry3_index.Location = new System.Drawing.Point(126, 113);
+            this.Set3_Entry3_index.Location = new System.Drawing.Point(112, 113);
             this.Set3_Entry3_index.Name = "Set3_Entry3_index";
-            this.Set3_Entry3_index.Size = new System.Drawing.Size(38, 34);
+            this.Set3_Entry3_index.Size = new System.Drawing.Size(54, 26);
             this.Set3_Entry3_index.TabIndex = 14;
             this.Set3_Entry3_index.Text = "Set3_Entry3_index";
             // 
             // Set3_Entry3_data
             // 
             this.Set3_Entry3_data.AutoSize = true;
-            this.Set3_Entry3_data.Location = new System.Drawing.Point(173, 113);
+            this.Set3_Entry3_data.Location = new System.Drawing.Point(172, 113);
             this.Set3_Entry3_data.Name = "Set3_Entry3_data";
             this.Set3_Entry3_data.Size = new System.Drawing.Size(42, 34);
             this.Set3_Entry3_data.TabIndex = 15;
@@ -827,7 +827,7 @@ namespace Project2_HT
             this.incomingAddressPanel.ColumnCount = 3;
             this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.88754F));
             this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.11246F));
-            this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.incomingAddressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
             this.incomingAddressPanel.Controls.Add(this.AddressTag, 0, 0);
             this.incomingAddressPanel.Controls.Add(this.AddressIndex, 1, 0);
             this.incomingAddressPanel.Controls.Add(this.AddressOffset, 2, 0);
@@ -859,7 +859,7 @@ namespace Project2_HT
             // AddressOffset
             // 
             this.AddressOffset.AutoSize = true;
-            this.AddressOffset.Location = new System.Drawing.Point(285, 0);
+            this.AddressOffset.Location = new System.Drawing.Point(284, 0);
             this.AddressOffset.Name = "AddressOffset";
             this.AddressOffset.Size = new System.Drawing.Size(45, 26);
             this.AddressOffset.TabIndex = 2;
@@ -890,6 +890,7 @@ namespace Project2_HT
             // 
             // CompMiss
             // 
+            this.CompMiss.BackColor = System.Drawing.SystemColors.Window;
             this.CompMiss.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CompMiss.Location = new System.Drawing.Point(414, 410);
             this.CompMiss.Name = "CompMiss";
