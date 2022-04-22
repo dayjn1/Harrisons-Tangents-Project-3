@@ -1,4 +1,5 @@
 ﻿///Created by Jason Middlebrook
+///edited by Hannah Taylor & Nataliya Chibizova
 
 using System;
 using System.Collections.Generic;
@@ -156,3 +157,19 @@ namespace Project3_HT
 
     }//end class Cache
 }
+
+/*
+ Cache Flow:
+    0. Memory Unit calls cache to see if it holds data
+        -- on hit, return the data to mem unit
+        -- on miss
+            --> go to main memory and find the data
+            --> return it to the cache and update the cache
+            --> then return the data back to the mem unit
+    1. Update Cache When (Write Through Approach)
+        -- 
+    2. Replace (FIFO)
+        -- keep track of order placed in cache
+ 
+ 
+ */
