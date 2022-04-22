@@ -190,10 +190,24 @@ namespace Project3_HT
                 IRS2Ready = RSManager.CheckCDB(RSManager.IntegerRS[1]);
                 IRS3Ready = RSManager.CheckCDB(RSManager.IntegerRS[2]);
 
-                //TODO: push instruction on CDB to ROB
+                
+
+                //TODO: push instruction on CDB to ROB CheckRegFile
                 CDBus.SendResults();
 
             }//end if
+
+            RSManager.CheckRegFile(RSManager.FPAddRS[0]);
+            RSManager.CheckRegFile(RSManager.FPAddRS[1]);
+            RSManager.CheckRegFile(RSManager.FPAddRS[2]);
+
+            RSManager.CheckRegFile(RSManager.FPMultRS[0]);
+            RSManager.CheckRegFile(RSManager.FPMultRS[1]);
+            RSManager.CheckRegFile(RSManager.FPMultRS[2]);
+
+            RSManager.CheckRegFile(RSManager.IntegerRS[0]);
+            RSManager.CheckRegFile(RSManager.IntegerRS[1]);
+            RSManager.CheckRegFile(RSManager.IntegerRS[2]);
 
 
 

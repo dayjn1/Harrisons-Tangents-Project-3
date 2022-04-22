@@ -24,9 +24,10 @@ namespace Project3_HT
                     i.Address = (uint)Reg1 + (uint)tempImm;
                     i.Address &= 0x000FFFFF;
                 }
-                else if(i.useR2 && Int32.TryParse(i.Reg2, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempReg2))
+                else if(i.useR2)
                 {
-                    i.Address = (uint)Reg1 + (uint)tempReg2;
+                    int Reg2 = RegisterFile.ReturnReg(i.Reg2);
+                    i.Address = (uint)Reg1 + (uint)Reg2;
                     i.Address &= 0x000FFFFF;
                 }
 

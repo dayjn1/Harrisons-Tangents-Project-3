@@ -19,7 +19,17 @@ namespace Project3_HT
                 return SUB(instr);
             else if (instr.OpCode == 8)
                 return SUBI(instr);
-            else if (instr.OpCode == 22)
+            else if (instr.OpCode == 16)
+                return AND(instr);
+            else if (instr.OpCode == 17)
+                return OR(instr);
+            else if (instr.OpCode == 18)
+                return NEG(instr);
+            else if (instr.OpCode == 19)
+                return ASL(instr);
+            else if (instr.OpCode == 20)
+                return ASR(instr);
+            else if (instr.OpCode == 21)
                 return MOV(instr);
 
             return null;
@@ -51,6 +61,32 @@ namespace Project3_HT
         {
             Int32.TryParse(instr.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempImm);
             return instr.Reg1Data - tempImm;
+        }
+
+        public static int AND(Instruction instr)
+        {
+            return instr.Reg1Data & instr.Reg2Data;
+        }
+
+        public static int OR(Instruction instr)
+        {
+            return instr.Reg1Data | instr.Reg2Data;
+        }
+
+
+        public static int NEG(Instruction instr)
+        {
+            return ~instr.Reg1Data;
+        }
+
+        public static int ASL(Instruction instr)
+        {
+            return instr.Reg1Data << instr.Reg2Data;
+        }
+
+        public static int ASR(Instruction instr)
+        {
+            return instr.Reg1Data >> instr.Reg2Data;
         }
 
     }
