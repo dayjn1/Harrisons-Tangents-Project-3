@@ -15,23 +15,22 @@ namespace Project3_HT
         static void Main()
         {
             //Test the Cache -jfm
-            Cache cache = new Cache();
             Instruction i = new Instruction(0x03F13579);
             Console.WriteLine();
 
-            cache.Add(new Instruction(0x03F13579));
-            cache.Add(new Instruction(0x03F14579));
-            cache.Add(new Instruction(0x03F15579));
-            cache.Add(new Instruction(0x03F16579));
+            Cache.Add(new Instruction(0x03F13579));
+            Cache.Add(new Instruction(0x03F14579));
+            Cache.Add(new Instruction(0x03F15579));
+            Cache.Add(new Instruction(0x03F16579));
             Console.WriteLine("Last instruction should be 16579, tag should be 595");
-            Console.WriteLine(cache.ToString());
-            cache.Add(new Instruction(0x03F17579));
-            cache.Add(new Instruction(0x03F18579));
-            cache.Add(new Instruction(0x03F19579));
-            cache.Add(new Instruction(0x03F1A579));
-            cache.Add(new Instruction(0x03F1B579));
+            Console.WriteLine(Cache.ToString());
+            Cache.Add(new Instruction(0x03F17579));
+            Cache.Add(new Instruction(0x03F18579));
+            Cache.Add(new Instruction(0x03F19579));
+            Cache.Add(new Instruction(0x03F1A579));
+            Cache.Add(new Instruction(0x03F1B579));
             Console.WriteLine("Last instruction should be 1B579, tag should be 6D5");
-            Console.WriteLine(cache.ToString());
+            Console.WriteLine(Cache.ToString());
 
             //01 is our opcode
             //F is our destination register

@@ -20,7 +20,7 @@ namespace Project3_HT
             this.offset = offset;
             this.index = index;
             this.tag = tag;
-            this.valid = !empty;
+            valid = !empty;
         }
 
         public override string ToString()
@@ -34,49 +34,27 @@ namespace Project3_HT
         }
     }
 
-    internal class Cache
+    internal static class Cache
     {
-        public int SetAssociativity { get; set; }
-        public int TotalSize { get; set; }
-        public CacheEntry[,] CacheArray { get; set; }
+        public static int SetAssociativity { get; set; }
+        public static int TotalSize { get; set; }
+        public static CacheEntry[,] CacheArray { get; set; }
 
-        /// <summary>
-        /// Non-default constructor if you want to specify properties
-        /// </summary>
-        public Cache(int setAssociativity, int totalSize)
-        {
-            SetAssociativity = setAssociativity;
-            TotalSize = totalSize;
-            CacheArray = new CacheEntry[totalSize / setAssociativity, setAssociativity];
-
-            //initialize all cache entries as empty / invalid
-            for (int i = 0; i < totalSize / setAssociativity; i++)
-            {
-                for (int j = 0; j < setAssociativity; j++)
-                {
-                    CacheArray[i,j] = new CacheEntry(0,0,0);
-                }
-            }
-        }//end Cache(int, int)
-
-        /// <summary>
-        /// Default property values assigned based on what kind of cache we decided on
-        /// </summary>
-        public Cache()
+        static Cache()
         {
             SetAssociativity = 4;
             TotalSize = 16;
 
             //Create a 2d array; first level is the rows (indices), second is the columns (sets)
             //Cache will have as many sets per row as the set associativity
-            CacheArray = new CacheEntry[TotalSize/SetAssociativity, SetAssociativity];
+            CacheArray = new CacheEntry[TotalSize / SetAssociativity, SetAssociativity];
 
             //initialize all cache entries as empty / invalid
             for (int i = 0; i < TotalSize / SetAssociativity; i++)
             {
                 for (int j = 0; j < SetAssociativity; j++)
                 {
-                    CacheArray[i, j] = new CacheEntry(); //Change to have invalid bit instead of int -1
+                    CacheArray[i, j] = new CacheEntry();
                 }
             }
         }//end Cache()
@@ -86,7 +64,7 @@ namespace Project3_HT
         /// Uses Reg1 to as the offset and Imm (16 bits) as the index and tag
         /// Hardcoded to be with a 4-way set associative cache (16 entries total)
         /// </summary>
-        public CacheEntry DeconstructInstruction(Instruction instr)
+        public static CacheEntry DeconstructInstruction(Instruction instr)
         {
             uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
             
@@ -101,7 +79,7 @@ namespace Project3_HT
         }//end DeconstructInstruction(Instruction)
 
         /// Checks to see if entry with the given tag and index is in the cache -jfm
-        public bool Check(int index, int tag)
+        public static bool Check(int index, int tag)
         {
             for (int i = 0; i < SetAssociativity; i++)
             {
@@ -115,7 +93,7 @@ namespace Project3_HT
         }//end Check(int, int)
 
         /// Returns whether there is a hit in the cache or not for an instruction -jfm
-        public bool Check(Instruction instr)
+        public static bool Check(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
 
@@ -131,7 +109,7 @@ namespace Project3_HT
         }//end Check(Instruction)
 
         /// Adds a cache entry to the cache, calls replacement if necessary -jfm
-        public void Add(Instruction instr)
+        public static void Add(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
 
@@ -152,7 +130,7 @@ namespace Project3_HT
         /// Method for FIFO replacement algorithm -jfm
         /// </summary>
         /// <param name="ce">Cache entry that we need to put into the Cache</param>
-        public void Replace(CacheEntry ce)
+        public static void Replace(CacheEntry ce)
         {
             for (int i = 0; i < SetAssociativity - 1; i++)              //Kick out oldest entry and move all entries left
             {
@@ -161,7 +139,7 @@ namespace Project3_HT
             CacheArray[ce.index, SetAssociativity - 1] = ce;            //replace end of set with new entry
         }
 
-        public override string ToString()
+        public static string ToString()
         {
             string retString = "";
             for (int i = 0; i < (TotalSize / SetAssociativity); i++)
