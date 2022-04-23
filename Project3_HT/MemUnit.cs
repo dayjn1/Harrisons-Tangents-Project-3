@@ -21,6 +21,7 @@ namespace Project3_HT
         public static CacheEntry AddressToLookUp(Instruction instruction)
         {
             CacheEntry temp = Cache.DeconstructInstruction(instruction);
+           // DynamicSim.cacheForm.UpdateAddressLabel(instruction);
             return temp;
         }
 
@@ -31,7 +32,7 @@ namespace Project3_HT
             //uint currentInstAddressInMU = FuncUnitManager.Units[0].Instructions.Peek().Address;
             int[] tempPos;
 
-            if (FuncUnitManager.Units[0].Empty == true)
+            if (FuncUnitManager.Units[0].Empty != true)
             {
                 if (FuncUnitManager.Units[0].Instructions.Peek().OpCode == 1 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 3)
                 { //loads (LOAD and LOADI)
@@ -59,7 +60,7 @@ namespace Project3_HT
                     }
                 }
             }
-            if (FuncUnitManager.Units[1].Empty == true)
+            if (FuncUnitManager.Units[1].Empty != true)
             { 
                 if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
                 {

@@ -165,18 +165,23 @@ namespace Project3_HT
                 //ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }//end if
 
+            if (!FuncUnitManager.Units[0].Empty || !FuncUnitManager.Units[1].Empty)                     // CN --> look nor instruction 
+            {
+                MemUnit.AddressToLookUp(instr);
 
-            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            }//end if
+            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions            //
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
             }//end if
-
+           // ChangeLoadBuffer(LdBuffer.ToArray());
             if (AddressUnit.AddressUnitQueue.Any())
             {
                 AddressUnit.ProcessAU();                // send to LB or to pass to RO
-
+                
             }//end if
+            ChangeLoadBuffer(LdBuffer.ToArray());
 
             /*
 
