@@ -21,9 +21,7 @@ namespace Project3_HT
         public static CacheEntry AddressToLookUp(Instruction instruction)
         {
             CacheEntry temp = Cache.DeconstructInstruction(instruction);
-            DynamicSim.cacheForm.UpdateAddressLabel(instruction);
             return temp;
-            
         }
 
         public static bool ProcessCacheAccess ()
@@ -31,16 +29,15 @@ namespace Project3_HT
             bool processed = false;     // used to check if mem instruction has been processed
 
             //uint currentInstAddressInMU = FuncUnitManager.Units[0].Instructions.Peek().Address;
+            int[] tempPos;
 
-            if(!processed)
+            if (FuncUnitManager.Units[0].Empty == true)
             {
-                int[] tempPos;
                 if (FuncUnitManager.Units[0].Instructions.Peek().OpCode == 1 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 3)
                 { //loads (LOAD and LOADI)
                     Instruction temp = FuncUnitManager.Units[0].Instructions.Dequeue();
                     tempPos = Cache.Check(temp);
-
-                    if(tempPos[0] == -1)
+                    if (tempPos[0] == -1)
                     {
                         //missed  --- need to add in conditions for diff types of misses (and update
                         temp.Result = Memory.LoadInstr(temp.Address);
@@ -61,12 +58,15 @@ namespace Project3_HT
 
                     }
                 }
-                else if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
+            }
+            if (FuncUnitManager.Units[1].Empty == true)
+            { 
+                if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
                     temp.MemoryCC += 3;
                     tempPos = Cache.Check(temp);
-                    
+
                     if (tempPos[0] == -1) //write miss
                     {
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnReg(temp.DestReg));
