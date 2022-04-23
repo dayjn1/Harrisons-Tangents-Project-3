@@ -72,19 +72,20 @@ namespace Project3_HT
 
                     if (processed == false)
                     {
-                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
+                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)         //Load
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
-                            if (Cache.Check(temp))       //If there is a cache hit
+                            if (Cache.Check(temp))                                //If there is a cache hit
                             {
-                                //temp.Result = Cache.LoadInstr(temp.Address);
+                                //temp.Result = Cache.LoadInstr(temp.Address);    //Actually get data and then give it to somebody (cache form?) -jfm
+                                temp.MemoryCC += 3;                               //delay execution to pull data from cache
                                 funcUnit.Instructions.Enqueue(temp);
                             }
-                            else                                                    //Cache miss; load from mem and put in cache -jfm
+                            else                                                  //Cache miss; load from mem and put in cache -jfm
                             {
                                 temp.Result = Memory.LoadInstr(temp.Address);
-                                Cache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
-                                temp.ExecuteCC *= 5;
+                                Cache.Add(temp);                                  //Attempt to put in the cache, including replacement if necessary -jfm
+                                temp.MemoryCC *= 5;
                                 funcUnit.Instructions.Enqueue(temp);
                             }
                             processed = true;
@@ -93,9 +94,10 @@ namespace Project3_HT
                         else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
-                            if (Cache.Check(temp))       //If there is a cache hit, store to cache and mem, otherwise just mem -jfm
+                            temp.MemoryCC += 3;                                   //delay execution to pull data from cache
+                            if (Cache.Check(temp))                                //If there is a cache hit, store to cache and mem, otherwise just mem -jfm
                             {
-                                Cache.Add(temp);                                 //Store to cache and memory -jfm
+                                Cache.Add(temp);                                  //Store to cache and memory -jfm
                             }
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
                             // Need to make a method in reg file to return contents of given register
