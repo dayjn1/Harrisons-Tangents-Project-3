@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C22A2240-FBBC-4871-B573-ED3DD586AE82}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Project3_HT</RootNamespace>
-    <AssemblyName>Project3_HT</AssemblyName>
+    <RootNamespace>Project2_HT</RootNamespace>
+    <AssemblyName>Project2_HT</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,8 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressUnit.cs" />
-    <Compile Include="Cache.cs" />
+    <Compile Include="ALU.cs" />
     <Compile Include="CDBus.cs" />
+    <Compile Include="FPU.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Controller.cs">
       <SubType>Form</SubType>
@@ -62,12 +63,6 @@
     </Compile>
     <Compile Include="DynamicSim.Designer.cs">
       <DependentUpon>DynamicSim.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CacheFourWay.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CacheFourWay.Designer.cs">
-      <DependentUpon>CacheFourWay.cs</DependentUpon>
     </Compile>
     <Compile Include="FuncUnit.cs" />
     <Compile Include="FuncUnitManager.cs" />
@@ -99,9 +94,6 @@
     <EmbeddedResource Include="DynamicSim.resx">
       <DependentUpon>DynamicSim.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CacheFourWay.resx">
-      <DependentUpon>CacheFourWay.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,7 +108,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

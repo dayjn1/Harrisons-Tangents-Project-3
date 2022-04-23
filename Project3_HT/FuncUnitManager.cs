@@ -20,7 +20,7 @@ namespace Project3_HT
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"),
-            new FuncUnit("FPAdder"),
+            new FuncUnit("FPAdder"),  // change needed
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPMultiplier"),
@@ -57,6 +57,7 @@ namespace Project3_HT
             }
             return allClear;
         }
+
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
@@ -72,47 +73,35 @@ namespace Project3_HT
 
                     if (processed == false)
                     {
-                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
+                        if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3))
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
-                            if (Cache.Check(temp))       //If there is a cache hit
-                            {
-                                //temp.Result = Cache.LoadInstr(temp.Address);
-                                funcUnit.Instructions.Enqueue(temp);
-                            }
-                            else                                                    //Cache miss; load from mem and put in cache -jfm
-                            {
-                                temp.Result = Memory.LoadInstr(temp.Address);
-                                Cache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
-                                temp.ExecuteCC *= 5;
-                                funcUnit.Instructions.Enqueue(temp);
-                            }
-                            processed = true;
-
-                        }//end if load
-                        else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
-                        {
-                            Instruction temp = funcUnit.Instructions.Dequeue();
-                            if (Cache.Check(temp))       //If there is a cache hit, store to cache and mem, otherwise just mem -jfm
-                            {
-                                Cache.Add(temp);                                 //Store to cache and memory -jfm
-                            }
-                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
-                            // Need to make a method in reg file to return contents of given register
+                            temp.Result = Memory.LoadInstr(temp.Address);
                             funcUnit.Instructions.Enqueue(temp);
                             processed = true;
-                        }//end if store
+                        }
+                        else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
+                        {
+                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
+                            processed = true;
+                        }
+                        else if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
+                        {
+                            Instruction temp = funcUnit.Instructions.Dequeue();
+                            temp.Result = ALU.InstructDecomp(temp);
+                            funcUnit.Instructions.Enqueue(temp);
+                        }
                     }
                 }
                 else
                 {
                     funcUnit.Executed = true;
-
+                    
                 }
 
             }
 
-        }//end ExeCycle()
+        }
 
         //step 4 in main sim
         public static void CheckStationsToPushToFuncUnits()
@@ -152,18 +141,7 @@ namespace Project3_HT
                 }
             }
 
-        }//end CheckStationsToPushToFuncUnits
-
-        /// <returns>total is the total amound of instructions in all functional units, waiting or otherwise</returns>
-        public static int TotalInstrCount()
-        {
-            int total = 0;
-            foreach (FuncUnit fu in Units)
-            {
-                total += fu.Instructions.Count;
-            }
-            return total;
-        }//end TotalExecuting
+        }
 
     }
 }
