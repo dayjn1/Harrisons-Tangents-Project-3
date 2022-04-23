@@ -13,7 +13,7 @@ namespace Project3_HT
 
         public MemUnit(string name) : base(name)
         {
-            // call the cache form -- move this to  
+            // call the cache form -- moved this to the main simulation
             /*CacheFourWay cacheForm = new CacheFourWay();
             cacheForm.Show();*/
         }
@@ -24,7 +24,45 @@ namespace Project3_HT
             return temp;
         }
 
+        public static void ProcessCacheAccess (Instruction instr)
+        {
+            bool processed = false;     // used to check if mem instruction has been processed
 
+            //uint currentInstAddressInMU = FuncUnitManager.Units[0].Instructions.Peek().Address;
+
+            if(!processed)
+            {
+                if(FuncUnitManager.Units[0].Instructions.Peek().OpCode == 1 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 3)
+                { //loads (LOAD and LOADI)
+                    Instruction temp = FuncUnitManager.Units[0].Instructions.Dequeue();
+                    int[] tempPos = Cache.Check(instr);
+                    if(tempPos[0] == -1)
+                    {
+                        //missed  --- need to add in conditions for diff types of misses (and update
+                        temp.Result = Memory.LoadInstr(temp.Address);
+                        Cache.Add(temp);
+                        temp.MemoryCC *= 5;
+                        FuncUnitManager.Units[0].Instructions.Enqueue(temp);
+                        processed = true;
+                        //will need to update the labels for the FourWayCacheForm labels
+                        //return to DynamicSim and then call a method in CacheFourWay to update labels, pause runtime, then hide cache form again
+                    }
+                    else //hit on load
+                    {
+                        //get data from position
+                        int curData = Cache.CacheArray[tempPos[0], tempPos[1]].data;
+                        temp.MemoryCC += 3;
+                        FuncUnitManager.Units[0].Instructions.Enqueue(temp);
+                        processed = true;
+
+                    }
+                }
+                else if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
+                {
+
+                }
+            }
+        }
 
         /* public override void Enqueue(Instruction instr)
          {
@@ -39,7 +77,7 @@ namespace Project3_HT
              Empty = false;
          }*/
 
-       
+
 
 
     }

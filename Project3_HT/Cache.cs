@@ -72,7 +72,7 @@ namespace Project3_HT
         public static CacheEntry DeconstructInstruction(Instruction instr)
         {
             uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
-            
+
             uint index = instr.Address & 0x000F0;               //Index is two bits after the offset
             index = (index & 0b_0000_0000_0000_0011_0000) >> 4;
 
@@ -80,12 +80,12 @@ namespace Project3_HT
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
             int data = 1;                                       // change 
-            //Put all this info into an entry that can go in the cache
-			return new CacheEntry(offset, index, tag, data, false);
+                                                                //Put all this info into an entry that can go in the cache
+            return new CacheEntry(offset, index, tag, data, false);
         }//end DeconstructInstruction(Instruction)
 
         /// Checks to see if entry with the given tag and index is in the cache -jfm
-        public static bool Check(int index, int tag)
+       /* public static bool Check(int index, int tag)
         {
             for (int i = 0; i < SetAssociativity; i++)
             {
@@ -96,10 +96,10 @@ namespace Project3_HT
             }
 
             return false;
-        }//end Check(int, int)
+        }//end Check(int, int)*/
 
         /// Returns whether there is a hit in the cache or not for an instruction -jfm
-        public static bool Check(Instruction instr)
+        public static int[] Check(Instruction instr) 
         {
             CacheEntry ce = DeconstructInstruction(instr);
 
@@ -107,11 +107,13 @@ namespace Project3_HT
             {
                 if (CacheArray[ce.index, i].tag == ce.tag)
                 {
-                    return true;
+                    return new int[] { (int)ce.index, i };
                 }
             }
 
-            return false;
+            return new int[] { -1, -1}; //miss
+
+            //need to know the position of the hit or return -1,-1 if a miss???
         }//end Check(Instruction)
 
         /// Adds a cache entry to the cache, calls replacement if necessary -jfm
@@ -163,6 +165,12 @@ namespace Project3_HT
         }
 
     }//end class Cache
+
+
+    /*public static uint GetData()
+    {
+        //return the data from the entry in cache that was hit in check
+    }*/
 }
 
 /*

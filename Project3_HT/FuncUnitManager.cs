@@ -20,6 +20,7 @@ namespace Project3_HT
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"),
+            new MemUnit("MemoryUnit"), //separate mem unit for stores
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
@@ -72,6 +73,7 @@ namespace Project3_HT
 
                     if (processed == false)
                     {
+                        //start here to move to MemUnit.cs
                         if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)         //Load
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
