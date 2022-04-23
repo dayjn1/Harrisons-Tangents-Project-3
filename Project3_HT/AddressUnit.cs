@@ -50,6 +50,10 @@ namespace Project3_HT
             else
             {
                 ReorderBuffer.PassedtoRB(i);
+                if (FuncUnitManager.Units[1].Empty)
+                {
+                    FuncUnitManager.Units[1].Enqueue(i); 
+                }
                 AddressUnitQueue.Dequeue();
             }
         }

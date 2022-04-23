@@ -58,6 +58,7 @@ namespace Project3_HT
             }
             return allClear;
         }
+
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
@@ -65,13 +66,12 @@ namespace Project3_HT
         {
             foreach (FuncUnit funcUnit in Units)
             {
-                bool processed = false;     // used to check if mem instruction has been processed
                 if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
                 {
                     funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
-                    if (processed == false)
+                    if (funcUnit.Processed == false)
                     {
                         //start here to move to MemUnit.cs
                         if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)         //Load
@@ -104,19 +104,30 @@ namespace Project3_HT
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
                             // Need to make a method in reg file to return contents of given register
                             funcUnit.Instructions.Enqueue(temp);
-                            processed = true;
-                        }//end if store
+                            funcUnit.Processed = true;
+                        }
+                        else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
+                        {
+                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
+                            funcUnit.Processed = true;
+                        }
+                        else if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
+                        {
+                            Instruction temp = funcUnit.Instructions.Dequeue();
+                            temp.Result = ALU.InstructDecomp(temp);
+                            funcUnit.Instructions.Enqueue(temp);
+                        }
                     }
                 }
                 else
                 {
                     funcUnit.Executed = true;
-
+                    
                 }
 
             }
 
-        }//end ExeCycle()
+        }
 
         //step 4 in main sim
         public static void CheckStationsToPushToFuncUnits()
@@ -156,18 +167,7 @@ namespace Project3_HT
                 }
             }
 
-        }//end CheckStationsToPushToFuncUnits
-
-        /// <returns>total is the total amound of instructions in all functional units, waiting or otherwise</returns>
-        public static int TotalInstrCount()
-        {
-            int total = 0;
-            foreach (FuncUnit fu in Units)
-            {
-                total += fu.Instructions.Count;
-            }
-            return total;
-        }//end TotalExecuting
+        }
 
     }
 }

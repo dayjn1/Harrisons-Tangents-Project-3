@@ -18,14 +18,14 @@ namespace Project3_HT
         public bool valid;
         public int data;
         public bool empty;
-        public CacheEntry(uint offset, uint index, uint tag, int data, bool empty, bool emptyData = true)
+        public CacheEntry(uint offset, uint index, uint tag, int data, bool isEmpty = true, bool emptyData = true)
         {
             this.offset = offset;
             this.index = index;
             this.tag = tag;
             valid = emptyData;
             this.data = data;
-            this.empty = empty;
+            empty = isEmpty;
         }
 
         public override string ToString()
@@ -84,22 +84,9 @@ namespace Project3_HT
             return new CacheEntry(offset, index, tag, data, false);
         }//end DeconstructInstruction(Instruction)
 
-        /// Checks to see if entry with the given tag and index is in the cache -jfm
-       /* public static bool Check(int index, int tag)
-        {
-            for (int i = 0; i < SetAssociativity; i++)
-            {
-                if (CacheArray[index,i].tag == tag)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }//end Check(int, int)*/
-
-        /// Returns whether there is a hit in the cache or not for an instruction -jfm
-        public static int[] Check(Instruction instr) 
+      
+        // Returns whether there is a hit in the cache or not for an instruction -jfm
+        public static bool Check(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
 
@@ -126,6 +113,7 @@ namespace Project3_HT
                 if (CacheArray[ce.index, i].valid == false)
                 {
                     CacheArray[ce.index, i] = ce;
+                    CacheArray[ce.index, i].empty = false;
                     return;
                 }
             }
@@ -133,7 +121,6 @@ namespace Project3_HT
             Console.WriteLine("Replacing");
             Replace(ce);
             
-
         }
 
         /// <summary>
