@@ -18,6 +18,7 @@ namespace Project3_HT
     {
         public bool Executed { get; set; }
         public bool Empty;
+        public bool Processed { get; set; }
         public Queue<Instruction> Instructions { get; set; }
         public string Name { get; set; }
 
@@ -29,6 +30,7 @@ namespace Project3_HT
             Executed = false;
             Name = name;
             Empty = true;
+            Processed = false;
         }        
 
         /// <summary>
@@ -46,6 +48,7 @@ namespace Project3_HT
             ExecTime = CalcExecutionTime(instr);
             Empty = false;
             Executed = false;
+            Processed = false;
             //return true;
         }
 
@@ -56,6 +59,7 @@ namespace Project3_HT
         {
             Executed = false;
             Empty = true;
+            Processed = false;
             return Instructions.Dequeue();
         }
 

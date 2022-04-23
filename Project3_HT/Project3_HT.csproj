@@ -57,6 +57,7 @@
       <DependentUpon>CacheFourWay.cs</DependentUpon>
     </Compile>
     <Compile Include="CDBus.cs" />
+    <Compile Include="FPU.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Controller.cs">
       <SubType>Form</SubType>
