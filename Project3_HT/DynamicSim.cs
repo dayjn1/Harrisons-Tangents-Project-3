@@ -37,7 +37,9 @@ namespace Project3_HT
         {
             InitializeComponent();
             CacheFourWay cacheForm = new CacheFourWay();
+            cacheForm.InitForm();
             cacheForm.Show();
+           
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
