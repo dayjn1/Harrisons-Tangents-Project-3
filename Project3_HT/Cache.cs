@@ -14,12 +14,14 @@ namespace Project3_HT
         public uint offset;
         public uint index;
         public uint tag;
+        public double data;
         public bool valid;
-        public CacheEntry(uint offset, uint index, uint tag, bool empty = true)
+        public CacheEntry(uint offset, uint index, uint tag, double data, bool empty = true)
         {
             this.offset = offset;
             this.index = index;
             this.tag = tag;
+            this.data = data;
             valid = !empty;
         }
 
@@ -74,8 +76,10 @@ namespace Project3_HT
             uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
+            double data = 420;
+
             //Put all this info into an entry that can go in the cache
-			return new CacheEntry(offset, index, tag, false);
+			return new CacheEntry(offset, index, tag, data, false);
         }//end DeconstructInstruction(Instruction)
 
         /// Checks to see if entry with the given tag and index is in the cache -jfm
