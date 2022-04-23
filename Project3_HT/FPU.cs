@@ -6,41 +6,41 @@ using System.Threading.Tasks;
 
 namespace Project3_HT
 {
-    class FPU
+    static class FPU
     {
-        public float? InstructDecomp(Instruction instr)
+        public static float? InstructDecomp(Instruction instr)
         {
             
 
             return null;
         }
 
-        public float FPAdd(Instruction instr)
+        public static float FPAdd(Instruction instr)
         {
 
         }
 
-        public float FPAddI(Instruction instr)
+        public static float FPAddI(Instruction instr)
         {
 
         }
 
-        public float FPSub(Instruction instr)
+        public static float FPSub(Instruction instr)
         {
 
         }
 
-        public float FPSubI(Instruction instr)
+        public static float FPSubI(Instruction instr)
         {
 
         }
 
-        public float FPMult(Instruction instr)
+        public static float FPMult(Instruction instr)
         {
 
         }
 
-        public float FPDiv(Instruction instr)
+        public static float FPDiv(Instruction instr)
         {
 
         }

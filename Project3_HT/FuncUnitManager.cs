@@ -84,10 +84,16 @@ namespace Project3_HT
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
                             funcUnit.Processed = true;
                         }
-                        else if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
+                        else if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 22)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = ALU.InstructDecomp(temp);
+                            funcUnit.Instructions.Enqueue(temp);
+                        }
+                        else if(funcUnit.Instructions.Peek().OpCode > 127 && funcUnit.Instructions.Peek().OpCode < 134)
+                        {
+                            Instruction temp = funcUnit.Instructions.Dequeue();
+                            temp.FResult = FPU.InstructDecomp(temp);
                             funcUnit.Instructions.Enqueue(temp);
                         }
                     }

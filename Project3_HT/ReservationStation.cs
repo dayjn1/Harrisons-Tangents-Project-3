@@ -17,6 +17,7 @@ namespace Project3_HT
         public bool waitOnO2;
         public string mnemonic, destR, operand1, operand2, imm;
         public int lineNumOfInst;
+        //add fpu or alu here, prob the easiest than referencing the opcode over and over
 
 
         //constructors

@@ -170,7 +170,7 @@ namespace Project3_HT
                     {   
                         rs.currentInst.Reg1Data = (int)temp.Data;
                         rs.waitOnO1 = false;
-                    }
+                    }//fix for floats as well, probably figure out at beg if instruction is alu or fpu
                 }
                 if (rs.waitOnO2)
                 {

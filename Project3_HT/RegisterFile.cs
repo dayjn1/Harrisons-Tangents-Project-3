@@ -165,8 +165,8 @@ namespace Project3_HT
             }//end if
             else
             {
-                Registers[i + 16].Avail = false;
-                Registers[i + 16].LineNum = LineNum;
+                FRegisters[i].Avail = false;
+                FRegisters[i].LineNum = LineNum;
             }//end else
         }//end MarkUnavail(string, int)
 
@@ -189,18 +189,26 @@ namespace Project3_HT
                 string[] temp = reg.Split(' ');
                 int i = Convert.ToInt32(temp[1], 16);
 
-                if (temp[0].Equals("R"))
-                {
-                    return Registers[i];
-                }//end if
-                else
-                {
-                    return Registers[i + 16];
-                }//end else
+                return Registers[i];
+
             }//end if
 
             return new RegTicket(true, -1, 0);
             
+        }//end IsAvail(string)
+
+        public static FRegTicket FIsAvail(string reg)
+        {
+            if (reg != null)
+            {
+                string[] temp = reg.Split(' ');
+                int i = Convert.ToInt32(temp[1], 16);
+
+                return FRegisters[i];
+            }//end if
+
+            return new FRegTicket(true, -1, 0);
+
         }//end IsAvail(string)
 
         public static int ReturnReg(string reg)
@@ -210,14 +218,21 @@ namespace Project3_HT
                 string[] temp = reg.Split(' ');
                 int i = Convert.ToInt32(temp[1], 16);
 
-                if (temp[0].Equals("R"))
-                {
-                    return Registers[i].Data;
-                }//end if
-                else
-                {
-                    return Registers[i + 16].Data;
-                }//end else
+                return Registers[i].Data;
+
+            }//end if
+            else
+                return 0;
+        }
+
+        public static float FReturnReg(string reg)
+        {
+            if (reg != null)
+            {
+                string[] temp = reg.Split(' ');
+                int i = Convert.ToInt32(temp[1], 16);
+
+                return FRegisters[i].Data;
             }//end if
             else
                 return 0;
