@@ -71,51 +71,18 @@ namespace Project3_HT
                     funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
-                    if (funcUnit.Processed == false)
-                    {
-                        //start here to move to MemUnit.cs
-                        if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)         //Load
-                        {
-                            Instruction temp = funcUnit.Instructions.Dequeue();
-                            if (Cache.Check(temp))                                //If there is a cache hit
-                            {
-                                //temp.Result = Cache.LoadInstr(temp.Address);    //Actually get data and then give it to somebody (cache form?) -jfm
-                                temp.MemoryCC += 3;                               //delay execution to pull data from cache
-                                funcUnit.Instructions.Enqueue(temp);
-                            }
-                            else                                                  //Cache miss; load from mem and put in cache -jfm
-                            {
-                                temp.Result = Memory.LoadInstr(temp.Address);
-                                Cache.Add(temp);                                  //Attempt to put in the cache, including replacement if necessary -jfm
-                                temp.MemoryCC *= 5;
-                                funcUnit.Instructions.Enqueue(temp);
-                            }
-                            processed = true;
+                    bool processed = false;
 
-                        }//end if load
-                        else if (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4)  //Store
-                        {
-                            Instruction temp = funcUnit.Instructions.Dequeue();
-                            temp.MemoryCC += 3;                                   //delay execution to pull data from cache
-                            if (Cache.Check(temp))                                //If there is a cache hit, store to cache and mem, otherwise just mem -jfm
-                            {
-                                Cache.Add(temp);                                  //Store to cache and memory -jfm
-                            }
-                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
-                            // Need to make a method in reg file to return contents of given register
-                            funcUnit.Instructions.Enqueue(temp);
-                            funcUnit.Processed = true;
-                        }
-                        else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
-                        {
-                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
-                            funcUnit.Processed = true;
-                        }
-                        else if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
+                    if (funcUnit.Processed == false || processed == false) //test this religiously
+                    {
+                        if(funcUnit.Name == "MemoryUnit")
+                            processed = MemUnit.ProcessCacheAccess();   
+                        if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = ALU.InstructDecomp(temp);
                             funcUnit.Instructions.Enqueue(temp);
+                            funcUnit.Processed = true;
                         }
                     }
                 }

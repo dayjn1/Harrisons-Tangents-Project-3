@@ -86,7 +86,7 @@ namespace Project3_HT
 
       
         // Returns whether there is a hit in the cache or not for an instruction -jfm
-        public static bool Check(Instruction instr)
+        public static int[] Check(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
 
