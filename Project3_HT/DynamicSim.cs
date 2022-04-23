@@ -31,12 +31,12 @@ namespace Project3_HT
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
-        bool FirstInstruction = true, invalid = false;        
-
+        bool FirstInstruction = true, invalid = false;
+        public static CacheFourWay cacheForm = new CacheFourWay();
         public DynamicSim()
         {
             InitializeComponent();
-            CacheFourWay cacheForm = new CacheFourWay();
+            //CacheFourWay cacheForm = new CacheFourWay();
             cacheForm.InitForm();
             cacheForm.Show();
            

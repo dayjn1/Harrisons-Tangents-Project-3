@@ -21,7 +21,9 @@ namespace Project3_HT
         public static CacheEntry AddressToLookUp(Instruction instruction)
         {
             CacheEntry temp = Cache.DeconstructInstruction(instruction);
+            DynamicSim.cacheForm.UpdateAddressLabel(instruction);
             return temp;
+            
         }
 
         public static bool ProcessCacheAccess ()
@@ -37,6 +39,7 @@ namespace Project3_HT
                 { //loads (LOAD and LOADI)
                     Instruction temp = FuncUnitManager.Units[0].Instructions.Dequeue();
                     tempPos = Cache.Check(temp);
+
                     if(tempPos[0] == -1)
                     {
                         //missed  --- need to add in conditions for diff types of misses (and update

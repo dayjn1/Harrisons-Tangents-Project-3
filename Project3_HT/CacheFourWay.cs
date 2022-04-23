@@ -45,7 +45,6 @@ namespace Project3_HT
             {
                 label.Text = " ";
             }
-
         }
 
         public void UpdateAddressLabel(Instruction instruction)
