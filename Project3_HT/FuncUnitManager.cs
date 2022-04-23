@@ -72,6 +72,7 @@ namespace Project3_HT
 
                     if (processed == false)
                     {
+                        //Start from here and move to MemUnit for managing cache processes within one cycle
                         if (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3)   //Load
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
@@ -81,6 +82,7 @@ namespace Project3_HT
                                 funcUnit.Instructions.Enqueue(temp);
                             }
                             else                                                    //Cache miss; load from mem and put in cache -jfm
+                                                                                //on, miss will need to make a Memory call from the cache/move below vv to cache.cs
                             {
                                 temp.Result = Memory.LoadInstr(temp.Address);
                                 Cache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
