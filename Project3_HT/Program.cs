@@ -14,7 +14,7 @@ namespace Project3_HT
         [STAThread]
         static void Main()
         {
-            //Test the Cache -jfm
+           /* //Test the Cache -jfm
             Instruction i = new Instruction(0x03F13579);
             Console.WriteLine();
 
@@ -31,7 +31,7 @@ namespace Project3_HT
             Cache.Add(new Instruction(0x03F1B579));
             Console.WriteLine("Last instruction should be 1B579, tag should be 6D5");
             Console.WriteLine(Cache.ToString());
-
+*/
             //01 is our opcode
             //F is our destination register
             //0 is our offset
@@ -39,10 +39,10 @@ namespace Project3_HT
             //Index should be 1
             //Tag should be 19E2
 
-            /*//Please god uncomment this -jfm (Debugging)
+            //Please god uncomment this -jfm (Debugging)
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Controller());*/
+            Application.Run(new Controller());
         }
     }
 }
