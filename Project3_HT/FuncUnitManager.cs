@@ -86,7 +86,7 @@ namespace Project3_HT
                             {
                                 temp.Result = Memory.LoadInstr(temp.Address);
                                 Cache.Add(temp);                                 //Attempt to put in the cache, including replacement if necessary -jfm
-                                temp.ExecuteCC *= 5;
+                                temp.MemoryCC *= 5;
                                 funcUnit.Instructions.Enqueue(temp);
                             }
                             processed = true;
