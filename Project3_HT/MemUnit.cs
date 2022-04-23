@@ -17,6 +17,12 @@ namespace Project3_HT
             /*CacheFourWay cacheForm = new CacheFourWay();
             cacheForm.Show();*/
         }
+       
+        public static CacheEntry AddressToLookUp(Instruction instruction)
+        {
+            CacheEntry temp = Cache.DeconstructInstruction(instruction);
+            return temp;
+        }
 
 
 

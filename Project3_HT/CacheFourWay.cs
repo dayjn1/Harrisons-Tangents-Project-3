@@ -17,7 +17,7 @@ namespace Project3_HT
         {
             InitializeComponent();
         }
-        public void UpdateAddress(CacheEntry[,] cache)
+        public void UpdateAddressLabel(Instruction instruction)
         {
 
             List<Label> Labels = new List<Label>()
@@ -30,9 +30,9 @@ namespace Project3_HT
                 label.Text = " ";
             }
 
-            Labels[0].Text = cache[0, 0].tag.ToString();            // figure out which instruction it is 
-            Labels[1].Text = cache[0, 0].index.ToString();
-            Labels[2].Text = cache[0, 0].offset.ToString();
+            Labels[0].Text = MemUnit.AddressToLookUp(instruction).tag.ToString();            
+            Labels[1].Text = MemUnit.AddressToLookUp(instruction).index.ToString();
+            Labels[2].Text = MemUnit.AddressToLookUp(instruction).offset.ToString();
 
         }
 
@@ -233,6 +233,26 @@ namespace Project3_HT
                 Labels[15].Text = cache[3, 3].data.ToString();
             }
         }//end UpdateSet3()
+
+        public void UpdateHit()
+        {
+            hitTextBox.BackColor = Color.Green;
+        }
+
+        public void UpdateCompMiss()
+        {
+            CompMiss.BackColor = Color.Red;
+        }
+        public void UpdateCapacityMiss()
+        {
+            CapMiss.BackColor = Color.Red;
+        }
+
+        public void UpdateConflictMiss()
+        {
+            ConflictMiss.BackColor = Color.Red;
+        }
+
     }
 
 
