@@ -148,7 +148,11 @@ namespace Project3_HT
 
             if (instr != null)
             {
-                ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
+                RegisterFile.UpdateRegister(instr);
+
+
+
+                //ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }//end if
 
 
@@ -362,7 +366,7 @@ namespace Project3_HT
                 Labels[i].Text = array[i].Mnemonic;
             }//end for
         }//end ChangeReorderBuf(Instruction[])
-        public void ChangeRegisterFile(List<int> RegData)
+        public void ChangeRegisterFile(List<int> RegData, List<float> FRegData)
         {
             List<Label> Labels = new List<Label>()
             {  R0_Data,  R1_Data,   R2_Data,   R3_Data,   R4_Data,   R5_Data,   R6_Data,   R7_Data,
@@ -378,6 +382,11 @@ namespace Project3_HT
             for (int i = 0; i < RegData.Count; i++)
             {
                 Labels[i].Text = RegData[i].ToString();
+            }//end for
+
+            for (int i = 0; i < FRegData.Count; i++)
+            {
+                Labels[i + 16].Text = FRegData[i].ToString();
             }//end for
         }//end ChangeRegisterFile(string[])
 

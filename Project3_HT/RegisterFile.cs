@@ -31,12 +31,18 @@ namespace Project3_HT
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0)
         };
+
+        public static FRegTicket[] FRegisters =
+{
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0),
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0),
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0),
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0)
+        };
+
+
 
         /**
         * Struct Name:       RegTicket
@@ -61,6 +67,19 @@ namespace Project3_HT
             }//end RegTicket(bool, int)
         }//end RegTicket
 
+        public struct FRegTicket
+        {
+            public bool Avail;
+            public int LineNum;
+            public float Data;
+            public FRegTicket(bool Avail, int LineNum, float Data)
+            {
+                this.Avail = Avail;
+                this.LineNum = LineNum;
+                this.Data = Data;
+            }//end RegTicket(bool, int)
+        }//end RegTicket
+
 
         /**
         * Method Name:    UpdateRegister(Instruction)
@@ -73,7 +92,7 @@ namespace Project3_HT
         * @param Instruction
         * @return string[] array with updated mnemonic added
         */
-        public static List<int> UpdateRegister(Instruction instr)
+        public static void UpdateRegister(Instruction instr)
         {
             List<int> RegData = new List<int>();
             string[] temp = instr.DestReg.Split(' ');
@@ -91,18 +110,37 @@ namespace Project3_HT
             {
                 //RegInfo[i + 16] = instr.Result.ToString();
                 if (instr.Result != null)
-                    Registers[i + 16].Data = (int)instr.Result;
-                Registers[i + 16].LineNum = instr.lineNum;
-                Registers[i + 16].Avail = true;
+                    FRegisters[i].Data = (int)instr.Result;
+                FRegisters[i].LineNum = instr.lineNum;
+                FRegisters[i].Avail = true;
             }//end else
 
-            foreach(RegTicket RT in Registers)
+        }//end UpdateRegister(Instruction)
+
+        public static List<int> ReturnReg()
+        {
+            List<int> RegData = new List<int>();
+
+            foreach (RegTicket RT in Registers)
             {
                 RegData.Add(RT.Data);
             }
 
             return RegData;
-        }//end UpdateRegister(Instruction)
+        }
+
+        public static List<float> ReturnFReg()
+        {
+            List<float> FRegData = new List<float>();
+
+            foreach (FRegTicket RT in FRegisters)
+            {
+                FRegData.Add(RT.Data);
+            }
+
+            return FRegData;
+        }
+
 
         /**
         * Method Name:    MarkUnavail(string, int)

@@ -65,25 +65,24 @@ namespace Project3_HT
         {
             foreach (FuncUnit funcUnit in Units)
             {
-                bool processed = false;     // used to check if mem instruction has been processed
                 if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
                 {
                     funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
-                    if (processed == false)
+                    if (funcUnit.Processed == false)
                     {
                         if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3))
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = Memory.LoadInstr(temp.Address);
                             funcUnit.Instructions.Enqueue(temp);
-                            processed = true;
+                            funcUnit.Processed = true;
                         }
                         else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
                         {
                             Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
-                            processed = true;
+                            funcUnit.Processed = true;
                         }
                         else if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
                         {
