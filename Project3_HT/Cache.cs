@@ -16,12 +16,16 @@ namespace Project3_HT
         public uint index;
         public uint tag;
         public bool valid;
-        public CacheEntry(uint offset, uint index, uint tag, bool empty = true)
+        public int data;
+        public bool empty;
+        public CacheEntry(uint offset, uint index, uint tag, int data, bool empty, bool emptyData = true)
         {
             this.offset = offset;
             this.index = index;
             this.tag = tag;
-            valid = !empty;
+            valid = emptyData;
+            this.data = data;
+            this.empty = empty;
         }
 
         public override string ToString()
@@ -75,8 +79,9 @@ namespace Project3_HT
             uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
+            int data = 1;                                       // change 
             //Put all this info into an entry that can go in the cache
-			return new CacheEntry(offset, index, tag, false);
+			return new CacheEntry(offset, index, tag, data, false);
         }//end DeconstructInstruction(Instruction)
 
         /// Checks to see if entry with the given tag and index is in the cache -jfm
@@ -125,6 +130,8 @@ namespace Project3_HT
             //If all entries in the set are valid, we need to replace an entry
             Console.WriteLine("Replacing");
             Replace(ce);
+            
+
         }
 
         /// <summary>
