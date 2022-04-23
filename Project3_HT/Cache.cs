@@ -16,6 +16,8 @@ namespace Project3_HT
         public uint index;
         public uint tag;
         public bool valid;
+        //Nataliya made a data thing pull that later
+        //^^ also made an empty boolean
         public CacheEntry(uint offset, uint index, uint tag, bool empty = true)
         {
             this.offset = offset;
@@ -24,6 +26,7 @@ namespace Project3_HT
             valid = !empty;
         }
 
+        //testing purposes
         public override string ToString()
         {
             string retString = "";
@@ -106,7 +109,7 @@ namespace Project3_HT
                 }
             }
 
-            return false;
+            return false; //make call to memory here >> return false 
         }//end Check(Instruction)
 
         /// Adds a cache entry to the cache, calls replacement if necessary -jfm

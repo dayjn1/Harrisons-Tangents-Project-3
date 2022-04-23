@@ -1,4 +1,4 @@
-﻿using Project2_HT;
+﻿using Project3_HT;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +13,12 @@ namespace Project3_HT
 
         public MemUnit(string name) : base(name)
         {
-            // call the cache form 
-            CacheFourWay cache = new CacheFourWay();
-            cache.Show();
+            // call the cache form -- move this to  
+            /*CacheFourWay cacheForm = new CacheFourWay();
+            cacheForm.Show();*/
         }
+
+
 
         /* public override void Enqueue(Instruction instr)
          {

@@ -23,6 +23,7 @@ using static Project3_HT.InstructionQueue;
 using static Project3_HT.LoadBuffer;
 using static Project3_HT.ReorderBuffer;
 
+
 namespace Project3_HT
 {
     public partial class DynamicSim : Form
@@ -35,6 +36,8 @@ namespace Project3_HT
         public DynamicSim()
         {
             InitializeComponent();
+            CacheFourWay cacheForm = new CacheFourWay();
+            cacheForm.Show();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
