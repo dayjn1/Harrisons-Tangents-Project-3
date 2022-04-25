@@ -229,17 +229,34 @@ namespace Project3_HT
         {
             FindIS();
             //reuse code but slap an F on it - AM
-            uint rd = (uint)input & 0x00F00000;
-            rd >>= 20;
-            this.DestReg = "FR " + rd.ToString("X");            // Uses shifts to isolate certain bits in instruction hex - JND
-                                                               // Sets Destination reg, reg 1, and reg 2
-            uint reg1 = (uint)input & 0x000F0000;
-            reg1 >>= 16;
-            this.Reg1 = "FR " + reg1.ToString("X");
 
-            uint reg2 = (uint)input & 0x0000F000;
-            reg2 >>= 12;
-            this.Reg2 = "FR " + reg2.ToString("X");
+            if (this.useRD == true)
+            {
+                uint rd = (uint)input & 0x00F00000;
+                rd >>= 20;
+                this.DestReg = "FR " + rd.ToString("X");            // Uses shifts to isolate certain bits in instruction hex - JND
+            }                                                       // Sets Destination reg, reg 1, and reg 2
+
+            if (this.useR1 == true)
+            {
+                uint reg1 = (uint)input & 0x000F0000;
+                reg1 >>= 16;
+                this.Reg1 = "FR " + reg1.ToString("X");
+            }
+
+            if (this.useR2 == true)
+            {
+                uint reg2 = (uint)input & 0x0000F000;
+                reg2 >>= 12;
+                this.Reg2 = "FR " + reg2.ToString("X");
+            }
+
+            if (this.useImm == true)                                //Put immediate value in Imm for ADDI and SUBI
+            {
+                uint immediate = (uint)input & 0x00000FFF;
+                this.Imm = immediate.ToString("X");
+            }
+
         }
 
     }

@@ -81,7 +81,7 @@ namespace Project3_HT
                         }
                         else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
                         {
-                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
+                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnRegData(funcUnit.Instructions.Peek().DestReg));
                             funcUnit.Processed = true;
                         }
                         else if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 22)
@@ -93,7 +93,7 @@ namespace Project3_HT
                         else if(funcUnit.Instructions.Peek().OpCode > 127 && funcUnit.Instructions.Peek().OpCode < 134)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
-                            temp.FResult = FPU.InstructDecomp(temp);
+                            temp.FResult = FPU.FInstructDecomp(temp);
                             funcUnit.Instructions.Enqueue(temp);
                         }
                     }

@@ -109,8 +109,8 @@ namespace Project3_HT
             else
             {
                 //RegInfo[i + 16] = instr.Result.ToString();
-                if (instr.Result != null)
-                    FRegisters[i].Data = (int)instr.Result;
+                if (instr.FResult != null)
+                    FRegisters[i].Data = (float)instr.FResult;
                 FRegisters[i].LineNum = instr.lineNum;
                 FRegisters[i].Avail = true;
             }//end else
@@ -211,7 +211,7 @@ namespace Project3_HT
 
         }//end IsAvail(string)
 
-        public static int ReturnReg(string reg)
+        public static int ReturnRegData(string reg)
         {
             if (reg != null)
             {
@@ -225,7 +225,7 @@ namespace Project3_HT
                 return 0;
         }
 
-        public static float FReturnReg(string reg)
+        public static float FReturnRegData(string reg)
         {
             if (reg != null)
             {

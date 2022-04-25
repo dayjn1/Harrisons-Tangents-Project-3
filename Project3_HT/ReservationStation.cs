@@ -15,6 +15,7 @@ namespace Project3_HT
         public bool waitOnDR;
         public bool waitOnO1;
         public bool waitOnO2;
+        public bool IsFloat;
         public string mnemonic, destR, operand1, operand2, imm;
         public int lineNumOfInst;
         //add fpu or alu here, prob the easiest than referencing the opcode over and over
