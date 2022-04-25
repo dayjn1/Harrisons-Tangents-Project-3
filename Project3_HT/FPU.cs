@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -38,8 +38,12 @@ namespace Project3_HT
 
         public static float FPAddI(Instruction instr)
         {
-            float.TryParse(instr.Imm, out float tempImm);
-            return instr.FReg1Data + tempImm;
+            uint num = uint.Parse(instr.Imm, System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            byte[] floatVals = BitConverter.GetBytes(num);
+            float f = BitConverter.ToSingle(floatVals, 0);
+
+            return instr.FReg1Data + f;
         }
 
         public static float FPSub(Instruction instr)
@@ -49,8 +53,12 @@ namespace Project3_HT
 
         public static float FPSubI(Instruction instr)
         {
-            float.TryParse(instr.Imm, out float tempImm);
-            return instr.Reg1Data - tempImm;
+            uint num = uint.Parse(instr.Imm, System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            byte[] floatVals = BitConverter.GetBytes(num);
+            float f = BitConverter.ToSingle(floatVals, 0);
+
+            return instr.Reg1Data - f;
         }
 
         public static float FPMult(Instruction instr)
@@ -64,3 +72,4 @@ namespace Project3_HT
         }
     }
 }
+*/

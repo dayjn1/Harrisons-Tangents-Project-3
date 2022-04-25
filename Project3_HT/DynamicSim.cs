@@ -31,16 +31,15 @@ namespace Project3_HT
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
-        bool FirstInstruction = true, invalid = false;        
-
+        bool FirstInstruction = true, invalid = false;
+        public static CacheFourWay cacheForm = new CacheFourWay();
         public DynamicSim()
         {
             InitializeComponent();
-            CacheFourWay cacheForm = new CacheFourWay();
+            //CacheFourWay cacheForm = new CacheFourWay();
+            cacheForm.InitForm();
             cacheForm.Show();
-            cacheForm.UpdateBeginEmpty();
-            Task.Delay(500); //testing purposes only
-            cacheForm.Hide();
+           
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -165,18 +164,23 @@ namespace Project3_HT
                 //ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }//end if
 
+            if (!FuncUnitManager.Units[0].Empty || !FuncUnitManager.Units[1].Empty)                     // CN --> look nor instruction 
+            {
+                MemUnit.AddressToLookUp(instr);
 
-            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            }//end if
+            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions            //
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
             }//end if
-
+           // ChangeLoadBuffer(LdBuffer.ToArray());
             if (AddressUnit.AddressUnitQueue.Any())
             {
                 AddressUnit.ProcessAU();                // send to LB or to pass to RO
-
+                
             }//end if
+            ChangeLoadBuffer(LdBuffer.ToArray());
 
             /*
 
@@ -443,6 +447,12 @@ namespace Project3_HT
                 Labels[11].Text = RSManager.FPAddRS[2].operand2;
             }//end if
         }//end UpdateFPAddRS()
+
+        private void memoryDumpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MemoryDump MD = new MemoryDump();
+            MD.Show();
+        }
 
         public void UpdateFPMultRS()
         {

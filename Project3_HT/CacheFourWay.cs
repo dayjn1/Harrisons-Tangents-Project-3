@@ -18,20 +18,20 @@ namespace Project3_HT
             InitializeComponent();
         }
 
-        public void UpdateBeginEmpty()
+        public void InitForm()
         {
-            List<Label> AllLabels = new List<Label>()
+            List<Label> Labels = new List<Label>()
             {
                 AddressTag, AddressIndex, AddressOffset,
-                Set0_Entry0_valid, Set0_Entry0_tag, Set0_Entry0_index, Set0_Entry0_data,
+                 Set0_Entry0_valid, Set0_Entry0_tag, Set0_Entry0_index, Set0_Entry0_data,
                 Set0_Entry1_valid, Set0_Entry1_tag, Set0_Entry1_index, Set0_Entry1_data,
                 Set0_Entry2_valid, Set0_Entry2_tag, Set0_Entry2_index, Set0_Entry2_data,
                 Set0_Entry3_valid, Set0_Entry3_tag, Set0_Entry3_index, Set0_Entry3_data,
-                Set1_Entry0_valid, Set1_Entry0_tag, Set1_Entry0_index, Set1_Entry0_data,
+                 Set1_Entry0_valid, Set1_Entry0_tag, Set1_Entry0_index, Set1_Entry0_data,
                 Set1_Entry1_valid, Set1_Entry1_tag, Set1_Entry1_index, Set1_Entry1_data,
                 Set1_Entry2_valid, Set1_Entry2_tag, Set1_Entry2_index, Set1_Entry2_data,
                 Set1_Entry3_valid, Set1_Entry3_tag, Set1_Entry3_index, Set1_Entry3_data,
-                Set2_Entry0_valid, Set2_Entry0_tag, Set2_Entry0_index, Set2_Entry0_data,
+                 Set2_Entry0_valid, Set2_Entry0_tag, Set2_Entry0_index, Set2_Entry0_data,
                 Set2_Entry1_valid, Set2_Entry1_tag, Set2_Entry1_index, Set2_Entry1_data,
                 Set2_Entry2_valid, Set2_Entry2_tag, Set2_Entry2_index, Set2_Entry2_data,
                 Set2_Entry3_valid, Set2_Entry3_tag, Set2_Entry3_index, Set2_Entry3_data,
@@ -39,9 +39,9 @@ namespace Project3_HT
                 Set3_Entry1_valid, Set3_Entry1_tag, Set3_Entry1_index, Set3_Entry1_data,
                 Set3_Entry2_valid, Set3_Entry2_tag, Set3_Entry2_index, Set3_Entry2_data,
                 Set3_Entry3_valid, Set3_Entry3_tag, Set3_Entry3_index, Set3_Entry3_data
-            };
 
-            foreach (var label in AllLabels)               //update the value of the label
+            };
+            foreach (var label in Labels)               //update the value of the label
             {
                 label.Text = " ";
             }
@@ -65,7 +65,7 @@ namespace Project3_HT
             Labels[2].Text = MemUnit.AddressToLookUp(instruction).offset.ToString();
 
         }
-
+      
         public void UpdateSet0(CacheEntry[,] cache)
         {
             List<Label> Labels = new List<Label>()
