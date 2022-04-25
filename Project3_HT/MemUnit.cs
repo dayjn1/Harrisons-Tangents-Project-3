@@ -60,9 +60,9 @@ namespace Project3_HT
                     }
                 }
             }
-            if (FuncUnitManager.Units[1].Empty == true)
+            if (!processed && !FuncUnitManager.Units[1].Empty)
             { 
-                if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
+                if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[1].Instructions.Peek().OpCode == 4) //stores
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
                     temp.MemoryCC += 3;
