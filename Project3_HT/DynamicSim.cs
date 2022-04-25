@@ -36,7 +36,6 @@ namespace Project3_HT
         public DynamicSim()
         {
             InitializeComponent();
-            //CacheFourWay cacheForm = new CacheFourWay();
             cacheForm.InitForm();
             cacheForm.Show();
            
@@ -164,9 +163,10 @@ namespace Project3_HT
                 //ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }//end if
 
-            if (!FuncUnitManager.Units[0].Empty || !FuncUnitManager.Units[1].Empty)                     // CN --> look nor instruction 
+            if (!FuncUnitManager.Units[0].Empty || !FuncUnitManager.Units[1].Empty)                     // CN --> look for instruction 
             {
                 MemUnit.AddressToLookUp(instr);
+                cacheForm.UpdateAddressLabel(instr);
 
             }//end if
             ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions            //

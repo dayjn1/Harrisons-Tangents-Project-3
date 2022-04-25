@@ -61,7 +61,6 @@ C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT
 C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project2_HT.pdb
 C:\Users\janin\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Settings.resources
 C:\Users\Hannah Taylor\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Settings.resources
-C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project2_HT.CacheFourWay.resources
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.Settings.resources
 C:\Users\Jason Middlebrook\Documents\Spring-2022\Arch\Harrisons-Tangents-Project-3\Project3_HT\bin\Debug\Project3_HT.exe.config
 C:\Users\Jason Middlebrook\Documents\Spring-2022\Arch\Harrisons-Tangents-Project-3\Project3_HT\bin\Debug\Project3_HT.exe
@@ -79,3 +78,5 @@ C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Deb
 C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project2_HT.pdb
 C:\Users\janin\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.CacheFourWay.resources
 C:\Users\janin\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.MemoryDump.resources
+C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.CacheFourWay.resources
+C:\Users\chibi\Documents\GitHub\Harrisons-Tangents-Project-3\Project3_HT\obj\Debug\Project3_HT.MemoryDump.resources

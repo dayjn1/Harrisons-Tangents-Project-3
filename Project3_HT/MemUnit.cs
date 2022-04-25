@@ -52,6 +52,7 @@ namespace Project3_HT
                     else //hit on load
                     {
                         //get data from position
+                        // update the 
                         int curData = Cache.CacheArray[tempPos[0], tempPos[1]].data;
                         temp.MemoryCC += 3;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
