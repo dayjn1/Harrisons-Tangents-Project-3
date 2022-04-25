@@ -61,7 +61,8 @@ namespace Project3_HT
             }
 
             CacheEntry temp = MemUnit.AddressToLookUp(instruction);
-            Labels[0].Text = temp.tag.ToString();            
+
+            Labels[0].Text =temp.tag.ToString();            
             Labels[1].Text = temp.index.ToString();
             Labels[2].Text = temp.offset.ToString();
             Update();
@@ -115,6 +116,7 @@ namespace Project3_HT
                 Labels[14].Text = cache[0, 3].index.ToString();
                 Labels[15].Text = cache[0, 3].data.ToString(); 
             }
+            Update();
         }//end UpdateSet0()
 
         public void UpdateSet1(CacheEntry[,] cache)
@@ -165,6 +167,7 @@ namespace Project3_HT
                 Labels[14].Text = cache[1, 3].index.ToString();
                 Labels[15].Text = cache[1, 3].data.ToString();
             }
+            Update();
         }//end UpdateSet1()
 
         public void UpdateSet2(CacheEntry[,] cache)
@@ -215,6 +218,7 @@ namespace Project3_HT
                 Labels[14].Text = cache[2, 3].index.ToString();
                 Labels[15].Text = cache[2, 3].data.ToString();
             }
+            Update();
         }//end UpdateSet2()
 
         public void UpdateSet3(CacheEntry[,] cache)
@@ -263,25 +267,30 @@ namespace Project3_HT
                 Labels[14].Text = cache[3, 3].index.ToString();
                 Labels[15].Text = cache[3, 3].data.ToString();
             }
+            Update();
         }//end UpdateSet3()
 
         public void UpdateHit()
         {
             hitTextBox.BackColor = Color.Green;
+            Update();
         }
 
         public void UpdateCompMiss()
         {
             CompMiss.BackColor = Color.Red;
+            Update();
         }
         public void UpdateCapacityMiss()
         {
             CapMiss.BackColor = Color.Red;
+            Update();
         }
 
         public void UpdateConflictMiss()
         {
             ConflictMiss.BackColor = Color.Red;
+            Update();
         }
 
     }
