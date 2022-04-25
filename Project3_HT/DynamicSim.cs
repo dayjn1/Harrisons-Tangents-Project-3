@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Project3_HT.InstructionQueue;
 using static Project3_HT.LoadBuffer;
+using static Project3_HT.ReorderBuffer;
+
 
 namespace Project3_HT
 {
@@ -34,6 +36,8 @@ namespace Project3_HT
         public DynamicSim()
         {
             InitializeComponent();
+            CacheFourWay cacheForm = new CacheFourWay();
+            cacheForm.Show();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,6 +103,10 @@ namespace Project3_HT
             }//end while
         }//end ContinuousSim()
 
+        /// <summary>
+        /// If the entire system is empty, end the simulation
+        /// </summary>
+        /// <returns></returns>
         public bool IsFinished()
         {
             bool fin = false; //hannah
@@ -158,7 +166,7 @@ namespace Project3_HT
             ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
             if (LdBuffer.Any())
             {
-                SendToMemUnit();                        // dequeue from the LdBuffer
+                LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
             }//end if
 
             if (AddressUnit.AddressUnitQueue.Any())

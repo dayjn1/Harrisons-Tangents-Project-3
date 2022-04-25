@@ -49,6 +49,13 @@
   <ItemGroup>
     <Compile Include="AddressUnit.cs" />
     <Compile Include="ALU.cs" />
+    <Compile Include="Cache.cs" />
+    <Compile Include="CacheFourWay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CacheFourWay.Designer.cs">
+      <DependentUpon>CacheFourWay.cs</DependentUpon>
+    </Compile>
     <Compile Include="CDBus.cs" />
     <Compile Include="FPU.cs" />
     <Compile Include="Memory.cs" />
@@ -88,6 +95,9 @@
     <Compile Include="Instruction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CacheFourWay.resx">
+      <DependentUpon>CacheFourWay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controller.resx">
       <DependentUpon>Controller.cs</DependentUpon>
     </EmbeddedResource>

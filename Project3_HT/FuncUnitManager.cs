@@ -20,7 +20,8 @@ namespace Project3_HT
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"),
-            new FuncUnit("FPAdder"),  // change needed
+            new MemUnit("MemoryUnit"), //separate mem unit for stores
+            new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPMultiplier"),
@@ -70,25 +71,18 @@ namespace Project3_HT
                     funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
-                    if (funcUnit.Processed == false)
+                    bool processed = false;
+
+                    if (funcUnit.Processed == false || processed == false) //test this religiously
                     {
-                        if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3))
-                        {
-                            Instruction temp = funcUnit.Instructions.Dequeue();
-                            temp.Result = Memory.LoadInstr(temp.Address);
-                            funcUnit.Instructions.Enqueue(temp);
-                            funcUnit.Processed = true;
-                        }
-                        else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
-                        {
-                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnRegData(funcUnit.Instructions.Peek().DestReg));
-                            funcUnit.Processed = true;
-                        }
-                        else if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 22)
+                        if(funcUnit.Name == "MemoryUnit")
+                            processed = MemUnit.ProcessCacheAccess();   
+                        if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = ALU.InstructDecomp(temp);
                             funcUnit.Instructions.Enqueue(temp);
+                            funcUnit.Processed = true;
                         }
                         else if(funcUnit.Instructions.Peek().OpCode > 127 && funcUnit.Instructions.Peek().OpCode < 134)
                         {
