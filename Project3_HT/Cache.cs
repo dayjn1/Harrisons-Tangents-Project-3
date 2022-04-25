@@ -41,6 +41,13 @@ namespace Project3_HT
 
     internal static class Cache
     {
+        public enum MissType
+        {
+            Compulsory = 1,
+            Conflict = 2,
+            Capacity = 3
+        }
+
         public static int SetAssociativity { get; set; }
         public static int TotalSize { get; set; }
         public static CacheEntry[,] CacheArray { get; set; }
@@ -106,7 +113,7 @@ namespace Project3_HT
             }//end for(entry in set)
             if(hit_entry == -1 && any_entry_empty)              ///Compulsory if any entry is empty and we miss
             {
-                return new int[] { (int)ce.index, 1 };
+                return new int[] { (int)ce.index, (int)MissType.Compulsory };
             }
             else if(hit_entry != -1)                            //If we hit, return location of hit
             {
@@ -128,11 +135,11 @@ namespace Project3_HT
 
             if (capacity_miss)
             {
-                return new int[] { -1, 3 };                     //Capacity miss
+                return new int[] { -1, (int)MissType.Capacity };                     //Capacity miss
             }
             else
             {
-                return new int[] { -1, 2 };                     //Conflict miss
+                return new int[] { -1, (int)MissType.Conflict };                     //Conflict miss
             }
 
         }//end Check(Instruction)

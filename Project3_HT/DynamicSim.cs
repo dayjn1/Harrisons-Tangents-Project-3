@@ -167,6 +167,7 @@ namespace Project3_HT
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
+
             }//end if
 
             if (AddressUnit.AddressUnitQueue.Any())
