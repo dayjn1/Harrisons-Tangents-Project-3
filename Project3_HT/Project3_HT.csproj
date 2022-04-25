@@ -75,6 +75,12 @@
     <Compile Include="FuncUnitManager.cs" />
     <Compile Include="InstructionQueue.cs" />
     <Compile Include="LoadBuffer.cs" />
+    <Compile Include="MemoryDump.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MemoryDump.Designer.cs">
+      <DependentUpon>MemoryDump.cs</DependentUpon>
+    </Compile>
     <Compile Include="MemUnit.cs" />
     <Compile Include="RegisterFile.cs" />
     <Compile Include="ReorderBuffer.cs" />
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DynamicSim.resx">
       <DependentUpon>DynamicSim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoryDump.resx">
+      <DependentUpon>MemoryDump.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>

@@ -448,6 +448,12 @@ namespace Project3_HT
             }//end if
         }//end UpdateFPAddRS()
 
+        private void memoryDumpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MemoryDump MD = new MemoryDump();
+            MD.Show();
+        }
+
         public void UpdateFPMultRS()
         {
             List<Label> Labels = new List<Label>()
