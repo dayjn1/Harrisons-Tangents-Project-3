@@ -101,7 +101,7 @@ namespace Project3_HT
             if (temp[0].Equals("R"))
             {
                 //RegInfo[i] = instr.Result.ToString();
-                if(instr.Result != null)
+                if (instr.Result != null)
                     Registers[i].Data = (int)instr.Result;
                 Registers[i].LineNum = instr.lineNum;
                 Registers[i].Avail = true;
@@ -184,7 +184,7 @@ namespace Project3_HT
         */
         public static RegTicket IsAvail(string reg)
         {
-            if(reg != null)
+            if (reg != null)
             {
                 string[] temp = reg.Split(' ');
                 int i = Convert.ToInt32(temp[1], 16);
@@ -194,7 +194,7 @@ namespace Project3_HT
             }//end if
 
             return new RegTicket(true, -1, 0);
-            
+
         }//end IsAvail(string)
 
         public static FRegTicket FIsAvail(string reg)

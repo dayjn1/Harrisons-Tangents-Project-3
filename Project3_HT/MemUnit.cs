@@ -30,7 +30,7 @@ namespace Project3_HT
 
             //uint currentInstAddressInMU = FuncUnitManager.Units[0].Instructions.Peek().Address;
 
-            if(!processed)
+            if(!processed && !FuncUnitManager.Units[0].Empty)
             {
                 int[] tempPos;
                 if (FuncUnitManager.Units[0].Instructions.Peek().OpCode == 1 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 3)
@@ -66,14 +66,14 @@ namespace Project3_HT
                     
                     if (tempPos[0] == -1) //write miss
                     {
-                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnReg(temp.DestReg));
+                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                         processed = true;
                     }
                     else //write hit
                     {
                         Cache.Add(temp);
-                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnReg(temp.DestReg));
+                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                         processed = true; //might be iffy on all the processed = true stuff
                     }
