@@ -162,6 +162,7 @@ namespace Project3_HT
             this.CycleCountLabel = new System.Windows.Forms.Label();
             this.PCValue = new System.Windows.Forms.Label();
             this.PCLabel = new System.Windows.Forms.Label();
+            this.memoryDumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReorderBufLayout.SuspendLayout();
             this.InstructQueueLayout.SuspendLayout();
             this.RegisterFileLayout.SuspendLayout();
@@ -1628,11 +1629,12 @@ namespace Project3_HT
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.resetToolStripMenuItem});
+            this.resetToolStripMenuItem,
+            this.memoryDumpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(129, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(402, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1701,6 +1703,13 @@ namespace Project3_HT
             this.PCLabel.Size = new System.Drawing.Size(120, 17);
             this.PCLabel.TabIndex = 12;
             this.PCLabel.Text = "Program Counter:";
+            // 
+            // memoryDumpToolStripMenuItem
+            // 
+            this.memoryDumpToolStripMenuItem.Name = "memoryDumpToolStripMenuItem";
+            this.memoryDumpToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
+            this.memoryDumpToolStripMenuItem.Text = "Memory Dump";
+            this.memoryDumpToolStripMenuItem.Click += new System.EventHandler(this.memoryDumpToolStripMenuItem_Click);
             // 
             // DynamicSim
             // 
@@ -1883,5 +1892,6 @@ namespace Project3_HT
         private System.Windows.Forms.Label IntegerOp2_3;
         private System.Windows.Forms.Label PCValue;
         private System.Windows.Forms.Label PCLabel;
+        private System.Windows.Forms.ToolStripMenuItem memoryDumpToolStripMenuItem;
     }
 }
