@@ -40,14 +40,37 @@ namespace Project3_HT
             ReservedMem += 4;
         }
 
-        public static uint LoadInstr(uint addr)
+        public static int LoadInstr(uint addr)
         {
-            return Mem[addr];
+            uint temp = 0x00000000, load = 0x00000000;
+
+            for(int i = 0; i < 4; i++)
+            {
+                temp = Mem[addr + i];
+                temp <<= (24 - i * 8);
+                load += temp;
+            }
+
+            return (int)load;
+
+            //return (int)Mem[addr];
         }
 
-        public static void StoreInstr(uint addr, uint data)
+        public static void StoreInstr(uint addr, int data)
         {
-            Mem[addr] = data;
+            uint byte0, byte1, byte2, byte3;
+
+            byte0 = (uint)data & 0xFF000000;
+            Mem[addr] = byte0 >>= 24;
+
+            byte1 = (uint)data & 0x00FF0000;
+            Mem[addr + 1] = byte1 >>= 16;
+
+            byte2 = (uint)data & 0x0000FF00;
+            Mem[addr + 2] = byte2 >>= 8;
+
+            byte3 = (uint)data & 0x000000FF;
+            Mem[addr + 3] = byte3;
         }
 
 

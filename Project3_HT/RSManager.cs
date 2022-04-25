@@ -49,8 +49,27 @@ namespace Project3_HT
             rs.currentInst = i;
             rs.mnemonic = i.Mnemonic;
             rs.destR = i.DestReg;
-            rs.operand1 = i.Reg1;
-            rs.operand2 = i.Reg2;
+
+            if (i.useR1)
+                rs.operand1 = i.Reg1;
+            else
+                rs.operand1 = null;
+
+            if (i.useR2)
+                rs.operand2 = i.Reg2;
+            else
+                rs.operand2 = null;
+
+            if (i.useImm)
+                rs.imm = i.Imm;
+            else
+                rs.imm = null;
+
+            if (i.OpCode >= 128 && i.OpCode <= 133)
+                rs.IsFloat = true;
+            else
+                rs.IsFloat = false;
+            
             rs.lineNumOfInst = i.lineNum;
             UpdateStaleFlagsOnReciept(rs);
         }
@@ -79,18 +98,27 @@ namespace Project3_HT
             // if stale registers found, then ready == false
             //  ^ also need to set waitOn flags
             //RegisterFile.RegTicket tempDR = RegisterFile.IsAvail(rs.destR);
-            
-            
-            RegisterFile.RegTicket tempO1 = RegisterFile.IsAvail(rs.operand1);
-            RegisterFile.RegTicket tempO2 = RegisterFile.IsAvail(rs.operand2);
+
+            RegisterFile.RegTicket tempO1 = new RegisterFile.RegTicket(true, -1, 0);
+            RegisterFile.RegTicket tempO2 = new RegisterFile.RegTicket(true, -1, 0);
+            RegisterFile.FRegTicket tempFO1 = new RegisterFile.FRegTicket(true, -1, 0);
+            RegisterFile.FRegTicket tempFO2 = new RegisterFile.FRegTicket(true, -1, 0);
+
+            if(rs.IsFloat == false)
+            {
+                tempO1 = RegisterFile.IsAvail(rs.operand1);
+                tempO2 = RegisterFile.IsAvail(rs.operand2);
+            }
+            else
+            {
+                tempFO1 = RegisterFile.FIsAvail(rs.operand1);
+                tempFO2 = RegisterFile.FIsAvail(rs.operand2);
+            }
+
 
             if(!rs.empty)
             {
-                /*if (!tempDR.Avail && tempDR.LineNum != rs.lineNumOfInst)        //RegTicket's lineNum is set on the line that should have marked it as stale, don't want an infinite stall if waiting on itself
-                {
-                    rs.waitOnDR = true;
-                    rs.ready = false;
-                }*/
+
                 if (!tempO1.Avail && tempO1.LineNum != rs.lineNumOfInst)
                 {
                     rs.waitOnO1 = true;
@@ -101,9 +129,30 @@ namespace Project3_HT
                     rs.waitOnO2 = true;
                     rs.ready = false;
                 }
-                else
+                if (!tempFO1.Avail && tempFO1.LineNum != rs.lineNumOfInst)
+                {
+                    rs.waitOnO1 = true;
+                    rs.ready = false;
+                }
+                if (!tempFO2.Avail && tempFO2.LineNum != rs.lineNumOfInst)
+                {
+                    rs.waitOnO2 = true;
+                    rs.ready = false;
+                }
+
+                if (!rs.waitOnO1 && !rs.waitOnO2)
+                {
                     rs.ready = true;
-                
+                    if(rs.operand1 != null && !rs.IsFloat)
+                        rs.currentInst.Reg1Data = RegisterFile.ReturnRegData(rs.operand1);
+                    if(rs.operand2 != null && !rs.IsFloat)
+                        rs.currentInst.Reg2Data = RegisterFile.ReturnRegData(rs.operand2);
+                    if(rs.operand1 != null && rs.IsFloat)
+                        rs.currentInst.FReg1Data = RegisterFile.FReturnRegData(rs.operand1);
+                    if (rs.operand2 != null && rs.IsFloat)
+                        rs.currentInst.FReg2Data = RegisterFile.FReturnRegData(rs.operand2);
+                }
+
             }
         }//end ReadyForExe
 
@@ -116,18 +165,81 @@ namespace Project3_HT
             {
                 if(!rs.ready)
                 {
-                    if (rs.waitOnDR && temp.DestReg == rs.destR)
-                        rs.waitOnDR = false;
                     if (rs.waitOnO1 && temp.DestReg == rs.operand1)
+                    {
                         rs.waitOnO1 = false;
+                        if(rs.IsFloat)
+                            rs.currentInst.FReg1Data = (float)temp.FResult;
+                        else
+                            rs.currentInst.Reg1Data = (int)temp.Result;
+                    }
                     if (rs.waitOnO2 && temp.DestReg == rs.operand2)
+                    {
                         rs.waitOnO2 = false;
+                        if (rs.IsFloat)
+                            rs.currentInst.FReg2Data = (float)temp.FResult;
+                        else
+                            rs.currentInst.Reg2Data = (int)temp.Result;
+                    }
+
+
                 }
             }
 
             return IsReady(rs);
         }//end checkCDB
 
+        public static bool CheckRegFile(ReservationStation rs)
+        {
+            RegisterFile.RegTicket temp;
+            RegisterFile.FRegTicket Ftemp;
+            
+            //grab instruction.destReg and compare to registers waiting on something
+            if (!rs.ready)
+            {
+                if (rs.waitOnO1 && !rs.IsFloat)
+                {
+                    temp = RegisterFile.IsAvail(rs.currentInst.Reg1);
+                    if (temp.Avail)
+                    {   
+                        rs.currentInst.Reg1Data = (int)temp.Data;
+                        rs.waitOnO1 = false;
+                    }
+                }
+                if (rs.waitOnO1 && rs.IsFloat)
+                {
+                    Ftemp = RegisterFile.FIsAvail(rs.currentInst.Reg1);
+                    if (Ftemp.Avail)
+                    {
+                        rs.currentInst.FReg1Data = (float)Ftemp.Data;
+                        rs.waitOnO1 = false;
+                    }
+                }
+                if (rs.waitOnO2 && !rs.IsFloat)
+                {
+                    temp = RegisterFile.IsAvail(rs.currentInst.Reg2);
+                    if (temp.Avail)
+                    {
+                        rs.currentInst.Reg2Data = (int)temp.Data;
+                        rs.waitOnO2 = false;
+                    }
+                }
+                if (rs.waitOnO2 && rs.IsFloat)
+                {
+                    Ftemp = RegisterFile.FIsAvail(rs.currentInst.Reg2);
+                    if (Ftemp.Avail)
+                    {
+                        rs.currentInst.FReg2Data = (float)Ftemp.Data;
+                        rs.waitOnO2 = false;
+                    }
+                }
+
+
+            }
+            
+
+            return IsReady(rs);
+        }//end checkCDB
 
         public static bool IsReady(ReservationStation r)
         {
@@ -138,6 +250,7 @@ namespace Project3_HT
 
             return r.ready;
         }
+
 
 
         //after each foreach loop, if we have found one that's not empty, then return without wasting more time/resources

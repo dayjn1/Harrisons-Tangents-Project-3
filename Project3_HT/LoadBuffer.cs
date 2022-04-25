@@ -30,7 +30,7 @@ namespace Project3_HT
         {
             if (FuncUnitManager.At(0).Instructions.Count == 0)
             {
-                FuncUnitManager.At(0).Instructions.Enqueue(LdBuffer.Dequeue());
+                FuncUnitManager.At(0).Enqueue(LdBuffer.Dequeue());
             }
 
         }

@@ -18,6 +18,7 @@ namespace Project3_HT
     {
         public bool Executed { get; set; }
         public bool Empty;
+        public bool Processed { get; set; }
         public Queue<Instruction> Instructions { get; set; }
         public string Name { get; set; }
 
@@ -29,21 +30,26 @@ namespace Project3_HT
             Executed = false;
             Name = name;
             Empty = true;
+            Processed = false;
         }        
 
         /// <summary>
         /// Send an instruction from reservation station or load buffer into functional unit
         /// </summary>
-        public virtual void Enqueue(Instruction instr)
+        public void Enqueue(Instruction instr)
         {
             if(Instructions.Count > 0)
             {
                 throw new InvalidOperationException("Functional units can only execute one Instruction per cycle." +
                     "\nPlease Dequeue the instruction or stall execution.");
+                //return false;
             }
             Instructions.Enqueue(instr);
             ExecTime = CalcExecutionTime(instr);
             Empty = false;
+            Executed = false;
+            Processed = false;
+            //return true;
         }
 
         /// <summary>
@@ -53,6 +59,7 @@ namespace Project3_HT
         {
             Executed = false;
             Empty = true;
+            Processed = false;
             return Instructions.Dequeue();
         }
 
