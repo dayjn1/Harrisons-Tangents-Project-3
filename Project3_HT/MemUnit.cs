@@ -21,7 +21,6 @@ namespace Project3_HT
         public static CacheEntry AddressToLookUp(Instruction instruction)
         {
             CacheEntry temp = Cache.DeconstructInstruction(instruction);
-           // DynamicSim.cacheForm.UpdateAddressLabel(instruction);
             return temp;
         }
 
@@ -30,15 +29,15 @@ namespace Project3_HT
             bool processed = false;     // used to check if mem instruction has been processed
 
             //uint currentInstAddressInMU = FuncUnitManager.Units[0].Instructions.Peek().Address;
-            int[] tempPos;
 
-            if (FuncUnitManager.Units[0].Empty != true)
+            if(!processed && !FuncUnitManager.Units[0].Empty)
             {
+                int[] tempPos;
                 if (FuncUnitManager.Units[0].Instructions.Peek().OpCode == 1 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 3)
                 { //loads (LOAD and LOADI)
                     Instruction temp = FuncUnitManager.Units[0].Instructions.Dequeue();
                     tempPos = Cache.Check(temp);
-                    if (tempPos[0] == -1)
+                    if(tempPos[0] == -1)
                     {
                         //missed  --- need to add in conditions for diff types of misses (and update
                         temp.Result = Memory.LoadInstr(temp.Address);
@@ -59,25 +58,22 @@ namespace Project3_HT
 
                     }
                 }
-            }
-            if (FuncUnitManager.Units[1].Empty != true)
-            { 
-                if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
+                else if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
                     temp.MemoryCC += 3;
                     tempPos = Cache.Check(temp);
-
+                    
                     if (tempPos[0] == -1) //write miss
                     {
-                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnReg(temp.DestReg));
+                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                         processed = true;
                     }
                     else //write hit
                     {
                         Cache.Add(temp);
-                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnReg(temp.DestReg));
+                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                         processed = true; //might be iffy on all the processed = true stuff
                     }
