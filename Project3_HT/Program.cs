@@ -39,7 +39,6 @@ namespace Project3_HT
             //Index should be 1
             //Tag should be 19E2*/
 
-            //Please god uncomment this -jfm (Debugging)
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Controller());
