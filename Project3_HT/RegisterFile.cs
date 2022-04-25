@@ -101,7 +101,7 @@ namespace Project3_HT
             if (temp[0].Equals("R"))
             {
                 //RegInfo[i] = instr.Result.ToString();
-                if(instr.Result != null)
+                if (instr.Result != null)
                     Registers[i].Data = (int)instr.Result;
                 Registers[i].LineNum = instr.lineNum;
                 Registers[i].Avail = true;
@@ -109,8 +109,8 @@ namespace Project3_HT
             else
             {
                 //RegInfo[i + 16] = instr.Result.ToString();
-                if (instr.Result != null)
-                    FRegisters[i].Data = (int)instr.Result;
+                if (instr.FResult != null)
+                    FRegisters[i].Data = (float)instr.FResult;
                 FRegisters[i].LineNum = instr.lineNum;
                 FRegisters[i].Avail = true;
             }//end else
@@ -165,8 +165,8 @@ namespace Project3_HT
             }//end if
             else
             {
-                Registers[i + 16].Avail = false;
-                Registers[i + 16].LineNum = LineNum;
+                FRegisters[i].Avail = false;
+                FRegisters[i].LineNum = LineNum;
             }//end else
         }//end MarkUnavail(string, int)
 
@@ -184,40 +184,55 @@ namespace Project3_HT
         */
         public static RegTicket IsAvail(string reg)
         {
-            if(reg != null)
+            if (reg != null)
             {
                 string[] temp = reg.Split(' ');
                 int i = Convert.ToInt32(temp[1], 16);
 
-                if (temp[0].Equals("R"))
-                {
-                    return Registers[i];
-                }//end if
-                else
-                {
-                    return Registers[i + 16];
-                }//end else
+                return Registers[i];
+
             }//end if
 
             return new RegTicket(true, -1, 0);
-            
+
         }//end IsAvail(string)
 
-        public static int ReturnReg(string reg)
+        public static FRegTicket FIsAvail(string reg)
         {
             if (reg != null)
             {
                 string[] temp = reg.Split(' ');
                 int i = Convert.ToInt32(temp[1], 16);
 
-                if (temp[0].Equals("R"))
-                {
-                    return Registers[i].Data;
-                }//end if
-                else
-                {
-                    return Registers[i + 16].Data;
-                }//end else
+                return FRegisters[i];
+            }//end if
+
+            return new FRegTicket(true, -1, 0);
+
+        }//end IsAvail(string)
+
+        public static int ReturnRegData(string reg)
+        {
+            if (reg != null)
+            {
+                string[] temp = reg.Split(' ');
+                int i = Convert.ToInt32(temp[1], 16);
+
+                return Registers[i].Data;
+
+            }//end if
+            else
+                return 0;
+        }
+
+        public static float FReturnRegData(string reg)
+        {
+            if (reg != null)
+            {
+                string[] temp = reg.Split(' ');
+                int i = Convert.ToInt32(temp[1], 16);
+
+                return FRegisters[i].Data;
             }//end if
             else
                 return 0;

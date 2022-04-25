@@ -17,7 +17,7 @@ namespace Project3_HT
             int size = 1;           //size of queue
             if (counter < size)
             {
-                int Reg1 = RegisterFile.ReturnReg(i.Reg1);
+                int Reg1 = RegisterFile.ReturnRegData(i.Reg1);
                 
                 if (i.useImm && Int32.TryParse(i.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempImm))
                 {
@@ -26,7 +26,7 @@ namespace Project3_HT
                 }
                 else if(i.useR2)
                 {
-                    int Reg2 = RegisterFile.ReturnReg(i.Reg2);
+                    int Reg2 = RegisterFile.ReturnRegData(i.Reg2);
                     i.Address = (uint)Reg1 + (uint)Reg2;
                     i.Address &= 0x000FFFFF;
                 }
