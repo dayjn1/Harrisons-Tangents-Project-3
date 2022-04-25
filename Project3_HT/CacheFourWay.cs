@@ -60,10 +60,11 @@ namespace Project3_HT
                 label.Text = " ";
             }
 
-            Labels[0].Text = MemUnit.AddressToLookUp(instruction).tag.ToString();            
-            Labels[1].Text = MemUnit.AddressToLookUp(instruction).index.ToString();
-            Labels[2].Text = MemUnit.AddressToLookUp(instruction).offset.ToString();
-
+            CacheEntry temp = MemUnit.AddressToLookUp(instruction);
+            Labels[0].Text = temp.tag.ToString();            
+            Labels[1].Text = temp.index.ToString();
+            Labels[2].Text = temp.offset.ToString();
+            Update();
         }
       
         public void UpdateSet0(CacheEntry[,] cache)

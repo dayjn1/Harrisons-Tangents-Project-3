@@ -37,8 +37,10 @@ namespace Project3_HT
         {
             InitializeComponent();
             //CacheFourWay cacheForm = new CacheFourWay();
-            cacheForm.InitForm();
             cacheForm.Show();
+            cacheForm.InitForm();
+            Task.Delay(500);
+            cacheForm.Hide();
            
         }
 
@@ -164,15 +166,33 @@ namespace Project3_HT
                 //ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }//end if
 
-            if (!FuncUnitManager.Units[0].Empty || !FuncUnitManager.Units[1].Empty)                     // CN --> look nor instruction 
-            {
-                MemUnit.AddressToLookUp(instr);
-
-            }//end if
+            
             ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions            //
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
+                if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
+                {
+                    instr = FuncUnitManager.Units[0].Instructions.Peek();
+                    //MemUnit.AddressToLookUp(instr);
+                    cacheForm.Show();
+                    cacheForm.UpdateAddressLabel(instr);
+                    //cacheForm.Update();
+                    Task.Delay(3000);
+                    cacheForm.Hide();
+
+
+                }//end if
+                if(!FuncUnitManager.Units[1].Empty) //stores memUnit
+                {
+                    instr = FuncUnitManager.Units[0].Instructions.Peek();
+                    //MemUnit.AddressToLookUp(instr);
+                    cacheForm.Show();
+                    cacheForm.UpdateAddressLabel(instr);
+                    //cacheForm.Update();
+                    Task.Delay(3000);
+                    cacheForm.Hide();
+                }
             }//end if
            // ChangeLoadBuffer(LdBuffer.ToArray());
             if (AddressUnit.AddressUnitQueue.Any())

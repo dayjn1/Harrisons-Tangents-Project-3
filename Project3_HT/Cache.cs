@@ -80,7 +80,7 @@ namespace Project3_HT
             uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
-            int data = 1;                                       // change 
+            int data = (int)instr.Result;                                      // change 
                                                                 //Put all this info into an entry that can go in the cache
             return new CacheEntry(offset, index, tag, data, false);
         }//end DeconstructInstruction(Instruction)
@@ -108,6 +108,7 @@ namespace Project3_HT
         public static void Add(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
+            
 
             for (int i = 0; i < SetAssociativity; i++)          //find empty place in set
             {
