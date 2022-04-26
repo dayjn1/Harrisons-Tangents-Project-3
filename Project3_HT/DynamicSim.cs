@@ -28,12 +28,12 @@ namespace Project3_HT
 {
     public partial class DynamicSim : Form
     {
-        public CacheFourWay cacheForm;
+        
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
         bool FirstInstruction = true, invalid = false;
-        public static CacheFourWay cacheForm = new CacheFourWay();
+        public static CacheFourWay cacheForm;
         public DynamicSim()
         {
             InitializeComponent();
@@ -182,6 +182,25 @@ namespace Project3_HT
                     Task.Delay(3000);
                     cacheForm.Hide();
 
+                    //check for instr in cache
+                    Cache.MissType missType = FuncUnitManager.ExeCycle();
+                    //If cache miss, highlight what kind of miss it was
+                    switch (missType)
+                    {
+                        case Cache.MissType.Compulsory:
+                            cacheForm.UpdateCompMiss();
+                            break;
+                        case Cache.MissType.Conflict:
+                            cacheForm.UpdateConflictMiss();
+                            break;
+                        case Cache.MissType.Capacity:
+                            cacheForm.UpdateCapacityMiss();
+                            break;
+                        default:
+                            break;
+                    }
+
+
 
                 }//end if
                 if(!FuncUnitManager.Units[1].Empty) //stores memUnit
@@ -193,6 +212,23 @@ namespace Project3_HT
                     //cacheForm.Update();
                     Task.Delay(3000);
                     cacheForm.Hide();
+
+                    Cache.MissType missType = FuncUnitManager.ExeCycle();
+                    //If cache miss, highlight what kind of miss it was
+                    switch (missType)
+                    {
+                        case Cache.MissType.Compulsory:
+                            cacheForm.UpdateCompMiss();
+                            break;
+                        case Cache.MissType.Conflict:
+                            cacheForm.UpdateConflictMiss();
+                            break;
+                        case Cache.MissType.Capacity:
+                            cacheForm.UpdateCapacityMiss();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }//end if
            // ChangeLoadBuffer(LdBuffer.ToArray());
@@ -260,22 +296,8 @@ namespace Project3_HT
                     if something, wait
             */
             FuncUnitManager.CheckStationsToPushToFuncUnits();
-            Cache.MissType missType = FuncUnitManager.ExeCycle();
-            //If cache miss, highlight what kind of miss it was
-            switch (missType)
-            {
-                case Cache.MissType.Compulsory:
-                    cacheForm.UpdateCompMiss();
-                    break;
-                case Cache.MissType.Conflict:
-                    cacheForm.UpdateConflictMiss();
-                    break;
-                case Cache.MissType.Capacity:
-                    cacheForm.UpdateCapacityMiss();
-                    break;
-                default:
-                    break;
-            }
+            FuncUnitManager.ExeCycle();
+            
 
 
             /*

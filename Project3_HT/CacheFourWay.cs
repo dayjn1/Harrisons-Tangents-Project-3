@@ -47,6 +47,35 @@ namespace Project3_HT
             }
         }
 
+        public void UpdateEntry(int[] position)
+        {
+            switch (position[0])
+            {
+                case 0:
+                    {
+                        UpdateSet0(Cache.CacheArray);
+                        break;
+                    }
+                case 1:
+                    {
+                        UpdateSet1(Cache.CacheArray);
+                        break;
+                    }
+                case 2:
+                    {
+                        UpdateSet2(Cache.CacheArray);
+                        break;
+                    }
+                case 3:
+                    {
+                        UpdateSet3(Cache.CacheArray);
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
         public void UpdateAddressLabel(Instruction instruction)
         {
 

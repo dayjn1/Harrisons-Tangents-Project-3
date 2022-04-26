@@ -56,7 +56,7 @@ namespace Project3_HT
                     }
                 }
             }
-            if (!processed && !FuncUnitManager.Units[1].Empty)
+            if (!FuncUnitManager.Units[1].Empty)
             { 
                 if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[1].Instructions.Peek().OpCode == 4) //stores
                 {
@@ -72,6 +72,7 @@ namespace Project3_HT
                     }
                     else //write hit
                     {
+                        DynamicSim.cacheForm.UpdateEntry(tempPos);
                         Cache.Add(temp);
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);
