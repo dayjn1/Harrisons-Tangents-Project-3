@@ -41,6 +41,13 @@ namespace Project3_HT
 
     internal static class Cache
     {
+        public enum MissType
+        {
+            Compulsory = 1,
+            Conflict = 2,
+            Capacity = 3
+        }
+
         public static int SetAssociativity { get; set; }
         public static int TotalSize { get; set; }
         public static CacheEntry[,] CacheArray { get; set; }
@@ -86,22 +93,56 @@ namespace Project3_HT
         }//end DeconstructInstruction(Instruction)
 
       
-        // Returns whether there is a hit in the cache or not for an instruction -jfm
+        // Returns location in CacheArray that we hit, or (-1, x) if miss -jfm
+        // Miss: x = 1 if compulsory, 2 if conflict, 3 if capacity (epic miss)
         public static int[] Check(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
+            int hit_entry = -1;
+            bool any_entry_empty = false;
 
             for (int i = 0; i < SetAssociativity; i++)
             {
                 if (CacheArray[ce.index, i].tag == ce.tag)
                 {
-                    return new int[] { (int)ce.index, i };
+                    hit_entry = i;
                 }
+                if (CacheArray[ce.index, i].empty == true)
+                {
+                    any_entry_empty = true;
+                }
+            }//end for(entry in set)
+            if(hit_entry == -1 && any_entry_empty)              ///Compulsory if any entry is empty and we miss
+            {
+                return new int[] { (int)ce.index, (int)MissType.Compulsory };
+            }
+            else if(hit_entry != -1)                            //If we hit, return location of hit
+            {
+                return new int[] { (int)ce.index, hit_entry };
             }
 
-            return new int[] { -1, -1}; //miss
+            //Check every single entry in the cache to test Capacity miss
+            bool capacity_miss = true;
+            for (int j = 0; j < TotalSize / SetAssociativity; j++)
+            {
+                for (int k = 0; k < SetAssociativity; k++)
+                {
+                    if (CacheArray[j, k].empty == true || CacheArray[j, k].valid == false)
+                    {
+                        capacity_miss = false;
+                    }
+                }
+            }//end for(every entry in the cache)
 
-            //need to know the position of the hit or return -1,-1 if a miss???
+            if (capacity_miss)
+            {
+                return new int[] { -1, (int)MissType.Capacity };                     //Capacity miss
+            }
+            else
+            {
+                return new int[] { -1, (int)MissType.Conflict };                     //Conflict miss
+            }
+
         }//end Check(Instruction)
 
         /// Adds a cache entry to the cache, calls replacement if necessary -jfm

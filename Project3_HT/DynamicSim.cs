@@ -28,6 +28,7 @@ namespace Project3_HT
 {
     public partial class DynamicSim : Form
     {
+        public CacheFourWay cacheForm;
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
@@ -36,7 +37,7 @@ namespace Project3_HT
         public DynamicSim()
         {
             InitializeComponent();
-            //CacheFourWay cacheForm = new CacheFourWay();
+            cacheForm = new CacheFourWay();
             cacheForm.Show();
             cacheForm.InitForm();
             Task.Delay(500);
@@ -259,7 +260,22 @@ namespace Project3_HT
                     if something, wait
             */
             FuncUnitManager.CheckStationsToPushToFuncUnits();
-            FuncUnitManager.ExeCycle();
+            Cache.MissType missType = FuncUnitManager.ExeCycle();
+            //If cache miss, highlight what kind of miss it was
+            switch (missType)
+            {
+                case Cache.MissType.Compulsory:
+                    cacheForm.UpdateCompMiss();
+                    break;
+                case Cache.MissType.Conflict:
+                    cacheForm.UpdateConflictMiss();
+                    break;
+                case Cache.MissType.Capacity:
+                    cacheForm.UpdateCapacityMiss();
+                    break;
+                default:
+                    break;
+            }
 
 
             /*
