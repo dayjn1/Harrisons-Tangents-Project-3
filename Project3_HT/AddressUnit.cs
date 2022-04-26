@@ -47,14 +47,16 @@ namespace Project3_HT
                 AddressUnitQueue.Dequeue();
 
             }
-            else
+            // else it has to be a type of store to have come here OpCode 2 or 4
+            else 
             {
-                ReorderBuffer.PassedtoRB(i);
-                if (FuncUnitManager.Units[1].Empty)
+                ReorderBuffer.PassedtoRB(i);  //reserve spot on reorder buffer
+                if (FuncUnitManager.Units[1].Empty)//only dequeue if the memUnit is empty
                 {
-                    FuncUnitManager.Units[1].Enqueue(i); 
-                }
-                AddressUnitQueue.Dequeue();
+                    FuncUnitManager.Units[1].Enqueue(i);
+                    AddressUnitQueue.Dequeue();
+
+                } //change this later to add a store buffer so the addressUnitQueue doesn't get stalled too much
             }
         }
     }
