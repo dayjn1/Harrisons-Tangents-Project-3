@@ -93,9 +93,6 @@ namespace Project3_HT
             Labels[0].Text = "Instr: " + instruction.Mnemonic + ", Tag: " + temp.tag.ToString();
             Labels[1].Text = "Index: " + temp.index.ToString();
             Labels[2].Text = temp.offset.ToString();
-            //Labels[0].Text = temp.tag.ToString();            
-            //Labels[1].Text = temp.index.ToString();
-            //Labels[2].Text = temp.offset.ToString();
             Update();
         }
       
@@ -327,6 +324,8 @@ namespace Project3_HT
         private void okayBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
         public void ResetTextBoxBG()
         {
             ConflictMiss.BackColor = Color.White;

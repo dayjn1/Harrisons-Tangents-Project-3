@@ -31,7 +31,7 @@ namespace Project3_HT
         
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
-        public static string ProgramType = "Continuous";
+        public static string ProgramType = "Step by Step";
         bool FirstInstruction = true, invalid = false;
         public static CacheFourWay cacheForm;
         public DynamicSim()
@@ -205,37 +205,39 @@ namespace Project3_HT
 
 
 
-                }//end if
-                if(!FuncUnitManager.Units[1].Empty) //stores memUnit
-                {
-                    instr = FuncUnitManager.Units[0].Instructions.Peek();
-                    //MemUnit.AddressToLookUp(instr);
-                    cacheForm.Show();
-                    cacheForm.UpdateAddressLabel(instr);
-                    //cacheForm.Update();
-                    Task.Delay(9000);
-                    //cacheForm.Hide();
+                }//end if(anything in laod mem unit)
+            }//end if(anything in load buffer)
 
-                    Cache.MissType missType = FuncUnitManager.ExeCycle();
-                    //If cache miss, highlight what kind of miss it was
-                    switch (missType)
-                    {
-                        case Cache.MissType.Compulsory:
-                            cacheForm.UpdateCompMiss();
-                            break;
-                        case Cache.MissType.Conflict:
-                            cacheForm.UpdateConflictMiss();
-                            break;
-                        case Cache.MissType.Capacity:
-                            cacheForm.UpdateCapacityMiss();
-                            break;
-                        default:
-                            cacheForm.UpdateHit();
-                            break;
-                    }
+
+            if (!FuncUnitManager.Units[1].Empty) //stores memUnit
+            {
+                instr = FuncUnitManager.Units[1].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                cacheForm.UpdateAddressLabel(instr);
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
+
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        cacheForm.UpdateHit();
+                        break;
                 }
-            }//end if
-           // ChangeLoadBuffer(LdBuffer.ToArray());
+            }//end if(anything in store mem unit)
+
             if (AddressUnit.AddressUnitQueue.Any())
             {
                 AddressUnit.ProcessAU();                // send to LB or to pass to RO
