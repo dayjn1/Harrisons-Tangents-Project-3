@@ -205,8 +205,12 @@ namespace Project3_HT
                         cacheForm.UpdateHit();
                         break;
                 }
+
+
+
             }//end if(anything in laod mem unit)
 
+            Task.Delay(9000);
 
             if (!FuncUnitManager.Units[1].Empty) //stores memUnit
             {
