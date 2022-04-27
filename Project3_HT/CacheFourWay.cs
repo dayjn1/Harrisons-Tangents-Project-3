@@ -327,6 +327,12 @@ namespace Project3_HT
         private void okayBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
+        public void ResetTextBoxBG()
+        {
+            ConflictMiss.BackColor = Color.White;
+            CapMiss.BackColor = Color.White;
+            CompMiss.BackColor = Color.White;
+            hitTextBox.BackColor = Color.White;
         }
     }
 
