@@ -41,6 +41,7 @@ namespace Project3_HT
                         temp.Result = Memory.LoadInstr(temp.Address);
                         Cache.Add(temp);
                         DynamicSim.cacheForm.UpdateCache();
+                        FuncUnitManager.Units[0].ExecTime *= 5;
                         //temp.MemoryCC *= 5;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
                         //Send miss type up to DynamicSim
@@ -51,10 +52,12 @@ namespace Project3_HT
                         //get data from position
                         // update the 
                         int curData = Cache.CacheArray[tempPos[0], tempPos[1]].data;
+                        FuncUnitManager.Units[0].ExecTime += 3;
                         //temp.MemoryCC += 3;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
 
                     }
+                    FuncUnitManager.Units[0].Processed = true;
                 }
             }
             if (!FuncUnitManager.Units[1].Empty)
@@ -63,13 +66,10 @@ namespace Project3_HT
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
 
+                    FuncUnitManager.Units[1].ExecTime *= 5;
                     //temp.MemoryCC *= 5;
                     tempPos = Cache.Check(temp);
                    
-                   
-                   
-                   
-
                     if (tempPos[0] == -1) //write miss
                     {
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
@@ -81,6 +81,7 @@ namespace Project3_HT
                         Cache.Add(temp);
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                     }
+                    FuncUnitManager.Units[1].Processed = true;
                     FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                     DynamicSim.cacheForm.UpdateCache();
                 }

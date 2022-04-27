@@ -74,7 +74,7 @@ namespace Project3_HT
 
                     bool processed = false;
 
-                    if (funcUnit.Processed == false || processed == false) //test this religiously
+                    if (funcUnit.Processed == false) //test this religiously
                     {
                         if(funcUnit.Name == "MemoryUnit")
                         {

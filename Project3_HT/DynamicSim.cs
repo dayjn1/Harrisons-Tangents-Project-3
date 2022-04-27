@@ -182,7 +182,8 @@ namespace Project3_HT
                 instr = FuncUnitManager.Units[0].Instructions.Peek();
                 //MemUnit.AddressToLookUp(instr);
                 cacheForm.Show();
-                cacheForm.UpdateAddressLabel(instr);
+                if (FuncUnitManager.Units[0].Processed == false)
+                    cacheForm.UpdateAddressLabel(instr);
                 //cacheForm.Update();
                 Task.Delay(9000);
                 //cacheForm.Hide();
@@ -202,8 +203,11 @@ namespace Project3_HT
                         cacheForm.UpdateCapacityMiss();
                         break;
                     default:
-                        cacheForm.UpdateHit();
-                        break;
+                        {
+                            if(FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
                 }
 
 
@@ -215,7 +219,8 @@ namespace Project3_HT
                 instr = FuncUnitManager.Units[1].Instructions.Peek();
                 //MemUnit.AddressToLookUp(instr);
                 cacheForm.Show();
-                cacheForm.UpdateAddressLabel(instr);
+                if (FuncUnitManager.Units[0].Processed == false)
+                    cacheForm.UpdateAddressLabel(instr);
                 //cacheForm.Update();
                 Task.Delay(9000);
                 //cacheForm.Hide();
@@ -234,8 +239,11 @@ namespace Project3_HT
                         cacheForm.UpdateCapacityMiss();
                         break;
                     default:
-                        cacheForm.UpdateHit();
-                        break;
+                        {
+                            if (FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
                 }
             }//end if(anything in store mem unit)
 
