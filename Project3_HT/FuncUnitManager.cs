@@ -84,7 +84,7 @@ namespace Project3_HT
                         {
                             missType = MemUnit.ProcessCacheAccess();
                         }
-                        if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 22)
+                        if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 21)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = ALU.InstructDecomp(temp);

@@ -41,7 +41,7 @@ namespace Project3_HT
                         temp.Result = Memory.LoadInstr(temp.Address);
                         Cache.Add(temp);
                         DynamicSim.cacheForm.UpdateCache();
-                        temp.MemoryCC *= 5;
+                        //temp.MemoryCC *= 5;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
                         //Send miss type up to DynamicSim
                         return (Cache.MissType)tempPos[1];                          //tempPos contains our enum specifying the type of miss
@@ -51,7 +51,7 @@ namespace Project3_HT
                         //get data from position
                         // update the 
                         int curData = Cache.CacheArray[tempPos[0], tempPos[1]].data;
-                        temp.MemoryCC += 3;
+                        //temp.MemoryCC += 3;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
 
                     }
@@ -63,18 +63,26 @@ namespace Project3_HT
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
 
-                    temp.MemoryCC *= 5;
+                    //temp.MemoryCC *= 5;
                     tempPos = Cache.Check(temp);
-                    Cache.Add(temp);
-
-                    DynamicSim.cacheForm.UpdateCache();
-                    Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
-                    FuncUnitManager.Units[1].Instructions.Enqueue(temp);
+                   
+                   
+                   
+                   
 
                     if (tempPos[0] == -1) //write miss
                     {
+                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
+                        FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                         return (Cache.MissType)tempPos[1];                          //tempPos contains our enum specifying the type of miss
                     }
+                    else
+                    {
+                        Cache.Add(temp);
+                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
+                    }
+                    FuncUnitManager.Units[1].Instructions.Enqueue(temp);
+                    DynamicSim.cacheForm.UpdateCache();
                 }
             }
             return 0;
