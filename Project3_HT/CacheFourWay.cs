@@ -322,6 +322,10 @@ namespace Project3_HT
             Update();
         }
 
+        private void okayBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 
 
