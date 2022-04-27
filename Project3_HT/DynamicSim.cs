@@ -197,6 +197,7 @@ namespace Project3_HT
                             cacheForm.UpdateCapacityMiss();
                             break;
                         default:
+                            cacheForm.UpdateHit();
                             break;
                     }
 
@@ -227,6 +228,7 @@ namespace Project3_HT
                             cacheForm.UpdateCapacityMiss();
                             break;
                         default:
+                            cacheForm.UpdateHit();
                             break;
                     }
                 }

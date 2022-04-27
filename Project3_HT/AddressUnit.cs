@@ -51,12 +51,14 @@ namespace Project3_HT
             else 
             {
                 ReorderBuffer.PassedtoRB(i);  //reserve spot on reorder buffer
-                if (FuncUnitManager.Units[1].Empty)//only dequeue if the memUnit is empty
+                /*if (FuncUnitManager.Units[1].Empty)//only dequeue if the memUnit is empty
                 {
                     FuncUnitManager.Units[1].Enqueue(i);
-                    AddressUnitQueue.Dequeue();
 
-                } //change this later to add a store buffer so the addressUnitQueue doesn't get stalled too much
+                }*/ //change this later to add a store buffer so the addressUnitQueue doesn't get stalled too much -- not going to have time
+                
+                AddressUnitQueue.Dequeue();
+
             }
         }
     }
