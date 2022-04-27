@@ -207,7 +207,7 @@ namespace Project3_HT
                         break;
                     default:
                         {
-                            if (FuncUnitManager.Units[0].Processed == false)
+                            //if (FuncUnitManager.Units[0].Processed == false)
                                 cacheForm.UpdateHit();
                             break;
                         }
@@ -373,7 +373,7 @@ namespace Project3_HT
         }//end SingleCycle()
 
 
-        public void CheckCache()
+        /*public void CheckCache()
         {
             Instruction instr;
             //int checkedLast = -1;
@@ -460,7 +460,7 @@ namespace Project3_HT
 
                 CacheCheckedLast = 1;
             }//end if(anything in store mem unit)
-        }
+        }*/
 
         /// <summary>
         /// As long as there is no HALT instruction, keep adding 
