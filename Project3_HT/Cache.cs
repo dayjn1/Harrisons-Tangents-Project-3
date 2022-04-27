@@ -66,7 +66,7 @@ namespace Project3_HT
             {
                 for (int j = 0; j < SetAssociativity; j++)
                 {
-                    CacheArray[i, j] = new CacheEntry();
+                    CacheArray[i, j] = new CacheEntry(0,0,0,0,true,true);
                 }
             }
 
@@ -107,10 +107,12 @@ namespace Project3_HT
                 if (CacheArray[ce.index, i].tag == ce.tag)
                 {
                     hit_entry = i;
+                    break;
                 }
                 if (CacheArray[ce.index, i].empty == true)
                 {
                     any_entry_empty = true;
+                    break;
                 }
             }//end for(entry in set)
             if(hit_entry == -1 && any_entry_empty)              ///Compulsory if any entry is empty and we miss

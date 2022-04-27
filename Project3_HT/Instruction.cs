@@ -34,7 +34,6 @@ namespace Project3_HT
         public float FReg1Data, FReg2Data, FImmData; // assigned in RS, to make sure correct data is used and not just pulling from RegFile
         public int? Result;
         public float? FResult;
-        public float FReg1Data, FReg2Data, FImmData;
         public bool writeBack, useRD, useR1, useR2, useImm;
 
         static List<Instruction> InstructionSet = new List<Instruction>()
