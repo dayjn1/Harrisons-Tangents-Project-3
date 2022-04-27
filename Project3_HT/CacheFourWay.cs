@@ -324,6 +324,12 @@ namespace Project3_HT
             Update();
         }
 
+        public void ResetTextBoxBG()
+        {
+            ConflictMiss.BackColor = Color.White;
+            CapMiss.BackColor = Color.White;
+            CompMiss.BackColor = Color.White;
+        }
     }
 
 
