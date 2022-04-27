@@ -34,7 +34,7 @@ namespace Project3_HT
         public static string ProgramType = "Step by Step";
         bool FirstInstruction = true, invalid = false;
         public static CacheFourWay cacheForm;
-        int CacheCheckedLast = -1;
+        public static bool StoreUnitWasLastAccessed = false;
         public DynamicSim()
         {
             InitializeComponent();
@@ -178,12 +178,82 @@ namespace Project3_HT
                 
             }//end if(anything in load buffer)
 
-            
-            //check cache
+            if (!FuncUnitManager.Units[1].Empty && !StoreUnitWasLastAccessed) //stores memUnit
+            {
+                instr = FuncUnitManager.Units[1].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                if (FuncUnitManager.Units[1].Processed == false)
+                {
+                    cacheForm.UpdateAddressLabel(instr);
+                }
+                Console.WriteLine("Time left to exec (store): " + FuncUnitManager.Units[1].ExecTime);
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
 
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        {
+                            if (FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
+                }
 
+                StoreUnitWasLastAccessed = true;
+            }//end if(anything in store mem unit)
 
+            else if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
+            {
+                instr = FuncUnitManager.Units[0].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                if (FuncUnitManager.Units[0].Processed == false)
+                {
+                    cacheForm.UpdateAddressLabel(instr);
+                }
+                Console.WriteLine("Time left to exec (load): " + FuncUnitManager.Units[0].ExecTime);
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
 
+                //check for instr in cache
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        {
+                            if(FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
+                }
+
+                StoreUnitWasLastAccessed = false;
+            }//end if(anything in laod mem unit)
 
             if (AddressUnit.AddressUnitQueue.Any())
             {
