@@ -102,7 +102,7 @@ namespace Project3_HT
                 else
                 {
                     funcUnit.Executed = true;
-                    
+                    funcUnit.Processed = false;
                 }
 
             }

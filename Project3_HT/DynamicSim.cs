@@ -171,13 +171,15 @@ namespace Project3_HT
             }//end if
 
             
-            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions            //
+            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
                 
             }//end if(anything in load buffer)
 
+            Console.WriteLine("Time left to exec (store): " + FuncUnitManager.Units[1].ExecTime);
+            Console.WriteLine("Time left to exec (load): " + FuncUnitManager.Units[0].ExecTime);
             if (!FuncUnitManager.Units[1].Empty && !StoreUnitWasLastAccessed) //stores memUnit
             {
                 instr = FuncUnitManager.Units[1].Instructions.Peek();
@@ -187,7 +189,6 @@ namespace Project3_HT
                 {
                     cacheForm.UpdateAddressLabel(instr);
                 }
-                Console.WriteLine("Time left to exec (store): " + FuncUnitManager.Units[1].ExecTime);
                 //cacheForm.Update();
                 Task.Delay(9000);
                 //cacheForm.Hide();
@@ -225,7 +226,6 @@ namespace Project3_HT
                 {
                     cacheForm.UpdateAddressLabel(instr);
                 }
-                Console.WriteLine("Time left to exec (load): " + FuncUnitManager.Units[0].ExecTime);
                 //cacheForm.Update();
                 Task.Delay(9000);
                 //cacheForm.Hide();
