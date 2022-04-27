@@ -28,15 +28,15 @@ namespace Project3_HT
         {
 
             //uint currentInstAddressInMU = FuncUnitManager.Units[0].Instructions.Peek().Address;
+            int[] tempPos;
 
             if(!FuncUnitManager.Units[0].Empty)
             {
-                int[] tempPos;
                 if (FuncUnitManager.Units[0].Instructions.Peek().OpCode == 1 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 3)
                 { //loads (LOAD and LOADI)
                     Instruction temp = FuncUnitManager.Units[0].Instructions.Dequeue();
                     tempPos = Cache.Check(temp);
-                    if(tempPos[0] == -1)
+                    if (tempPos[0] == -1)
                     {
                         temp.Result = Memory.LoadInstr(temp.Address);
                         Cache.Add(temp);
@@ -48,18 +48,22 @@ namespace Project3_HT
                     else //hit on load
                     {
                         //get data from position
+                        // update the 
                         int curData = Cache.CacheArray[tempPos[0], tempPos[1]].data;
                         temp.MemoryCC += 3;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
 
                     }
                 }
-                else if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[0].Instructions.Peek().OpCode == 4) //stores
+            }
+            if (!FuncUnitManager.Units[1].Empty)
+            { 
+                if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[1].Instructions.Peek().OpCode == 4) //stores
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
                     temp.MemoryCC += 3;
                     tempPos = Cache.Check(temp);
-                    
+
                     if (tempPos[0] == -1) //write miss
                     {
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
@@ -68,6 +72,7 @@ namespace Project3_HT
                     }
                     else //write hit
                     {
+                        DynamicSim.cacheForm.UpdateEntry(tempPos);
                         Cache.Add(temp);
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);

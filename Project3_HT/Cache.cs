@@ -69,6 +69,7 @@ namespace Project3_HT
                     CacheArray[i, j] = new CacheEntry();
                 }
             }
+
         }//end Cache()
 
         /// <summary>
@@ -86,9 +87,10 @@ namespace Project3_HT
             uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
-            int data = 1;                                       // change 
+            int data = Memory.LoadInstr(instr.Address);
                                                                 //Put all this info into an entry that can go in the cache
-            return new CacheEntry(offset, index, tag, data, false);
+            return new CacheEntry(offset, index, tag, data, false);  // move data to add 
+                                                                        // take care of the data here, to be null?
         }//end DeconstructInstruction(Instruction)
 
       
@@ -148,6 +150,7 @@ namespace Project3_HT
         public static void Add(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
+            //int data = (int)instr.Result;                                      // not even used
 
             for (int i = 0; i < SetAssociativity; i++)          //find empty place in set
             {
