@@ -174,39 +174,38 @@ namespace Project3_HT
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
-                if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
-                {
-                    instr = FuncUnitManager.Units[0].Instructions.Peek();
-                    //MemUnit.AddressToLookUp(instr);
-                    cacheForm.Show();
-                    cacheForm.UpdateAddressLabel(instr);
-                    //cacheForm.Update();
-                    Task.Delay(9000);
-                    //cacheForm.Hide();
-
-                    //check for instr in cache
-                    Cache.MissType missType = FuncUnitManager.ExeCycle();
-                    //If cache miss, highlight what kind of miss it was
-                    switch (missType)
-                    {
-                        case Cache.MissType.Compulsory:
-                            cacheForm.UpdateCompMiss();
-                            break;
-                        case Cache.MissType.Conflict:
-                            cacheForm.UpdateConflictMiss();
-                            break;
-                        case Cache.MissType.Capacity:
-                            cacheForm.UpdateCapacityMiss();
-                            break;
-                        default:
-                            cacheForm.UpdateHit();
-                            break;
-                    }
-
-
-
-                }//end if(anything in laod mem unit)
+                
             }//end if(anything in load buffer)
+
+            if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
+            {
+                instr = FuncUnitManager.Units[0].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                cacheForm.UpdateAddressLabel(instr);
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
+
+                //check for instr in cache
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        cacheForm.UpdateHit();
+                        break;
+                }
+            }//end if(anything in laod mem unit)
 
 
             if (!FuncUnitManager.Units[1].Empty) //stores memUnit
