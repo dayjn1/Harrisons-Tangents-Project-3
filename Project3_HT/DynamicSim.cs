@@ -34,6 +34,7 @@ namespace Project3_HT
         public static string ProgramType = "Step by Step";
         bool FirstInstruction = true, invalid = false;
         public static CacheFourWay cacheForm;
+        int CacheCheckedLast = -1;
         public DynamicSim()
         {
             InitializeComponent();
@@ -177,81 +178,12 @@ namespace Project3_HT
                 
             }//end if(anything in load buffer)
 
-            if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
-            {
-                instr = FuncUnitManager.Units[0].Instructions.Peek();
-                //MemUnit.AddressToLookUp(instr);
-                cacheForm.Show();
-                if (FuncUnitManager.Units[0].Processed == false)
-                {
-                    cacheForm.UpdateAddressLabel(instr);
-                }
-                Console.WriteLine("Time left to exec (load): " + FuncUnitManager.Units[0].ExecTime);
-                //cacheForm.Update();
-                Task.Delay(9000);
-                //cacheForm.Hide();
-
-                //check for instr in cache
-                Cache.MissType missType = FuncUnitManager.ExeCycle();
-                //If cache miss, highlight what kind of miss it was
-                switch (missType)
-                {
-                    case Cache.MissType.Compulsory:
-                        cacheForm.UpdateCompMiss();
-                        break;
-                    case Cache.MissType.Conflict:
-                        cacheForm.UpdateConflictMiss();
-                        break;
-                    case Cache.MissType.Capacity:
-                        cacheForm.UpdateCapacityMiss();
-                        break;
-                    default:
-                        {
-                            if(FuncUnitManager.Units[0].Processed == false)
-                                cacheForm.UpdateHit();
-                            break;
-                        }
-                }
+            
+            //check cache
 
 
 
-            }//end if(anything in laod mem unit)
-             
-            else if (!FuncUnitManager.Units[1].Empty) //stores memUnit
-            {
-                instr = FuncUnitManager.Units[1].Instructions.Peek();
-                //MemUnit.AddressToLookUp(instr);
-                cacheForm.Show();
-                if (FuncUnitManager.Units[1].Processed == false)
-                {
-                    cacheForm.UpdateAddressLabel(instr);
-                }
-                Console.WriteLine("Time left to exec (store): " + FuncUnitManager.Units[1].ExecTime);
-                //cacheForm.Update();
-                Task.Delay(9000);
-                //cacheForm.Hide();
 
-                Cache.MissType missType = FuncUnitManager.ExeCycle();
-                //If cache miss, highlight what kind of miss it was
-                switch (missType)
-                {
-                    case Cache.MissType.Compulsory:
-                        cacheForm.UpdateCompMiss();
-                        break;
-                    case Cache.MissType.Conflict:
-                        cacheForm.UpdateConflictMiss();
-                        break;
-                    case Cache.MissType.Capacity:
-                        cacheForm.UpdateCapacityMiss();
-                        break;
-                    default:
-                        {
-                            if (FuncUnitManager.Units[0].Processed == false)
-                                cacheForm.UpdateHit();
-                            break;
-                        }
-                }
-            }//end if(anything in store mem unit)
 
             if (AddressUnit.AddressUnitQueue.Any())
             {
@@ -364,8 +296,101 @@ namespace Project3_HT
             UpdateIntegerRS();
 
             Update();
+
+
+
                       
         }//end SingleCycle()
+
+
+        public void CheckCache()
+        {
+            Instruction instr;
+            //int checkedLast = -1;
+            if (CacheCheckedLast == -1 && FuncUnitManager.Units[0].Empty == false)
+                CacheCheckedLast = 0;
+            else if (CacheCheckedLast == -1 && FuncUnitManager.Units[0].Empty == false)
+                CacheCheckedLast = 1;
+
+
+            if (!FuncUnitManager.Units[0].Empty && CacheCheckedLast == 1)                     // CN --> look nor instruction 
+            {
+                instr = FuncUnitManager.Units[0].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                if (FuncUnitManager.Units[0].Processed == false)
+                {
+                    cacheForm.UpdateAddressLabel(instr);
+                }
+                Console.WriteLine("Time left to exec (load): " + FuncUnitManager.Units[0].ExecTime);
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
+
+                //check for instr in cache
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        {
+                            if (FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
+                }
+
+
+                CacheCheckedLast = 0;
+            }//end if(anything in laod mem unit)
+
+            else if (!FuncUnitManager.Units[1].Empty && CacheCheckedLast == 0) //stores memUnit
+            {
+                instr = FuncUnitManager.Units[1].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                if (FuncUnitManager.Units[1].Processed == false)
+                {
+                    cacheForm.UpdateAddressLabel(instr);
+                }
+                Console.WriteLine("Time left to exec (store): " + FuncUnitManager.Units[1].ExecTime);
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
+
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        {
+                            if (FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
+                }
+
+                CacheCheckedLast = 1;
+            }//end if(anything in store mem unit)
+        }
 
         /// <summary>
         /// As long as there is no HALT instruction, keep adding 
