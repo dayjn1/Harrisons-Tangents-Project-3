@@ -41,7 +41,7 @@ namespace Project3_HT
             cacheForm.Show();
             cacheForm.InitForm();
             Task.Delay(500);
-            cacheForm.Hide();
+            //cacheForm.Hide();
            
         }
 
@@ -179,8 +179,8 @@ namespace Project3_HT
                     cacheForm.Show();
                     cacheForm.UpdateAddressLabel(instr);
                     //cacheForm.Update();
-                    Task.Delay(3000);
-                    cacheForm.Hide();
+                    Task.Delay(9000);
+                    //cacheForm.Hide();
 
                     //check for instr in cache
                     Cache.MissType missType = FuncUnitManager.ExeCycle();
@@ -211,8 +211,8 @@ namespace Project3_HT
                     cacheForm.Show();
                     cacheForm.UpdateAddressLabel(instr);
                     //cacheForm.Update();
-                    Task.Delay(3000);
-                    cacheForm.Hide();
+                    Task.Delay(9000);
+                    //cacheForm.Hide();
 
                     Cache.MissType missType = FuncUnitManager.ExeCycle();
                     //If cache miss, highlight what kind of miss it was
