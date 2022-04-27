@@ -19,7 +19,7 @@ namespace Project3_HT
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
-            new MemUnit("MemoryUnit"),
+            new MemUnit("MemoryUnit"), //loads
             new MemUnit("MemoryUnit"), //separate mem unit for stores
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
@@ -62,8 +62,9 @@ namespace Project3_HT
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
-        public static void ExeCycle()
+        public static Cache.MissType ExeCycle()
         {
+            Cache.MissType missType = 0;
             foreach (FuncUnit funcUnit in Units)
             {
                 if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
@@ -76,7 +77,9 @@ namespace Project3_HT
                     if (funcUnit.Processed == false || processed == false) //test this religiously
                     {
                         if(funcUnit.Name == "MemoryUnit")
-                            processed = MemUnit.ProcessCacheAccess();   
+                        {
+                            missType = MemUnit.ProcessCacheAccess();
+                        }
                         if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 22)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
@@ -99,6 +102,7 @@ namespace Project3_HT
                 }
 
             }
+            return missType;
 
         }
 

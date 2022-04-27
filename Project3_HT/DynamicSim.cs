@@ -28,16 +28,21 @@ namespace Project3_HT
 {
     public partial class DynamicSim : Form
     {
+        
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
         public static string ProgramType = "Continuous";
-        bool FirstInstruction = true, invalid = false;        
-
+        bool FirstInstruction = true, invalid = false;
+        public static CacheFourWay cacheForm;
         public DynamicSim()
         {
             InitializeComponent();
-            CacheFourWay cacheForm = new CacheFourWay();
+            cacheForm = new CacheFourWay();
             cacheForm.Show();
+            cacheForm.InitForm();
+            Task.Delay(500);
+            //cacheForm.Hide();
+           
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -162,18 +167,79 @@ namespace Project3_HT
                 //ChangeRegisterFile(RegisterFile.UpdateRegister(instr));
             }//end if
 
-
-            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
+            
+            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions            //
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
-            }//end if
+                if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
+                {
+                    instr = FuncUnitManager.Units[0].Instructions.Peek();
+                    //MemUnit.AddressToLookUp(instr);
+                    cacheForm.Show();
+                    cacheForm.UpdateAddressLabel(instr);
+                    //cacheForm.Update();
+                    Task.Delay(9000);
+                    //cacheForm.Hide();
 
+                    //check for instr in cache
+                    Cache.MissType missType = FuncUnitManager.ExeCycle();
+                    //If cache miss, highlight what kind of miss it was
+                    switch (missType)
+                    {
+                        case Cache.MissType.Compulsory:
+                            cacheForm.UpdateCompMiss();
+                            break;
+                        case Cache.MissType.Conflict:
+                            cacheForm.UpdateConflictMiss();
+                            break;
+                        case Cache.MissType.Capacity:
+                            cacheForm.UpdateCapacityMiss();
+                            break;
+                        default:
+                            cacheForm.UpdateHit();
+                            break;
+                    }
+
+
+
+                }//end if
+                if(!FuncUnitManager.Units[1].Empty) //stores memUnit
+                {
+                    instr = FuncUnitManager.Units[0].Instructions.Peek();
+                    //MemUnit.AddressToLookUp(instr);
+                    cacheForm.Show();
+                    cacheForm.UpdateAddressLabel(instr);
+                    //cacheForm.Update();
+                    Task.Delay(9000);
+                    //cacheForm.Hide();
+
+                    Cache.MissType missType = FuncUnitManager.ExeCycle();
+                    //If cache miss, highlight what kind of miss it was
+                    switch (missType)
+                    {
+                        case Cache.MissType.Compulsory:
+                            cacheForm.UpdateCompMiss();
+                            break;
+                        case Cache.MissType.Conflict:
+                            cacheForm.UpdateConflictMiss();
+                            break;
+                        case Cache.MissType.Capacity:
+                            cacheForm.UpdateCapacityMiss();
+                            break;
+                        default:
+                            cacheForm.UpdateHit();
+                            break;
+                    }
+                }
+            }//end if
+           // ChangeLoadBuffer(LdBuffer.ToArray());
             if (AddressUnit.AddressUnitQueue.Any())
             {
                 AddressUnit.ProcessAU();                // send to LB or to pass to RO
-
+                
             }//end if
+            ChangeLoadBuffer(LdBuffer.ToArray());
 
             /*
 
@@ -233,6 +299,7 @@ namespace Project3_HT
             */
             FuncUnitManager.CheckStationsToPushToFuncUnits();
             FuncUnitManager.ExeCycle();
+            
 
 
             /*
