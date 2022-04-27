@@ -209,10 +209,8 @@ namespace Project3_HT
 
 
             }//end if(anything in laod mem unit)
-
-            Task.Delay(9000);
-
-            if (!FuncUnitManager.Units[1].Empty) //stores memUnit
+             
+            else if (!FuncUnitManager.Units[1].Empty) //stores memUnit
             {
                 instr = FuncUnitManager.Units[1].Instructions.Peek();
                 //MemUnit.AddressToLookUp(instr);
