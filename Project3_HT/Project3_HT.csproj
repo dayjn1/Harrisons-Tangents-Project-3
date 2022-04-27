@@ -49,6 +49,13 @@
   <ItemGroup>
     <Compile Include="AddressUnit.cs" />
     <Compile Include="ALU.cs" />
+    <Compile Include="Cache.cs" />
+    <Compile Include="CacheFourWay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CacheFourWay.Designer.cs">
+      <DependentUpon>CacheFourWay.cs</DependentUpon>
+    </Compile>
     <Compile Include="CDBus.cs" />
     <Compile Include="FPU.cs" />
     <Compile Include="Memory.cs" />
@@ -68,6 +75,12 @@
     <Compile Include="FuncUnitManager.cs" />
     <Compile Include="InstructionQueue.cs" />
     <Compile Include="LoadBuffer.cs" />
+    <Compile Include="MemoryDump.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MemoryDump.Designer.cs">
+      <DependentUpon>MemoryDump.cs</DependentUpon>
+    </Compile>
     <Compile Include="MemUnit.cs" />
     <Compile Include="RegisterFile.cs" />
     <Compile Include="ReorderBuffer.cs" />
@@ -88,11 +101,17 @@
     <Compile Include="Instruction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CacheFourWay.resx">
+      <DependentUpon>CacheFourWay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controller.resx">
       <DependentUpon>Controller.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DynamicSim.resx">
       <DependentUpon>DynamicSim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoryDump.resx">
+      <DependentUpon>MemoryDump.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>

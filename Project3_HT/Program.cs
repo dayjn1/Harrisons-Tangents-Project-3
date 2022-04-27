@@ -15,7 +15,7 @@ namespace Project3_HT
         static void Main()
         {
             //Test the Cache -jfm
-            Instruction i = new Instruction(0x03F13579);
+            /*Instruction i = new Instruction(0x03F13579);
             Console.WriteLine();
 
             Cache.Add(new Instruction(0x03F13579));
@@ -37,12 +37,11 @@ namespace Project3_HT
             //0 is our offset
             //6789 is our index and tag
             //Index should be 1
-            //Tag should be 19E2
+            //Tag should be 19E2*/
 
-            /*//Please god uncomment this -jfm (Debugging)
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Controller());*/
+            Application.Run(new Controller());
         }
     }
 }

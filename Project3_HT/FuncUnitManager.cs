@@ -19,8 +19,9 @@ namespace Project3_HT
     {
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
-            new MemUnit("MemoryUnit"),
-            new FuncUnit("FPAdder"),  // change needed
+            new MemUnit("MemoryUnit"), //loads
+            new MemUnit("MemoryUnit"), //separate mem unit for stores
+            new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPMultiplier"),
@@ -61,34 +62,35 @@ namespace Project3_HT
         /// <summary>
         /// Execution takes one cycle for each instruction
         /// </summary>
-        public static void ExeCycle()
+        public static Cache.MissType ExeCycle()
         {
+            Cache.MissType missType = 0;
             foreach (FuncUnit funcUnit in Units)
             {
-                bool processed = false;     // used to check if mem instruction has been processed
                 if (funcUnit.Instructions.Count > 0 && funcUnit.ExecTime > 0)
                 {
                     funcUnit.ExecTime--;
                     funcUnit.Executed = false;
 
-                    if (processed == false)
+                    bool processed = false;
+
+                    if (funcUnit.Processed == false || processed == false) //test this religiously
                     {
-                        if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 1 || funcUnit.Instructions.Peek().OpCode == 3))
+                        if(funcUnit.Name == "MemoryUnit")
                         {
-                            Instruction temp = funcUnit.Instructions.Dequeue();
-                            temp.Result = Memory.LoadInstr(temp.Address);
-                            funcUnit.Instructions.Enqueue(temp);
-                            processed = true;
+                            missType = MemUnit.ProcessCacheAccess();
                         }
-                        else if (funcUnit.Name == "MemoryUnit" && (funcUnit.Instructions.Peek().OpCode == 2 || funcUnit.Instructions.Peek().OpCode == 4))
-                        {
-                            Memory.StoreInstr(funcUnit.Instructions.Peek().Address, RegisterFile.ReturnReg(funcUnit.Instructions.Peek().DestReg));
-                            processed = true;
-                        }
-                        else if (funcUnit.Instructions.Peek().OpCode > 4 || funcUnit.Instructions.Peek().OpCode < 9 || funcUnit.Instructions.Peek().OpCode == 22)
+                        if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 22)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = ALU.InstructDecomp(temp);
+                            funcUnit.Instructions.Enqueue(temp);
+                            funcUnit.Processed = true;
+                        }
+                        else if(funcUnit.Instructions.Peek().OpCode > 127 && funcUnit.Instructions.Peek().OpCode < 134)
+                        {
+                            Instruction temp = funcUnit.Instructions.Dequeue();
+                            temp.FResult = FPU.FInstructDecomp(temp);
                             funcUnit.Instructions.Enqueue(temp);
                         }
                     }
@@ -100,6 +102,7 @@ namespace Project3_HT
                 }
 
             }
+            return missType;
 
         }
 

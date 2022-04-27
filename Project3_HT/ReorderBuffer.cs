@@ -96,9 +96,9 @@ namespace Project3_HT
         /// </summary>
         public static void SendToMemUnit()
         {
-            if (FuncUnitManager.At(0).Instructions.Count == 0)
+            if (FuncUnitManager.At(1).Instructions.Count == 0)
             {
-                FuncUnitManager.At(0).Enqueue(ReorderBuf.Dequeue());
+                FuncUnitManager.At(1).Enqueue(ReorderBuf.Dequeue());
             }//end if
         }//end SendToMemUnit()
 

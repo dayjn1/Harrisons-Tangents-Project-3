@@ -1,62 +1,74 @@
-﻿using Project3_HT;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project2_HT
+namespace Project3_HT
 {
-    class FPU
+    static class FPU
     {
         public static float? FInstructDecomp(Instruction ins)
         {
-        switch(ins.OpCode)
+            switch (ins.OpCode)
             {
                 case 128:
-                    return FADD(ins);
+                    return FPAdd(ins);
                 case 129:
-                    return FADDI(ins);
+                    return FPAddI(ins);
                 case 130:
-                    return FSUB(ins);
+                    return FPSub(ins);
                 case 131:
-                    return FSUBI(ins);
+                    return FPSubI(ins);
                 case 132:
-                    return FMULT(ins);
+                    return FPMult(ins);
                 case 133:
-                    return FDIV(ins);
+                    return FPDiv(ins);
                 default:
                     return null;
-               }
-                
-        }
-        public static float FADD(Instruction ins)
-        {
-            return ins.FReg1Data + ins.FReg2Data;
-        }
-        public static float FADDI(Instruction instr)
-        {
-            float.TryParse(instr.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out float tempImm);
-            return instr.FReg1Data + tempImm;
-        }
-        public static float FSUB(Instruction ins)
-        {
-            return ins.FReg1Data - ins.FReg2Data;
-        }
-        public static float FSUBI(Instruction ins)
-        {
-            float.TryParse(ins.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out float tempImm);
-            return ins.Reg1Data - tempImm;
-        }
-        public static float FMULT(Instruction ins)
-        {
-            return ins.FReg1Data * ins.FReg2Data;
+            }
 
         }
-        public static float FDIV(Instruction ins)
+
+        public static float FPAdd(Instruction instr)
         {
-            return ins.FReg1Data * ins.FReg2Data;
+            return instr.FReg1Data + instr.FReg2Data;
+        }
+
+        public static float FPAddI(Instruction instr)
+        {
+            uint num = uint.Parse(instr.Imm, System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            byte[] floatVals = BitConverter.GetBytes(num);
+            float f = BitConverter.ToSingle(floatVals, 0);
+
+            return instr.FReg1Data + f;
+        }
+
+        public static float FPSub(Instruction instr)
+        {
+            return instr.FReg1Data - instr.FReg2Data;
+        }
+
+        public static float FPSubI(Instruction instr)
+        {
+            uint num = uint.Parse(instr.Imm, System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            byte[] floatVals = BitConverter.GetBytes(num);
+            float f = BitConverter.ToSingle(floatVals, 0);
+
+            return instr.Reg1Data - f;
+        }
+
+        public static float FPMult(Instruction instr)
+        {
+            return instr.FReg1Data * instr.FReg2Data;
+        }
+
+        public static float FPDiv(Instruction instr)
+        {
+            return instr.FReg1Data / instr.FReg2Data;
         }
     }
 }

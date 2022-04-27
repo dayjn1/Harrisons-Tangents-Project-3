@@ -1,4 +1,5 @@
 ﻿///Created by Jason Middlebrook
+///edited by Hannah Taylor & Nataliya Chibizova
 
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,17 @@ namespace Project3_HT
         public uint offset;
         public uint index;
         public uint tag;
-        public double data;
         public bool valid;
-        public CacheEntry(uint offset, uint index, uint tag, double data, bool empty = true)
+        public int data;
+        public bool empty;
+        public CacheEntry(uint offset, uint index, uint tag, int data, bool isEmpty = true, bool emptyData = true)
         {
             this.offset = offset;
             this.index = index;
             this.tag = tag;
+            valid = emptyData;
             this.data = data;
-            valid = !empty;
+            empty = isEmpty;
         }
 
         public override string ToString()
@@ -38,6 +41,13 @@ namespace Project3_HT
 
     internal static class Cache
     {
+        public enum MissType
+        {
+            Compulsory = 1,
+            Conflict = 2,
+            Capacity = 3
+        }
+
         public static int SetAssociativity { get; set; }
         public static int TotalSize { get; set; }
         public static CacheEntry[,] CacheArray { get; set; }
@@ -59,6 +69,7 @@ namespace Project3_HT
                     CacheArray[i, j] = new CacheEntry();
                 }
             }
+
         }//end Cache()
 
         /// <summary>
@@ -69,65 +80,91 @@ namespace Project3_HT
         public static CacheEntry DeconstructInstruction(Instruction instr)
         {
             uint offset = (instr.Address & 0x0000F);            //Offset 4 bits 
-            
+
             uint index = instr.Address & 0x000F0;               //Index is two bits after the offset
             index = (index & 0b_0000_0000_0000_0011_0000) >> 4;
 
             uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
-            double data = 420;
-
-            //Put all this info into an entry that can go in the cache
-			return new CacheEntry(offset, index, tag, data, false);
+            int data = Memory.LoadInstr(instr.Address);
+                                                                //Put all this info into an entry that can go in the cache
+            return new CacheEntry(offset, index, tag, data, false);  // move data to add 
+                                                                        // take care of the data here, to be null?
         }//end DeconstructInstruction(Instruction)
 
-        /// Checks to see if entry with the given tag and index is in the cache -jfm
-        public static bool Check(int index, int tag)
-        {
-            for (int i = 0; i < SetAssociativity; i++)
-            {
-                if (CacheArray[index,i].tag == tag)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }//end Check(int, int)
-
-        /// Returns whether there is a hit in the cache or not for an instruction -jfm
-        public static bool Check(Instruction instr)
+      
+        // Returns location in CacheArray that we hit, or (-1, x) if miss -jfm
+        // Miss: x = 1 if compulsory, 2 if conflict, 3 if capacity (epic miss)
+        public static int[] Check(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
+            int hit_entry = -1;
+            bool any_entry_empty = false;
 
             for (int i = 0; i < SetAssociativity; i++)
             {
                 if (CacheArray[ce.index, i].tag == ce.tag)
                 {
-                    return true;
+                    hit_entry = i;
                 }
+                if (CacheArray[ce.index, i].empty == true)
+                {
+                    any_entry_empty = true;
+                }
+            }//end for(entry in set)
+            if(hit_entry == -1 && any_entry_empty)              ///Compulsory if any entry is empty and we miss
+            {
+                return new int[] { (int)ce.index, (int)MissType.Compulsory };
+            }
+            else if(hit_entry != -1)                            //If we hit, return location of hit
+            {
+                return new int[] { (int)ce.index, hit_entry };
             }
 
-            return false;
+            //Check every single entry in the cache to test Capacity miss
+            bool capacity_miss = true;
+            for (int j = 0; j < TotalSize / SetAssociativity; j++)
+            {
+                for (int k = 0; k < SetAssociativity; k++)
+                {
+                    if (CacheArray[j, k].empty == true || CacheArray[j, k].valid == false)
+                    {
+                        capacity_miss = false;
+                    }
+                }
+            }//end for(every entry in the cache)
+
+            if (capacity_miss)
+            {
+                return new int[] { -1, (int)MissType.Capacity };                     //Capacity miss
+            }
+            else
+            {
+                return new int[] { -1, (int)MissType.Conflict };                     //Conflict miss
+            }
+
         }//end Check(Instruction)
 
         /// Adds a cache entry to the cache, calls replacement if necessary -jfm
         public static void Add(Instruction instr)
         {
             CacheEntry ce = DeconstructInstruction(instr);
+            //int data = (int)instr.Result;                                      // not even used
 
             for (int i = 0; i < SetAssociativity; i++)          //find empty place in set
             {
                 if (CacheArray[ce.index, i].valid == false)
                 {
                     CacheArray[ce.index, i] = ce;
+                    CacheArray[ce.index, i].empty = false;
                     return;
                 }
             }
             //If all entries in the set are valid, we need to replace an entry
             Console.WriteLine("Replacing");
             Replace(ce);
+            
         }
 
         /// <summary>
@@ -159,4 +196,26 @@ namespace Project3_HT
         }
 
     }//end class Cache
+
+
+    /*public static uint GetData()
+    {
+        //return the data from the entry in cache that was hit in check
+    }*/
 }
+
+/*
+ Cache Flow:
+    0. Memory Unit calls cache to see if it holds data
+        -- on hit, return the data to mem unit
+        -- on miss
+            --> go to main memory and find the data
+            --> return it to the cache and update the cache
+            --> then return the data back to the mem unit
+    1. Update Cache When (Write Through Approach)
+        -- 
+    2. Replace (FIFO)
+        -- keep track of order placed in cache
+ 
+ 
+ */

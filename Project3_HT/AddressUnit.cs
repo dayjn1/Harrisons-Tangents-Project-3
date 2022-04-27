@@ -17,7 +17,7 @@ namespace Project3_HT
             int size = 1;           //size of queue
             if (counter < size)
             {
-                int Reg1 = RegisterFile.ReturnReg(i.Reg1);
+                int Reg1 = RegisterFile.ReturnRegData(i.Reg1);
                 
                 if (i.useImm && Int32.TryParse(i.Imm, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int tempImm))
                 {
@@ -26,7 +26,7 @@ namespace Project3_HT
                 }
                 else if(i.useR2)
                 {
-                    int Reg2 = RegisterFile.ReturnReg(i.Reg2);
+                    int Reg2 = RegisterFile.ReturnRegData(i.Reg2);
                     i.Address = (uint)Reg1 + (uint)Reg2;
                     i.Address &= 0x000FFFFF;
                 }
@@ -47,10 +47,18 @@ namespace Project3_HT
                 AddressUnitQueue.Dequeue();
 
             }
-            else
+            // else it has to be a type of store to have come here OpCode 2 or 4
+            else 
             {
-                ReorderBuffer.PassedtoRB(i);
+                ReorderBuffer.PassedtoRB(i);  //reserve spot on reorder buffer
+                /*if (FuncUnitManager.Units[1].Empty)//only dequeue if the memUnit is empty
+                {
+                    FuncUnitManager.Units[1].Enqueue(i);
+
+                }*/ //change this later to add a store buffer so the addressUnitQueue doesn't get stalled too much -- not going to have time
+                
                 AddressUnitQueue.Dequeue();
+
             }
         }
     }

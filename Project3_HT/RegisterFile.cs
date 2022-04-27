@@ -31,12 +31,18 @@ namespace Project3_HT
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
-            new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0),
             new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0), new RegTicket(true, -1, 0)
         };
+
+        public static FRegTicket[] FRegisters =
+{
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0),
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0),
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0),
+            new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0), new FRegTicket(true, -1, 0)
+        };
+
+
 
         /**
         * Struct Name:       RegTicket
@@ -61,6 +67,19 @@ namespace Project3_HT
             }//end RegTicket(bool, int)
         }//end RegTicket
 
+        public struct FRegTicket
+        {
+            public bool Avail;
+            public int LineNum;
+            public float Data;
+            public FRegTicket(bool Avail, int LineNum, float Data)
+            {
+                this.Avail = Avail;
+                this.LineNum = LineNum;
+                this.Data = Data;
+            }//end RegTicket(bool, int)
+        }//end RegTicket
+
 
         /**
         * Method Name:    UpdateRegister(Instruction)
@@ -73,7 +92,7 @@ namespace Project3_HT
         * @param Instruction
         * @return string[] array with updated mnemonic added
         */
-        public static List<int> UpdateRegister(Instruction instr)
+        public static void UpdateRegister(Instruction instr)
         {
             List<int> RegData = new List<int>();
             string[] temp = instr.DestReg.Split(' ');
@@ -82,7 +101,7 @@ namespace Project3_HT
             if (temp[0].Equals("R"))
             {
                 //RegInfo[i] = instr.Result.ToString();
-                if(instr.Result != null)
+                if (instr.Result != null)
                     Registers[i].Data = (int)instr.Result;
                 Registers[i].LineNum = instr.lineNum;
                 Registers[i].Avail = true;
@@ -90,19 +109,38 @@ namespace Project3_HT
             else
             {
                 //RegInfo[i + 16] = instr.Result.ToString();
-                if (instr.Result != null)
-                    Registers[i + 16].Data = (int)instr.Result;
-                Registers[i + 16].LineNum = instr.lineNum;
-                Registers[i + 16].Avail = true;
+                if (instr.FResult != null)
+                    FRegisters[i].Data = (float)instr.FResult;
+                FRegisters[i].LineNum = instr.lineNum;
+                FRegisters[i].Avail = true;
             }//end else
 
-            foreach(RegTicket RT in Registers)
+        }//end UpdateRegister(Instruction)
+
+        public static List<int> ReturnReg()
+        {
+            List<int> RegData = new List<int>();
+
+            foreach (RegTicket RT in Registers)
             {
                 RegData.Add(RT.Data);
             }
 
             return RegData;
-        }//end UpdateRegister(Instruction)
+        }
+
+        public static List<float> ReturnFReg()
+        {
+            List<float> FRegData = new List<float>();
+
+            foreach (FRegTicket RT in FRegisters)
+            {
+                FRegData.Add(RT.Data);
+            }
+
+            return FRegData;
+        }
+
 
         /**
         * Method Name:    MarkUnavail(string, int)
@@ -127,8 +165,8 @@ namespace Project3_HT
             }//end if
             else
             {
-                Registers[i + 16].Avail = false;
-                Registers[i + 16].LineNum = LineNum;
+                FRegisters[i].Avail = false;
+                FRegisters[i].LineNum = LineNum;
             }//end else
         }//end MarkUnavail(string, int)
 
@@ -146,40 +184,55 @@ namespace Project3_HT
         */
         public static RegTicket IsAvail(string reg)
         {
-            if(reg != null)
+            if (reg != null)
             {
                 string[] temp = reg.Split(' ');
                 int i = Convert.ToInt32(temp[1], 16);
 
-                if (temp[0].Equals("R"))
-                {
-                    return Registers[i];
-                }//end if
-                else
-                {
-                    return Registers[i + 16];
-                }//end else
+                return Registers[i];
+
             }//end if
 
             return new RegTicket(true, -1, 0);
-            
+
         }//end IsAvail(string)
 
-        public static int ReturnReg(string reg)
+        public static FRegTicket FIsAvail(string reg)
         {
             if (reg != null)
             {
                 string[] temp = reg.Split(' ');
                 int i = Convert.ToInt32(temp[1], 16);
 
-                if (temp[0].Equals("R"))
-                {
-                    return Registers[i].Data;
-                }//end if
-                else
-                {
-                    return Registers[i + 16].Data;
-                }//end else
+                return FRegisters[i];
+            }//end if
+
+            return new FRegTicket(true, -1, 0);
+
+        }//end IsAvail(string)
+
+        public static int ReturnRegData(string reg)
+        {
+            if (reg != null)
+            {
+                string[] temp = reg.Split(' ');
+                int i = Convert.ToInt32(temp[1], 16);
+
+                return Registers[i].Data;
+
+            }//end if
+            else
+                return 0;
+        }
+
+        public static float FReturnRegData(string reg)
+        {
+            if (reg != null)
+            {
+                string[] temp = reg.Split(' ');
+                int i = Convert.ToInt32(temp[1], 16);
+
+                return FRegisters[i].Data;
             }//end if
             else
                 return 0;
