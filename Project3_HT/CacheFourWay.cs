@@ -90,10 +90,12 @@ namespace Project3_HT
             }
 
             CacheEntry temp = MemUnit.AddressToLookUp(instruction);
-
-            Labels[0].Text =temp.tag.ToString();            
-            Labels[1].Text = temp.index.ToString();
+            Labels[0].Text = "Instr: " + instruction.Mnemonic + ", Tag: " + temp.tag.ToString();
+            Labels[1].Text = "Index: " + temp.index.ToString();
             Labels[2].Text = temp.offset.ToString();
+            //Labels[0].Text = temp.tag.ToString();            
+            //Labels[1].Text = temp.index.ToString();
+            //Labels[2].Text = temp.offset.ToString();
             Update();
         }
       

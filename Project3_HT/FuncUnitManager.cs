@@ -20,7 +20,7 @@ namespace Project3_HT
         public static List<FuncUnit> Units = new List<FuncUnit>()
         {
             new MemUnit("MemoryUnit"), //loads
-            new MemUnit("MemoryUnit"), //separate mem unit for stores
+            new MemUnit("SMemoryUnit"), //separate mem unit for stores
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
             new FuncUnit("FPAdder"),
@@ -77,6 +77,10 @@ namespace Project3_HT
                     if (funcUnit.Processed == false || processed == false) //test this religiously
                     {
                         if(funcUnit.Name == "MemoryUnit")
+                        {
+                            missType = MemUnit.ProcessCacheAccess();
+                        }
+                        if(funcUnit.Name == "SMemoryUnit")
                         {
                             missType = MemUnit.ProcessCacheAccess();
                         }
