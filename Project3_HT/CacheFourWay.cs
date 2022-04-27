@@ -329,6 +329,7 @@ namespace Project3_HT
             ConflictMiss.BackColor = Color.White;
             CapMiss.BackColor = Color.White;
             CompMiss.BackColor = Color.White;
+            hitTextBox.BackColor = Color.White;
         }
     }
 
