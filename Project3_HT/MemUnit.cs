@@ -40,9 +40,9 @@ namespace Project3_HT
                     {
                         temp.Result = Memory.LoadInstr(temp.Address);
                         Cache.Add(temp);
-                        DynamicSim.cacheForm.UpdateEntry(tempPos);
-                        DynamicSim.cacheForm.Update();
-                        temp.MemoryCC *= 5;
+                        DynamicSim.cacheForm.UpdateCache();
+                        FuncUnitManager.Units[0].ExecTime *= 5;
+                        //temp.MemoryCC *= 5;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
                         //Send miss type up to DynamicSim
                         return (Cache.MissType)tempPos[1];                          //tempPos contains our enum specifying the type of miss
@@ -52,10 +52,12 @@ namespace Project3_HT
                         //get data from position
                         // update the 
                         int curData = Cache.CacheArray[tempPos[0], tempPos[1]].data;
-                        temp.MemoryCC += 3;
+                        FuncUnitManager.Units[0].ExecTime += 3;
+                        //temp.MemoryCC += 3;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
 
                     }
+                    FuncUnitManager.Units[0].Processed = true;
                 }
             }
             if (!FuncUnitManager.Units[1].Empty)
@@ -63,23 +65,25 @@ namespace Project3_HT
                 if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[1].Instructions.Peek().OpCode == 4) //stores
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
-                    temp.MemoryCC += 3;
-                    tempPos = Cache.Check(temp);
 
+                    FuncUnitManager.Units[1].ExecTime *= 5;
+                    //temp.MemoryCC *= 5;
+                    tempPos = Cache.Check(temp);
+                   
                     if (tempPos[0] == -1) //write miss
                     {
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                         return (Cache.MissType)tempPos[1];                          //tempPos contains our enum specifying the type of miss
                     }
-                    else //write hit
+                    else
                     {
                         Cache.Add(temp);
-                        DynamicSim.cacheForm.UpdateEntry(tempPos);
-                        DynamicSim.cacheForm.Update();
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
-                        FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                     }
+                    FuncUnitManager.Units[1].Processed = true;
+                    FuncUnitManager.Units[1].Instructions.Enqueue(temp);
+                    DynamicSim.cacheForm.UpdateCache();
                 }
             }
             return 0;

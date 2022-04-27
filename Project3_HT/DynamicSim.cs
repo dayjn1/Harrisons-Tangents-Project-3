@@ -31,9 +31,10 @@ namespace Project3_HT
         
         public static List<Instruction> Input_Instructions = new List<Instruction>();
         public static int cycleSpeed = 500, CycleCount = 0, ListCounter = 0;                                            
-        public static string ProgramType = "Continuous";
+        public static string ProgramType = "Step by Step";
         bool FirstInstruction = true, invalid = false;
         public static CacheFourWay cacheForm;
+        public static bool StoreUnitWasLastAccessed = false;
         public DynamicSim()
         {
             InitializeComponent();
@@ -142,6 +143,8 @@ namespace Project3_HT
 
             bool FARS1Ready, FARS2Ready, FARS3Ready, FMRS1Ready, FMRS2Ready, FMRS3Ready, IRS1Ready, IRS2Ready, IRS3Ready;
 
+
+            cacheForm.ResetTextBoxBG();
             /*  work backwards, like static pipeline - ideally most of this should be handled in each class
                 
                 Displaying everything will be tough since labels are non-static, aka can't change from outside the class
@@ -168,72 +171,90 @@ namespace Project3_HT
             }//end if
 
             
-            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions            //
+            ChangeLoadBuffer(LdBuffer.ToArray());   // display updated queue of instructions
             if (LdBuffer.Any())
             {
                 LoadBuffer.SendToMemUnit();                        // dequeue from the LdBuffer
-                if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
+                
+            }//end if(anything in load buffer)
+
+            Console.WriteLine("Time left to exec (store): " + FuncUnitManager.Units[1].ExecTime);
+            Console.WriteLine("Time left to exec (load): " + FuncUnitManager.Units[0].ExecTime);
+            if (!FuncUnitManager.Units[1].Empty && !StoreUnitWasLastAccessed) //stores memUnit
+            {
+                instr = FuncUnitManager.Units[1].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                if (FuncUnitManager.Units[1].Processed == false)
                 {
-                    instr = FuncUnitManager.Units[0].Instructions.Peek();
-                    //MemUnit.AddressToLookUp(instr);
-                    cacheForm.Show();
                     cacheForm.UpdateAddressLabel(instr);
-                    //cacheForm.Update();
-                    Task.Delay(9000);
-                    //cacheForm.Hide();
-
-                    //check for instr in cache
-                    Cache.MissType missType = FuncUnitManager.ExeCycle();
-                    //If cache miss, highlight what kind of miss it was
-                    switch (missType)
-                    {
-                        case Cache.MissType.Compulsory:
-                            cacheForm.UpdateCompMiss();
-                            break;
-                        case Cache.MissType.Conflict:
-                            cacheForm.UpdateConflictMiss();
-                            break;
-                        case Cache.MissType.Capacity:
-                            cacheForm.UpdateCapacityMiss();
-                            break;
-                        default:
-                            cacheForm.UpdateHit();
-                            break;
-                    }
-
-
-
-                }//end if
-                if(!FuncUnitManager.Units[1].Empty) //stores memUnit
-                {
-                    instr = FuncUnitManager.Units[0].Instructions.Peek();
-                    //MemUnit.AddressToLookUp(instr);
-                    cacheForm.Show();
-                    cacheForm.UpdateAddressLabel(instr);
-                    //cacheForm.Update();
-                    Task.Delay(9000);
-                    //cacheForm.Hide();
-
-                    Cache.MissType missType = FuncUnitManager.ExeCycle();
-                    //If cache miss, highlight what kind of miss it was
-                    switch (missType)
-                    {
-                        case Cache.MissType.Compulsory:
-                            cacheForm.UpdateCompMiss();
-                            break;
-                        case Cache.MissType.Conflict:
-                            cacheForm.UpdateConflictMiss();
-                            break;
-                        case Cache.MissType.Capacity:
-                            cacheForm.UpdateCapacityMiss();
-                            break;
-                        default:
-                            cacheForm.UpdateHit();
-                            break;
-                    }
                 }
-            }//end if
-           // ChangeLoadBuffer(LdBuffer.ToArray());
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
+
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        {
+                            if (FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
+                }
+
+                StoreUnitWasLastAccessed = true;
+            }//end if(anything in store mem unit)
+
+            else if (!FuncUnitManager.Units[0].Empty)                     // CN --> look nor instruction 
+            {
+                instr = FuncUnitManager.Units[0].Instructions.Peek();
+                //MemUnit.AddressToLookUp(instr);
+                cacheForm.Show();
+                if (FuncUnitManager.Units[0].Processed == false)
+                {
+                    cacheForm.UpdateAddressLabel(instr);
+                }
+                //cacheForm.Update();
+                Task.Delay(9000);
+                //cacheForm.Hide();
+
+                //check for instr in cache
+                Cache.MissType missType = FuncUnitManager.ExeCycle();
+                //If cache miss, highlight what kind of miss it was
+                switch (missType)
+                {
+                    case Cache.MissType.Compulsory:
+                        cacheForm.UpdateCompMiss();
+                        break;
+                    case Cache.MissType.Conflict:
+                        cacheForm.UpdateConflictMiss();
+                        break;
+                    case Cache.MissType.Capacity:
+                        cacheForm.UpdateCapacityMiss();
+                        break;
+                    default:
+                        {
+                            if(FuncUnitManager.Units[0].Processed == false)
+                                cacheForm.UpdateHit();
+                            break;
+                        }
+                }
+
+                StoreUnitWasLastAccessed = false;
+            }//end if(anything in laod mem unit)
+
             if (AddressUnit.AddressUnitQueue.Any())
             {
                 AddressUnit.ProcessAU();                // send to LB or to pass to RO

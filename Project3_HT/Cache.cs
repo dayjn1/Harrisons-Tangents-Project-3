@@ -66,7 +66,7 @@ namespace Project3_HT
             {
                 for (int j = 0; j < SetAssociativity; j++)
                 {
-                    CacheArray[i, j] = new CacheEntry(0, 0, 0, 0, true, true);
+                    CacheArray[i, j] = new CacheEntry(0, 0, 0, 0, true, false);
                 }
             }
 
@@ -87,10 +87,9 @@ namespace Project3_HT
             uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
-            //int data = Memory.LoadInstr(instr.Address);
             instr.Result = Memory.LoadInstr(instr.Address);
-
-            //Put all this info into an entry that can go in the cache
+            
+                                                                //Put all this info into an entry that can go in the cache
             return new CacheEntry(offset, index, tag, (int)instr.Result, false);  // move data to add 
                                                                         // take care of the data here, to be null?
         }//end DeconstructInstruction(Instruction)

@@ -47,6 +47,15 @@ namespace Project3_HT
             }
         }
 
+        //Used instead of UpdateEntry because a write miss will fail to give the position of the updated cache entry
+        public void UpdateCache()
+        {
+            UpdateSet0(Cache.CacheArray);
+            UpdateSet1(Cache.CacheArray);
+            UpdateSet2(Cache.CacheArray);
+            UpdateSet3(Cache.CacheArray);
+        }
+
         public void UpdateEntry(int[] position)
         {
             switch (position[0])
@@ -72,7 +81,7 @@ namespace Project3_HT
                         break;
                     }
                 default:
-                    break;
+                    break;                              //Will hit default on a write miss
             }
         }
 
@@ -93,9 +102,6 @@ namespace Project3_HT
             Labels[0].Text = "Instr: " + instruction.Mnemonic + ", Tag: " + temp.tag.ToString();
             Labels[1].Text = "Index: " + temp.index.ToString();
             Labels[2].Text = temp.offset.ToString();
-            //Labels[0].Text = temp.tag.ToString();            
-            //Labels[1].Text = temp.index.ToString();
-            //Labels[2].Text = temp.offset.ToString();
             Update();
         }
       
@@ -114,9 +120,9 @@ namespace Project3_HT
                 label.Text = " ";
             }
 
-            if (cache[0, 0].empty != false)
+            if (cache[0, 0].empty == false)
             {
-                Labels[0].Text = cache[0, 0].valid.ToString();
+                Labels[0].Text = cache[0, 0].valid.ToString().Substring(0,1);
                 Labels[1].Text = cache[0, 0].tag.ToString();
                 Labels[2].Text = cache[0, 0].index.ToString();
                 Labels[3].Text = cache[0, 0].data.ToString();
@@ -124,25 +130,25 @@ namespace Project3_HT
 
 
 
-            if (cache[0, 1].empty != false)
+            if (cache[0, 1].empty == false)
             {
-                Labels[4].Text = cache[0, 1].valid.ToString();
+                Labels[4].Text = cache[0, 1].valid.ToString().Substring(0, 1);
                 Labels[5].Text = cache[0, 1].tag.ToString();
                 Labels[6].Text = cache[0, 1].index.ToString();
                 Labels[7].Text = cache[0, 1].data.ToString(); 
             }
 
-            if (cache[0, 2].empty != false)
+            if (cache[0, 2].empty == false)
             {
-                Labels[8].Text = cache[0, 2].valid.ToString();
+                Labels[8].Text = cache[0, 2].valid.ToString().Substring(0, 1);
                 Labels[9].Text = cache[0, 2].tag.ToString();
                 Labels[10].Text = cache[0, 2].index.ToString();
                 Labels[11].Text = cache[0, 2].data.ToString(); 
             }
 
-            if (cache[0, 3].empty != false)
+            if (cache[0, 3].empty == false)
             {
-                Labels[12].Text = cache[0, 3].valid.ToString();
+                Labels[12].Text = cache[0, 3].valid.ToString().Substring(0, 1);
                 Labels[13].Text = cache[0, 3].tag.ToString();
                 Labels[14].Text = cache[0, 3].index.ToString();
                 Labels[15].Text = cache[0, 3].data.ToString(); 
@@ -165,9 +171,9 @@ namespace Project3_HT
                 label.Text = " ";
             }
 
-            if (cache[1, 0].empty != false)
+            if (cache[1, 0].empty == false)
             {
-                Labels[0].Text = cache[1, 0].valid.ToString();
+                Labels[0].Text = cache[1, 0].valid.ToString().Substring(0, 1);
                 Labels[1].Text = cache[1, 0].tag.ToString();
                 Labels[2].Text = cache[1, 0].index.ToString();
                 Labels[3].Text = cache[1, 0].data.ToString();
@@ -175,25 +181,25 @@ namespace Project3_HT
 
 
 
-            if (cache[1, 1].empty != false)
+            if (cache[1, 1].empty == false)
             {
-                Labels[4].Text = cache[1, 1].valid.ToString();
+                Labels[4].Text = cache[1, 1].valid.ToString().Substring(0, 1);
                 Labels[5].Text = cache[1, 1].tag.ToString();
                 Labels[6].Text = cache[1, 1].index.ToString();
                 Labels[7].Text = cache[1, 1].data.ToString();
             }
 
-            if (cache[1, 2].empty != false)
+            if (cache[1, 2].empty == false)
             {
-                Labels[8].Text = cache[1, 2].valid.ToString();
+                Labels[8].Text = cache[1, 2].valid.ToString().Substring(0, 1);
                 Labels[9].Text = cache[1, 2].tag.ToString();
                 Labels[10].Text = cache[1, 2].index.ToString();
                 Labels[11].Text = cache[1, 2].data.ToString();
             }
 
-            if (cache[0, 3].empty != false)
+            if (cache[0, 3].empty == false)
             {
-                Labels[12].Text = cache[1, 3].valid.ToString();
+                Labels[12].Text = cache[1, 3].valid.ToString().Substring(0, 1);
                 Labels[13].Text = cache[1, 3].tag.ToString();
                 Labels[14].Text = cache[1, 3].index.ToString();
                 Labels[15].Text = cache[1, 3].data.ToString();
@@ -216,9 +222,9 @@ namespace Project3_HT
                 label.Text = " ";
             }
 
-            if (cache[2, 0].empty != false)
+            if (cache[2, 0].empty == false)
             {
-                Labels[0].Text = cache[2, 0].valid.ToString();
+                Labels[0].Text = cache[2, 0].valid.ToString().Substring(0, 1);
                 Labels[1].Text = cache[2, 0].tag.ToString();
                 Labels[2].Text = cache[2, 0].index.ToString();
                 Labels[3].Text = cache[2, 0].data.ToString();
@@ -226,25 +232,25 @@ namespace Project3_HT
 
 
 
-            if (cache[2, 1].empty != false)
+            if (cache[2, 1].empty == false)
             {
-                Labels[4].Text = cache[2, 1].valid.ToString();
+                Labels[4].Text = cache[2, 1].valid.ToString().Substring(0, 1);
                 Labels[5].Text = cache[2, 1].tag.ToString();
                 Labels[6].Text = cache[2, 1].index.ToString();
                 Labels[7].Text = cache[2, 1].data.ToString();
             }
 
-            if (cache[2, 2].empty != false)
+            if (cache[2, 2].empty == false)
             {
-                Labels[8].Text = cache[2, 2].valid.ToString();
+                Labels[8].Text = cache[2, 2].valid.ToString().Substring(0, 1);
                 Labels[9].Text = cache[2, 2].tag.ToString();
                 Labels[10].Text = cache[2, 2].index.ToString();
                 Labels[11].Text = cache[2, 2].data.ToString();
             }
 
-            if (cache[2, 3].empty != false)
+            if (cache[2, 3].empty == false)
             {
-                Labels[12].Text = cache[2, 3].valid.ToString();
+                Labels[12].Text = cache[2, 3].valid.ToString().Substring(0, 1);
                 Labels[13].Text = cache[2, 3].tag.ToString();
                 Labels[14].Text = cache[2, 3].index.ToString();
                 Labels[15].Text = cache[2, 3].data.ToString();
@@ -267,33 +273,33 @@ namespace Project3_HT
                 label.Text = " ";
             }
 
-            if (cache[3, 0].empty != false)
+            if (cache[3, 0].empty == false)
             {
-                Labels[0].Text = cache[3, 0].valid.ToString();
+                Labels[0].Text = cache[3, 0].valid.ToString().Substring(0, 1);
                 Labels[1].Text = cache[3, 0].tag.ToString();
                 Labels[2].Text = cache[3, 0].index.ToString();
                 Labels[3].Text = cache[3, 0].data.ToString();
             }
 
-            if (cache[3, 1].empty != false)
+            if (cache[3, 1].empty == false)
             {
-                Labels[4].Text = cache[3, 1].valid.ToString();
+                Labels[4].Text = cache[3, 1].valid.ToString().Substring(0, 1);
                 Labels[5].Text = cache[3, 1].tag.ToString();
                 Labels[6].Text = cache[3, 1].index.ToString();
                 Labels[7].Text = cache[3, 1].data.ToString();
             }
 
-            if (cache[3, 2].empty != false)
+            if (cache[3, 2].empty == false)
             {
-                Labels[8].Text = cache[3, 2].valid.ToString();
+                Labels[8].Text = cache[3, 2].valid.ToString().Substring(0, 1);
                 Labels[9].Text = cache[3, 2].tag.ToString();
                 Labels[10].Text = cache[3, 2].index.ToString();
                 Labels[11].Text = cache[3, 2].data.ToString();
             }
 
-            if (cache[3, 3].empty != false)
+            if (cache[3, 3].empty == false)
             {
-                Labels[12].Text = cache[3, 3].valid.ToString();
+                Labels[12].Text = cache[3, 3].valid.ToString().Substring(0, 1);
                 Labels[13].Text = cache[3, 3].tag.ToString();
                 Labels[14].Text = cache[3, 3].index.ToString();
                 Labels[15].Text = cache[3, 3].data.ToString();
@@ -324,6 +330,19 @@ namespace Project3_HT
             Update();
         }
 
+        private void okayBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        public void ResetTextBoxBG()
+        {
+            ConflictMiss.BackColor = Color.White;
+            CapMiss.BackColor = Color.White;
+            CompMiss.BackColor = Color.White;
+            hitTextBox.BackColor = Color.White;
+            Update();
+        }
     }
 
 

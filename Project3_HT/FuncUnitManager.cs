@@ -74,7 +74,7 @@ namespace Project3_HT
 
                     bool processed = false;
 
-                    if (funcUnit.Processed == false || processed == false) //test this religiously
+                    if (funcUnit.Processed == false) //test this religiously
                     {
                         if(funcUnit.Name == "MemoryUnit")
                         {
@@ -84,7 +84,7 @@ namespace Project3_HT
                         {
                             missType = MemUnit.ProcessCacheAccess();
                         }
-                        if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 22)
+                        if ((funcUnit.Instructions.Peek().OpCode > 4 && funcUnit.Instructions.Peek().OpCode < 9) || funcUnit.Instructions.Peek().OpCode == 21)
                         {
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.Result = ALU.InstructDecomp(temp);
@@ -102,7 +102,7 @@ namespace Project3_HT
                 else
                 {
                     funcUnit.Executed = true;
-                    
+                    funcUnit.Processed = false;
                 }
 
             }
