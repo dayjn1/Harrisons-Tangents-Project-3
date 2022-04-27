@@ -96,6 +96,7 @@ namespace Project3_HT
                             Instruction temp = funcUnit.Instructions.Dequeue();
                             temp.FResult = FPU.FInstructDecomp(temp);
                             funcUnit.Instructions.Enqueue(temp);
+                            funcUnit.Processed = true;
                         }
                     }
                 }

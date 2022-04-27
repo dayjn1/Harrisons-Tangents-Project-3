@@ -1,4 +1,13 @@
-﻿using Project3_HT;
+﻿// ---------------------------------------------------------------------------
+// File name:                   ALU.cs
+// Project name:                Project 4 - Harrison's Tangents
+// ---------------------------------------------------------------------------
+// Creator’s name:              Janine Day
+// Course-Section:              CSCI-4717
+// Creation Date:               04/14/2022
+// ---------------------------------------------------------------------------
+
+using Project3_HT;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

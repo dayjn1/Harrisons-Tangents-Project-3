@@ -46,7 +46,7 @@ namespace Project3_HT
 
         /**
         * Struct Name:       RegTicket
-        * Struct Purpose:    To provide use with the reservation stations
+        * Struct Purpose:    To provide use with the integer reservation stations
         *                    Specifically to mark flags stale as an instruction comes out of the Instruction Queue
         *                    and allow the instruction to move through even though flags are stale
         *
@@ -67,6 +67,17 @@ namespace Project3_HT
             }//end RegTicket(bool, int)
         }//end RegTicket
 
+
+        /**
+        * Struct Name:       FRegTicket
+        * Struct Purpose:    To provide use with the floating point reservation stations
+        *                    Specifically to mark flags stale as an instruction comes out of the Instruction Queue
+        *                    and allow the instruction to move through even though flags are stale
+        *
+        * <hr>
+        * Date created:     04/24/2022
+        * @Janine Day
+        */
         public struct FRegTicket
         {
             public bool Avail;
@@ -117,6 +128,17 @@ namespace Project3_HT
 
         }//end UpdateRegister(Instruction)
 
+
+        /**
+        * Method Name:    ReturnReg()
+        * Method Purpose: Returns the int reg data
+        *
+        * <hr>
+        * Date created: 04/24/2022
+        * @Janine Day
+        * <hr>
+        * @return List<int>
+        */
         public static List<int> ReturnReg()
         {
             List<int> RegData = new List<int>();
@@ -124,11 +146,21 @@ namespace Project3_HT
             foreach (RegTicket RT in Registers)
             {
                 RegData.Add(RT.Data);
-            }
+            }//end foreach
 
             return RegData;
-        }
+        }//end ReturnReg()
 
+        /**
+        * Method Name:    ReturnFReg()
+        * Method Purpose: Returns the float reg data
+        *
+        * <hr>
+        * Date created: 04/24/2022
+        * @Janine Day
+        * <hr>
+        * @return List<float>
+        */
         public static List<float> ReturnFReg()
         {
             List<float> FRegData = new List<float>();
@@ -136,10 +168,10 @@ namespace Project3_HT
             foreach (FRegTicket RT in FRegisters)
             {
                 FRegData.Add(RT.Data);
-            }
+            }//end foreach
 
             return FRegData;
-        }
+        }//end ReturnFReg()
 
 
         /**
@@ -180,7 +212,7 @@ namespace Project3_HT
         * @Janine Day
         * <hr>
         * @param string reg, destination register
-        * @return RegTicket, supplies bool and lineNum
+        * @return RegTicket, supplies bool, lineNum, and int data
         */
         public static RegTicket IsAvail(string reg)
         {
@@ -197,6 +229,17 @@ namespace Project3_HT
 
         }//end IsAvail(string)
 
+        /**
+        * Method Name:    FIsAvail(string)
+        * Method Purpose: Finds if the register supplied is stale or not, floating point
+        *
+        * <hr>
+        * Date created: 04/24/2022
+        * @Janine Day
+        * <hr>
+        * @param string reg, destination register
+        * @return FRegTicket, supplies bool, lineNum, and float data
+        */
         public static FRegTicket FIsAvail(string reg)
         {
             if (reg != null)
@@ -209,8 +252,19 @@ namespace Project3_HT
 
             return new FRegTicket(true, -1, 0);
 
-        }//end IsAvail(string)
+        }//end FIsAvail(string)
 
+        /**
+        * Method Name:    ReturnRegData(string)
+        * Method Purpose: Returns the data of a given int register
+        *
+        * <hr>
+        * Date created: 04/24/2022
+        * @Janine Day
+        * <hr>
+        * @param string reg
+        * @return int, data
+        */
         public static int ReturnRegData(string reg)
         {
             if (reg != null)
@@ -223,8 +277,19 @@ namespace Project3_HT
             }//end if
             else
                 return 0;
-        }
+        }//end ReturnRegData
 
+        /**
+        * Method Name:    FReturnRegData(string)
+        * Method Purpose: Returns the data of a given float register
+        *
+        * <hr>
+        * Date created: 04/24/2022
+        * @Janine Day
+        * <hr>
+        * @param string reg
+        * @return float, data
+        */
         public static float FReturnRegData(string reg)
         {
             if (reg != null)
@@ -236,7 +301,7 @@ namespace Project3_HT
             }//end if
             else
                 return 0;
-        }
+        }//end FReturnRegData()
 
     }//end RegisterFile
 }//end Project3_HT
