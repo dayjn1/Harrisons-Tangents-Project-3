@@ -40,8 +40,7 @@ namespace Project3_HT
                     {
                         temp.Result = Memory.LoadInstr(temp.Address);
                         Cache.Add(temp);
-                        DynamicSim.cacheForm.UpdateEntry(tempPos);
-                        DynamicSim.cacheForm.Update();
+                        DynamicSim.cacheForm.UpdateCache();
                         temp.MemoryCC *= 5;
                         FuncUnitManager.Units[0].Instructions.Enqueue(temp);
                         //Send miss type up to DynamicSim
@@ -75,8 +74,7 @@ namespace Project3_HT
                     else //write hit
                     {
                         Cache.Add(temp);
-                        DynamicSim.cacheForm.UpdateEntry(tempPos);
-                        DynamicSim.cacheForm.Update();
+                        DynamicSim.cacheForm.UpdateCache();
                         Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
                         FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                     }

@@ -66,7 +66,7 @@ namespace Project3_HT
             {
                 for (int j = 0; j < SetAssociativity; j++)
                 {
-                    CacheArray[i, j] = new CacheEntry(0, 0, 0, 0, true, true);
+                    CacheArray[i, j] = new CacheEntry(0, 0, 0, 0, true, false);
                 }
             }
 
