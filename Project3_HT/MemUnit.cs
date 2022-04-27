@@ -62,21 +62,18 @@ namespace Project3_HT
                 if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[1].Instructions.Peek().OpCode == 4) //stores
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
+
                     temp.MemoryCC *= 5;
                     tempPos = Cache.Check(temp);
+                    Cache.Add(temp);
+
+                    DynamicSim.cacheForm.UpdateCache();
+                    Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
+                    FuncUnitManager.Units[1].Instructions.Enqueue(temp);
 
                     if (tempPos[0] == -1) //write miss
                     {
-                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
-                        FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                         return (Cache.MissType)tempPos[1];                          //tempPos contains our enum specifying the type of miss
-                    }
-                    else //write hit
-                    {
-                        Cache.Add(temp);
-                        DynamicSim.cacheForm.UpdateCache();
-                        Memory.StoreInstr(temp.Address, RegisterFile.ReturnRegData(temp.DestReg));
-                        FuncUnitManager.Units[1].Instructions.Enqueue(temp);
                     }
                 }
             }
