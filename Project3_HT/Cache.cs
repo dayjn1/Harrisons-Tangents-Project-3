@@ -66,7 +66,7 @@ namespace Project3_HT
             {
                 for (int j = 0; j < SetAssociativity; j++)
                 {
-                    CacheArray[i, j] = new CacheEntry();
+                    CacheArray[i, j] = new CacheEntry(0, 0, 0, 0, true, true);
                 }
             }
 
@@ -87,9 +87,11 @@ namespace Project3_HT
             uint tag = instr.Address & 0xFFFF0;                 //Tag is 3.5 nibbles
             tag = (tag & 0b_1111_1111_1111_1100_0000) >> 6;     //Starts at 6th least significant bit to accomodate for offset and index
 
-            int data = Memory.LoadInstr(instr.Address);
-                                                                //Put all this info into an entry that can go in the cache
-            return new CacheEntry(offset, index, tag, data, false);  // move data to add 
+            //int data = Memory.LoadInstr(instr.Address);
+            instr.Result = Memory.LoadInstr(instr.Address);
+
+            //Put all this info into an entry that can go in the cache
+            return new CacheEntry(offset, index, tag, (int)instr.Result, false);  // move data to add 
                                                                         // take care of the data here, to be null?
         }//end DeconstructInstruction(Instruction)
 
@@ -104,18 +106,20 @@ namespace Project3_HT
 
             for (int i = 0; i < SetAssociativity; i++)
             {
-                if (CacheArray[ce.index, i].tag == ce.tag)
+                if (CacheArray[ce.index, i].tag == ce.tag && CacheArray[ce.index, i].empty == false)
                 {
                     hit_entry = i;
+                    break;
                 }
                 if (CacheArray[ce.index, i].empty == true)
                 {
                     any_entry_empty = true;
+                    break;
                 }
             }//end for(entry in set)
             if(hit_entry == -1 && any_entry_empty)              ///Compulsory if any entry is empty and we miss
             {
-                return new int[] { (int)ce.index, (int)MissType.Compulsory };
+                return new int[] { -1, (int)MissType.Compulsory };
             }
             else if(hit_entry != -1)                            //If we hit, return location of hit
             {
