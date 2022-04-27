@@ -183,7 +183,10 @@ namespace Project3_HT
                 //MemUnit.AddressToLookUp(instr);
                 cacheForm.Show();
                 if (FuncUnitManager.Units[0].Processed == false)
+                {
                     cacheForm.UpdateAddressLabel(instr);
+                }
+                Console.WriteLine("Time left to exec (load): " + FuncUnitManager.Units[0].ExecTime);
                 //cacheForm.Update();
                 Task.Delay(9000);
                 //cacheForm.Hide();
@@ -219,8 +222,11 @@ namespace Project3_HT
                 instr = FuncUnitManager.Units[1].Instructions.Peek();
                 //MemUnit.AddressToLookUp(instr);
                 cacheForm.Show();
-                if (FuncUnitManager.Units[0].Processed == false)
+                if (FuncUnitManager.Units[1].Processed == false)
+                {
                     cacheForm.UpdateAddressLabel(instr);
+                }
+                Console.WriteLine("Time left to exec (store): " + FuncUnitManager.Units[1].ExecTime);
                 //cacheForm.Update();
                 Task.Delay(9000);
                 //cacheForm.Hide();
