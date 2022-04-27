@@ -61,7 +61,7 @@ namespace Project3_HT
                 if (FuncUnitManager.Units[1].Instructions.Peek().OpCode == 2 || FuncUnitManager.Units[1].Instructions.Peek().OpCode == 4) //stores
                 {
                     Instruction temp = FuncUnitManager.Units[1].Dequeue();
-                    temp.MemoryCC += 3;
+                    temp.MemoryCC *= 5;
                     tempPos = Cache.Check(temp);
 
                     if (tempPos[0] == -1) //write miss
